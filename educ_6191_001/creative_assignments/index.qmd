@@ -2,7 +2,7 @@
 title: "Creative Assignments"
 listing:
   contents:
-      - "assignment_1/index.qmd"
+      - "creative_assignments/index.qmd"
   sort: "date desc"
   type: default
   categories: false
