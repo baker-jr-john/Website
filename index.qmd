@@ -1,0 +1,13 @@
+---
+title: "John Baker - Learning Analytics"
+listing: 
+  contents:
+      - "educ_6191_001/index.qmd"
+  sort: "date desc"
+  type: default
+  categories: false # allows you to sort posts by assigned categories 
+  sort-ui: false
+  filter-ui: false
+page-layout: full
+title-block-banner: true
+---
