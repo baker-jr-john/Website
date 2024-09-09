@@ -1,12 +1,11 @@
 ---
 title: "Core Methods in Educational Data Mining"
 listing:
-  contents: creative_assignments
+  contents: creative_assignments/*
   sort: "date desc"
   type: default
   categories: false
   sort-ui: false
   filter-ui: false
-page-layout: full
 title-block-banner: true
 ---

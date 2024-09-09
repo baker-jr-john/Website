@@ -1,34 +1,26 @@
 project:
   type: website
   output-dir: docs
-  title: "Penn GSE"
   
 website:
-  navbar:
-    search: false
-    pinned: false
-    background: primary
+  title: "Penn GSE"
   page-navigation: true
+  bread-crumbs: true
   back-to-top-navigation: true
-  repo-url: "https://github.com/baker-jr-john/Website.git"
-  repo-actions: none
   page-footer:
-    left: Made with [![Quarto](https://quarto.org/quarto.png){width=65}](https://quarto.org/){target="_blank"}
-    right: 
+    left: |
+      Made with [![Quarto](https://quarto.org/quarto.png){width=65}](https://quarto.org/){target="_blank"}
+    right:
       - icon: github
         href: https://github.com/baker-jr-john/Website
+        target: _blank
     background: light
 
 format:
   html:
-    page-layout: full
-    sidebar: false
     theme:
       light: [cosmo, theme.scss]
-    toc: true
     code-copy: true
     code-overflow: wrap
-    css: styles.css
+    sidebar: false
     link-external-newwindow: true
-
-editor: source

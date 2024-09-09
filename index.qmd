@@ -1,13 +1,11 @@
 ---
 title: "John Baker - Learning Analytics"
 listing: 
-  contents:
-      - educ_6191_001/index.qmd
+  contents: educ_6191_001/*
   sort: "date desc"
   type: default
   categories: false 
   sort-ui: false
   filter-ui: false
-page-layout: full
 title-block-banner: true
 ---
