@@ -24,9 +24,9 @@ format:
   html:
     page-layout: full
     sidebar: false
-    toc: true
     theme:
       light: [cosmo, theme.scss]
+    toc: true
     code-copy: true
     code-overflow: wrap
     css: styles.css
