@@ -6,20 +6,18 @@ project:
 website:
   navbar:
     search: false
-    tools:
-      - icon: github
-        href: https://github.com/baker-jr-john/Website
-  back-to-top-navigation: true
-  
     pinned: false
     background: primary
-  
+  page-navigation: true
+  back-to-top-navigation: true
   repo-url: "https://github.com/baker-jr-john/Website.git"
   repo-actions: none
-
-  page-footer: 
-    border: true
-    Made with [![Quarto](https://quarto.org/quarto.png){width=65}](https://quarto.org/){target="_blank"}
+  page-footer:
+    left: Made with [![Quarto](https://quarto.org/quarto.png){width=65}](https://quarto.org/){target="_blank"}
+    right: 
+      - icon: github
+        href: https://github.com/baker-jr-john/Website
+    background: light
 
 format:
   html:
