@@ -23,9 +23,5 @@ format:
     code-overflow: wrap
     css: styles.css
     link-external-newwindow: true
-    grid:
-      sidebar-width: 250px
-      body-width: 900px
-      margin-width: 300px
 
 editor: source
