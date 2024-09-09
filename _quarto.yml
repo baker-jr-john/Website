@@ -6,6 +6,12 @@ project:
 website:
   search: false
   back-to-top-navigation: true
+  navbar:
+    pinned: false
+    background: primary
+    right:
+      - text: Classes
+        href: index.qmd
   
   repo-url: "https://github.com/baker-jr-john/Website.git"
   repo-actions: none
