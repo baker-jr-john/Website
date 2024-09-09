@@ -4,21 +4,22 @@ project:
   title: "Penn GSE"
   
 website:
-  search: false
-  back-to-top-navigation: true
   navbar:
+    search: false
+    tools:
+      - icon: github
+        href: https://github.com/baker-jr-john/Website
+  back-to-top-navigation: true
+  
     pinned: false
     background: primary
-    right:
-      - text: Classes
-        href: index.qmd
   
   repo-url: "https://github.com/baker-jr-john/Website.git"
   repo-actions: none
 
   page-footer: 
     border: true
-    left: Made with [![Quarto](https://quarto.org/quarto.png){width=65}](https://quarto.org/){target="_blank"} 
+    Made with [![Quarto](https://quarto.org/quarto.png){width=65}](https://quarto.org/){target="_blank"}
 
 format:
   html:
