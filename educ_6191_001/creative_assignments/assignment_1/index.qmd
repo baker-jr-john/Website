@@ -15,14 +15,11 @@ draft: true
 jupyter: python3
 ---
 
-Freeze computations after work is complete.
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>!
 
 ```{python}
-import pandas as pd
+# Import libraries
+import pandas as pd                                                                                                           # <1>
 from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.metrics import classification_report, cohen_kappa_score
@@ -31,45 +28,93 @@ from xgboost import XGBClassifier
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import precision_recall_curve
-
+```
+1. Importing Libraries
+  * pandas: Used for data manipulation.
+  * train_test_split: Used to split the dataset into training and testing sets.
+  * GridSearchCV: Helps in finding the optimal hyperparameters for the model.
+  * RandomForestClassifier: A decision-tree-based classifier that combines many trees to improve performance.
+  * SMOTE: Synthetic Minority Over-sampling Technique, used to handle class imbalance in the training data.
+  * classification_report: Used to generate a detailed report on model performance metrics.
+```{python}
 # Load the dataset
-data = pd.read_csv('data/ca1-dataset.csv')
-
+data = pd.read_csv('data/ca1-dataset.csv')                                                                                    # <2>
+```
+2. Loading the Dataset
+  * Loads the dataset from the CSV file.
+```{python}
 # Prepare the data
-data['OffTask'] = data['OffTask'].map({'N': 0, 'Y': 1})  # Encode target variable
+data['OffTask'] = data['OffTask'].map({'N': 0, 'Y': 1})  # Encode target variable                                             # <3>
 X = data.drop(columns=['Unique-id', 'namea', 'OffTask'])  # Features
 y = data['OffTask']  # Target variable
-
+```
+3. Preparing the Data
+  * The target variable OffTask is encoded, converting 'N' (No) to 0 and 'Y' (Yes) to 1.
+  * X is set as the feature set by dropping irrelevant columns ('Unique-id', 'namea', 'OffTask').
+  * y is the target variable, which is the encoded OffTask column.
+```{python}
 # Split the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)                                     # <4>
+```
+4. Splitting Data
+  * The dataset is split into training (80%) and testing sets (20%).
+```{python}
 # Apply SMOTE to the training data
-smote = SMOTE(random_state=42)
+smote = SMOTE(random_state=42)                                                                                                # <5>
 X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
-
+```
+5. Handling Imbalanced Data with SMOTE
+  * SMOTE is applied to balance the classes in the training data. It creates synthetic samples for the minority class (OffTask == 1).
+  * X_train_resampled and y_train_resampled contain the balanced training data.
+```{python}
 # Calculate the ratio of classes
-class_0_count = sum(y_train_resampled == 0)
+class_0_count = sum(y_train_resampled == 0)                                                                                   # <6>
 class_1_count = sum(y_train_resampled == 1)
 ratio_of_classes = class_0_count / class_1_count
-
+```
+6. Class Distribution Check
+  * Counts the number of instances in each class after resampling, to calculate the class ratio (0 = not off-task, 1 = off-task).
+```{python}
 # Define the model
-model = RandomForestClassifier(random_state=42, class_weight='balanced')
-
+model = RandomForestClassifier(random_state=42, class_weight='balanced')                                                      # <7>
+```
+7. Defining the Model
+  * A RandomForest model is instantiated. The class_weight='balanced' argument is used to adjust weights inversely proportional to class frequencies.
+```{python}
 # Define the parameter grid
-param_grid = {
+param_grid = {                                                                                                                # <8>
     'n_estimators': [50, 100, 200],
     'max_depth': [None, 10, 20, 30],
     'min_samples_split': [2, 5, 10],
     'min_samples_leaf': [1, 2, 4]
 }
-
+```
+8. Setting Up Hyperparameter Tuning (GridSearchCV)
+  * Defines the parameter grid for GridSearchCV to find the optimal combination of hyperparameters:
+    * n_estimators: Number of trees.
+    * max_depth: Maximum depth of trees.
+    * min_samples_split: Minimum samples required to split a node.
+    * min_samples_leaf: Minimum number of samples required in a leaf node.
+```{python}
 # Set up GridSearchCV
-grid_search = GridSearchCV(estimator=model, param_grid=param_grid, 
+grid_search = GridSearchCV(estimator=model, param_grid=param_grid,                                                            # <9>
                            scoring='f1', cv=5, n_jobs=-1, verbose=2)
-
+```
+9. GridSearchCV for Hyperparameter Tuning
+  * GridSearchCV is initialized with:
+    * model: The RandomForest classifier.
+    * param_grid: The defined hyperparameter grid.
+    * scoring='f1': Uses the F1 score as the evaluation metric.
+    * cv=5: Performs 5-fold cross-validation.
+    * n_jobs=-1: Utilizes all available CPU cores.
+    * verbose=2: Provides detailed output.
+```{python}
 # Fit GridSearchCV
-grid_search.fit(X_train_resampled, y_train_resampled)
-
+grid_search.fit(X_train_resampled, y_train_resampled)                                                                         # <10>
+```
+10. Fitting the Model
+  * Fits the GridSearchCV on the resampled training data to find the best hyperparameters.
+```{python}
 # Best parameters
 print("Best parameters found: ", grid_search.best_params_)
 ```
