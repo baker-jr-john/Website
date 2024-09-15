@@ -34,7 +34,7 @@
         "\n",
         "This code snippet is focused on training a machine learning model to classify whether a task is “OffTask” (a binary outcome). Let’s break it down step by step:\n"
       ],
-      "id": "116b8018"
+      "id": "ebb4badc"
     },
     {
       "cell_type": "code",
@@ -54,7 +54,7 @@
         "import matplotlib.pyplot as plt\n",
         "import seaborn as sns"
       ],
-      "id": "e0237105",
+      "id": "0e75e3b1",
       "execution_count": null,
       "outputs": []
     },
@@ -70,7 +70,7 @@
         "- SMOTE: Synthetic Minority Over-sampling Technique, used to handle class imbalance in the training data.\n",
         "- classification_report: Used to generate a detailed report on model performance metrics.\n"
       ],
-      "id": "7b43f514"
+      "id": "5f11bc60"
     },
     {
       "cell_type": "code",
@@ -79,7 +79,7 @@
         "# Load the dataset\n",
         "data = pd.read_csv('data/ca1-dataset.csv')                                                                                     # <2>"
       ],
-      "id": "482fb5a8",
+      "id": "d614d519",
       "execution_count": null,
       "outputs": []
     },
@@ -90,7 +90,7 @@
         "2. Loading the Dataset\n",
         "- Loads the dataset from the CSV file.\n"
       ],
-      "id": "a5789e91"
+      "id": "f766e5eb"
     },
     {
       "cell_type": "code",
@@ -102,7 +102,7 @@
         "X = data.drop(columns=['Unique-id', 'namea', 'OffTask'])  # Features\n",
         "y = data['OffTask']  # Target variable"
       ],
-      "id": "22ea2333",
+      "id": "757c7ad5",
       "execution_count": null,
       "outputs": []
     },
@@ -115,7 +115,7 @@
         "- X is set as the feature set by dropping irrelevant columns ('Unique-id', 'namea', 'OffTask').\n",
         "  * y is the target variable, which is the encoded OffTask column.\n"
       ],
-      "id": "15361f5a"
+      "id": "0a4bd725"
     },
     {
       "cell_type": "code",
@@ -125,7 +125,7 @@
         "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2,                                                       # <4>\n",
         "random_state=42)"
       ],
-      "id": "a39be1de",
+      "id": "c94cdffd",
       "execution_count": null,
       "outputs": []
     },
@@ -136,7 +136,7 @@
         "4. Splitting Data\n",
         "- The dataset is split into training (80%) and testing sets (20%).\n"
       ],
-      "id": "7c06430c"
+      "id": "f1f321cd"
     },
     {
       "cell_type": "code",
@@ -146,7 +146,7 @@
         "smote = SMOTE(random_state=42)                                                                                                 # <5>\n",
         "X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)"
       ],
-      "id": "87f78ec1",
+      "id": "0621a8ea",
       "execution_count": null,
       "outputs": []
     },
@@ -158,7 +158,7 @@
         "- SMOTE is applied to balance the classes in the training data. It creates synthetic samples for the minority class (OffTask == 1).\n",
         "  * X_train_resampled and y_train_resampled contain the balanced training data.\n"
       ],
-      "id": "199c399a"
+      "id": "720962f5"
     },
     {
       "cell_type": "code",
@@ -169,7 +169,7 @@
         "class_1_count = sum(y_train_resampled == 1)\n",
         "ratio_of_classes = class_0_count / class_1_count"
       ],
-      "id": "d9ff2ffb",
+      "id": "0eb4001f",
       "execution_count": null,
       "outputs": []
     },
@@ -180,7 +180,7 @@
         "6. Class Distribution Check\n",
         "- Counts the number of instances in each class after resampling, to calculate the class ratio (0 = not off-task, 1 = off-task).\n"
       ],
-      "id": "b6e81736"
+      "id": "e6fbaf46"
     },
     {
       "cell_type": "code",
@@ -189,7 +189,7 @@
         "# Define the model\n",
         "model = RandomForestClassifier(random_state=42, class_weight='balanced')                                                       # <7>"
       ],
-      "id": "3508e2cb",
+      "id": "a9d4bfad",
       "execution_count": null,
       "outputs": []
     },
@@ -200,7 +200,7 @@
         "7. Defining the Model\n",
         "- A RandomForest model is instantiated. The class_weight='balanced' argument is used to adjust weights inversely proportional to class frequencies.\n"
       ],
-      "id": "1fce4b4b"
+      "id": "495a3f8e"
     },
     {
       "cell_type": "code",
@@ -214,7 +214,7 @@
         "    'min_samples_leaf': [1, 2, 4]\n",
         "}"
       ],
-      "id": "64aa0c94",
+      "id": "a913821c",
       "execution_count": null,
       "outputs": []
     },
@@ -229,7 +229,7 @@
         "  - min_samples_split: Minimum samples required to split a node.\n",
         "  - min_samples_leaf: Minimum number of samples required in a leaf node.\n"
       ],
-      "id": "dfa197bd"
+      "id": "ada7cd96"
     },
     {
       "cell_type": "code",
@@ -239,7 +239,7 @@
         "grid_search = GridSearchCV(estimator=model, param_grid=param_grid,                                                             # <9>\n",
         "                           scoring='f1', cv=5, n_jobs=-1, verbose=2)"
       ],
-      "id": "38d37866",
+      "id": "1453b5df",
       "execution_count": null,
       "outputs": []
     },
@@ -256,7 +256,7 @@
         "  - n_jobs=-1: Utilizes all available CPU cores.\n",
         "  - verbose=2: Provides detailed output.\n"
       ],
-      "id": "1dac16ef"
+      "id": "9cab50f9"
     },
     {
       "cell_type": "code",
@@ -265,7 +265,7 @@
         "# Fit GridSearchCV\n",
         "grid_search.fit(X_train_resampled, y_train_resampled)                                                                         # <10>"
       ],
-      "id": "fdf0c567",
+      "id": "50c53ef1",
       "execution_count": null,
       "outputs": []
     },
@@ -276,7 +276,7 @@
         "10. Fitting the Model\n",
         "- Fits the GridSearchCV on the resampled training data to find the best hyperparameters.\n"
       ],
-      "id": "1e48aff6"
+      "id": "14fe5806"
     },
     {
       "cell_type": "code",
@@ -285,7 +285,7 @@
         "# Best parameters\n",
         "print(\"Best parameters found: \", grid_search.best_params_)                                                                    # <11>"
       ],
-      "id": "0a2e8e35",
+      "id": "5ed985c1",
       "execution_count": null,
       "outputs": []
     },
@@ -306,7 +306,7 @@
         "\n",
         "In this code snippet, the model is being trained on resampled data, then evaluated on the test set using metrics like Cohen's Kappa score and a classification report. Let’s go through it step by step:\n"
       ],
-      "id": "6e527fa3"
+      "id": "56c07ac6"
     },
     {
       "cell_type": "code",
@@ -315,7 +315,7 @@
         "# Train the model on the resampled data\n",
         "model.fit(X_train_resampled, y_train_resampled)                                                                                # <1>"
       ],
-      "id": "0509eae7",
+      "id": "16a6357b",
       "execution_count": null,
       "outputs": []
     },
@@ -327,7 +327,7 @@
         "- This line trains the RandomForestClassifier (from the previous step) on the resampled training data (X_train_resampled and y_train_resampled).\n",
         "- The model will learn the relationships between the features in X_train_resampled and the target y_train_resampled (which includes synthetic samples from SMOTE).\n"
       ],
-      "id": "42aa011e"
+      "id": "df3ebf4f"
     },
     {
       "cell_type": "code",
@@ -336,7 +336,7 @@
         "# Make predictions on the test set\n",
         "y_pred = model.predict(X_test)                                                                                                 # <2>"
       ],
-      "id": "7eb37287",
+      "id": "d8816568",
       "execution_count": null,
       "outputs": []
     },
@@ -348,7 +348,7 @@
         "- After training, the model is used to predict the target labels for the test data (X_test), which was not resampled.\n",
         "- The predicted labels (y_pred) are compared with the actual labels (y_test) to evaluate performance.\n"
       ],
-      "id": "0f39452c"
+      "id": "b70affe9"
     },
     {
       "cell_type": "code",
@@ -358,7 +358,7 @@
         "kappa = cohen_kappa_score(y_test, y_pred)                                                                                      # <3>\n",
         "print(\"Kappa Score (RandomForest):\", kappa)"
       ],
-      "id": "da557f5f",
+      "id": "5748243f",
       "execution_count": null,
       "outputs": []
     },
@@ -377,7 +377,7 @@
         "  - A score of **0** would indicate that the agreement is no better than random guessing.\n",
         "  - **0.40–0.59** typically suggests **moderate agreement**. So, while your model is better than random, there is still room for improvement.\n"
       ],
-      "id": "91a02590"
+      "id": "bf1ff312"
     },
     {
       "cell_type": "code",
@@ -385,7 +385,7 @@
       "source": [
         "print(classification_report(y_test, y_pred))                                                                                   # <4>"
       ],
-      "id": "ac6da753",
+      "id": "ad1e4d3b",
       "execution_count": null,
       "outputs": []
     },
@@ -430,7 +430,7 @@
         "\n",
         "In this code snippet, the model being used is XGBoost (eXtreme Gradient Boosting), and the process follows a similar structure to the RandomForestClassifier model, but with some key differences. Let’s break it down step by step:\n"
       ],
-      "id": "6892c135"
+      "id": "813033e7"
     },
     {
       "cell_type": "code",
@@ -440,7 +440,7 @@
         "xgb_model = XGBClassifier(eval_metric='logloss',                                                                            # <1>\n",
         "scale_pos_weight=ratio_of_classes)"
       ],
-      "id": "274da9cf",
+      "id": "ba15ee46",
       "execution_count": null,
       "outputs": []
     },
@@ -453,7 +453,7 @@
         "- eval_metric='logloss': The evaluation metric used is logarithmic loss (logloss), which is commonly used for binary classification problems. It penalizes incorrect predictions, especially those made with high confidence.\n",
         "- scale_pos_weight=ratio_of_classes: This parameter helps to adjust the balance between the positive and negative classes in the dataset. ratio_of_classes is the ratio of the number of class 0 to class 1 instances (calculated earlier). Setting this helps XGBoost handle class imbalance by giving higher weight to the minority class.\n"
       ],
-      "id": "25de6f25"
+      "id": "90c4fd75"
     },
     {
       "cell_type": "code",
@@ -461,7 +461,7 @@
       "source": [
         "xgb_model.fit(X_train_resampled, y_train_resampled)                                                                            # <2>"
       ],
-      "id": "da6acc76",
+      "id": "e2de0bfc",
       "execution_count": null,
       "outputs": []
     },
@@ -472,7 +472,7 @@
         "2. Training the XGBoost Model\n",
         "- The model is trained on the resampled data (X_train_resampled, y_train_resampled) that was balanced using SMOTE in the previous steps. XGBoost learns the relationships between the features and the target (OffTask) using the training set.\n"
       ],
-      "id": "493d09e3"
+      "id": "9f3b3183"
     },
     {
       "cell_type": "code",
@@ -481,7 +481,7 @@
         "# Make predictions\n",
         "y_pred_xgb = xgb_model.predict(X_test)                                                                                         # <3>"
       ],
-      "id": "948af474",
+      "id": "0c2b4046",
       "execution_count": null,
       "outputs": []
     },
@@ -492,7 +492,7 @@
         "3. Making Predictions\n",
         "- After training, the XGBoost model makes predictions (y_pred_xgb) on the test set (X_test), which was not resampled.\n"
       ],
-      "id": "d33bc6cf"
+      "id": "b3aefd60"
     },
     {
       "cell_type": "code",
@@ -502,7 +502,7 @@
         "kappa_xgb = cohen_kappa_score(y_test, y_pred_xgb)                                                                              # <4>\n",
         "print(\"Kappa Score (XGBoost):\", kappa_xgb)"
       ],
-      "id": "120a0b4c",
+      "id": "83ee1598",
       "execution_count": null,
       "outputs": []
     },
@@ -521,7 +521,7 @@
         "1. **Class Imbalance**: Even though XGBoost uses the `scale_pos_weight` parameter to handle class imbalance, it’s still struggling to improve performance for the minority class (class 1).\n",
         "2. **Lower Performance**: XGBoost may require further tuning or feature engineering to match or surpass the performance of the Random Forest model in this particular scenario.\n"
       ],
-      "id": "0718581b"
+      "id": "a4a43ca6"
     },
     {
       "cell_type": "code",
@@ -529,7 +529,7 @@
       "source": [
         "print(classification_report(y_test, y_pred_xgb))                                                                               # <5>"
       ],
-      "id": "9154b2a2",
+      "id": "a8c3e151",
       "execution_count": null,
       "outputs": []
     },
@@ -569,7 +569,7 @@
         "\n",
         "This code snippet is focused on training a Gradient Boosting model and evaluating its performance on the test set. Here's what is happening in each step:\n"
       ],
-      "id": "34f08ce5"
+      "id": "d67014df"
     },
     {
       "cell_type": "code",
@@ -584,7 +584,7 @@
         "    random_state=42\n",
         ")"
       ],
-      "id": "5980bd60",
+      "id": "22a4a9f5",
       "execution_count": null,
       "outputs": []
     },
@@ -600,7 +600,7 @@
         "- n_estimators=200: The number of trees (weak learners) in the ensemble. More trees can increase accuracy but also add computational cost.\n",
         "- random_state=42: Ensures reproducibility by fixing the random number generation seed.\n"
       ],
-      "id": "803e9699"
+      "id": "7b355ce5"
     },
     {
       "cell_type": "code",
@@ -609,7 +609,7 @@
         "# Fit the model on the resampled training data\n",
         "gb_model.fit(X_train_resampled, y_train_resampled)                                                                             # <2>"
       ],
-      "id": "100fb6e2",
+      "id": "bef6a457",
       "execution_count": null,
       "outputs": []
     },
@@ -621,7 +621,7 @@
         "- The Gradient Boosting model is trained on the resampled training data (X_train_resampled and y_train_resampled) to account for class imbalance.\n",
         "- The model sequentially builds decision trees and combines them to minimize error across the ensemble.\n"
       ],
-      "id": "47dc3f3c"
+      "id": "164ff958"
     },
     {
       "cell_type": "code",
@@ -630,7 +630,7 @@
         "# Make predictions on the test set\n",
         "y_pred_gb = gb_model.predict(X_test)                                                                                           # <3>"
       ],
-      "id": "1a743f03",
+      "id": "8ad50103",
       "execution_count": null,
       "outputs": []
     },
@@ -641,7 +641,7 @@
         "3. Making Predictions\n",
         "- After training, the model is used to make predictions on the unbalanced test set (X_test), producing the predicted labels (y_pred_gb).\n"
       ],
-      "id": "915cf484"
+      "id": "1ea81859"
     },
     {
       "cell_type": "code",
@@ -651,7 +651,7 @@
         "kappa_gb = cohen_kappa_score(y_test, y_pred_gb)                                                                                # <4>\n",
         "print(\"Kappa Score (Gradient Boosting):\", kappa_gb)"
       ],
-      "id": "1645d66f",
+      "id": "50b30603",
       "execution_count": null,
       "outputs": []
     },
@@ -670,7 +670,7 @@
         "- This score indicates that the **Gradient Boosting** model is slightly better at handling the data's class imbalance compared to Random Forest and XGBoost.\n",
         "- While the improvement is modest, this might suggest that Gradient Boosting is capturing more informative patterns in the data compared to the other models.\n"
       ],
-      "id": "e7945140"
+      "id": "7864f1ed"
     },
     {
       "cell_type": "code",
@@ -678,7 +678,7 @@
       "source": [
         "print(classification_report(y_test, y_pred_gb))                                                                                # <5>"
       ],
-      "id": "a38adad6",
+      "id": "1e369174",
       "execution_count": null,
       "outputs": []
     },
@@ -718,7 +718,7 @@
         "\n",
         "This code chunk demonstrates adjusting the decision threshold for the Gradient Boosting model’s predictions, and then evaluating the model’s performance based on this new threshold. Let’s break it down step by step:\n"
       ],
-      "id": "7d2d0a6e"
+      "id": "729d1b3e"
     },
     {
       "cell_type": "code",
@@ -727,7 +727,7 @@
         "# Get predicted probabilities\n",
         "y_pred_proba_gb = gb_model.predict_proba(X_test)[:, 1]                                                                         # <1>"
       ],
-      "id": "3c7331e1",
+      "id": "6cb6dbf3",
       "execution_count": null,
       "outputs": []
     },
@@ -741,7 +741,7 @@
         "\n",
         "This step generates the probability estimates for each sample in the test set, which you’ll later use to make final predictions based on a custom threshold.\n"
       ],
-      "id": "8a4469aa"
+      "id": "063ebce9"
     },
     {
       "cell_type": "code",
@@ -751,7 +751,7 @@
         "threshold = 0.3                                                                                                                # <2>\n",
         "y_pred_adjusted_gb = (y_pred_proba_gb >= threshold).astype(int)"
       ],
-      "id": "3c309ee3",
+      "id": "ac6f89c3",
       "execution_count": null,
       "outputs": []
     },
@@ -763,7 +763,7 @@
         "- threshold = 0.3: Instead of using the default decision threshold of 0.5 (which classifies a sample as class 1 if the predicted probability is ≥ 0.5), you set a new threshold of 0.3. This means that any sample with a predicted probability of 0.3 or higher will be classified as class 1.\n",
         "- y_pred_adjusted_gb = (y_pred_proba_gb >= threshold).astype(int): This line compares each predicted probability to the new threshold (0.3). If the probability is greater than or equal to 0.3, the sample is classified as class 1; otherwise, it’s classified as class 0. The result is stored in y_pred_adjusted_gb.\n"
       ],
-      "id": "67d76895"
+      "id": "3953f24c"
     },
     {
       "cell_type": "code",
@@ -774,7 +774,7 @@
         "print(\"Adjusted Kappa Score (Gradient Boosting):\", kappa_adjusted_gb)\n",
         "print(classification_report(y_test, y_pred_adjusted_gb))"
       ],
-      "id": "a119859b",
+      "id": "a66284ec",
       "execution_count": null,
       "outputs": []
     },
@@ -823,7 +823,7 @@
         "\n",
         "This code snippet is designed to experiment with different decision thresholds for the Gradient Boosting model, then evaluate how precision, recall, and Cohen's Kappa score change as the threshold varies. Here's a breakdown of what's happening:\n"
       ],
-      "id": "edca34c4"
+      "id": "9d958135"
     },
     {
       "cell_type": "code",
@@ -835,7 +835,7 @@
         "recalls = []\n",
         "kappa_scores = []"
       ],
-      "id": "5c8cedb4",
+      "id": "68bdf6c7",
       "execution_count": null,
       "outputs": []
     },
@@ -847,7 +847,7 @@
         "- thresholds: A range of thresholds is defined from 0.0 to 1.0 in increments of 0.05. These are the decision thresholds that will be used to convert predicted probabilities into binary class predictions (class 0 or class 1).\n",
         "- precisions, recalls, and kappa_scores: Empty lists are initialized to store the precision, recall, and Kappa scores for each threshold.\n"
       ],
-      "id": "739c0d68"
+      "id": "bcfd06ea"
     },
     {
       "cell_type": "code",
@@ -867,7 +867,7 @@
         "    recalls.append(recall)\n",
         "    kappa_scores.append(kappa)"
       ],
-      "id": "25f96919",
+      "id": "c2c42280",
       "execution_count": null,
       "outputs": []
     },
@@ -882,7 +882,7 @@
         "- Kappa Score: Cohen’s Kappa score is computed for each threshold to evaluate the agreement between predicted and actual labels while adjusting for chance.\n",
         "- Append Results: After calculating precision, recall, and Kappa score for the current threshold, these values are appended to their respective lists (precisions, recalls, kappa_scores).\n"
       ],
-      "id": "9a8c1f93"
+      "id": "da251fc1"
     },
     {
       "cell_type": "code",
@@ -900,7 +900,7 @@
         "plt.grid()\n",
         "plt.show()"
       ],
-      "id": "7cea3983",
+      "id": "6125c7df",
       "execution_count": null,
       "outputs": []
     },
@@ -936,7 +936,7 @@
         "\n",
         "In conclusion, this graph helps to analyze the trade-offs between Precision, Recall, and Kappa Score at different decision thresholds. Based on the graph, a threshold around 0.9 seems to offer a good balance between precision, recall, and the overall performance as measured by the Kappa score. However, this depends on your specific requirements, such as whether you prioritize minimizing false positives (favoring higher precision) or capturing all true positives (favoring higher recall).\n"
       ],
-      "id": "b2affbac"
+      "id": "f98ade44"
     },
     {
       "cell_type": "code",
@@ -951,7 +951,7 @@
         "print(f\"Kappa Score at Best Threshold: \\\n",
         "{kappa_scores[best_threshold_index]:.2f}\")"
       ],
-      "id": "aaef29f1",
+      "id": "7ea1b451",
       "execution_count": null,
       "outputs": []
     },
@@ -990,7 +990,7 @@
         "\n",
         "This code snippet is focused on **evaluating and selecting the best decision threshold** for the model based on the **F1-score**, which balances precision and recall. Let’s break down what’s happening:\n"
       ],
-      "id": "00386d21"
+      "id": "86738e83"
     },
     {
       "cell_type": "code",
@@ -999,7 +999,7 @@
         "# Initialize lists to store precision, recall, and F1-score values\n",
         "f1_scores = []                                                                                                                 # <1>"
       ],
-      "id": "138ee61d",
+      "id": "fed58c53",
       "execution_count": null,
       "outputs": []
     },
@@ -1010,7 +1010,7 @@
         "1. Initialize Lists to Store Metrics\n",
         "- A list called `f1_scores` is initialized to store the **F1-score** values calculated for each threshold. F1-score is a key metric for balancing precision and recall, especially for imbalanced datasets.\n"
       ],
-      "id": "8fea48c2"
+      "id": "b523b318"
     },
     {
       "cell_type": "code",
@@ -1033,7 +1033,7 @@
         "    # Append F1-score to the list\n",
         "    f1_scores.append(f1_score)"
       ],
-      "id": "88b41099",
+      "id": "f6cf5f4b",
       "execution_count": null,
       "outputs": []
     },
@@ -1055,7 +1055,7 @@
         "  \n",
         "- The calculated F1-score for each threshold is appended to the `f1_scores` list.\n"
       ],
-      "id": "926e4ae7"
+      "id": "0ea37fcf"
     },
     {
       "cell_type": "code",
@@ -1074,7 +1074,7 @@
         "plt.grid()\n",
         "plt.show()"
       ],
-      "id": "d0607a68",
+      "id": "5e93a8fb",
       "execution_count": null,
       "outputs": []
     },
@@ -1117,7 +1117,7 @@
         "\n",
         "This graph helps in selecting a threshold that balances both Precision and Recall, with the **F1 Score** offering a useful summary metric when both are important to optimize.\n"
       ],
-      "id": "3164fe92"
+      "id": "3b4239ff"
     },
     {
       "cell_type": "code",
@@ -1133,7 +1133,7 @@
         "print(f\"Kappa Score at Best Threshold: \n",
         "{kappa_scores[best_threshold_index]:.2f}\")"
       ],
-      "id": "2ff95357",
+      "id": "70e29a8c",
       "execution_count": null,
       "outputs": []
     },
@@ -1174,7 +1174,7 @@
         "\n",
         "This code snippet applies the **best threshold** (0.90) that was found in the previous analysis and evaluates the performance of the **Gradient Boosting model** using that threshold. Here’s a step-by-step breakdown:\n"
       ],
-      "id": "815ed75e"
+      "id": "2960c073"
     },
     {
       "cell_type": "code",
@@ -1183,7 +1183,7 @@
         "# Make predictions using the new threshold\n",
         "y_pred_final = (gb_model.predict_proba(X_test)[:, 1] >= 0.90).astype(int)                                                      # <1>"
       ],
-      "id": "5dba0796",
+      "id": "57d345fd",
       "execution_count": null,
       "outputs": []
     },
@@ -1196,7 +1196,7 @@
         "- **`>= 0.90`**: This applies the new threshold of **0.90**. If the predicted probability for class 1 is greater than or equal to 0.90, the sample is classified as class 1. Otherwise, it is classified as class 0.\n",
         "- **`.astype(int)`**: Converts the boolean result (True/False) into integers (1 for class 1, 0 for class 0). The result is stored in `y_pred_final`, which contains the final class predictions based on the 0.90 threshold.\n"
       ],
-      "id": "9372a2c8"
+      "id": "e44e01ff"
     },
     {
       "cell_type": "code",
@@ -1206,7 +1206,7 @@
         "kappa_final = cohen_kappa_score(y_test, y_pred_final)                                                                          # <2>\n",
         "print(\"Final Kappa Score with Threshold 0.90:\", kappa_final)"
       ],
-      "id": "5f79692c",
+      "id": "f54a33bf",
       "execution_count": null,
       "outputs": []
     },
@@ -1228,7 +1228,7 @@
         "- **Higher Kappa**: The Kappa score is higher than what was observed at other thresholds like **0.50** or **0.00**, suggesting that this threshold strikes a good balance between precision and recall for this particular dataset.\n",
         "- **Moderate Performance**: A Kappa score in this range means the model is making reasonably good predictions but may still have some misclassifications, particularly between classes 0 and 1.\n"
       ],
-      "id": "765bb93c"
+      "id": "3dbcdc29"
     },
     {
       "cell_type": "code",
@@ -1237,7 +1237,7 @@
         "# Print the classification report\n",
         "print(classification_report(y_test, y_pred_final))                                                                             # <3>"
       ],
-      "id": "c4532261",
+      "id": "e4fcab8b",
       "execution_count": null,
       "outputs": []
     },
@@ -1287,7 +1287,7 @@
         "\n",
         "This code snippet performs three distinct tasks: calculating and visualizing the **confusion matrix**, performing **k-fold cross-validation**, and reporting **cross-validation scores**. Here's a step-by-step breakdown of what’s happening:\n"
       ],
-      "id": "9c1be238"
+      "id": "aef2f4c2"
     },
     {
       "cell_type": "code",
@@ -1297,7 +1297,7 @@
         "conf_matrix = confusion_matrix(y_test, y_pred_final)                                                                           # <1>\n",
         "print(\"Confusion Matrix:\\n\", conf_matrix)"
       ],
-      "id": "94cdd846",
+      "id": "65b58ac6",
       "execution_count": null,
       "outputs": []
     },
@@ -1346,7 +1346,7 @@
         "- The model is doing well with **class 0** (\"Not OffTask\"), as expected given the class imbalance.\n",
         "- It is identifying the majority of **class 1** (\"OffTask\") cases but still missing some, which is a typical challenge in imbalanced datasets.\n"
       ],
-      "id": "70371b2a"
+      "id": "46a171fe"
     },
     {
       "cell_type": "code",
@@ -1362,7 +1362,7 @@
         "plt.title('Confusion Matrix')\n",
         "plt.show()"
       ],
-      "id": "5199b644",
+      "id": "37b64eb8",
       "execution_count": null,
       "outputs": []
     },
@@ -1428,7 +1428,7 @@
         "\n",
         "This confusion matrix helps understand where the model is strong (predicting \"Not OffTask\") and where it needs improvement (predicting \"OffTask\").\n"
       ],
-      "id": "6fff5369"
+      "id": "a2f081b5"
     },
     {
       "cell_type": "code",
@@ -1437,7 +1437,7 @@
         "# Perform k-fold cross-validation\n",
         "cv_scores = cross_val_score(gb_model, X, y, cv=5, scoring='f1')                                                                # <3>"
       ],
-      "id": "324973fe",
+      "id": "73af4a41",
       "execution_count": null,
       "outputs": []
     },
@@ -1451,7 +1451,7 @@
         "  \n",
         "  Cross-validation helps evaluate how well the model generalizes to different subsets of the data, providing a more robust performance estimate.\n"
       ],
-      "id": "3bbb4160"
+      "id": "e19cb9b2"
     },
     {
       "cell_type": "code",
@@ -1462,7 +1462,7 @@
         "print(\"Mean F1 Score:\", np.mean(cv_scores))\n",
         "print(\"Standard Deviation of F1 Scores:\", np.std(cv_scores))"
       ],
-      "id": "49cdbe05",
+      "id": "117d1e35",
       "execution_count": null,
       "outputs": []
     },
@@ -1511,7 +1511,7 @@
         "\n",
         "3. **Cross-Validation with Stratified K-Folds**: Using **stratified k-fold cross-validation** ensures that each fold has approximately the same proportion of classes (both class 0 and class 1), which could improve the model's stability across folds."
       ],
-      "id": "accac128"
+      "id": "b0de6023"
     }
   ],
   "metadata": {
