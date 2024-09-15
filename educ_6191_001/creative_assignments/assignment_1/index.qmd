@@ -5,7 +5,6 @@ author:
   - name: John Baker
     affiliations:
       - name: "Penn GSE: University of Pennsylvania Graduate School of Education"
-lang: en
 date: 09-18-2024
 # date-modified: 09-18-2024
 format:

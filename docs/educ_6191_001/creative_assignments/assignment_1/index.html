@@ -117,9 +117,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction:</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology:</a></li>
+  <li><a href="#class-0-majority-class" id="toc-class-0-majority-class" class="nav-link" data-scroll-target="#class-0-majority-class">1. <strong>Class 0 (Majority Class)</strong>:</a></li>
+  <li><a href="#class-1-minority-class" id="toc-class-1-minority-class" class="nav-link" data-scroll-target="#class-1-minority-class">2. <strong>Class 1 (Minority Class)</strong>:</a></li>
+  <li><a href="#overall-metrics" id="toc-overall-metrics" class="nav-link" data-scroll-target="#overall-metrics">3. <strong>Overall Metrics</strong>:</a></li>
+  <li><a href="#key-observations" id="toc-key-observations" class="nav-link" data-scroll-target="#key-observations">Key Observations:</a></li>
+  <li><a href="#insights" id="toc-insights" class="nav-link" data-scroll-target="#insights">Insights:</a></li>
+  <li><a href="#class-0-majority-class-1" id="toc-class-0-majority-class-1" class="nav-link" data-scroll-target="#class-0-majority-class-1">1. <strong>Class 0 (Majority Class)</strong>:</a></li>
+  <li><a href="#class-1-minority-class-1" id="toc-class-1-minority-class-1" class="nav-link" data-scroll-target="#class-1-minority-class-1">2. <strong>Class 1 (Minority Class)</strong>:</a></li>
+  <li><a href="#overall-metrics-1" id="toc-overall-metrics-1" class="nav-link" data-scroll-target="#overall-metrics-1">3. <strong>Overall Metrics</strong>:</a></li>
+  <li><a href="#key-observations-1" id="toc-key-observations-1" class="nav-link" data-scroll-target="#key-observations-1">Key Observations:</a></li>
+  <li><a href="#comparison-with-previous-models" id="toc-comparison-with-previous-models" class="nav-link" data-scroll-target="#comparison-with-previous-models"><strong>Comparison with Previous Models</strong>:</a></li>
+  <li><a href="#what-this-means" id="toc-what-this-means" class="nav-link" data-scroll-target="#what-this-means">What This Means:</a></li>
+  <li><a href="#class-0-majority-class-2" id="toc-class-0-majority-class-2" class="nav-link" data-scroll-target="#class-0-majority-class-2">1. <strong>Class 0 (Majority Class)</strong>:</a></li>
+  <li><a href="#class-1-minority-class-2" id="toc-class-1-minority-class-2" class="nav-link" data-scroll-target="#class-1-minority-class-2">2. <strong>Class 1 (Minority Class)</strong>:</a></li>
+  <li><a href="#overall-metrics-2" id="toc-overall-metrics-2" class="nav-link" data-scroll-target="#overall-metrics-2">3. <strong>Overall Metrics</strong>:</a></li>
+  <li><a href="#key-observations-2" id="toc-key-observations-2" class="nav-link" data-scroll-target="#key-observations-2">Key Observations:</a></li>
+  <li><a href="#adjusted-kappa-score" id="toc-adjusted-kappa-score" class="nav-link" data-scroll-target="#adjusted-kappa-score">1. <strong>Adjusted Kappa Score</strong>:</a></li>
+  <li><a href="#class-0-majority-class-3" id="toc-class-0-majority-class-3" class="nav-link" data-scroll-target="#class-0-majority-class-3">2. <strong>Class 0 (Majority Class)</strong>:</a></li>
+  <li><a href="#class-1-minority-class-3" id="toc-class-1-minority-class-3" class="nav-link" data-scroll-target="#class-1-minority-class-3">3. <strong>Class 1 (Minority Class)</strong>:</a></li>
+  <li><a href="#overall-metrics-3" id="toc-overall-metrics-3" class="nav-link" data-scroll-target="#overall-metrics-3">4. <strong>Overall Metrics</strong>:</a></li>
+  <li><a href="#key-observations-3" id="toc-key-observations-3" class="nav-link" data-scroll-target="#key-observations-3">Key Observations:</a></li>
+  <li><a href="#observations" id="toc-observations" class="nav-link" data-scroll-target="#observations">Observations:</a></li>
+  <li><a href="#results-breakdown" id="toc-results-breakdown" class="nav-link" data-scroll-target="#results-breakdown">Results Breakdown:</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation:</a></li>
+  <li><a href="#breakdown-of-the-graph" id="toc-breakdown-of-the-graph" class="nav-link" data-scroll-target="#breakdown-of-the-graph">Breakdown of the Graph:</a></li>
+  <li><a href="#observations-1" id="toc-observations-1" class="nav-link" data-scroll-target="#observations-1">Observations:</a></li>
+  <li><a href="#key-insights" id="toc-key-insights" class="nav-link" data-scroll-target="#key-insights">Key Insights:</a></li>
+  <li><a href="#purpose-of-this-code" id="toc-purpose-of-this-code" class="nav-link" data-scroll-target="#purpose-of-this-code">Purpose of This Code:</a></li>
+  <li><a href="#best-threshold-for-maximum-f1-score-0.90" id="toc-best-threshold-for-maximum-f1-score-0.90" class="nav-link" data-scroll-target="#best-threshold-for-maximum-f1-score-0.90">1. <strong>Best Threshold for Maximum F1-Score: 0.90</strong></a></li>
+  <li><a href="#precision-at-best-threshold-0.50" id="toc-precision-at-best-threshold-0.50" class="nav-link" data-scroll-target="#precision-at-best-threshold-0.50">2. <strong>Precision at Best Threshold: 0.50</strong></a></li>
+  <li><a href="#recall-at-best-threshold-0.67" id="toc-recall-at-best-threshold-0.67" class="nav-link" data-scroll-target="#recall-at-best-threshold-0.67">3. <strong>Recall at Best Threshold: 0.67</strong></a></li>
+  <li><a href="#kappa-score-at-best-threshold-0.55" id="toc-kappa-score-at-best-threshold-0.55" class="nav-link" data-scroll-target="#kappa-score-at-best-threshold-0.55">4. <strong>Kappa Score at Best Threshold: 0.55</strong></a></li>
+  <li><a href="#interpretation-1" id="toc-interpretation-1" class="nav-link" data-scroll-target="#interpretation-1">Interpretation:</a></li>
+  <li><a href="#interpretation-of-the-kappa-score" id="toc-interpretation-of-the-kappa-score" class="nav-link" data-scroll-target="#interpretation-of-the-kappa-score">Interpretation of the Kappa Score:</a></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways:</a></li>
+  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">Purpose:</a></li>
+  <li><a href="#class-0-majority-class-4" id="toc-class-0-majority-class-4" class="nav-link" data-scroll-target="#class-0-majority-class-4">1. <strong>Class 0 (Majority Class)</strong>:</a></li>
+  <li><a href="#class-1-minority-class-4" id="toc-class-1-minority-class-4" class="nav-link" data-scroll-target="#class-1-minority-class-4">2. <strong>Class 1 (Minority Class)</strong>:</a></li>
+  <li><a href="#overall-metrics-4" id="toc-overall-metrics-4" class="nav-link" data-scroll-target="#overall-metrics-4">3. <strong>Overall Metrics</strong>:</a></li>
+  <li><a href="#key-observations-4" id="toc-key-observations-4" class="nav-link" data-scroll-target="#key-observations-4">Key Observations:</a></li>
+  <li><a href="#breakdown" id="toc-breakdown" class="nav-link" data-scroll-target="#breakdown">Breakdown:</a></li>
+  <li><a href="#key-observations-5" id="toc-key-observations-5" class="nav-link" data-scroll-target="#key-observations-5">Key Observations:</a></li>
+  <li><a href="#what-this-means-1" id="toc-what-this-means-1" class="nav-link" data-scroll-target="#what-this-means-1">What This Means:</a></li>
+  <li><a href="#explanation-of-the-confusion-matrix" id="toc-explanation-of-the-confusion-matrix" class="nav-link" data-scroll-target="#explanation-of-the-confusion-matrix">Explanation of the Confusion Matrix:</a></li>
+  <li><a href="#metrics-derived-from-the-confusion-matrix" id="toc-metrics-derived-from-the-confusion-matrix" class="nav-link" data-scroll-target="#metrics-derived-from-the-confusion-matrix">Metrics derived from the confusion matrix:</a></li>
+  <li><a href="#key-takeaways-1" id="toc-key-takeaways-1" class="nav-link" data-scroll-target="#key-takeaways-1">Key Takeaways:</a></li>
+  <li><a href="#summary-of-whats-happening" id="toc-summary-of-whats-happening" class="nav-link" data-scroll-target="#summary-of-whats-happening">Summary of What’s Happening:</a></li>
+  <li><a href="#why-perform-these-steps" id="toc-why-perform-these-steps" class="nav-link" data-scroll-target="#why-perform-these-steps">Why Perform These Steps?</a></li>
+  <li><a href="#cross-validation-f1-scores" id="toc-cross-validation-f1-scores" class="nav-link" data-scroll-target="#cross-validation-f1-scores">Cross-Validation F1 Scores:</a></li>
+  <li><a href="#mean-f1-score" id="toc-mean-f1-score" class="nav-link" data-scroll-target="#mean-f1-score">Mean F1 Score:</a></li>
+  <li><a href="#standard-deviation-of-f1-scores" id="toc-standard-deviation-of-f1-scores" class="nav-link" data-scroll-target="#standard-deviation-of-f1-scores">Standard Deviation of F1 Scores:</a></li>
+  <li><a href="#interpretation-2" id="toc-interpretation-2" class="nav-link" data-scroll-target="#interpretation-2">Interpretation:</a></li>
+  <li><a href="#results-and-discussion" id="toc-results-and-discussion" class="nav-link" data-scroll-target="#results-and-discussion">Results and Discussion:</a></li>
+  <li><a href="#implications-and-future-directions" id="toc-implications-and-future-directions" class="nav-link" data-scroll-target="#implications-and-future-directions">Implications and Future Directions:</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion:</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -132,7 +195,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </div>
 
-<div class="quarto-title-meta-author column-page">
+<div class="quarto-title-meta-author column-page-left">
   <div class="quarto-title-meta-heading">Author</div>
   <div class="quarto-title-meta-heading">Affiliation</div>
   
@@ -146,7 +209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
   </div>
 
-<div class="quarto-title-meta column-page">
+<div class="quarto-title-meta column-page-left">
 
       
     <div>
@@ -181,7 +244,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Cross-Validation: We employed k-fold cross-validation to ensure robust performance estimates across different data subsets.</li>
 </ol>
 <p>This code snippet is focused on training a machine learning model to classify whether a task is “OffTask” (a binary outcome). Let’s break it down step by step:</p>
-<div id="a03e74d4" class="cell" data-execution_count="1">
+<div id="94c55e77" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import libraries</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-1-2" class="code-annotation-target"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split, cross_val_score, GridSearchCV</span>
@@ -209,7 +272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>SMOTE: Synthetic Minority Over-sampling Technique, used to handle class imbalance in the training data.</li>
 <li>classification_report: Used to generate a detailed report on model performance metrics.</li>
 </ul>
-<div id="7f151bda" class="cell" data-execution_count="2">
+<div id="399a4c37" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-2-2" class="code-annotation-target"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'data/ca1-dataset.csv'</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
@@ -224,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Loads the dataset from the CSV file.</li>
 </ul>
-<div id="0f752794" class="cell" data-execution_count="3">
+<div id="be4c55ca" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="annotated-cell-3"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare the data</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-3-2" class="code-annotation-target"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'OffTask'</span>] <span class="op">=</span> data[<span class="st">'OffTask'</span>].<span class="bu">map</span>({<span class="st">'N'</span>: <span class="dv">0</span>, <span class="st">'Y'</span>: <span class="dv">1</span>})  <span class="co"># Encode target variable</span></span>
 <span id="annotated-cell-3-3"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data.drop(columns<span class="op">=</span>[<span class="st">'Unique-id'</span>, <span class="st">'namea'</span>, <span class="st">'OffTask'</span>])  <span class="co"># Features</span></span>
@@ -245,7 +308,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>y is the target variable, which is the encoded OffTask column.</li>
 </ul></li>
 </ul>
-<div id="d7fcfce6" class="cell" data-execution_count="4">
+<div id="ca14f03f" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="annotated-cell-4"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into training and testing sets</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-4-2" class="code-annotation-target"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
@@ -260,7 +323,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>The dataset is split into training (80%) and testing sets (20%).</li>
 </ul>
-<div id="1e837e0c" class="cell" data-execution_count="5">
+<div id="6de287bf" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="annotated-cell-5"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-5-1"><a href="#annotated-cell-5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply SMOTE to the training data</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-5-2" class="code-annotation-target"><a href="#annotated-cell-5-2" aria-hidden="true" tabindex="-1"></a>smote <span class="op">=</span> SMOTE(random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="annotated-cell-5-3"><a href="#annotated-cell-5-3" aria-hidden="true" tabindex="-1"></a>X_train_resampled, y_train_resampled <span class="op">=</span> smote.fit_resample(X_train, y_train)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -279,7 +342,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>X_train_resampled and y_train_resampled contain the balanced training data.</li>
 </ul></li>
 </ul>
-<div id="f77d2959" class="cell" data-execution_count="6">
+<div id="cfb9d946" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="annotated-cell-6"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the ratio of classes</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="6" onclick="event.preventDefault();">6</a><span id="annotated-cell-6-2" class="code-annotation-target"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a>class_0_count <span class="op">=</span> <span class="bu">sum</span>(y_train_resampled <span class="op">==</span> <span class="dv">0</span>)</span>
 <span id="annotated-cell-6-3"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a>class_1_count <span class="op">=</span> <span class="bu">sum</span>(y_train_resampled <span class="op">==</span> <span class="dv">1</span>)</span>
@@ -296,7 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Counts the number of instances in each class after resampling, to calculate the class ratio (0 = not off-task, 1 = off-task).</li>
 </ul>
-<div id="5011b7f0" class="cell" data-execution_count="7">
+<div id="a7c2de34" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="annotated-cell-7"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the model</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="7" onclick="event.preventDefault();">7</a><span id="annotated-cell-7-2" class="code-annotation-target"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RandomForestClassifier(random_state<span class="op">=</span><span class="dv">42</span>, class_weight<span class="op">=</span><span class="st">'balanced'</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
@@ -311,7 +374,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>A RandomForest model is instantiated. The class_weight=‘balanced’ argument is used to adjust weights inversely proportional to class frequencies.</li>
 </ul>
-<div id="8561e551" class="cell" data-execution_count="8">
+<div id="1cb530ce" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="annotated-cell-8"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-8-1"><a href="#annotated-cell-8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the parameter grid</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="8" onclick="event.preventDefault();">8</a><span id="annotated-cell-8-2" class="code-annotation-target"><a href="#annotated-cell-8-2" aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> {</span>
 <span id="annotated-cell-8-3"><a href="#annotated-cell-8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'n_estimators'</span>: [<span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>],</span>
@@ -337,7 +400,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>min_samples_leaf: Minimum number of samples required in a leaf node.</li>
 </ul></li>
 </ul>
-<div id="1c28f017" class="cell" data-execution_count="9">
+<div id="8dc5dc16" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="annotated-cell-9"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-9-1"><a href="#annotated-cell-9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up GridSearchCV</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="9" onclick="event.preventDefault();">9</a><span id="annotated-cell-9-2" class="code-annotation-target"><a href="#annotated-cell-9-2" aria-hidden="true" tabindex="-1"></a>grid_search <span class="op">=</span> GridSearchCV(estimator<span class="op">=</span>model, param_grid<span class="op">=</span>param_grid,</span>
 <span id="annotated-cell-9-3"><a href="#annotated-cell-9-3" aria-hidden="true" tabindex="-1"></a>                           scoring<span class="op">=</span><span class="st">'f1'</span>, cv<span class="op">=</span><span class="dv">5</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>, verbose<span class="op">=</span><span class="dv">2</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -361,7 +424,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>verbose=2: Provides detailed output.</li>
 </ul></li>
 </ul>
-<div id="25f74959" class="cell" data-execution_count="10">
+<div id="8e77cbcd" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="annotated-cell-10"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-10-1"><a href="#annotated-cell-10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit GridSearchCV</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="10" onclick="event.preventDefault();">10</a><span id="annotated-cell-10-2" class="code-annotation-target"><a href="#annotated-cell-10-2" aria-hidden="true" tabindex="-1"></a>grid_search.fit(X_train_resampled, y_train_resampled)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
@@ -804,7 +867,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <ul>
 <li>Fits the GridSearchCV on the resampled training data to find the best hyperparameters.</li>
 </ul>
-<div id="7b299fe7" class="cell" data-execution_count="11">
+<div id="fc88a60c" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="annotated-cell-11"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-11-1"><a href="#annotated-cell-11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Best parameters</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="11" onclick="event.preventDefault();">11</a><span id="annotated-cell-11-2" class="code-annotation-target"><a href="#annotated-cell-11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Best parameters found: "</span>, grid_search.best_params_)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
@@ -828,7 +891,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </ul>
 <p>This setup likely balances the need for depth and leaf size with computational efficiency. If you want to further evaluate or adjust performance, you could test this configuration against other models or datasets.</p>
 <p>In this code snippet, the model is being trained on resampled data, then evaluated on the test set using metrics like Cohen’s Kappa score and a classification report. Let’s go through it step by step:</p>
-<div id="0bdf0c8d" class="cell" data-execution_count="12">
+<div id="cf46a520" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="annotated-cell-12"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-12-1"><a href="#annotated-cell-12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model on the resampled data</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-12-2" class="code-annotation-target"><a href="#annotated-cell-12-2" aria-hidden="true" tabindex="-1"></a>model.fit(X_train_resampled, y_train_resampled)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
@@ -1251,7 +1314,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li>This line trains the RandomForestClassifier (from the previous step) on the resampled training data (X_train_resampled and y_train_resampled).</li>
 <li>The model will learn the relationships between the features in X_train_resampled and the target y_train_resampled (which includes synthetic samples from SMOTE).</li>
 </ul>
-<div id="f5352ee6" class="cell" data-execution_count="13">
+<div id="b3efa65c" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="annotated-cell-13"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-13-1"><a href="#annotated-cell-13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the test set</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-13-2" class="code-annotation-target"><a href="#annotated-cell-13-2" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(X_test)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
@@ -1267,7 +1330,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li>After training, the model is used to predict the target labels for the test data (X_test), which was not resampled.</li>
 <li>The predicted labels (y_pred) are compared with the actual labels (y_test) to evaluate performance.</li>
 </ul>
-<div id="b0965553" class="cell" data-execution_count="14">
+<div id="be694750" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="annotated-cell-14"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-14-1"><a href="#annotated-cell-14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-14" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-14-2" class="code-annotation-target"><a href="#annotated-cell-14-2" aria-hidden="true" tabindex="-1"></a>kappa <span class="op">=</span> cohen_kappa_score(y_test, y_pred)</span>
 <span id="annotated-cell-14-3"><a href="#annotated-cell-14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Kappa Score (RandomForest):"</span>, kappa)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1296,7 +1359,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li><strong>0.40–0.59</strong> typically suggests <strong>moderate agreement</strong>. So, while your model is better than random, there is still room for improvement.</li>
 </ul></li>
 </ul>
-<div id="498b87a7" class="cell" data-execution_count="15">
+<div id="3d56776d" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="annotated-cell-15"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-15" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-15-1" class="code-annotation-target"><a href="#annotated-cell-15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, y_pred))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
@@ -1371,7 +1434,7 @@ weighted avg       0.96      0.95      0.95       153
 <li><strong>False Negatives for Class 1</strong>: The recall for class 1 (0.50) suggests that the model is missing half of the actual class 1 instances.</li>
 </ol>
 <p>In this code snippet, the model being used is XGBoost (eXtreme Gradient Boosting), and the process follows a similar structure to the RandomForestClassifier model, but with some key differences. Let’s break it down step by step:</p>
-<div id="9f731d5f" class="cell" data-execution_count="16">
+<div id="c184a51f" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="annotated-cell-16"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-16-1"><a href="#annotated-cell-16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the XGBoost model without the use_label_encoder parameter</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-16" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-16-2" class="code-annotation-target"><a href="#annotated-cell-16-2" aria-hidden="true" tabindex="-1"></a>xgb_model <span class="op">=</span> XGBClassifier(eval_metric<span class="op">=</span><span class="st">'logloss'</span>, scale_pos_weight<span class="op">=</span>ratio_of_classes)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
@@ -1388,7 +1451,7 @@ weighted avg       0.96      0.95      0.95       153
 <li>eval_metric=‘logloss’: The evaluation metric used is logarithmic loss (logloss), which is commonly used for binary classification problems. It penalizes incorrect predictions, especially those made with high confidence.</li>
 <li>scale_pos_weight=ratio_of_classes: This parameter helps to adjust the balance between the positive and negative classes in the dataset. ratio_of_classes is the ratio of the number of class 0 to class 1 instances (calculated earlier). Setting this helps XGBoost handle class imbalance by giving higher weight to the minority class.</li>
 </ul>
-<div id="162024e3" class="cell" data-execution_count="17">
+<div id="2dda1ab2" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="annotated-cell-17"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-17" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-17-1" class="code-annotation-target"><a href="#annotated-cell-17-1" aria-hidden="true" tabindex="-1"></a>xgb_model.fit(X_train_resampled, y_train_resampled)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
@@ -1829,7 +1892,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <ul>
 <li>The model is trained on the resampled data (X_train_resampled, y_train_resampled) that was balanced using SMOTE in the previous steps. XGBoost learns the relationships between the features and the target (OffTask) using the training set.</li>
 </ul>
-<div id="11022ae1" class="cell" data-execution_count="18">
+<div id="0d02ade1" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="annotated-cell-18"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-18-1"><a href="#annotated-cell-18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-18" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-18-2" class="code-annotation-target"><a href="#annotated-cell-18-2" aria-hidden="true" tabindex="-1"></a>y_pred_xgb <span class="op">=</span> xgb_model.predict(X_test)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
@@ -1844,7 +1907,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <ul>
 <li>After training, the XGBoost model makes predictions (y_pred_xgb) on the test set (X_test), which was not resampled.</li>
 </ul>
-<div id="4304b06a" class="cell" data-execution_count="19">
+<div id="4f34af78" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="annotated-cell-19"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-19-1"><a href="#annotated-cell-19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-19" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-19-2" class="code-annotation-target"><a href="#annotated-cell-19-2" aria-hidden="true" tabindex="-1"></a>kappa_xgb <span class="op">=</span> cohen_kappa_score(y_test, y_pred_xgb)</span>
 <span id="annotated-cell-19-3"><a href="#annotated-cell-19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Kappa Score (XGBoost):"</span>, kappa_xgb)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1874,7 +1937,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li><strong>Class Imbalance</strong>: Even though XGBoost uses the <code>scale_pos_weight</code> parameter to handle class imbalance, it’s still struggling to improve performance for the minority class (class 1).</li>
 <li><strong>Lower Performance</strong>: XGBoost may require further tuning or feature engineering to match or surpass the performance of the Random Forest model in this particular scenario.</li>
 </ol>
-<div id="03cf245b" class="cell" data-execution_count="20">
+<div id="0d597105" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="annotated-cell-20"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-20-1" class="code-annotation-target"><a href="#annotated-cell-20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, y_pred_xgb))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
@@ -1940,7 +2003,7 @@ weighted avg       0.95      0.92      0.93       153
 <li><strong>Imbalance in Class Performance</strong>: The model performs very well for the majority class but struggles significantly with the minority class.</li>
 </ol>
 <p>This code snippet is focused on training a Gradient Boosting model and evaluating its performance on the test set. Here’s what is happening in each step:</p>
-<div id="6fecb846" class="cell" data-execution_count="21">
+<div id="c426b9d5" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="annotated-cell-21"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-21-1"><a href="#annotated-cell-21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the Gradient Boosting model</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-21" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-21-2" class="code-annotation-target"><a href="#annotated-cell-21-2" aria-hidden="true" tabindex="-1"></a>gb_model <span class="op">=</span> GradientBoostingClassifier(</span>
 <span id="annotated-cell-21-3"><a href="#annotated-cell-21-3" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">0.2</span>,</span>
@@ -1966,7 +2029,7 @@ weighted avg       0.95      0.92      0.93       153
 <li>n_estimators=200: The number of trees (weak learners) in the ensemble. More trees can increase accuracy but also add computational cost.</li>
 <li>random_state=42: Ensures reproducibility by fixing the random number generation seed.</li>
 </ul>
-<div id="f4ddffd7" class="cell" data-execution_count="22">
+<div id="ecd69bcb" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="annotated-cell-22"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-22-1"><a href="#annotated-cell-22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model on the resampled training data</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-22-2" class="code-annotation-target"><a href="#annotated-cell-22-2" aria-hidden="true" tabindex="-1"></a>gb_model.fit(X_train_resampled, y_train_resampled)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
@@ -2391,7 +2454,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li>The Gradient Boosting model is trained on the resampled training data (X_train_resampled and y_train_resampled) to account for class imbalance.</li>
 <li>The model sequentially builds decision trees and combines them to minimize error across the ensemble.</li>
 </ul>
-<div id="8e62ae56" class="cell" data-execution_count="23">
+<div id="17109423" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="annotated-cell-23"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-23-1"><a href="#annotated-cell-23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the test set</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-23" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-23-2" class="code-annotation-target"><a href="#annotated-cell-23-2" aria-hidden="true" tabindex="-1"></a>y_pred_gb <span class="op">=</span> gb_model.predict(X_test)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
@@ -2406,7 +2469,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <ul>
 <li>After training, the model is used to make predictions on the unbalanced test set (X_test), producing the predicted labels (y_pred_gb).</li>
 </ul>
-<div id="11823ee7" class="cell" data-execution_count="24">
+<div id="4a4fb94c" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="annotated-cell-24"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-24-1"><a href="#annotated-cell-24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-24" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-24-2" class="code-annotation-target"><a href="#annotated-cell-24-2" aria-hidden="true" tabindex="-1"></a>kappa_gb <span class="op">=</span> cohen_kappa_score(y_test, y_pred_gb)</span>
 <span id="annotated-cell-24-3"><a href="#annotated-cell-24-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Kappa Score (Gradient Boosting):"</span>, kappa_gb)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2436,7 +2499,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li>This score indicates that the <strong>Gradient Boosting</strong> model is slightly better at handling the data’s class imbalance compared to Random Forest and XGBoost.</li>
 <li>While the improvement is modest, this might suggest that Gradient Boosting is capturing more informative patterns in the data compared to the other models.</li>
 </ul>
-<div id="5ded6c79" class="cell" data-execution_count="25">
+<div id="295baea6" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="annotated-cell-25"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-25" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-25-1" class="code-annotation-target"><a href="#annotated-cell-25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, y_pred_gb))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
@@ -2502,7 +2565,7 @@ weighted avg       0.96      0.93      0.94       153
 <li><strong>F1-Score for Class 1</strong>: The F1-score of 0.44 is an improvement over the previous models (Random Forest and XGBoost), showing that Gradient Boosting is doing a better job of handling the minority class, even if it still has room to improve.</li>
 </ol>
 <p>This code chunk demonstrates adjusting the decision threshold for the Gradient Boosting model’s predictions, and then evaluating the model’s performance based on this new threshold. Let’s break it down step by step:</p>
-<div id="a2abfd6b" class="cell" data-execution_count="26">
+<div id="d5e4d3a3" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="annotated-cell-26"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-26-1"><a href="#annotated-cell-26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get predicted probabilities</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-26" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-26-2" class="code-annotation-target"><a href="#annotated-cell-26-2" aria-hidden="true" tabindex="-1"></a>y_pred_proba_gb <span class="op">=</span> gb_model.predict_proba(X_test)[:, <span class="dv">1</span>]</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
@@ -2519,7 +2582,7 @@ weighted avg       0.96      0.93      0.94       153
 <li>[:, 1]: The output of predict_proba contains two columns: the first column corresponds to the probability that a sample belongs to class 0, and the second column corresponds to the probability that a sample belongs to class 1. By selecting [:, 1], you extract the probabilities for class 1 (the positive class).</li>
 </ul>
 <p>This step generates the probability estimates for each sample in the test set, which you’ll later use to make final predictions based on a custom threshold.</p>
-<div id="3ee9e7dd" class="cell" data-execution_count="27">
+<div id="3907de59" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="annotated-cell-27"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-27-1"><a href="#annotated-cell-27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a new threshold</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-27" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-27-2" class="code-annotation-target"><a href="#annotated-cell-27-2" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> <span class="fl">0.3</span></span>
 <span id="annotated-cell-27-3"><a href="#annotated-cell-27-3" aria-hidden="true" tabindex="-1"></a>y_pred_adjusted_gb <span class="op">=</span> (y_pred_proba_gb <span class="op">&gt;=</span> threshold).astype(<span class="bu">int</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2536,7 +2599,7 @@ weighted avg       0.96      0.93      0.94       153
 <li>threshold = 0.3: Instead of using the default decision threshold of 0.5 (which classifies a sample as class 1 if the predicted probability is ≥ 0.5), you set a new threshold of 0.3. This means that any sample with a predicted probability of 0.3 or higher will be classified as class 1.</li>
 <li>y_pred_adjusted_gb = (y_pred_proba_gb &gt;= threshold).astype(int): This line compares each predicted probability to the new threshold (0.3). If the probability is greater than or equal to 0.3, the sample is classified as class 1; otherwise, it’s classified as class 0. The result is stored in y_pred_adjusted_gb.</li>
 </ul>
-<div id="3ed42851" class="cell" data-execution_count="28">
+<div id="fedb6276" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="annotated-cell-28"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-28-1"><a href="#annotated-cell-28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model with the adjusted predictions</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-28" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-28-2" class="code-annotation-target"><a href="#annotated-cell-28-2" aria-hidden="true" tabindex="-1"></a>kappa_adjusted_gb <span class="op">=</span> cohen_kappa_score(y_test, y_pred_adjusted_gb)</span>
 <span id="annotated-cell-28-3"><a href="#annotated-cell-28-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Adjusted Kappa Score (Gradient Boosting):"</span>, kappa_adjusted_gb)</span>
@@ -2613,7 +2676,7 @@ weighted avg       0.96      0.92      0.94       153
 <li><strong>Overall Decrease in Kappa Score</strong>: The slight drop in the Kappa score reflects that the overall model performance has worsened slightly in terms of agreement between predictions and actual labels.</li>
 </ul>
 <p>This code snippet is designed to experiment with different decision thresholds for the Gradient Boosting model, then evaluate how precision, recall, and Cohen’s Kappa score change as the threshold varies. Here’s a breakdown of what’s happening:</p>
-<div id="0952dc53" class="cell" data-execution_count="29">
+<div id="031573a7" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="annotated-cell-29"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-29-1"><a href="#annotated-cell-29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Experiment with different thresholds</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-29-2" class="code-annotation-target"><a href="#annotated-cell-29-2" aria-hidden="true" tabindex="-1"></a>thresholds <span class="op">=</span> np.arange(<span class="fl">0.0</span>, <span class="fl">1.0</span>, <span class="fl">0.05</span>)</span>
 <span id="annotated-cell-29-3"><a href="#annotated-cell-29-3" aria-hidden="true" tabindex="-1"></a>precisions <span class="op">=</span> []</span>
@@ -2632,7 +2695,7 @@ weighted avg       0.96      0.92      0.94       153
 <li>thresholds: A range of thresholds is defined from 0.0 to 1.0 in increments of 0.05. These are the decision thresholds that will be used to convert predicted probabilities into binary class predictions (class 0 or class 1).</li>
 <li>precisions, recalls, and kappa_scores: Empty lists are initialized to store the precision, recall, and Kappa scores for each threshold.</li>
 </ul>
-<div id="611601e0" class="cell" data-execution_count="30">
+<div id="a9637bda" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="annotated-cell-30"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-30-1" class="code-annotation-target"><a href="#annotated-cell-30-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> threshold <span class="kw">in</span> thresholds:</span>
 <span id="annotated-cell-30-2"><a href="#annotated-cell-30-2" aria-hidden="true" tabindex="-1"></a>    y_pred_adjusted <span class="op">=</span> (y_pred_proba_gb <span class="op">&gt;=</span> threshold).astype(<span class="bu">int</span>)</span>
 <span id="annotated-cell-30-3"><a href="#annotated-cell-30-3" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -2660,7 +2723,7 @@ weighted avg       0.96      0.92      0.94       153
 <li>Kappa Score: Cohen’s Kappa score is computed for each threshold to evaluate the agreement between predicted and actual labels while adjusting for chance.</li>
 <li>Append Results: After calculating precision, recall, and Kappa score for the current threshold, these values are appended to their respective lists (precisions, recalls, kappa_scores).</li>
 </ul>
-<div id="3248bb1d" class="cell" data-execution_count="31">
+<div id="883d89ac" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="annotated-cell-31"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-31" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-31-1" class="code-annotation-target"><a href="#annotated-cell-31-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
 <span id="annotated-cell-31-2"><a href="#annotated-cell-31-2" aria-hidden="true" tabindex="-1"></a>plt.plot(thresholds, precisions, label<span class="op">=</span><span class="st">'Precision'</span>, marker<span class="op">=</span><span class="st">'o'</span>)</span>
 <span id="annotated-cell-31-3"><a href="#annotated-cell-31-3" aria-hidden="true" tabindex="-1"></a>plt.plot(thresholds, recalls, label<span class="op">=</span><span class="st">'Recall'</span>, marker<span class="op">=</span><span class="st">'o'</span>)</span>
@@ -2722,7 +2785,7 @@ weighted avg       0.96      0.92      0.94       153
 <li><strong>Kappa Score</strong> trends upward and peaks around a threshold of 0.9, indicating this might be a good balance between the precision and recall.</li>
 </ul>
 <p>In conclusion, this graph helps to analyze the trade-offs between Precision, Recall, and Kappa Score at different decision thresholds. Based on the graph, a threshold around 0.9 seems to offer a good balance between precision, recall, and the overall performance as measured by the Kappa score. However, this depends on your specific requirements, such as whether you prioritize minimizing false positives (favoring higher precision) or capturing all true positives (favoring higher recall).</p>
-<div id="bcc8b9b9" class="cell" data-execution_count="32">
+<div id="5442c8d2" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="annotated-cell-32"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><a class="code-annotation-anchor" data-target-cell="annotated-cell-32" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-32-1" class="code-annotation-target"><a href="#annotated-cell-32-1" aria-hidden="true" tabindex="-1"></a>best_threshold_index <span class="op">=</span> np.argmax(recalls)</span>
 <span id="annotated-cell-32-2"><a href="#annotated-cell-32-2" aria-hidden="true" tabindex="-1"></a>best_threshold <span class="op">=</span> thresholds[best_threshold_index]</span>
 <span id="annotated-cell-32-3"><a href="#annotated-cell-32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best Threshold for Maximum Recall: </span><span class="sc">{</span>best_threshold<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
@@ -2776,7 +2839,7 @@ Kappa Score at Best Threshold: 0.00</code></pre>
 </ul></li>
 </ul>
 <p>This code snippet is focused on <strong>evaluating and selecting the best decision threshold</strong> for the model based on the <strong>F1-score</strong>, which balances precision and recall. Let’s break down what’s happening:</p>
-<div id="4a101de5" class="cell" data-execution_count="33">
+<div id="b0a3cf31" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="annotated-cell-33"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-33-1"><a href="#annotated-cell-33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize lists to store precision, recall, and F1-score values</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-33" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-33-2" class="code-annotation-target"><a href="#annotated-cell-33-2" aria-hidden="true" tabindex="-1"></a>f1_scores <span class="op">=</span> []</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
@@ -2791,7 +2854,7 @@ Kappa Score at Best Threshold: 0.00</code></pre>
 <ul>
 <li>A list called <code>f1_scores</code> is initialized to store the <strong>F1-score</strong> values calculated for each threshold. F1-score is a key metric for balancing precision and recall, especially for imbalanced datasets.</li>
 </ul>
-<div id="909a5609" class="cell" data-execution_count="34">
+<div id="45225385" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="annotated-cell-34"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-34-1"><a href="#annotated-cell-34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate precision, recall, and F1-score for each threshold</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-34" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-34-2" class="code-annotation-target"><a href="#annotated-cell-34-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> threshold <span class="kw">in</span> thresholds:</span>
 <span id="annotated-cell-34-3"><a href="#annotated-cell-34-3" aria-hidden="true" tabindex="-1"></a>    y_pred_adjusted <span class="op">=</span> (y_pred_proba_gb <span class="op">&gt;=</span> threshold).astype(<span class="bu">int</span>)</span>
@@ -2832,7 +2895,7 @@ Kappa Score at Best Threshold: 0.00</code></pre>
 </ul></li>
 <li>The calculated F1-score for each threshold is appended to the <code>f1_scores</code> list.</li>
 </ul>
-<div id="04e9d7c6" class="cell" data-execution_count="35">
+<div id="ba9a597f" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Precision, Recall, and F1-Score curve</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.plot(thresholds, precisions, label<span class="op">=</span><span class="st">'Precision'</span>, marker<span class="op">=</span><span class="st">'o'</span>)</span>
@@ -2901,7 +2964,7 @@ Kappa Score at Best Threshold: 0.00</code></pre>
 <li>At <strong>higher thresholds</strong>, Precision improves but Recall falls, suggesting the model is more cautious, predicting fewer positives but with greater accuracy.</li>
 </ul>
 <p>This graph helps in selecting a threshold that balances both Precision and Recall, with the <strong>F1 Score</strong> offering a useful summary metric when both are important to optimize.</p>
-<div id="4ccd96ea" class="cell" data-execution_count="36">
+<div id="e6dbcfe9" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="annotated-cell-36"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-36-1"><a href="#annotated-cell-36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the best threshold based on maximum F1-score</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-36" data-target-annotation="5" onclick="event.preventDefault();">5</a><span id="annotated-cell-36-2" class="code-annotation-target"><a href="#annotated-cell-36-2" aria-hidden="true" tabindex="-1"></a>best_threshold_index <span class="op">=</span> np.argmax(f1_scores)</span>
 <span id="annotated-cell-36-3"><a href="#annotated-cell-36-3" aria-hidden="true" tabindex="-1"></a>best_threshold <span class="op">=</span> thresholds[best_threshold_index]</span>
@@ -2973,7 +3036,7 @@ Kappa Score at Best Threshold: 0.55</code></pre>
 <li><strong>Improved Kappa</strong>: The Kappa score of <strong>0.55</strong> is higher than in earlier scenarios, indicating that this threshold provides better agreement between predicted and actual values compared to other thresholds.</li>
 </ul>
 <p>This code snippet applies the <strong>best threshold</strong> (0.90) that was found in the previous analysis and evaluates the performance of the <strong>Gradient Boosting model</strong> using that threshold. Here’s a step-by-step breakdown:</p>
-<div id="00f65e78" class="cell" data-execution_count="37">
+<div id="c4b3d437" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="annotated-cell-37"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-37-1"><a href="#annotated-cell-37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions using the new threshold</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-37" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-37-2" class="code-annotation-target"><a href="#annotated-cell-37-2" aria-hidden="true" tabindex="-1"></a>y_pred_final <span class="op">=</span> (gb_model.predict_proba(X_test)[:, <span class="dv">1</span>] <span class="op">&gt;=</span> <span class="fl">0.90</span>).astype(<span class="bu">int</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
@@ -2990,7 +3053,7 @@ Kappa Score at Best Threshold: 0.55</code></pre>
 <li><strong><code>&gt;= 0.90</code></strong>: This applies the new threshold of <strong>0.90</strong>. If the predicted probability for class 1 is greater than or equal to 0.90, the sample is classified as class 1. Otherwise, it is classified as class 0.</li>
 <li><strong><code>.astype(int)</code></strong>: Converts the boolean result (True/False) into integers (1 for class 1, 0 for class 0). The result is stored in <code>y_pred_final</code>, which contains the final class predictions based on the 0.90 threshold.</li>
 </ul>
-<div id="0cfa6088" class="cell" data-execution_count="38">
+<div id="512a4dbc" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="annotated-cell-38"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-38-1"><a href="#annotated-cell-38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model with the new predictions</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-38" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-38-2" class="code-annotation-target"><a href="#annotated-cell-38-2" aria-hidden="true" tabindex="-1"></a>kappa_final <span class="op">=</span> cohen_kappa_score(y_test, y_pred_final)</span>
 <span id="annotated-cell-38-3"><a href="#annotated-cell-38-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Final Kappa Score with Threshold 0.90:"</span>, kappa_final)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3025,7 +3088,7 @@ Kappa Score at Best Threshold: 0.55</code></pre>
 <li><strong>Higher Kappa</strong>: The Kappa score is higher than what was observed at other thresholds like <strong>0.50</strong> or <strong>0.00</strong>, suggesting that this threshold strikes a good balance between precision and recall for this particular dataset.</li>
 <li><strong>Moderate Performance</strong>: A Kappa score in this range means the model is making reasonably good predictions but may still have some misclassifications, particularly between classes 0 and 1.</li>
 </ul>
-<div id="cd3b3465" class="cell" data-execution_count="39">
+<div id="f91e8e71" class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="annotated-cell-39"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-39-1"><a href="#annotated-cell-39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the classification report</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-39" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-39-2" class="code-annotation-target"><a href="#annotated-cell-39-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, y_pred_final))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
@@ -3106,7 +3169,7 @@ weighted avg       0.97      0.96      0.96       153
 <li><strong>F1-Score for Class 1</strong>: The F1-score of <strong>0.57</strong> indicates a moderate balance between precision and recall for the minority class. This is an improvement over previous thresholds but could still be further optimized depending on your goals.</li>
 </ol>
 <p>This code snippet performs three distinct tasks: calculating and visualizing the <strong>confusion matrix</strong>, performing <strong>k-fold cross-validation</strong>, and reporting <strong>cross-validation scores</strong>. Here’s a step-by-step breakdown of what’s happening:</p>
-<div id="dfb5101e" class="cell" data-execution_count="40">
+<div id="91571306" class="cell" data-execution_count="40">
 <div class="sourceCode cell-code" id="annotated-cell-40"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-40-1"><a href="#annotated-cell-40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate and print confusion matrix</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-40" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-40-2" class="code-annotation-target"><a href="#annotated-cell-40-2" aria-hidden="true" tabindex="-1"></a>conf_matrix <span class="op">=</span> confusion_matrix(y_test, y_pred_final)</span>
 <span id="annotated-cell-40-3"><a href="#annotated-cell-40-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Confusion Matrix:</span><span class="ch">\n</span><span class="st">"</span>, conf_matrix)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3178,7 +3241,7 @@ The result is printed, showing the matrix of counts for these categories.</li>
 <li>The model is doing well with <strong>class 0</strong> (“Not OffTask”), as expected given the class imbalance.</li>
 <li>It is identifying the majority of <strong>class 1</strong> (“OffTask”) cases but still missing some, which is a typical challenge in imbalanced datasets.</li>
 </ul>
-<div id="6a37c8a4" class="cell" data-execution_count="41">
+<div id="1b81e3a9" class="cell" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the confusion matrix</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>sns.heatmap(conf_matrix, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">'d'</span>, cmap<span class="op">=</span><span class="st">'Blues'</span>, </span>
@@ -3262,7 +3325,7 @@ The result is printed, showing the matrix of counts for these categories.</li>
 <li>The overall <strong>accuracy</strong> is high, but the relatively low <strong>precision</strong> for the “OffTask” class shows that the model is making some incorrect predictions when it predicts “OffTask.”</li>
 </ul>
 <p>This confusion matrix helps understand where the model is strong (predicting “Not OffTask”) and where it needs improvement (predicting “OffTask”).</p>
-<div id="9549b151" class="cell" data-execution_count="42">
+<div id="17092103" class="cell" data-execution_count="42">
 <div class="sourceCode cell-code" id="annotated-cell-43"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-43-1"><a href="#annotated-cell-43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform k-fold cross-validation</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-43" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-43-2" class="code-annotation-target"><a href="#annotated-cell-43-2" aria-hidden="true" tabindex="-1"></a>cv_scores <span class="op">=</span> cross_val_score(gb_model, X, y, cv<span class="op">=</span><span class="dv">5</span>, scoring<span class="op">=</span><span class="st">'f1'</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
@@ -3281,7 +3344,7 @@ The result is printed, showing the matrix of counts for these categories.</li>
 </ul>
 Cross-validation helps evaluate how well the model generalizes to different subsets of the data, providing a more robust performance estimate.</li>
 </ul>
-<div id="731a36e5" class="cell" data-execution_count="43">
+<div id="70584ec1" class="cell" data-execution_count="43">
 <div class="sourceCode cell-code" id="annotated-cell-44"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-44-1"><a href="#annotated-cell-44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the cross-validation scores</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-44" data-target-annotation="4" onclick="event.preventDefault();">4</a><span id="annotated-cell-44-2" class="code-annotation-target"><a href="#annotated-cell-44-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Cross-Validation F1 Scores:"</span>, cv_scores)</span>
 <span id="annotated-cell-44-3"><a href="#annotated-cell-44-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mean F1 Score:"</span>, np.mean(cv_scores))</span>
