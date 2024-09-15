@@ -20,6 +20,7 @@ format:
   html:
     theme:
       light: [cosmo, theme.scss]
+    toc: true
     page-layout: full
     code-copy: true
     code-overflow: wrap
