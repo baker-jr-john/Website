@@ -18,11 +18,11 @@ website:
 
 format:
   html:
+    page-layout: full
+    sidebar: false
     theme:
       light: [cosmo, theme.scss]
-    toc: true
-    page-layout: full
     code-copy: true
     code-overflow: wrap
-    sidebar: false
+    toc: true
     link-external-newwindow: true
