@@ -18,7 +18,7 @@ jupyter: python3
 ### Introduction:
 In the field of educational data mining, detecting off-task behavior is crucial for understanding student engagement and improving learning outcomes. This paper presents an in-depth analysis of machine learning models designed to classify off-task behavior in educational settings. We explore the challenges of working with imbalanced datasets and evaluate the performance of various classifiers, including Random Forest, XGBoost, and Gradient Boosting. Through a series of experiments and analyses, we aim to optimize model performance and provide insights into the complexities of behavior detection in educational contexts.
 
-###Methodology:
+### Methodology:
 Our study employed a multi-step approach to develop and evaluate machine learning models:
 
 1. Data Preparation: We utilized a dataset containing features related to student behavior, with a binary target variable indicating off-task status (OffTask: Y/N).
