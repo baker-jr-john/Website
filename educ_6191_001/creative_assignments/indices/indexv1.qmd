@@ -31,7 +31,7 @@ Our study employed a multi-step approach to develop and evaluate machine learnin
 This code snippet is focused on training a machine learning model to classify whether a task is “OffTask” (a binary outcome). Let’s break it down step by step:
 ```{python}
 # Import libraries
-import pandas as pd                                                                                                            # <1>
+import pandas as pd
 from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.metrics import classification_report, cohen_kappa_score, precision_recall_curve, classification_report, confusion_matrix
@@ -50,13 +50,13 @@ import seaborn as sns
 - classification_report: Used to generate a detailed report on model performance metrics.
 ```{python}
 # Load the dataset
-data = pd.read_csv('data/ca1-dataset.csv')                                                                                     # <2>
+data = pd.read_csv('data/ca1-dataset.csv')                                                                                 # <2>
 ```
 2. Loading the Dataset
 - Loads the dataset from the CSV file.
 ```{python}
 # Prepare the data
-data['OffTask'] = data['OffTask'].map({'N': 0, 'Y': 1})  # Encode target variable                                              # <3>
+data['OffTask'] = data['OffTask'].map({'N': 0, 'Y': 1})  # Encode target variable
 X = data.drop(columns=['Unique-id', 'namea', 'OffTask'])  # Features
 y = data['OffTask']  # Target variable
 ```
@@ -66,13 +66,13 @@ y = data['OffTask']  # Target variable
   * y is the target variable, which is the encoded OffTask column.
 ```{python}
 # Split the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)                                      # <4>
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 ```
 4. Splitting Data
 - The dataset is split into training (80%) and testing sets (20%).
 ```{python}
 # Apply SMOTE to the training data
-smote = SMOTE(random_state=42)                                                                                                 # <5>
+smote = SMOTE(random_state=42)
 X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
 ```
 5. Handling Imbalanced Data with SMOTE
@@ -80,7 +80,7 @@ X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
   * X_train_resampled and y_train_resampled contain the balanced training data.
 ```{python}
 # Calculate the ratio of classes
-class_0_count = sum(y_train_resampled == 0)                                                                                    # <6>
+class_0_count = sum(y_train_resampled == 0)
 class_1_count = sum(y_train_resampled == 1)
 ratio_of_classes = class_0_count / class_1_count
 ```
@@ -88,13 +88,13 @@ ratio_of_classes = class_0_count / class_1_count
 - Counts the number of instances in each class after resampling, to calculate the class ratio (0 = not off-task, 1 = off-task).
 ```{python}
 # Define the model
-rf_model = RandomForestClassifier(random_state=42, class_weight='balanced')                                                    # <7>
+model = RandomForestClassifier(random_state=42, class_weight='balanced')
 ```
 7. Defining the Model
 - A RandomForest model is instantiated. The class_weight='balanced' argument is used to adjust weights inversely proportional to class frequencies.
 ```{python}
 # Define the parameter grid
-param_grid_rf = {                                                                                                              # <8>
+param_grid = {
     'n_estimators': [50, 100, 200],
     'max_depth': [None, 10, 20, 30],
     'min_samples_split': [2, 5, 10],
@@ -109,7 +109,7 @@ param_grid_rf = {                                                               
   - min_samples_leaf: Minimum number of samples required in a leaf node.
 ```{python}
 # Set up GridSearchCV
-grid_search_rf = GridSearchCV(estimator=rf_model, param_grid_rf=param_grid,                                                    # <9>
+grid_search = GridSearchCV(estimator=model, param_grid=param_grid,
                            scoring='f1', cv=5, n_jobs=-1, verbose=2)
 ```
 9. GridSearchCV for Hyperparameter Tuning
@@ -122,7 +122,7 @@ grid_search_rf = GridSearchCV(estimator=rf_model, param_grid_rf=param_grid,     
   - verbose=2: Provides detailed output.
 ```{python}
 # Fit GridSearchCV
-grid_search_rf.fit(X_train_resampled, y_train_resampled)                                                                      # <10>
+grid_search.fit(X_train_resampled, y_train_resampled)
 ```
 10. Fitting the Model
 - Fits the GridSearchCV on the resampled training data to find the best hyperparameters.
