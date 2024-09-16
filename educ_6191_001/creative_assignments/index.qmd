@@ -1,7 +1,7 @@
 ---
 title: "Creative Assignments"
 listing:
-  contents: /*.qmd
+  contents: assignment_1
   sort: "date desc"
   type: default
   categories: false
