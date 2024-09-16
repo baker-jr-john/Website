@@ -50,7 +50,7 @@ import seaborn as sns
 - classification_report: Used to generate a detailed report on model performance metrics.
 ```{python}
 # Load the dataset
-data = pd.read_csv('data/ca1-dataset.csv')                                                                                 # <2>
+data = pd.read_csv('data/ca1-dataset.csv')                                                                                    # <2>
 ```
 2. Loading the Dataset
 - Loads the dataset from the CSV file.
