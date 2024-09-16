@@ -208,11 +208,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>In the field of educational data mining, detecting off-task behavior is crucial for understanding student engagement and improving learning outcomes. Off-task behavior refers to any student actions that are not related to the learning objectives, which can hinder the educational process. Traditional methods of identifying off-task behavior are often subjective and resource-intensive. Therefore, developing automated, accurate detection methods using machine learning can significantly benefit educators and learners.</p>
-<p>This assignment presents an in-depth analysis of machine learning models designed to classify off-task behavior in educational settings. I explore the challenges of working with imbalanced datasets and evaluate the performance of various classifiers, including Random Forest, XGBoost, and Gradient Boosting. Through experiments and analyses, I aim to optimize model performance and provide insights into the complexities of behavior detection in educational contexts.</p>
+<p>This study presents an in-depth analysis of machine learning models designed to classify off-task behavior in educational settings. I explore the challenges of working with imbalanced datasets and evaluate the performance of various classifiers, including Random Forest, XGBoost, and Gradient Boosting. Through experiments and analyses, I aim to optimize model performance and provide insights into the complexities of behavior detection in educational contexts.</p>
 </section>
 <section id="methodology" class="level2">
 <h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
-<p>Our study employed a multi-step approach to develop and evaluate machine learning models:</p>
+<p>My study employed a multi-step approach to develop and evaluate machine learning models:</p>
 <ol type="1">
 <li><strong>Data Preparation</strong>: I utilized a dataset containing features related to student behavior, with a binary target variable indicating off-task status (<code>OffTask</code>: Y/N).</li>
 <li><strong>Model Selection</strong>: I implemented three classifiers: Random Forest, XGBoost, and Gradient Boosting.</li>
@@ -225,7 +225,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="data-preparation" class="level3">
 <h3 class="anchored" data-anchor-id="data-preparation">Data Preparation</h3>
 <p>I began by importing necessary libraries and loading the dataset:</p>
-<div id="7658c131" class="cell" data-execution_count="1">
+<div id="4a3e2a42" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split, cross_val_score, GridSearchCV</span>
@@ -241,7 +241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'data/ca1-dataset.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>I then prepared the data by encoding the target variable and selecting relevant features:</p>
-<div id="0aeefdd1" class="cell" data-execution_count="2">
+<div id="2d9ab17e" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare the data</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'OffTask'</span>] <span class="op">=</span> data[<span class="st">'OffTask'</span>].<span class="bu">map</span>({<span class="st">'N'</span>: <span class="dv">0</span>, <span class="st">'Y'</span>: <span class="dv">1</span>})  <span class="co"># Encode target variable</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data.drop(columns<span class="op">=</span>[<span class="st">'Unique-id'</span>, <span class="st">'namea'</span>, <span class="st">'OffTask'</span>])  <span class="co"># Features</span></span>
@@ -251,7 +251,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="handling-class-imbalance-with-smote" class="level3">
 <h3 class="anchored" data-anchor-id="handling-class-imbalance-with-smote">Handling Class Imbalance with SMOTE</h3>
 <p>The dataset exhibited class imbalance, with significantly more instances of “Not OffTask” than “OffTask.” I applied SMOTE to the training data to address this issue:</p>
-<div id="b9c16373" class="cell" data-execution_count="3">
+<div id="69602305" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into training and testing sets</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -270,7 +270,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="random-forest-classifier" class="level4">
 <h4 class="anchored" data-anchor-id="random-forest-classifier">Random Forest Classifier</h4>
 <p>I defined the Random Forest model and set up a parameter grid for hyperparameter tuning:</p>
-<div id="af9a85a5" class="cell" data-execution_count="4">
+<div id="6b5c7971" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the model</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>model_rf <span class="op">=</span> RandomForestClassifier(random_state<span class="op">=</span><span class="dv">42</span>, class_weight<span class="op">=</span><span class="st">'balanced'</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -300,7 +300,7 @@ Best parameters found for Random Forest:  {'max_depth': 20, 'min_samples_leaf': 
 <section id="xgboost-classifier" class="level4">
 <h4 class="anchored" data-anchor-id="xgboost-classifier">XGBoost Classifier</h4>
 <p>I initialized the XGBoost model, adjusting for class imbalance using <code>scale_pos_weight</code>:</p>
-<div id="709374c8" class="cell" data-execution_count="5">
+<div id="b2802aaf" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the XGBoost model</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>xgb_model <span class="op">=</span> XGBClassifier(eval_metric<span class="op">=</span><span class="st">'logloss'</span>, scale_pos_weight<span class="op">=</span>ratio_of_classes)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -738,7 +738,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <section id="gradient-boosting-classifier" class="level4">
 <h4 class="anchored" data-anchor-id="gradient-boosting-classifier">Gradient Boosting Classifier</h4>
 <p>I defined the Gradient Boosting model with specific hyperparameters:</p>
-<div id="725d8e3f" class="cell" data-execution_count="6">
+<div id="bb90527b" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the Gradient Boosting model</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>gb_model <span class="op">=</span> GradientBoostingClassifier(</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">0.2</span>,</span>
@@ -1167,7 +1167,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <p>I evaluated each model using the test set and calculated the Cohen’s Kappa score and classification report.</p>
 <section id="random-forest-evaluation" class="level4">
 <h4 class="anchored" data-anchor-id="random-forest-evaluation">Random Forest Evaluation</h4>
-<div id="783ff791" class="cell" data-execution_count="7">
+<div id="2c217fff" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the test set</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>y_pred_rf <span class="op">=</span> grid_search_rf.predict(X_test)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1191,7 +1191,7 @@ weighted avg       0.96      0.95      0.95       153
 </section>
 <section id="xgboost-evaluation" class="level4">
 <h4 class="anchored" data-anchor-id="xgboost-evaluation">XGBoost Evaluation</h4>
-<div id="4eff0e71" class="cell" data-execution_count="8">
+<div id="8d6f7cbe" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>y_pred_xgb <span class="op">=</span> xgb_model.predict(X_test)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1215,7 +1215,7 @@ weighted avg       0.95      0.92      0.93       153
 </section>
 <section id="gradient-boosting-evaluation" class="level4">
 <h4 class="anchored" data-anchor-id="gradient-boosting-evaluation">Gradient Boosting Evaluation</h4>
-<div id="b6de2b1d" class="cell" data-execution_count="9">
+<div id="3c3116a8" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the test set</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>y_pred_gb <span class="op">=</span> gb_model.predict(X_test)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1241,7 +1241,7 @@ weighted avg       0.96      0.93      0.94       153
 <section id="threshold-optimization" class="level3">
 <h3 class="anchored" data-anchor-id="threshold-optimization">Threshold Optimization</h3>
 <p>To improve the detection of off-task behavior, I experimented with adjusting the decision threshold:</p>
-<div id="ed4335df" class="cell" data-execution_count="10">
+<div id="0fd387a3" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get predicted probabilities</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>y_pred_proba_gb <span class="op">=</span> gb_model.predict_proba(X_test)[:, <span class="dv">1</span>]</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1281,7 +1281,7 @@ weighted avg       0.96      0.93      0.94       153
 </div>
 </div>
 <p>I determined that a threshold of 0.90 maximized the F1-score for the off-task class.</p>
-<div id="eabaf3ab" class="cell" data-execution_count="11">
+<div id="cbd272bf" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the optimal threshold</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>best_threshold <span class="op">=</span> <span class="fl">0.90</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>y_pred_final <span class="op">=</span> (gb_model.predict_proba(X_test)[:, <span class="dv">1</span>] <span class="op">&gt;=</span> best_threshold).astype(<span class="bu">int</span>)</span>
@@ -1307,7 +1307,7 @@ weighted avg       0.97      0.96      0.96       153
 <section id="confusion-matrix-and-cross-validation" class="level3">
 <h3 class="anchored" data-anchor-id="confusion-matrix-and-cross-validation">Confusion Matrix and Cross-Validation</h3>
 <p>I computed the confusion matrix and performed k-fold cross-validation to assess model stability:</p>
-<div id="fbea68bc" class="cell" data-execution_count="12">
+<div id="f6b7eb69" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate and print confusion matrix</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>conf_matrix <span class="op">=</span> confusion_matrix(y_test, y_pred_final)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Confusion Matrix:</span><span class="ch">\n</span><span class="st">"</span>, conf_matrix)</span>

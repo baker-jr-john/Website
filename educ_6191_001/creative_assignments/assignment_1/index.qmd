@@ -22,11 +22,11 @@ Detecting off-task behavior in educational settings is essential for enhancing s
 
 In the field of educational data mining, detecting off-task behavior is crucial for understanding student engagement and improving learning outcomes. Off-task behavior refers to any student actions that are not related to the learning objectives, which can hinder the educational process. Traditional methods of identifying off-task behavior are often subjective and resource-intensive. Therefore, developing automated, accurate detection methods using machine learning can significantly benefit educators and learners.
 
-This assignment presents an in-depth analysis of machine learning models designed to classify off-task behavior in educational settings. I explore the challenges of working with imbalanced datasets and evaluate the performance of various classifiers, including Random Forest, XGBoost, and Gradient Boosting. Through experiments and analyses, I aim to optimize model performance and provide insights into the complexities of behavior detection in educational contexts.
+This study presents an in-depth analysis of machine learning models designed to classify off-task behavior in educational settings. I explore the challenges of working with imbalanced datasets and evaluate the performance of various classifiers, including Random Forest, XGBoost, and Gradient Boosting. Through experiments and analyses, I aim to optimize model performance and provide insights into the complexities of behavior detection in educational contexts.
 
 ## Methodology
 
-Our study employed a multi-step approach to develop and evaluate machine learning models:
+My study employed a multi-step approach to develop and evaluate machine learning models:
 
 1. **Data Preparation**: I utilized a dataset containing features related to student behavior, with a binary target variable indicating off-task status (`OffTask`: Y/N).
 2. **Model Selection**: I implemented three classifiers: Random Forest, XGBoost, and Gradient Boosting.
