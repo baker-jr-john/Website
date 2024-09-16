@@ -6,7 +6,7 @@ author:
     affiliations:
       - name: "Penn GSE: University of Pennsylvania Graduate School of Education"
 date: 09-18-2024
-# date-modified: 09-18-2024
+# date-modified: 
 format:
   html:
     code-link: false
@@ -358,20 +358,6 @@ This study highlights the complexities involved in detecting off-task behavior u
 - **Real-world Implementation**: Test models in live educational settings for practical validation.
 - **Ethical Considerations**: Ensure models are used responsibly, respecting privacy and fairness.
 
-## References
-
-*(Note: Include relevant academic references to support your methodologies and discussions.)*
-
-## Appendices
-
-### Code Repository
-
-All {python} code used for data preprocessing, model training, and evaluation is provided in the accompanying files.
-
-### Preprocessed Dataset
-
-The preprocessed dataset is included for reproducibility.
-
 # Submission Guidelines
 
-All required explanations and files are included in this document and the accompanying attachments. The code and data are organized to facilitate replication and further analysis. Please let me know if additional information is needed.
+All required explanations are included in this document. The code and data are organized to facilitate replication and further analysis. Please let me know if additional information is needed.
