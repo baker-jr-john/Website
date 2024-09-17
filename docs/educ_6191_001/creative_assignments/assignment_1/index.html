@@ -57,7 +57,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -121,8 +141,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract">Abstract</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#literature-review" id="toc-literature-review" class="nav-link" data-scroll-target="#literature-review">Literature Review</a>
+  <ul class="collapse">
+  <li><a href="#background-on-off-task-behavior-detection" id="toc-background-on-off-task-behavior-detection" class="nav-link" data-scroll-target="#background-on-off-task-behavior-detection">Background on Off-Task Behavior Detection</a></li>
+  </ul></li>
   <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a>
   <ul class="collapse">
   <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data Preparation</a></li>
@@ -147,6 +170,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#model-selection-insights" id="toc-model-selection-insights" class="nav-link" data-scroll-target="#model-selection-insights">Model Selection Insights</a></li>
   <li><a href="#cross-validation-variability" id="toc-cross-validation-variability" class="nav-link" data-scroll-target="#cross-validation-variability">Cross-Validation Variability</a></li>
   </ul></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a>
+  <ul class="collapse">
+  <li><a href="#dataset-constraints" id="toc-dataset-constraints" class="nav-link" data-scroll-target="#dataset-constraints">Dataset Constraints</a></li>
+  <li><a href="#feature-selection" id="toc-feature-selection" class="nav-link" data-scroll-target="#feature-selection">Feature Selection</a></li>
+  <li><a href="#model-limitations" id="toc-model-limitations" class="nav-link" data-scroll-target="#model-limitations">Model Limitations</a></li>
+  <li><a href="#class-imbalance-handling" id="toc-class-imbalance-handling" class="nav-link" data-scroll-target="#class-imbalance-handling">Class Imbalance Handling</a></li>
+  <li><a href="#performance-metrics" id="toc-performance-metrics" class="nav-link" data-scroll-target="#performance-metrics">Performance Metrics</a></li>
+  <li><a href="#generalizability" id="toc-generalizability" class="nav-link" data-scroll-target="#generalizability">Generalizability</a></li>
+  <li><a href="#real-world-application" id="toc-real-world-application" class="nav-link" data-scroll-target="#real-world-application">Real-world Application</a></li>
+  <li><a href="#lack-of-qualitative-insights" id="toc-lack-of-qualitative-insights" class="nav-link" data-scroll-target="#lack-of-qualitative-insights">Lack of Qualitative Insights</a></li>
+  <li><a href="#validation-in-live-settings" id="toc-validation-in-live-settings" class="nav-link" data-scroll-target="#validation-in-live-settings">Validation in Live Settings</a></li>
+  </ul></li>
+  <li><a href="#ethical-considerations-in-off-task-behavior-detection" id="toc-ethical-considerations-in-off-task-behavior-detection" class="nav-link" data-scroll-target="#ethical-considerations-in-off-task-behavior-detection">Ethical Considerations in Off-Task Behavior Detection</a>
+  <ul class="collapse">
+  <li><a href="#privacy-and-data-protection" id="toc-privacy-and-data-protection" class="nav-link" data-scroll-target="#privacy-and-data-protection">Privacy and Data Protection</a></li>
+  <li><a href="#informed-consent" id="toc-informed-consent" class="nav-link" data-scroll-target="#informed-consent">Informed Consent</a></li>
+  <li><a href="#bias-and-fairness" id="toc-bias-and-fairness" class="nav-link" data-scroll-target="#bias-and-fairness">Bias and Fairness</a></li>
+  <li><a href="#transparency-and-explainability" id="toc-transparency-and-explainability" class="nav-link" data-scroll-target="#transparency-and-explainability">Transparency and Explainability</a></li>
+  <li><a href="#potential-for-misuse" id="toc-potential-for-misuse" class="nav-link" data-scroll-target="#potential-for-misuse">Potential for Misuse</a></li>
+  <li><a href="#psychological-impact" id="toc-psychological-impact" class="nav-link" data-scroll-target="#psychological-impact">Psychological Impact</a></li>
+  <li><a href="#data-retention-and-right-to-be-forgotten" id="toc-data-retention-and-right-to-be-forgotten" class="nav-link" data-scroll-target="#data-retention-and-right-to-be-forgotten">Data Retention and Right to be Forgotten</a></li>
+  <li><a href="#contextual-considerations" id="toc-contextual-considerations" class="nav-link" data-scroll-target="#contextual-considerations">Contextual Considerations</a></li>
+  <li><a href="#stakeholder-involvement" id="toc-stakeholder-involvement" class="nav-link" data-scroll-target="#stakeholder-involvement">Stakeholder Involvement</a></li>
+  </ul></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a>
   <ul class="collapse">
   <li><a href="#future-work" id="toc-future-work" class="nav-link" data-scroll-target="#future-work">Future Work</a></li>
@@ -161,7 +208,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Analyzing and Optimizing Machine Learning Models for Off-Task Behavior Detection</h1>
-</div>
+  <div class="quarto-categories">
+    <div class="quarto-category">Off-task behavior detection</div>
+    <div class="quarto-category">Educational data mining</div>
+    <div class="quarto-category">Machine learning in education</div>
+    <div class="quarto-category">Algebra tutoring systems</div>
+    <div class="quarto-category">Class imbalance handling</div>
+    <div class="quarto-category">SMOTE (Synthetic Minority Over-sampling Technique)</div>
+    <div class="quarto-category">Gradient Boosting Classifier</div>
+    <div class="quarto-category">Random Forest Classifier</div>
+    <div class="quarto-category">XGBoost</div>
+    <div class="quarto-category">Threshold optimization</div>
+    <div class="quarto-category">Cohen’s Kappa score</div>
+    <div class="quarto-category">F1-score optimization</div>
+    <div class="quarto-category">Cross-validation in educational models</div>
+    <div class="quarto-category">Hyperparameter tuning</div>
+    <div class="quarto-category">Student engagement analysis</div>
+    <div class="quarto-category">Intelligent tutoring systems</div>
+    <div class="quarto-category">Behavioral pattern recognition</div>
+    <div class="quarto-category">Predictive modeling in education</div>
+    <div class="quarto-category">Educational technology ethics</div>
+    <div class="quarto-category">Automated behavior detection</div>
+  </div>
+  </div>
 
 <div>
   <div class="description">
@@ -196,36 +265,94 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     
   </div>
   
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    Detecting off-task behavior in educational settings is essential for enhancing student engagement and learning outcomes. This study presents a comprehensive analysis of machine learning models designed to classify off-task behavior using a real-world educational dataset. I explore the challenges of working with imbalanced datasets and evaluate the performance of various classifiers, including Random Forest, XGBoost, and Gradient Boosting. Through a series of experiments involving data resampling, hyperparameter tuning, threshold optimization, and performance evaluation using metrics like Cohen’s Kappa score, I aim to optimize model performance and provide insights into the complexities of behavior detection in educational contexts.
+  </div>
+</div>
 
 
 </header>
 
 
-<section id="abstract" class="level2">
-<h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
-<p>Detecting off-task behavior in educational settings is essential for enhancing student engagement and learning outcomes. This study presents a comprehensive analysis of machine learning models designed to classify off-task behavior using a real-world educational dataset. I explore the challenges of working with imbalanced datasets and evaluate the performance of various classifiers, including Random Forest, XGBoost, and Gradient Boosting. Through a series of experiments involving data resampling, hyperparameter tuning, threshold optimization, and performance evaluation using metrics like Cohen’s Kappa score, I aim to optimize model performance and provide insights into the complexities of behavior detection in educational contexts.</p>
-</section>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>In the field of educational data mining, detecting off-task behavior is crucial for understanding student engagement and improving learning outcomes. Off-task behavior refers to any student actions that are not related to the learning objectives, which can hinder the educational process. Traditional methods of identifying off-task behavior are often subjective and resource-intensive. Therefore, developing automated, accurate detection methods using machine learning can significantly benefit educators and learners.</p>
+<p>In the field of educational data mining, detecting off-task behavior is crucial for understanding student engagement and improving learning outcomes. Off-task behavior refers to any student actions unrelated to the learning objectives, which can hinder the educational process. Traditional methods of identifying off-task behavior are often subjective and resource-intensive. Therefore, developing automated, accurate detection methods using machine learning can significantly benefit educators and learners.</p>
 <p>This study presents an in-depth analysis of machine learning models designed to classify off-task behavior in educational settings. I explore the challenges of working with imbalanced datasets and evaluate the performance of various classifiers, including Random Forest, XGBoost, and Gradient Boosting. Through experiments and analyses, I aim to optimize model performance and provide insights into the complexities of behavior detection in educational contexts.</p>
+</section>
+<section id="literature-review" class="level2">
+<h2 class="anchored" data-anchor-id="literature-review">Literature Review</h2>
+<section id="background-on-off-task-behavior-detection" class="level3">
+<h3 class="anchored" data-anchor-id="background-on-off-task-behavior-detection">Background on Off-Task Behavior Detection</h3>
+<p>Off-task behavior detection in educational settings has been an area of active research for several years, with studies employing various approaches to identify and analyze student disengagement, particularly in the context of algebra tutoring systems.</p>
+<section id="traditional-methods" class="level4">
+<h4 class="anchored" data-anchor-id="traditional-methods">Traditional Methods</h4>
+<p>Early research relied heavily on human observation and self-reporting techniques. While these methods provided rich qualitative data, they were often subjective, time-consuming, and not scalable for large-scale implementation <span class="citation" data-cites="baker2007modeling">(<a href="#ref-baker2007modeling" role="doc-biblioref">Baker 2007</a>)</span>.</p>
+</section>
+<section id="machine-learning-approaches" class="level4">
+<h4 class="anchored" data-anchor-id="machine-learning-approaches">Machine Learning Approaches</h4>
+<p>The advent of intelligent tutoring systems and educational software has enabled more sophisticated detection methods using machine learning:</p>
+<ol type="1">
+<li><p><strong>Log File Analysis</strong>: Researchers have developed models that analyze student interaction logs to identify patterns indicative of off-task behavior. These models often utilize features such as time spent on tasks, response correctness, and help-seeking behavior <span class="citation" data-cites="cocea2009log pardos2014affective">(<a href="#ref-cocea2009log" role="doc-biblioref">Cocea and Weibelzahl 2009</a>; <a href="#ref-pardos2014affective" role="doc-biblioref">Pardos et al. 2014</a>)</span>.</p></li>
+<li><p><strong>Multimodal Detection</strong>: Some studies have incorporated multiple data sources to create more comprehensive off-task behavior detection systems <span class="citation" data-cites="bosch2015automatic">(<a href="#ref-bosch2015automatic" role="doc-biblioref">Bosch et al. 2015</a>)</span>.</p></li>
+<li><p><strong>Temporal Models</strong>: Researchers have explored the use of sequential models to capture the temporal aspects of student behavior and improve detection accuracy <span class="citation" data-cites="liu2017closing">(<a href="#ref-liu2017closing" role="doc-biblioref">Liu and Koedinger 2017</a>)</span>.</p></li>
+</ol>
+</section>
+<section id="challenges-in-off-task-behavior-detection" class="level4">
+<h4 class="anchored" data-anchor-id="challenges-in-off-task-behavior-detection">Challenges in Off-Task Behavior Detection</h4>
+<p>Several challenges have been identified in the field:</p>
+<ol type="1">
+<li><p><strong>Class Imbalance</strong>: Off-task behavior is typically less frequent than on-task behavior, leading to imbalanced datasets that can skew model performance <span class="citation" data-cites="pardos2014affective">(<a href="#ref-pardos2014affective" role="doc-biblioref">Pardos et al. 2014</a>)</span>.</p></li>
+<li><p><strong>Context Sensitivity</strong>: The definition of off-task behavior can vary depending on the learning environment and taskmaking it difficult to create universally applicable models <span class="citation" data-cites="baker2007modeling">(<a href="#ref-baker2007modeling" role="doc-biblioref">Baker 2007</a>)</span>.</p></li>
+<li><p><strong>Privacy Concerns</strong>: As detection methods become more sophisticated, they often require more invasive data collection, raising ethical and privacy issues <span class="citation" data-cites="bosch2015automatic">(<a href="#ref-bosch2015automatic" role="doc-biblioref">Bosch et al. 2015</a>)</span>. This is particularly relevant in educational settings where student data protection is paramount.</p></li>
+<li><p><strong>Real-time Detection</strong>: Developing models that can detect off-task behavior in real-time to enable immediate intervention remains a significant challenge <span class="citation" data-cites="liu2017closing">(<a href="#ref-liu2017closing" role="doc-biblioref">Liu and Koedinger 2017</a>)</span>, especially in resource-constrained educational environments.</p></li>
+</ol>
+</section>
+<section id="recent-trends" class="level4">
+<h4 class="anchored" data-anchor-id="recent-trends">Recent Trends</h4>
+<p>Recent research has focused on:</p>
+<ol type="1">
+<li><p><strong>Personalized Models</strong>: Developing detection systems that adapt to individual student behaviors and learning patterns <span class="citation" data-cites="pardos2014affective">(<a href="#ref-pardos2014affective" role="doc-biblioref">Pardos et al. 2014</a>)</span>.</p></li>
+<li><p><strong>Interpretable AI</strong>: Creating models that not only detect off-task behavior but also provide insights into the reasons behind it <span class="citation" data-cites="cocea2009log">(<a href="#ref-cocea2009log" role="doc-biblioref">Cocea and Weibelzahl 2009</a>)</span>. This trend aligns with this study’s focus on model comparison and evaluation metrics, as interpretable models can offer valuable insights for educators.</p></li>
+<li><p><strong>Integration with Intervention Strategies</strong>: Combining detection models with automated intervention systems to re-engage students in real-time <span class="citation" data-cites="liu2017closing">(<a href="#ref-liu2017closing" role="doc-biblioref">Liu and Koedinger 2017</a>)</span>.</p></li>
+</ol>
+</section>
+<section id="educational-context-in-algebra-tutoring-systems" class="level4">
+<h4 class="anchored" data-anchor-id="educational-context-in-algebra-tutoring-systems">Educational Context in Algebra Tutoring Systems</h4>
+<p>In the context of algebra tutoring systems, off-task behavior can significantly impact learning outcomes. Cocea and Weibelzahl found that students who frequently engage in off-task behavior in mathematics tutoring systems show lower learning gains and decreased problem-solving skills <span class="citation" data-cites="cocea2009log">(<a href="#ref-cocea2009log" role="doc-biblioref">Cocea and Weibelzahl 2009</a>)</span>. The abstract nature of algebraic concepts makes sustained engagement crucial for skill development, highlighting the importance of accurate off-task behavior detection in these environments.</p>
+<p>This study builds upon existing work by addressing the persistent challenge of class imbalance and exploring advanced machine learning techniques to improve off-task behavior detection accuracy. A focus on threshold optimization and model comparison provides valuable insights into the practical implementation of these detection systems in educational settings, particularly for algebra tutoring systems where maintaining student engagement is critical for learning success.</p>
+<p>By comparing multiple classifiers and employing techniques like SMOTE, this research contributes to the ongoing effort to develop more robust and accurate off-task behavior detection models. Furthermore, an emphasis on performance metrics such as Cohen’s Kappa and F1-score addresses the need for comprehensive evaluation in imbalanced datasets, a critical aspect often overlooked in previous studies.</p>
+</section>
+</section>
 </section>
 <section id="methodology" class="level2">
 <h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
 <p>My study employed a multi-step approach to develop and evaluate machine learning models:</p>
 <ol type="1">
-<li><strong>Data Preparation</strong>: I utilized a dataset containing features related to student behavior, with a binary target variable indicating off-task status (<code>OffTask</code>: Y/N).</li>
-<li><strong>Model Selection</strong>: I implemented three classifiers: Random Forest, XGBoost, and Gradient Boosting.</li>
-<li><strong>Handling Class Imbalance</strong>: To address the imbalanced nature of the dataset, I applied the Synthetic Minority Over-sampling Technique (SMOTE).</li>
-<li><strong>Hyperparameter Tuning</strong>: I used <code>GridSearchCV</code> to optimize model parameters, focusing on maximizing the F1-score.</li>
-<li><strong>Threshold Optimization</strong>: I explored various decision thresholds to balance precision and recall, particularly for the minority class (off-task behavior).</li>
-<li><strong>Performance Evaluation</strong>: I assessed model performance using metrics such as Cohen’s Kappa score, precision, recall, F1-score, and confusion matrices.</li>
-<li><strong>Cross-Validation</strong>: I employed k-fold cross-validation to ensure robust performance estimates across different data subsets.</li>
+<li><p><strong>Data Preparation</strong>: I utilized a dataset containing features related to student behavior, with a binary target variable indicating off-task status (<code>OffTask</code>: Y/N).</p></li>
+<li><p><strong>Data Overview</strong>: The dataset contains 616 student interactions with a close-loop algebra tutoring system. Each entry includes 29 features capturing various aspects of student performance, such as correctness of responses, help-seeking behavior, and time spent on tasks. Key features include:</p>
+<ul>
+<li>Binary indicator of off-task behavior</li>
+<li>Performance metrics (e.g., average correct responses, errors)</li>
+<li>Time-related features</li>
+<li>Error and help-seeking metrics</li>
+<li>Recent performance indicators</li>
+</ul></li>
+</ol>
+<p>This data allows for analysis of learning patterns and the effectiveness of the tutoring system in teaching algebraic concepts.</p>
+<ol start="3" type="1">
+<li><p><strong>Model Selection</strong>: I implemented three classifiers: Random Forest, XGBoost, and Gradient Boosting.</p></li>
+<li><p><strong>Handling Class Imbalance</strong>: To address the imbalanced nature of the dataset, I applied the Synthetic Minority Over-sampling Technique (SMOTE).</p></li>
+<li><p><strong>Hyperparameter Tuning</strong>: I used <code>GridSearchCV</code> to optimize model parameters, focusing on maximizing the F1-score.</p></li>
+<li><p><strong>Threshold Optimization</strong>: I explored various decision thresholds to balance precision and recall, particularly for the minority class (off-task behavior).</p></li>
+<li><p><strong>Performance Evaluation</strong>: I assessed model performance using metrics such as Cohen’s Kappa score, precision, recall, F1-score, and confusion matrices.</p></li>
+<li><p><strong>Cross-Validation</strong>: I employed k-fold cross-validation to ensure robust performance estimates across different data subsets.</p></li>
 </ol>
 <section id="data-preparation" class="level3">
 <h3 class="anchored" data-anchor-id="data-preparation">Data Preparation</h3>
-<p>I began by importing necessary libraries and loading the dataset:</p>
-<div id="4a3e2a42" class="cell" data-execution_count="1">
+<p>I began by importing the necessary libraries and loading the dataset:</p>
+<div id="8e05f0ad" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split, cross_val_score, GridSearchCV</span>
@@ -241,7 +368,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'data/ca1-dataset.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>I then prepared the data by encoding the target variable and selecting relevant features:</p>
-<div id="2d9ab17e" class="cell" data-execution_count="2">
+<div id="93bdb180" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare the data</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'OffTask'</span>] <span class="op">=</span> data[<span class="st">'OffTask'</span>].<span class="bu">map</span>({<span class="st">'N'</span>: <span class="dv">0</span>, <span class="st">'Y'</span>: <span class="dv">1</span>})  <span class="co"># Encode target variable</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data.drop(columns<span class="op">=</span>[<span class="st">'Unique-id'</span>, <span class="st">'namea'</span>, <span class="st">'OffTask'</span>])  <span class="co"># Features</span></span>
@@ -250,8 +377,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="handling-class-imbalance-with-smote" class="level3">
 <h3 class="anchored" data-anchor-id="handling-class-imbalance-with-smote">Handling Class Imbalance with SMOTE</h3>
-<p>The dataset exhibited class imbalance, with significantly more instances of “Not OffTask” than “OffTask.” I applied SMOTE to the training data to address this issue:</p>
-<div id="69602305" class="cell" data-execution_count="3">
+<p>The dataset exhibited class imbalance, with significantly more instances of “Not OffTask” than “OffTask.” To address this issue, I applied SMOTE to the training data:</p>
+<div id="928af142" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into training and testing sets</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -270,7 +397,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="random-forest-classifier" class="level4">
 <h4 class="anchored" data-anchor-id="random-forest-classifier">Random Forest Classifier</h4>
 <p>I defined the Random Forest model and set up a parameter grid for hyperparameter tuning:</p>
-<div id="6b5c7971" class="cell" data-execution_count="4">
+<div id="3e205ac8" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the model</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>model_rf <span class="op">=</span> RandomForestClassifier(random_state<span class="op">=</span><span class="dv">42</span>, class_weight<span class="op">=</span><span class="st">'balanced'</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -300,7 +427,7 @@ Best parameters found for Random Forest:  {'max_depth': 20, 'min_samples_leaf': 
 <section id="xgboost-classifier" class="level4">
 <h4 class="anchored" data-anchor-id="xgboost-classifier">XGBoost Classifier</h4>
 <p>I initialized the XGBoost model, adjusting for class imbalance using <code>scale_pos_weight</code>:</p>
-<div id="b2802aaf" class="cell" data-execution_count="5">
+<div id="6685e15d" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the XGBoost model</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>xgb_model <span class="op">=</span> XGBClassifier(eval_metric<span class="op">=</span><span class="st">'logloss'</span>, scale_pos_weight<span class="op">=</span>ratio_of_classes)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -738,7 +865,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <section id="gradient-boosting-classifier" class="level4">
 <h4 class="anchored" data-anchor-id="gradient-boosting-classifier">Gradient Boosting Classifier</h4>
 <p>I defined the Gradient Boosting model with specific hyperparameters:</p>
-<div id="bb90527b" class="cell" data-execution_count="6">
+<div id="3979bea0" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the Gradient Boosting model</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>gb_model <span class="op">=</span> GradientBoostingClassifier(</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    learning_rate<span class="op">=</span><span class="fl">0.2</span>,</span>
@@ -1167,7 +1294,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <p>I evaluated each model using the test set and calculated the Cohen’s Kappa score and classification report.</p>
 <section id="random-forest-evaluation" class="level4">
 <h4 class="anchored" data-anchor-id="random-forest-evaluation">Random Forest Evaluation</h4>
-<div id="2c217fff" class="cell" data-execution_count="7">
+<div id="f03375f2" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the test set</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>y_pred_rf <span class="op">=</span> grid_search_rf.predict(X_test)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1191,7 +1318,7 @@ weighted avg       0.96      0.95      0.95       153
 </section>
 <section id="xgboost-evaluation" class="level4">
 <h4 class="anchored" data-anchor-id="xgboost-evaluation">XGBoost Evaluation</h4>
-<div id="8d6f7cbe" class="cell" data-execution_count="8">
+<div id="af8a6628" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>y_pred_xgb <span class="op">=</span> xgb_model.predict(X_test)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1215,7 +1342,7 @@ weighted avg       0.95      0.92      0.93       153
 </section>
 <section id="gradient-boosting-evaluation" class="level4">
 <h4 class="anchored" data-anchor-id="gradient-boosting-evaluation">Gradient Boosting Evaluation</h4>
-<div id="3c3116a8" class="cell" data-execution_count="9">
+<div id="58936f04" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the test set</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>y_pred_gb <span class="op">=</span> gb_model.predict(X_test)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1241,7 +1368,7 @@ weighted avg       0.96      0.93      0.94       153
 <section id="threshold-optimization" class="level3">
 <h3 class="anchored" data-anchor-id="threshold-optimization">Threshold Optimization</h3>
 <p>To improve the detection of off-task behavior, I experimented with adjusting the decision threshold:</p>
-<div id="0fd387a3" class="cell" data-execution_count="10">
+<div id="953cfd4e" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get predicted probabilities</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>y_pred_proba_gb <span class="op">=</span> gb_model.predict_proba(X_test)[:, <span class="dv">1</span>]</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1281,7 +1408,7 @@ weighted avg       0.96      0.93      0.94       153
 </div>
 </div>
 <p>I determined that a threshold of 0.90 maximized the F1-score for the off-task class.</p>
-<div id="cbd272bf" class="cell" data-execution_count="11">
+<div id="baa6ba9d" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the optimal threshold</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>best_threshold <span class="op">=</span> <span class="fl">0.90</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>y_pred_final <span class="op">=</span> (gb_model.predict_proba(X_test)[:, <span class="dv">1</span>] <span class="op">&gt;=</span> best_threshold).astype(<span class="bu">int</span>)</span>
@@ -1307,7 +1434,7 @@ weighted avg       0.97      0.96      0.96       153
 <section id="confusion-matrix-and-cross-validation" class="level3">
 <h3 class="anchored" data-anchor-id="confusion-matrix-and-cross-validation">Confusion Matrix and Cross-Validation</h3>
 <p>I computed the confusion matrix and performed k-fold cross-validation to assess model stability:</p>
-<div id="f6b7eb69" class="cell" data-execution_count="12">
+<div id="a7db8beb" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate and print confusion matrix</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>conf_matrix <span class="op">=</span> confusion_matrix(y_test, y_pred_final)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Confusion Matrix:</span><span class="ch">\n</span><span class="st">"</span>, conf_matrix)</span>
@@ -1417,7 +1544,7 @@ Standard Deviation of F1 Scores: 0.20136722754852265</code></pre>
 <p>Applying SMOTE helped in:</p>
 <ul>
 <li><strong>Balancing the Dataset</strong>: Synthetic samples improved the representation of the minority class.</li>
-<li><strong>Improving Recall</strong>: The model became better at identifying OffTask instances.</li>
+<li><strong>Improving Recall</strong>: The model improved at identifying OffTask instances.</li>
 </ul>
 <p>However, reliance on synthetic data might not capture the complexity of actual off-task behavior.</p>
 </section>
@@ -1444,6 +1571,143 @@ Standard Deviation of F1 Scores: 0.20136722754852265</code></pre>
 </ul>
 </section>
 </section>
+<section id="limitations" class="level2">
+<h2 class="anchored" data-anchor-id="limitations">Limitations</h2>
+<p>While this study provides valuable insights into off-task behavior detection in algebra tutoring systems, it’s important to acknowledge several limitations:</p>
+<section id="dataset-constraints" class="level3">
+<h3 class="anchored" data-anchor-id="dataset-constraints">Dataset Constraints</h3>
+<ul>
+<li><strong>Size</strong>: The dataset, while substantial, is limited to 616 student interactions. A larger dataset might reveal additional patterns or improve model generalizability.</li>
+<li><strong>Context</strong>: The data is specific to algebra tutoring systems and may not generalize well to other subjects or learning environments.</li>
+<li><strong>Temporal aspects</strong>: The data represents a snapshot in time and doesn’t capture long-term changes in student behavior or learning patterns.</li>
+</ul>
+</section>
+<section id="feature-selection" class="level3">
+<h3 class="anchored" data-anchor-id="feature-selection">Feature Selection</h3>
+<ul>
+<li><strong>Limited feature set</strong>: I relied on 29 pre-defined features. There may be other relevant features not captured in the dataset that could improve detection accuracy.</li>
+<li><strong>Feature interpretability</strong>: Some features, particularly those related to recent performance indicators, are challenging to interpret in an educational context.</li>
+</ul>
+</section>
+<section id="model-limitations" class="level3">
+<h3 class="anchored" data-anchor-id="model-limitations">Model Limitations</h3>
+<ul>
+<li><strong>Model selection</strong>: While I compared several classifiers, there are other advanced models (e.g., deep learning architectures) that I didn’t explore due to computational constraints.</li>
+<li><strong>Hyperparameter tuning</strong>: Despite using GridSearchCV, I may not have exhaustively explored all possible hyperparameter combinations.</li>
+</ul>
+</section>
+<section id="class-imbalance-handling" class="level3">
+<h3 class="anchored" data-anchor-id="class-imbalance-handling">Class Imbalance Handling</h3>
+<ul>
+<li><strong>SMOTE limitations</strong>: While SMOTE helped address class imbalance, it generates synthetic examples which may not perfectly represent real-world off-task behavior.</li>
+<li><strong>Alternative techniques</strong>: Other class imbalance handling techniques (e.g., adaptive boosting, cost-sensitive learning) were not explored and could potentially yield different results.</li>
+</ul>
+</section>
+<section id="performance-metrics" class="level3">
+<h3 class="anchored" data-anchor-id="performance-metrics">Performance Metrics</h3>
+<ul>
+<li><strong>Metric selection</strong>: I focused on Cohen’s Kappa and F1-score. Other metrics might provide additional insights into model performance.</li>
+<li><strong>Threshold sensitivity</strong>: The results are sensitive to the chosen decision threshold, which may not be optimal for all use cases.</li>
+</ul>
+</section>
+<section id="generalizability" class="level3">
+<h3 class="anchored" data-anchor-id="generalizability">Generalizability</h3>
+<ul>
+<li><strong>Student population</strong>: The dataset may not represent the full diversity of student populations, potentially limiting the model’s applicability across different demographics.</li>
+<li><strong>Educational system specificity</strong>: The patterns of off-task behavior detected may be specific to the particular algebra tutoring system used and might not generalize to other educational software.</li>
+</ul>
+</section>
+<section id="real-world-application" class="level3">
+<h3 class="anchored" data-anchor-id="real-world-application">Real-world Application</h3>
+<ul>
+<li><strong>Real-time detection</strong>: This study doesn’t address the challenges of implementing these models for real-time off-task behavior detection in live classroom settings.</li>
+<li><strong>Computational resources</strong>: The computational requirements for running these models may be a limiting factor for widespread adoption in resource-constrained educational environments.</li>
+</ul>
+</section>
+<section id="lack-of-qualitative-insights" class="level3">
+<h3 class="anchored" data-anchor-id="lack-of-qualitative-insights">Lack of Qualitative Insights</h3>
+<ul>
+<li><strong>Student perspective</strong>: My quantitative approach does not capture students’ own perceptions of their engagement or reasons for off-task behavior.</li>
+<li><strong>Contextual factors</strong>: Environmental or personal factors that might influence off-task behavior are not accounted for in the model.</li>
+</ul>
+</section>
+<section id="validation-in-live-settings" class="level3">
+<h3 class="anchored" data-anchor-id="validation-in-live-settings">Validation in Live Settings</h3>
+<ul>
+<li><strong>Controlled environment</strong>: The models were developed and tested on historical data. Their performance in live, dynamic classroom environments remains to be validated.</li>
+</ul>
+<p>These limitations provide opportunities for future research to build upon and refine my approach to off-task behavior detection in educational settings.</p>
+</section>
+</section>
+<section id="ethical-considerations-in-off-task-behavior-detection" class="level2">
+<h2 class="anchored" data-anchor-id="ethical-considerations-in-off-task-behavior-detection">Ethical Considerations in Off-Task Behavior Detection</h2>
+<p>The implementation of off-task behavior detection systems in educational settings raises several ethical concerns that researchers and practitioners must carefully consider:</p>
+<section id="privacy-and-data-protection" class="level3">
+<h3 class="anchored" data-anchor-id="privacy-and-data-protection">Privacy and Data Protection</h3>
+<ul>
+<li><strong>Collection of sensitive data</strong>: Off-task behavior detection often involves collecting detailed data about student activities, potentially including keystroke patterns, eye movements, or even facial expressions. This level of monitoring raises significant privacy concerns.</li>
+<li><strong>Data storage and security</strong>: Ensuring the secure storage and transmission of student data is crucial to prevent unauthorized access or breaches.</li>
+<li><strong>Compliance with regulations</strong>: Researchers must adhere to data protection regulations such as GDPR in Europe or FERPA and COPPA in the United States, which have strict guidelines on handling student data.</li>
+</ul>
+</section>
+<section id="informed-consent" class="level3">
+<h3 class="anchored" data-anchor-id="informed-consent">Informed Consent</h3>
+<ul>
+<li><strong>Student awareness</strong>: Students (and their parents/guardians for minors) should be fully informed about what data is being collected, how it will be used, and who will have access to it.</li>
+<li><strong>Opt-out options</strong>: Providing students with the ability to opt-out of monitoring without academic penalty is an important ethical consideration.</li>
+</ul>
+</section>
+<section id="bias-and-fairness" class="level3">
+<h3 class="anchored" data-anchor-id="bias-and-fairness">Bias and Fairness</h3>
+<ul>
+<li><strong>Algorithmic bias</strong>: Machine learning models may inadvertently perpetuate or amplify existing biases related to race, gender, or socioeconomic status. Ensuring fairness in off-task behavior detection across diverse student populations is crucial.</li>
+<li><strong>Cultural sensitivity</strong>: What constitutes “off-task” behavior may vary across cultures, and detection systems should be designed with cultural differences in mind.</li>
+</ul>
+</section>
+<section id="transparency-and-explainability" class="level3">
+<h3 class="anchored" data-anchor-id="transparency-and-explainability">Transparency and Explainability</h3>
+<ul>
+<li><strong>Interpretable models</strong>: Using interpretable AI models allows for better understanding of how off-task behavior is being detected, which is important for both educators and students.</li>
+<li><strong>Clear communication</strong>: The criteria for determining off-task behavior should be clearly communicated to students and educators.</li>
+</ul>
+</section>
+<section id="potential-for-misuse" class="level3">
+<h3 class="anchored" data-anchor-id="potential-for-misuse">Potential for Misuse</h3>
+<ul>
+<li><strong>Over-reliance on technology</strong>: There’s a risk that educators might rely too heavily on automated systems, potentially overlooking important contextual factors in student behavior.</li>
+<li><strong>Punitive use</strong>: Safeguards should be in place to prevent the use of off-task behavior data for punitive measures rather than supportive interventions.</li>
+</ul>
+</section>
+<section id="psychological-impact" class="level3">
+<h3 class="anchored" data-anchor-id="psychological-impact">Psychological Impact</h3>
+<ul>
+<li><strong>Stress and anxiety</strong>: Constant monitoring could lead to increased stress and anxiety among students, potentially impacting their learning and well-being.</li>
+<li><strong>Self-fulfilling prophecies</strong>: Labeling students as frequently “off-task” could negatively impact their self-perception and motivation.</li>
+</ul>
+</section>
+<section id="data-retention-and-right-to-be-forgotten" class="level3">
+<h3 class="anchored" data-anchor-id="data-retention-and-right-to-be-forgotten">Data Retention and Right to be Forgotten</h3>
+<ul>
+<li><strong>Limited data retention</strong>: Implementing policies for how long data is kept and when it should be deleted.</li>
+<li><strong>Student rights</strong>: Allowing students to request the deletion of their data, especially after they’ve left the educational institution.</li>
+</ul>
+</section>
+<section id="contextual-considerations" class="level3">
+<h3 class="anchored" data-anchor-id="contextual-considerations">Contextual Considerations</h3>
+<ul>
+<li><strong>Flexibility in detection</strong>: Recognizing that brief off-task moments can be part of the learning process and not always detrimental.</li>
+<li><strong>Adaptive systems</strong>: Developing systems that can adapt to individual student learning styles and needs.</li>
+</ul>
+</section>
+<section id="stakeholder-involvement" class="level3">
+<h3 class="anchored" data-anchor-id="stakeholder-involvement">Stakeholder Involvement</h3>
+<ul>
+<li><strong>Inclusive design</strong>: Involving educators, students, and parents in the design and implementation of off-task behavior detection systems.</li>
+<li><strong>Ongoing evaluation</strong>: Regularly assessing the impact and effectiveness of these systems with input from all stakeholders.</li>
+</ul>
+<p>By addressing these ethical considerations, researchers and educators can work towards developing off-task behavior detection systems that are not only effective but also respect student rights, promote fairness, and contribute positively to the learning environment. As you conduct your study, it’s important to explicitly address how your methodology takes these ethical considerations into account, demonstrating a commitment to responsible research practices in educational technology.</p>
+</section>
+</section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <p>This study highlights the complexities involved in detecting off-task behavior using machine learning. Key findings include:</p>
@@ -1458,18 +1722,34 @@ Standard Deviation of F1 Scores: 0.20136722754852265</code></pre>
 <li><strong>Advanced Imbalance Handling</strong>: Explore cost-sensitive learning and ensemble methods.</li>
 <li><strong>Feature Engineering</strong>: Incorporate more behavioral indicators to improve model accuracy.</li>
 <li><strong>Real-world Implementation</strong>: Test models in live educational settings for practical validation.</li>
-<li><strong>Ethical Considerations</strong>: Ensure models are used responsibly, respecting privacy and fairness.</li>
 </ul>
 </section>
 </section>
-<section id="submission-guidelines" class="level1">
-<h1>Submission Guidelines</h1>
-<p>All required explanations are included in this document. The code and data are organized to facilitate replication and further analysis. Please let me know if additional information is needed.</p>
+<section id="submission-guidelines" class="level2">
+<h2 class="anchored" data-anchor-id="submission-guidelines">Submission Guidelines</h2>
+<p>This document includes all required explanations. The code and data are organized to facilitate replication and further analysis. Please let me know if additional information is needed.</p>
+
 
 
 </section>
 
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-baker2007modeling" class="csl-entry" role="listitem">
+Baker, Ryan SJd. 2007. <span>“Modeling and Understanding Students’ Off-Task Behavior in Intelligent Tutoring Systems.”</span> In <em>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</em>, 1059–68.
+</div>
+<div id="ref-bosch2015automatic" class="csl-entry" role="listitem">
+Bosch, Nigel, Sidney D’Mello, Ryan Baker, Jaclyn Ocumpaugh, Valerie Shute, Matthew Ventura, Lubin Wang, and Weinan Zhao. 2015. <span>“Automatic Detection of Learning-Centered Affective States in the Wild.”</span> In <em>Proceedings of the 20th International Conference on Intelligent User Interfaces</em>, 379–88.
+</div>
+<div id="ref-cocea2009log" class="csl-entry" role="listitem">
+Cocea, Mihaela, and Stephan Weibelzahl. 2009. <span>“Log File Analysis for Disengagement Detection in e-Learning Environments.”</span> <em>User Modeling and User-Adapted Interaction</em> 19: 341–85.
+</div>
+<div id="ref-liu2017closing" class="csl-entry" role="listitem">
+Liu, Ran, and Kenneth R Koedinger. 2017. <span>“Closing the Loop: Automated Data-Driven Cognitive Model Discoveries Lead to Improved Instruction and Learning Gains.”</span> <em>Journal of Educational Data Mining</em> 9 (1): 25–41.
+</div>
+<div id="ref-pardos2014affective" class="csl-entry" role="listitem">
+Pardos, Zachary A, Ryan SJD Baker, Maria OCZ San Pedro, Sujith M Gowda, and Supreeth M Gowda. 2014. <span>“Affective States and State Tests: Investigating How Affect and Engagement During the School Year Predict End-of-Year Learning Outcomes.”</span> <em>Journal of Learning Analytics</em> 1 (1): 107–28.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
