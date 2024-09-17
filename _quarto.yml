@@ -5,7 +5,6 @@ project:
 website:
   title: "Penn GSE"
   page-navigation: true
-  bread-crumbs: true
   back-to-top-navigation: true
   page-footer:
     left: |
@@ -19,7 +18,9 @@ website:
 format:
   html:
     page-layout: full
+    date-format: long
     sidebar: false
+    navbar: false
     theme:
       light: [cosmo, theme.scss]
     code-copy: true
