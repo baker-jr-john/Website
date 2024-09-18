@@ -70,7 +70,7 @@ Several challenges have been identified in the field:
 
 1. **Class Imbalance**: Off-task behavior is typically less frequent than on-task behavior, leading to imbalanced datasets that can skew model performance [@pardos2014affective].
 
-2. **Context Sensitivity**: The definition of off-task behavior can vary depending on the learning environment and taskmaking it difficult to create universally applicable models [@baker2007modeling].
+2. **Context Sensitivity**: The definition of off-task behavior can vary depending on the learning environment and task making it difficult to create universally applicable models [@baker2007modeling].
 
 3. **Privacy Concerns**: As detection methods become more sophisticated, they often require more invasive data collection, raising ethical and privacy issues [@bosch2015automatic]. This is particularly relevant in educational settings where student data protection is paramount.
 
