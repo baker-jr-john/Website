@@ -20,7 +20,7 @@ categories:
   - Random Forest Classifier
   - XGBoost
   - Threshold optimization
-  - Cohen's Kappa score
+  - Kappa score
   - F1-score optimization
   - Cross-validation in educational models
   - Hyperparameter tuning
