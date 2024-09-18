@@ -48,7 +48,7 @@ This study presents an in-depth analysis of machine learning models designed to 
 
 ### Background on Off-Task Behavior Detection
 
-Off-task behavior detection in educational settings has been an area of active research for several years, with studies employing various approaches to identify and analyze student disengagement, particularly in the context of algebra tutoring systems.
+Off-task behavior detection in educational settings has been an area of active research for several years, with studies employing various approaches to identify and analyze student disengagement.
 
 #### Traditional Methods
 
@@ -86,28 +86,28 @@ Recent research has focused on:
 
 3. **Integration with Intervention Strategies**: Combining detection models with automated intervention systems to re-engage students in real-time [@liu2017closing].
 
-#### Educational Context in Algebra Tutoring Systems
+#### Educational Context in e-Learning Environments
 
-In the context of algebra tutoring systems, off-task behavior can significantly impact learning outcomes. Cocea and Weibelzahl found that students who frequently engage in off-task behavior in mathematics tutoring systems show lower learning gains and decreased problem-solving skills [@cocea2009log]. The abstract nature of algebraic concepts makes sustained engagement crucial for skill development, highlighting the importance of accurate off-task behavior detection in these environments.
+In the context of e-learning environments, off-task behavior can significantly impact learning outcomes. Cocea and Weibelzahl found that students who frequently engage in off-task behavior in e-learning environments show lower learning gains and decreased problem-solving skills [@cocea2009log]. The abstract nature of some concepts makes sustained engagement crucial for skill development, highlighting the importance of accurate off-task behavior detection in these environments.
 
-This study builds upon existing work by addressing the persistent challenge of class imbalance and exploring advanced machine learning techniques to improve off-task behavior detection accuracy. A focus on threshold optimization and model comparison provides valuable insights into the practical implementation of these detection systems in educational settings, particularly for algebra tutoring systems where maintaining student engagement is critical for learning success.
+My study builds upon existing work by addressing the persistent challenge of class imbalance and exploring advanced machine learning techniques to improve off-task behavior detection accuracy. A focus on threshold optimization and model comparison provides valuable insights into the practical implementation of these detection systems in educational settings, particularly for tutoring systems where maintaining student engagement is critical for learning success.
 
 By comparing multiple classifiers and employing techniques like SMOTE, this research contributes to the ongoing effort to develop more robust and accurate off-task behavior detection models. Furthermore, an emphasis on performance metrics such as Cohen's Kappa and F1-score addresses the need for comprehensive evaluation in imbalanced datasets, a critical aspect often overlooked in previous studies.
 
 ## Methodology
 
-My study employed a multi-step approach to develop and evaluate machine learning models:
+This study employed a multi-step approach to develop and evaluate machine learning models:
 
 1. **Data Preparation**: I utilized a dataset containing features related to student behavior, with a binary target variable indicating off-task status (`OffTask`: Y/N).
 
-2. **Data Overview**: The dataset contains 616 student interactions with a close-loop algebra tutoring system. Each entry includes 29 features capturing various aspects of student performance, such as correctness of responses, help-seeking behavior, and time spent on tasks. Key features include:
+2. **Data Overview**: The dataset contains 616 student interactions with a close-loop tutoring system. Each entry includes 29 features capturing various aspects of student performance, such as correctness of responses, help-seeking behavior, and time spent on tasks. Key features include:
    - Binary indicator of off-task behavior
    - Performance metrics (e.g., average correct responses, errors)
    - Time-related features
    - Error and help-seeking metrics
    - Recent performance indicators
    
-  This data allows for analysis of learning patterns and the effectiveness of the tutoring system in teaching algebraic concepts.
+  This data allows for analysis of learning patterns and the effectiveness of the tutoring system in teaching.
 
 3. **Model Selection**: I implemented three classifiers: Random Forest, XGBoost, and Gradient Boosting.
 
@@ -430,11 +430,11 @@ The significant standard deviation in cross-validation scores suggests:
 
 ## Limitations
 
-While this study provides valuable insights into off-task behavior detection in algebra tutoring systems, it's important to acknowledge several limitations:
+While this study provides valuable insights into off-task behavior detection in tutoring systems, it's important to acknowledge several limitations:
 
 ### Dataset Constraints
 - **Size**: The dataset, while substantial, is limited to 616 student interactions. A larger dataset might reveal additional patterns or improve model generalizability.
-- **Context**: The data is specific to algebra tutoring systems and may not generalize well to other subjects or learning environments.
+- **Context**: The data may not generalize well to cerain subjects or learning environments.
 - **Temporal aspects**: The data represents a snapshot in time and doesn't capture long-term changes in student behavior or learning patterns.
 
 ### Feature Selection
@@ -455,7 +455,7 @@ While this study provides valuable insights into off-task behavior detection in 
 
 ### Generalizability
 - **Student population**: The dataset may not represent the full diversity of student populations, potentially limiting the model's applicability across different demographics.
-- **Educational system specificity**: The patterns of off-task behavior detected may be specific to the particular algebra tutoring system used and might not generalize to other educational software.
+- **Educational system specificity**: The patterns of off-task behavior detected may be specific to the particular tutoring systems used and might not generalize to other educational software.
 
 ### Real-world Application
 - **Real-time detection**: This study doesn't address the challenges of implementing these models for real-time off-task behavior detection in live classroom settings.
