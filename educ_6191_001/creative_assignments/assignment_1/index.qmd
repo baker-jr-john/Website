@@ -28,7 +28,6 @@ categories:
   - Behavioral pattern recognition
   - Predictive modeling in education
   - Educational technology ethics
-  - Automated behavior detection
 bibliography: bibliography/bibliography.bib
 format:
   html:
