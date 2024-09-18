@@ -13,7 +13,6 @@ categories:
   - Off-task behavior detection
   - Educational data mining
   - Machine learning in education
-  - Algebra tutoring systems
   - Class imbalance handling
   - SMOTE (Synthetic Minority Over-sampling Technique)
   - Gradient Boosting Classifier
@@ -391,7 +390,7 @@ Confusion Matrix:
 
 ### Cross-Validation Results
 
-- **Cross-Validation F1 Scores**: [0.4, 0.0, 0.2857, 0.5, 0.5455]
+- **Cross-Validation F1 Scores**: [0.25, 0.5455, 0.5, 0.2, 0.0]
 - **Mean F1 Score**: 0.299
 - **Standard Deviation**: 0.201
 
