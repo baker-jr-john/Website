@@ -1,7 +1,7 @@
 ---
 title: "Analyzing and Optimizing Machine Learning Models for Off-Task Behavior Detection"
 description: "A machine learning model to detect off-task behavior"
-date: 2024-09-17
+date: 2024-09-18
 author: 
   - name: John Baker
     email: jbaker1@upenn.edu
