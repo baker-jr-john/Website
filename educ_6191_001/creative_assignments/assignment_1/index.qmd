@@ -14,6 +14,8 @@ keywords:
   - Educational data mining
   - Machine learning in education
 bibliography: bibliography/bibliography.bib
+nocite: |
+  @*
 format:
   html:
     code-link: false
