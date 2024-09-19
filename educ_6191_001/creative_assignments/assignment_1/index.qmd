@@ -498,7 +498,7 @@ The implementation of off-task behavior detection systems in educational setting
 - **Inclusive design**: Involving educators, students, and parents in the design and implementation of off-task behavior detection systems.
 - **Ongoing evaluation**: Regularly assessing the impact and effectiveness of these systems with input from all stakeholders.
 
-By addressing these ethical considerations, researchers and educators can work towards developing off-task behavior detection systems that are not only effective but also respect student rights, promote fairness, and contribute positively to the learning environment. As you conduct your study, it's important to explicitly address how your methodology takes these ethical considerations into account, demonstrating a commitment to responsible research practices in educational technology.
+By addressing these ethical considerations, researchers and educators can work towards developing off-task behavior detection systems that are not only effective but also respect student rights, promote fairness, and contribute positively to the learning environment.
 
 ## Conclusion
 
