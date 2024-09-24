@@ -1,0 +1,27 @@
+---
+title: "TBD"
+description: "TBD"
+date: 2024-10-02
+author: 
+  - name: John Baker
+    email: jbaker1@upenn.edu
+    affiliation:
+      - name: "Penn GSE: University of Pennsylvania Graduate School of Education"
+abstract: |
+  TBD
+keywords:
+  - TBD
+bibliography: bibliography/bibliography.bib
+nocite: |
+  @*
+format:
+  html:
+    code-link: false
+draft: true
+jupyter: python3
+execute: 
+  freeze: false
+---
+
+## Introduction
+
