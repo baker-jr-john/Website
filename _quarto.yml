@@ -4,7 +4,7 @@ project:
   
 website:
   title: "Penn GSE"
-  favicon: simplified-shield-final-60.png
+  favicon: simplified-shield.ico
   back-to-top-navigation: true
   page-footer:
     left: |
