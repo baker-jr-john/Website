@@ -4,7 +4,7 @@ project:
   
 website:
   title: "Penn GSE"
-  page-navigation: true
+  favicon: simplified-shield-final-60.png
   back-to-top-navigation: true
   page-footer:
     left: |
@@ -14,7 +14,6 @@ website:
         href: https://github.com/baker-jr-john/Website
         target: _blank
     background: light
-  favicon: simplified-shield-final-60.png
 
 format:
   html:
