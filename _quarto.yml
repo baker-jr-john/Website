@@ -14,6 +14,7 @@ website:
         href: https://github.com/baker-jr-john/Website
         target: _blank
     background: light
+  favicon: simplified-shield-final-60.png
 
 format:
   html:

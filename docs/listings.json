@@ -1,8 +1,8 @@
 [
   {
-    "listing": "/index.html",
+    "listing": "/educ_6191_001/creative_assignments/index.html",
     "items": [
-      "/educ_6191_001/index.html"
+      "/educ_6191_001/creative_assignments/assignment_1/index.html"
     ]
   },
   {
@@ -12,9 +12,9 @@
     ]
   },
   {
-    "listing": "/educ_6191_001/creative_assignments/index.html",
+    "listing": "/index.html",
     "items": [
-      "/educ_6191_001/creative_assignments/assignment_1/index.html"
+      "/educ_6191_001/index.html"
     ]
   }
 ]
