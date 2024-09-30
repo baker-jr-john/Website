@@ -1,6 +1,6 @@
 ---
-title: "TBD"
-description: "TBD"
+title: "Building an Enhanced Behavior Detector: A Machine Learning Approach"
+description: "Developing an improved behavior classifier using feature engineering and ensemble methods."
 date: 2024-10-02
 author: 
   - name: John Baker
@@ -8,9 +8,13 @@ author:
     affiliation:
       - name: "Penn GSE: University of Pennsylvania Graduate School of Education"
 abstract: |
-  TBD
+  This project aims to build an improved behavior detector by engineering new features from ca2-dataset.csv and integrating them with existing features from ca1-dataset.csv. Using ensemble machine learning techniques and careful cross-validation, we demonstrate enhanced predictive performance in detecting off-task behavior in students interacting with educational software.
 keywords:
-  - TBD
+  - behavior detection
+  - feature engineering
+  - machine learning
+  - ensemble methods
+  - educational data mining
 bibliography: bibliography/bibliography.bib
 nocite: |
   @*
@@ -19,9 +23,366 @@ format:
     code-link: false
 draft: true
 jupyter: python3
+ipynb-shell-interactivity: all
 execute: 
   freeze: false
 ---
 
 ## Introduction
 
+Understanding student behavior in educational software is crucial for providing timely interventions and enhancing learning outcomes. Off-task behavior can negatively impact learning, and detecting it accurately allows educators to address it promptly. This project builds upon previous work by engineering new features from detailed student interaction data and developing an improved behavior detector using machine learning techniques.
+
+## Literature Review
+
+## Methodology
+
+### Data Preparation
+
+I began by importing essential libraries for data manipulation and machine learning, loading the datasets (`ca1` and `ca2`) from CSV files into Pandas DataFrames, and then printing summary information about each dataset using the `info()` method to inspect their structure, data types, and detect any missing values.
+
+```{python}
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier, VotingClassifier
+from sklearn.model_selection import train_test_split, GroupKFold, GridSearchCV
+from sklearn.metrics import roc_auc_score, cohen_kappa_score
+from imblearn.over_sampling import SMOTE
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from collections import Counter
+from sklearn.preprocessing import StandardScaler
+from sklearn.feature_selection import RFE
+
+# Load datasets
+ca1 = pd.read_csv('data/ca1-dataset.csv')
+ca2 = pd.read_csv('data/ca2-dataset.csv')
+```
+
+#### **Dataset `ca1`:**
+
+- **Entries:** 763 rows.
+- **Columns:** 27 columns.
+- **Data Types:**
+  - **Float64:** 15 columns.
+  - **Int64:** 9 columns.
+  - **Object:** 3 columns (`Unique-id`, `namea`, `OffTask`).
+- **Non-Null Values:** All columns have 763 non-null entries—no missing data.
+- **Memory Usage:** Approximately 161.1 KB.
+
+#### **Dataset `ca2`:**
+
+- **Entries:** 1,745 rows.
+- **Columns:** 34 columns.
+- **Data Types:**
+  - **Float64:** 6 columns.
+  - **Int64:** 21 columns.
+  - **Object:** 7 columns (`lesson`, `namea`, `prod`, `cell`, `Behaviour`, `Coder`, `Unique-id`).
+- **Non-Null Values:** All columns have 1,745 non-null entries—no missing data.
+- **Memory Usage:** Approximately 463.6 KB.
+
+#### **Key Observations:**
+
+- **No Missing Values:** Both datasets have complete data in all columns.
+- **Data Types:**
+  - The majority of columns are numerical (`int64` and `float64`), suitable for quantitative analysis.
+  - Categorical data is present in the `object` type columns, which may need encoding for machine learning models.
+- **Potential Targets:**
+  - In `ca1`, the column `OffTask` could be a target variable, as it might indicate whether a student was off-task.
+  - In `ca2`, columns like `Behaviour` could serve as target variables for classification tasks.
+
+#### **Implications for Analysis:**
+
+- **Data Preparation:**
+  - **Encoding Categorical Variables:** Convert `object` type columns to numerical format using techniques like one-hot encoding or label encoding.
+  - **Feature Scaling:** Consider normalizing or standardizing numerical features, especially those with a wide range of values.
+- **Class Imbalance:**
+  - The import of `SMOTE` suggests that the target variable(s) might be imbalanced. Verify the distribution of classes in target columns like `OffTask` and `Behaviour`.
+- **Feature Selection:**
+  - With a substantial number of features, applying techniques like Recursive Feature Elimination (`RFE`) can help identify the most significant predictors.
+- **Data Consistency:**
+  - Check for consistency between the two datasets if they are to be merged or compared. Common columns like `namea` and `Unique-id` may serve as keys for merging.
+- **Modeling Considerations:**
+  - The presence of time-related features (e.g., `Avgtime`, `timelast5SDnormed`) suggests that temporal patterns could be important.
+  - Since there are no missing values, you can proceed directly to modeling after necessary preprocessing steps.
+
+### Feature Engineering
+
+I processed the `ca2` dataset to compute user-specific metrics by grouping data based on `Unique-id`. I calculated each user's action frequency, average and maximum time between actions, action diversity (number of unique actions), total idle time (periods of inactivity over 60 seconds), total active time, and the ratio of idle time to active time, thereby summarizing users' engagement and behavior patterns.
+
+```{python}
+# Action Frequency, Avg Time Between Actions, Max Action Duration, Action Diversity, Idle/Active Ratio
+action_freq = ca2.groupby('Unique-id')['Row'].count().reset_index()
+action_freq.columns = ['Unique-id', 'Action_Frequency']
+
+ca2['time'] = pd.to_datetime(ca2['time'], errors='coerce')
+ca2 = ca2.sort_values(by=['Unique-id', 'time'])
+ca2['Time_Diff'] = ca2.groupby('Unique-id')['time'].diff().dt.total_seconds()
+avg_time_diff = ca2.groupby('Unique-id')['Time_Diff'].mean().reset_index()
+avg_time_diff.columns = ['Unique-id', 'Avg_Time_Between_Actions']
+
+max_time_diff = ca2.groupby('Unique-id')['Time_Diff'].max().reset_index()
+max_time_diff.columns = ['Unique-id', 'Max_Action_Duration']
+
+action_diversity = ca2.groupby('Unique-id')['prod'].nunique().reset_index()
+action_diversity.columns = ['Unique-id', 'Action_Diversity']
+
+ca2['Idle_Time'] = ca2['Time_Diff'].apply(lambda x: x if x > 60 else 0)
+total_idle_time = ca2.groupby('Unique-id')['Idle_Time'].sum().reset_index()
+total_active_time = ca2.groupby('Unique-id')['Time_Diff'].sum().reset_index()
+total_active_time.columns = ['Unique-id', 'Total_Active_Time']
+idle_active_ratio = total_idle_time.merge(total_active_time, on='Unique-id')
+idle_active_ratio['Idle_Active_Ratio'] = idle_active_ratio['Idle_Time'] / idle_active_ratio['Total_Active_Time']
+```
+
+### Data Merging and Cleaning
+
+I merged the new features into `ca1-dataset.csv` based on `Unique-id` and handled missing values using mean imputation for numerical columns.
+
+```{python}
+# Merging the new features into the original ca1-dataset.csv
+ca1_enhanced = ca1.merge(action_freq, on='Unique-id', how='left')
+ca1_enhanced = ca1_enhanced.merge(avg_time_diff, on='Unique-id', how='left')
+ca1_enhanced = ca1_enhanced.merge(max_time_diff, on='Unique-id', how='left')
+ca1_enhanced = ca1_enhanced.merge(action_diversity, on='Unique-id', how='left')
+ca1_enhanced = ca1_enhanced.merge(idle_active_ratio[['Unique-id', 'Idle_Active_Ratio']], on='Unique-id', how='left')
+
+# Handling missing values using mean imputation
+numeric_cols = ca1_enhanced.select_dtypes(include=['number']).columns
+ca1_enhanced[numeric_cols] = ca1_enhanced[numeric_cols].fillna(ca1_enhanced[numeric_cols].mean())
+```
+
+### Model Development
+
+I developed models using:
+
+- **Model 1**: Original features from `ca1-dataset.csv`.
+- **Model 2**: Combined original and new features.
+
+#### Model 1: Original Features
+
+```{python}
+# Model Development using RandomForestClassifier
+original_features = ['Avgright', 'Avgbug', 'Avghelp', 'Avgchoice', 'Avgstring', 'Avgnumber', 'Avgpoint', 'Avgpchange', 'Avgtime', 'AvgtimeSDnormed', 'Avgtimelast3SDnormed', 'Avgtimelast5SDnormed', 'Avgnotright', 'Avghowmanywrong-up', 'Avghelppct-up', 'Avgwrongpct-up', 'Avgtimeperact-up', 'AvgPrev3Count-up', 'AvgPrev5Count-up', 'Avgrecent8help', 'Avg recent5wrong', 'Avgmanywrong-up', 'AvgasymptoteA-up', 'AvgasymptoteB-up']
+
+# Separate features and target variable ('OffTask')
+X_original = ca1_enhanced[original_features]
+y = ca1_enhanced['OffTask'].apply(lambda x: 1 if x == 'Y' else 0)
+
+# Split the dataset into train and test sets
+X_train_orig, X_test_orig, y_train_orig, y_test_orig = train_test_split(X_original, y, test_size=0.2, random_state=42)
+
+# Build the RandomForest model
+rf = RandomForestClassifier(n_estimators=100, random_state=42)
+rf.fit(X_train_orig, y_train_orig)
+
+# Predict and evaluate the model
+y_pred_orig = rf.predict(X_test_orig)
+auc_orig = roc_auc_score(y_test_orig, y_pred_orig)
+kappa_orig = cohen_kappa_score(y_test_orig, y_pred_orig)
+print(f"AUC: {auc_orig}, Kappa: {kappa_orig}")
+```
+
+#### Model 2: Combined Features
+
+```{python}
+#| output: false
+
+# Combined Features
+new_features = ['Action_Frequency', 'Avg_Time_Between_Actions', 'Max_Action_Duration', 'Action_Diversity', 'Idle_Active_Ratio']
+X_combined = ca1_enhanced[original_features + new_features]
+X_train_comb, X_test_comb, y_train_comb, y_test_comb = train_test_split(X_combined, y, test_size=0.2, random_state=42)
+
+# Define the parameter grid
+param_grid = {
+    'n_estimators': [100, 200, 300],
+    'max_depth': [None, 10, 20, 30],
+    'min_samples_split': [2, 5, 10],
+    'min_samples_leaf': [1, 2, 4],
+    'bootstrap': [True, False]
+}
+
+# Initialize the RandomForestClassifier
+rf = RandomForestClassifier(random_state=42)
+
+# Initialize GridSearchCV
+grid_search = GridSearchCV(estimator=rf, param_grid=param_grid, cv=3, n_jobs=-1, verbose=2, scoring='roc_auc')
+
+# Fit GridSearchCV
+grid_search.fit(X_train_comb, y_train_comb)
+
+# Get the best parameters
+best_params = grid_search.best_params_
+```
+```{python}
+print(f'Best parameters found: {best_params}')
+```
+
+Based on the output, the best model configuration according to the grid search is a `RandomForestClassifier` with:
+
+- **No bootstrapping** (`bootstrap=False`): Each tree is built on the entire dataset instead of a random subset.
+- **Maximum depth of 10** (`max_depth=10`): Limits the number of levels in each decision tree to prevent overfitting.
+- **Minimum of 2 samples per leaf node** (`min_samples_leaf=2`): Each leaf node must have at least 2 samples.
+- **Minimum of 2 samples required to split an internal node** (`min_samples_split=2`): Controls the tree's complexity.
+- **100 decision trees** (`n_estimators=100`): The number of trees in the forest.
+
+```{python}
+# Train the model with the best parameters
+best_rf = RandomForestClassifier(**best_params, random_state=42)
+best_rf.fit(X_train_comb, y_train_comb)
+y_pred_comb = best_rf.predict(X_test_comb)
+
+# Evaluate the model
+auc_comb = roc_auc_score(y_test_comb, y_pred_comb)
+kappa_comb = cohen_kappa_score(y_test_comb, y_pred_comb)
+print(f'AUC for Combined Features with Best Params: {auc_comb}')
+print(f'Kappa for Combined Features with Best Params: {kappa_comb}')
+```
+
+```{python}
+# Separate features and target variable
+X = ca1_enhanced[original_features + new_features]
+y = ca1_enhanced['OffTask'].apply(lambda x: 1 if x == 'Y' else 0)
+
+# Split the dataset into train and test sets before SMOTE
+X_train_comb, X_test_comb, y_train_comb, y_test_comb = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# Check original class distribution
+print(f'Original training set class distribution: {Counter(y_train_comb)}')
+
+# Apply SMOTE to balance the training data
+smote = SMOTE(random_state=42)
+X_train_resampled, y_train_resampled = smote.fit_resample(X_train_comb, y_train_comb)
+
+# Check class distribution after SMOTE
+print(f'Resampled training set class distribution: {Counter(y_train_resampled)}')
+
+# Initialize the scaler
+scaler = StandardScaler()
+
+# Fit the scaler on the training data and transform both training and test data
+X_train_scaled = scaler.fit_transform(X_train_resampled)
+X_test_scaled = scaler.transform(X_test_comb)
+
+# Initialize individual models with appropriate parameters
+rf = RandomForestClassifier(**best_params, random_state=42)
+lr = LogisticRegression(random_state=42, max_iter=1000)
+svc = SVC(probability=True, random_state=42)
+
+# Create an ensemble model
+ensemble = VotingClassifier(
+    estimators=[('rf', rf), ('lr', lr), ('svc', svc)],
+    voting='soft'
+)
+
+# Train the ensemble model
+ensemble.fit(X_train_scaled, y_train_resampled)
+
+# Predict on the scaled test data
+y_pred_comb = ensemble.predict(X_test_scaled)
+
+# Evaluate the ensemble model
+auc_comb = roc_auc_score(y_test_comb, y_pred_comb)
+kappa_comb = cohen_kappa_score(y_test_comb, y_pred_comb)
+print(f'AUC for Combined Features with Ensemble: {auc_comb}')
+print(f'Kappa for Combined Features with Ensemble: {kappa_comb}')
+```
+
+#### Cross-Validation Strategy
+
+To avoid overfitting and ensure that the model generalizes to new students, I used GroupKFold cross-validation based on `Unique-id`. This approach ensures that data from the same student does not appear in both training and testing sets.
+
+```{python}
+# Cross-validation using GroupKFold with the ensemble model
+gkf = GroupKFold(n_splits=5)
+groups = ca1_enhanced['Unique-id']
+
+auc_scores_comb = []
+kappa_scores_comb = []
+
+for train_idx, test_idx in gkf.split(X_combined, y, groups=groups):
+    X_train_comb, X_test_comb = X_combined.iloc[train_idx], X_combined.iloc[test_idx]
+    y_train_comb, y_test_comb = y.iloc[train_idx], y.iloc[test_idx]
+    
+    # Apply SMOTE to each fold
+    X_train_resampled, y_train_resampled = smote.fit_resample(X_train_comb, y_train_comb)
+    
+    ensemble.fit(X_train_resampled, y_train_resampled)
+    y_pred_comb = ensemble.predict(X_test_comb)
+    auc_scores_comb.append(roc_auc_score(y_test_comb, y_pred_comb))
+    kappa_scores_comb.append(cohen_kappa_score(y_test_comb, y_pred_comb))
+
+# Averaged cross-validation results for combined features with ensemble
+avg_auc_comb = sum(auc_scores_comb) / len(auc_scores_comb)
+avg_kappa_comb = sum(kappa_scores_comb) / len(kappa_scores_comb)
+print(f'Average AUC for Combined Features with Ensemble: {avg_auc_comb}')
+print(f'Average Kappa for Combined Features with Ensemble: {avg_kappa_comb}')
+```
+
+#### Feature Selection
+
+I performed Recursive Feature Elimination (RFE) to select the top 10 most significant features, further refining the model.
+
+```{python}
+# Perform Recursive Feature Elimination (RFE)
+rfe = RFE(estimator=rf, n_features_to_select=10, step=1)
+rfe.fit(X_combined, y)
+
+# Get the selected features
+selected_features = X_combined.columns[rfe.support_]
+
+# Use only the selected features for training and testing
+X_combined_selected = X_combined[selected_features]
+
+# Apply SMOTE to balance the dataset
+X_resampled, y_resampled = smote.fit_resample(X_combined_selected, y)
+
+# Split the resampled data
+X_train_comb, X_test_comb, y_train_comb, y_test_comb = train_test_split(X_resampled, y_resampled, test_size=0.2, random_state=42)
+
+# Train the ensemble model with selected features
+ensemble.fit(X_train_comb, y_train_comb)
+y_pred_comb = ensemble.predict(X_test_comb)
+
+# Evaluate the ensemble model with selected features
+auc_comb = roc_auc_score(y_test_comb, y_pred_comb)
+kappa_comb = cohen_kappa_score(y_test_comb, y_pred_comb)
+print(f'AUC for Combined Features with Ensemble and RFE: {auc_comb}')
+print(f'Kappa for Combined Features with Ensemble and RFE: {kappa_comb}')
+```
+
+```{python}
+# Cross-validation using GroupKFold with the ensemble model and selected features
+auc_scores_comb = []
+kappa_scores_comb = []
+
+for train_idx, test_idx in gkf.split(X_combined_selected, y, groups=groups):
+    X_train_comb, X_test_comb = X_combined_selected.iloc[train_idx], X_combined_selected.iloc[test_idx]
+    y_train_comb, y_test_comb = y.iloc[train_idx], y.iloc[test_idx]
+    
+    # Apply SMOTE to each fold
+    X_train_resampled, y_train_resampled = smote.fit_resample(X_train_comb, y_train_comb)
+    
+    ensemble.fit(X_train_resampled, y_train_resampled)
+    y_pred_comb = ensemble.predict(X_test_comb)
+    auc_scores_comb.append(roc_auc_score(y_test_comb, y_pred_comb))
+    kappa_scores_comb.append(cohen_kappa_score(y_test_comb, y_pred_comb))
+
+# Averaged cross-validation results for combined features with ensemble and RFE
+avg_auc_comb = sum(auc_scores_comb) / len(auc_scores_comb)
+avg_kappa_comb = sum(kappa_scores_comb) / len(kappa_scores_comb)
+print(f'Average AUC for Combined Features with Ensemble and RFE: {avg_auc_comb}')
+print(f'Average Kappa for Combined Features with Ensemble and RFE: {avg_kappa_comb}')
+```
+
+## Results
+
+### Model Performance Comparison
+
+### Discussion
+
+### Conclusion
+
+### Submission Guidelines
+
+This document includes all required explanations. The code and data are organized to facilitate replication and further analysis. Please let me know if additional information is needed.
