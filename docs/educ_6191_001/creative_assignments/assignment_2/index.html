@@ -152,12 +152,19 @@ div.csl-indent {
   <li><a href="#feature-engineering" id="toc-feature-engineering" class="nav-link" data-scroll-target="#feature-engineering">Feature Engineering</a></li>
   <li><a href="#data-merging-and-cleaning" id="toc-data-merging-and-cleaning" class="nav-link" data-scroll-target="#data-merging-and-cleaning">Data Merging and Cleaning</a></li>
   <li><a href="#model-development" id="toc-model-development" class="nav-link" data-scroll-target="#model-development">Model Development</a></li>
+  <li><a href="#addressing-class-imbalance-with-smote-and-ensemble-modeling" id="toc-addressing-class-imbalance-with-smote-and-ensemble-modeling" class="nav-link" data-scroll-target="#addressing-class-imbalance-with-smote-and-ensemble-modeling">Addressing Class Imbalance with SMOTE and Ensemble Modeling</a></li>
+  <li><a href="#cross-validation-strategy" id="toc-cross-validation-strategy" class="nav-link" data-scroll-target="#cross-validation-strategy">Cross-Validation Strategy</a></li>
+  <li><a href="#feature-selection" id="toc-feature-selection" class="nav-link" data-scroll-target="#feature-selection">Feature Selection</a></li>
   </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
   <ul class="collapse">
   <li><a href="#model-performance-comparison" id="toc-model-performance-comparison" class="nav-link" data-scroll-target="#model-performance-comparison">Model Performance Comparison</a></li>
+  </ul></li>
   <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
+  <li><a href="#future-work-to-address-limitations" id="toc-future-work-to-address-limitations" class="nav-link" data-scroll-target="#future-work-to-address-limitations">Future Work to Address Limitations</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a>
+  <ul class="collapse">
   <li><a href="#submission-guidelines" id="toc-submission-guidelines" class="nav-link" data-scroll-target="#submission-guidelines">Submission Guidelines</a></li>
   </ul></li>
   </ul>
@@ -207,7 +214,7 @@ div.csl-indent {
 <div>
   <div class="abstract">
     <div class="block-title">Abstract</div>
-    <p>This project aims to build an improved behavior detector by engineering new features from ca2-dataset.csv and integrating them with existing features from ca1-dataset.csv. Using ensemble machine learning techniques and careful cross-validation, we demonstrate enhanced predictive performance in detecting off-task behavior in students interacting with educational software.</p>
+    <p>This project aims to develop an improved behavior classifier by engineering new features from a detailed student interaction dataset (<code>ca2-dataset.csv</code>) and integrating them with existing features from <code>ca1-dataset.csv</code>. Utilizing ensemble machine learning techniques and rigorous cross-validation strategies, we demonstrate enhanced predictive performance in detecting off-task behavior among students interacting with educational software.</p>
   </div>
 </div>
 
@@ -223,17 +230,26 @@ div.csl-indent {
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Understanding student behavior in educational software is crucial for providing timely interventions and enhancing learning outcomes. Off-task behavior can negatively impact learning, and detecting it accurately allows educators to address it promptly. This project builds upon previous work by engineering new features from detailed student interaction data and developing an improved behavior detector using machine learning techniques.</p>
+<p>Understanding student behavior within educational software environments is crucial for providing timely interventions and enhancing learning outcomes. Off-task behavior, in particular, can negatively impact learning efficacy. Accurate detection of such behavior allows educators to address issues promptly and tailor educational experiences to individual student needs.</p>
+<p>This project builds upon previous work by engineering new features derived from detailed logs of student interactions. By integrating these features with existing ones and applying advanced machine learning techniques, we aim to develop an improved behavior detector that can more accurately identify off-task behaviors.</p>
 </section>
 <section id="literature-review" class="level2">
 <h2 class="anchored" data-anchor-id="literature-review">Literature Review</h2>
+<p>Educational Data Mining (EDM) has emerged as a significant field, leveraging student data to enhance learning outcomes. Recent research has focused on developing algorithms and metrics to address algorithmic bias in education and other related fields <span class="citation" data-cites="cohausz2024fairness">(<a href="#ref-cohausz2024fairness" role="doc-biblioref">Cohausz, Kappenberger, and Stuckenschmidt 2024</a>)</span>. Analyzing student data can provide valuable insights into factors influencing academic performance, including social connections <span class="citation" data-cites="siemens2012learning">(<a href="#ref-siemens2012learning" role="doc-biblioref">Siemens and Baker 2012</a>)</span>.</p>
+<p>A particularly relevant area within EDM for this study is detecting student misuse of educational systems. Baker and Siemens <span class="citation" data-cites="siemens2012learning">(<a href="#ref-siemens2012learning" role="doc-biblioref">Siemens and Baker 2012</a>)</span> explored how data mining techniques can identify instances where students “game the system” in constraint-based tutors. This concept is pertinent to identifying off-task behavior, a broader category of student misuse.</p>
+<p>Off-task behavior encompasses actions where students deviate from their intended engagement with educational software, including disengagement, inappropriate tool use, or attempts to circumvent learning activities. “Gaming the system” <span class="citation" data-cites="baker2009state">(<a href="#ref-baker2009state" role="doc-biblioref">Ryan SJD Baker, Yacef, et al. 2009</a>)</span> can be understood as a specific manifestation of off-task behavior in which students exploit system mechanics to achieve desired outcomes without genuine engagement.</p>
+<p>Other relevant methodologies and ethical considerations include:</p>
+<ol type="1">
+<li><p>The use of “text replays” to gain a deeper understanding of student behavior <span class="citation" data-cites="sao2012improving slater2020iterative">(<a href="#ref-sao2012improving" role="doc-biblioref">Sao Pedro, Baker, and Gobert 2012</a>; <a href="#ref-slater2020iterative" role="doc-biblioref">Slater, Baker, and Wang 2020</a>)</span>, which could potentially be adapted for analyzing off-task behavior patterns.</p></li>
+<li><p>Addressing fairness and bias in machine learning models used in educational contexts <span class="citation" data-cites="cohausz2024fairness baker2022algorithmic">(<a href="#ref-cohausz2024fairness" role="doc-biblioref">Cohausz, Kappenberger, and Stuckenschmidt 2024</a>; <a href="#ref-baker2022algorithmic" role="doc-biblioref">Ryan S. Baker and Hawn 2022</a>)</span>, ensuring that models for detecting off-task behavior are equitable and do not unfairly disadvantage certain student groups.</p></li>
+</ol>
 </section>
 <section id="methodology" class="level2">
 <h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
 <section id="data-preparation" class="level3">
 <h3 class="anchored" data-anchor-id="data-preparation">Data Preparation</h3>
-<p>I began by importing essential libraries for data manipulation and machine learning, loading the datasets (<code>ca1</code> and <code>ca2</code>) from CSV files into Pandas DataFrames, and then printing summary information about each dataset using the <code>info()</code> method to inspect their structure, data types, and detect any missing values.</p>
-<div id="30b324a0" class="cell" data-execution_count="1">
+<p>I began by importing essential libraries for data manipulation and machine learning, loading the datasets (<code>ca1</code> and <code>ca2</code>) from CSV files.</p>
+<div id="cb7ab72a" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier, VotingClassifier</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split, GroupKFold, GridSearchCV</span>
@@ -249,84 +265,40 @@ div.csl-indent {
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>ca1 <span class="op">=</span> pd.read_csv(<span class="st">'data/ca1-dataset.csv'</span>)</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>ca2 <span class="op">=</span> pd.read_csv(<span class="st">'data/ca2-dataset.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="dataset-ca1" class="level4">
-<h4 class="anchored" data-anchor-id="dataset-ca1"><strong>Dataset <code>ca1</code>:</strong></h4>
 <ul>
-<li><strong>Entries:</strong> 763 rows.</li>
-<li><strong>Columns:</strong> 27 columns.</li>
-<li><strong>Data Types:</strong>
-<ul>
-<li><strong>Float64:</strong> 15 columns.</li>
-<li><strong>Int64:</strong> 9 columns.</li>
-<li><strong>Object:</strong> 3 columns (<code>Unique-id</code>, <code>namea</code>, <code>OffTask</code>).</li>
-</ul></li>
-<li><strong>Non-Null Values:</strong> All columns have 763 non-null entries—no missing data.</li>
-<li><strong>Memory Usage:</strong> Approximately 161.1 KB.</li>
+<li><strong><code>ca1-dataset.csv</code></strong>: Contains existing features related to student interactions.</li>
+<li><strong><code>ca2-dataset.csv</code></strong>: Provides detailed logs of student actions, from which new features are engineered.</li>
 </ul>
-</section>
-<section id="dataset-ca2" class="level4">
-<h4 class="anchored" data-anchor-id="dataset-ca2"><strong>Dataset <code>ca2</code>:</strong></h4>
+<p>Both datasets were imported into Pandas DataFrames for manipulation and analysis.</p>
+<section id="dataset-overview" class="level4">
+<h4 class="anchored" data-anchor-id="dataset-overview">Dataset Overview</h4>
+<p><strong><code>ca1-dataset.csv</code>:</strong></p>
 <ul>
-<li><strong>Entries:</strong> 1,745 rows.</li>
-<li><strong>Columns:</strong> 34 columns.</li>
-<li><strong>Data Types:</strong>
-<ul>
-<li><strong>Float64:</strong> 6 columns.</li>
-<li><strong>Int64:</strong> 21 columns.</li>
-<li><strong>Object:</strong> 7 columns (<code>lesson</code>, <code>namea</code>, <code>prod</code>, <code>cell</code>, <code>Behaviour</code>, <code>Coder</code>, <code>Unique-id</code>).</li>
-</ul></li>
-<li><strong>Non-Null Values:</strong> All columns have 1,745 non-null entries—no missing data.</li>
-<li><strong>Memory Usage:</strong> Approximately 463.6 KB.</li>
+<li><strong>Entries:</strong> 763 rows</li>
+<li><strong>Columns:</strong> 27</li>
+<li><strong>Data Types:</strong> Numeric and categorical</li>
+<li><strong>Missing Values:</strong> None</li>
 </ul>
-</section>
-<section id="key-observations" class="level4">
-<h4 class="anchored" data-anchor-id="key-observations"><strong>Key Observations:</strong></h4>
+<p><strong><code>ca2-dataset.csv</code>:</strong></p>
 <ul>
-<li><strong>No Missing Values:</strong> Both datasets have complete data in all columns.</li>
-<li><strong>Data Types:</strong>
-<ul>
-<li>The majority of columns are numerical (<code>int64</code> and <code>float64</code>), suitable for quantitative analysis.</li>
-<li>Categorical data is present in the <code>object</code> type columns, which may need encoding for machine learning models.</li>
-</ul></li>
-<li><strong>Potential Targets:</strong>
-<ul>
-<li>In <code>ca1</code>, the column <code>OffTask</code> could be a target variable, as it might indicate whether a student was off-task.</li>
-<li>In <code>ca2</code>, columns like <code>Behaviour</code> could serve as target variables for classification tasks.</li>
-</ul></li>
-</ul>
-</section>
-<section id="implications-for-analysis" class="level4">
-<h4 class="anchored" data-anchor-id="implications-for-analysis"><strong>Implications for Analysis:</strong></h4>
-<ul>
-<li><strong>Data Preparation:</strong>
-<ul>
-<li><strong>Encoding Categorical Variables:</strong> Convert <code>object</code> type columns to numerical format using techniques like one-hot encoding or label encoding.</li>
-<li><strong>Feature Scaling:</strong> Consider normalizing or standardizing numerical features, especially those with a wide range of values.</li>
-</ul></li>
-<li><strong>Class Imbalance:</strong>
-<ul>
-<li>The import of <code>SMOTE</code> suggests that the target variable(s) might be imbalanced. Verify the distribution of classes in target columns like <code>OffTask</code> and <code>Behaviour</code>.</li>
-</ul></li>
-<li><strong>Feature Selection:</strong>
-<ul>
-<li>With a substantial number of features, applying techniques like Recursive Feature Elimination (<code>RFE</code>) can help identify the most significant predictors.</li>
-</ul></li>
-<li><strong>Data Consistency:</strong>
-<ul>
-<li>Check for consistency between the two datasets if they are to be merged or compared. Common columns like <code>namea</code> and <code>Unique-id</code> may serve as keys for merging.</li>
-</ul></li>
-<li><strong>Modeling Considerations:</strong>
-<ul>
-<li>The presence of time-related features (e.g., <code>Avgtime</code>, <code>timelast5SDnormed</code>) suggests that temporal patterns could be important.</li>
-<li>Since there are no missing values, you can proceed directly to modeling after necessary preprocessing steps.</li>
-</ul></li>
+<li><strong>Entries:</strong> 1,745 rows</li>
+<li><strong>Columns:</strong> 34</li>
+<li><strong>Data Types:</strong> Numeric and categorical</li>
+<li><strong>Missing Values:</strong> None</li>
 </ul>
 </section>
 </section>
 <section id="feature-engineering" class="level3">
 <h3 class="anchored" data-anchor-id="feature-engineering">Feature Engineering</h3>
-<p>I processed the <code>ca2</code> dataset to compute user-specific metrics by grouping data based on <code>Unique-id</code>. I calculated each user’s action frequency, average and maximum time between actions, action diversity (number of unique actions), total idle time (periods of inactivity over 60 seconds), total active time, and the ratio of idle time to active time, thereby summarizing users’ engagement and behavior patterns.</p>
-<div id="8ad76d7a" class="cell" data-execution_count="2">
+<p>From <code>ca2-dataset.csv</code>, we engineered several user-specific features to capture behavioral patterns:</p>
+<ul>
+<li><strong>Action Frequency:</strong> Total number of actions per user.</li>
+<li><strong>Average Time Between Actions:</strong> Mean time interval between consecutive actions.</li>
+<li><strong>Maximum Action Duration:</strong> Longest time interval between actions.</li>
+<li><strong>Action Diversity:</strong> Number of unique actions performed.</li>
+<li><strong>Idle Time Metrics:</strong> Total idle time (periods of inactivity exceeding 60 seconds) and the ratio of idle to active time.</li>
+</ul>
+<div id="0c2fc861" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Action Frequency, Avg Time Between Actions, Max Action Duration, Action Diversity, Idle/Active Ratio</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>action_freq <span class="op">=</span> ca2.groupby(<span class="st">'Unique-id'</span>)[<span class="st">'Row'</span>].count().reset_index()</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>action_freq.columns <span class="op">=</span> [<span class="st">'Unique-id'</span>, <span class="st">'Action_Frequency'</span>]</span>
@@ -350,11 +322,12 @@ div.csl-indent {
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>idle_active_ratio <span class="op">=</span> total_idle_time.merge(total_active_time, on<span class="op">=</span><span class="st">'Unique-id'</span>)</span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>idle_active_ratio[<span class="st">'Idle_Active_Ratio'</span>] <span class="op">=</span> idle_active_ratio[<span class="st">'Idle_Time'</span>] <span class="op">/</span> idle_active_ratio[<span class="st">'Total_Active_Time'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>These features aim to quantify user engagement and detect patterns indicative of off-task behavior.</p>
 </section>
 <section id="data-merging-and-cleaning" class="level3">
 <h3 class="anchored" data-anchor-id="data-merging-and-cleaning">Data Merging and Cleaning</h3>
-<p>I merged the new features into <code>ca1-dataset.csv</code> based on <code>Unique-id</code> and handled missing values using mean imputation for numerical columns.</p>
-<div id="bcac7248" class="cell" data-execution_count="3">
+<p>The new features were merged with <code>ca1-dataset.csv</code> based on the <code>Unique-id</code> key. Missing values in numerical columns were handled using mean imputation to ensure the integrity of the dataset for modeling.</p>
+<div id="b598a281" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merging the new features into the original ca1-dataset.csv</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ca1_enhanced <span class="op">=</span> ca1.merge(action_freq, on<span class="op">=</span><span class="st">'Unique-id'</span>, how<span class="op">=</span><span class="st">'left'</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>ca1_enhanced <span class="op">=</span> ca1_enhanced.merge(avg_time_diff, on<span class="op">=</span><span class="st">'Unique-id'</span>, how<span class="op">=</span><span class="st">'left'</span>)</span>
@@ -369,14 +342,15 @@ div.csl-indent {
 </section>
 <section id="model-development" class="level3">
 <h3 class="anchored" data-anchor-id="model-development">Model Development</h3>
-<p>I developed models using:</p>
+<p>We developed two primary models:</p>
 <ul>
-<li><strong>Model 1</strong>: Original features from <code>ca1-dataset.csv</code>.</li>
-<li><strong>Model 2</strong>: Combined original and new features.</li>
+<li><strong>Model 1:</strong> Utilizes only the original features from <code>ca1-dataset.csv</code>.</li>
+<li><strong>Model 2:</strong> Combines original features with the newly engineered features.</li>
 </ul>
 <section id="model-1-original-features" class="level4">
 <h4 class="anchored" data-anchor-id="model-1-original-features">Model 1: Original Features</h4>
-<div id="16eb3422" class="cell" data-execution_count="4">
+<p>A Random Forest Classifier was trained using the original features to serve as a baseline model. The target variable was the <code>OffTask</code> indicator, converted to a binary format.</p>
+<div id="ce4bd728" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model Development using RandomForestClassifier</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>original_features <span class="op">=</span> [<span class="st">'Avgright'</span>, <span class="st">'Avgbug'</span>, <span class="st">'Avghelp'</span>, <span class="st">'Avgchoice'</span>, <span class="st">'Avgstring'</span>, <span class="st">'Avgnumber'</span>, <span class="st">'Avgpoint'</span>, <span class="st">'Avgpchange'</span>, <span class="st">'Avgtime'</span>, <span class="st">'AvgtimeSDnormed'</span>, <span class="st">'Avgtimelast3SDnormed'</span>, <span class="st">'Avgtimelast5SDnormed'</span>, <span class="st">'Avgnotright'</span>, <span class="st">'Avghowmanywrong-up'</span>, <span class="st">'Avghelppct-up'</span>, <span class="st">'Avgwrongpct-up'</span>, <span class="st">'Avgtimeperact-up'</span>, <span class="st">'AvgPrev3Count-up'</span>, <span class="st">'AvgPrev5Count-up'</span>, <span class="st">'Avgrecent8help'</span>, <span class="st">'Avg recent5wrong'</span>, <span class="st">'Avgmanywrong-up'</span>, <span class="st">'AvgasymptoteA-up'</span>, <span class="st">'AvgasymptoteB-up'</span>]</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -810,7 +784,8 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="model-2-combined-features" class="level4">
 <h4 class="anchored" data-anchor-id="model-2-combined-features">Model 2: Combined Features</h4>
-<div id="ba4b3aa3" class="cell" data-execution_count="5">
+<p>The second model incorporated both original and new features. We performed hyperparameter tuning using GridSearchCV to optimize the Random Forest Classifier.</p>
+<div id="7ed54c32" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combined Features</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>new_features <span class="op">=</span> [<span class="st">'Action_Frequency'</span>, <span class="st">'Avg_Time_Between_Actions'</span>, <span class="st">'Max_Action_Duration'</span>, <span class="st">'Action_Diversity'</span>, <span class="st">'Idle_Active_Ratio'</span>]</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>X_combined <span class="op">=</span> ca1_enhanced[original_features <span class="op">+</span> new_features]</span>
@@ -837,7 +812,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the best parameters</span></span>
 <span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>best_params <span class="op">=</span> grid_search.best_params_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="90664e0e" class="cell" data-execution_count="6">
+<div id="26924a5e" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Best parameters found: </span><span class="sc">{</span>best_params<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Best parameters found: {'bootstrap': False, 'max_depth': 10, 'min_samples_leaf': 2, 'min_samples_split': 2, 'n_estimators': 100}</code></pre>
@@ -851,7 +826,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li><strong>Minimum of 2 samples required to split an internal node</strong> (<code>min_samples_split=2</code>): Controls the tree’s complexity.</li>
 <li><strong>100 decision trees</strong> (<code>n_estimators=100</code>): The number of trees in the forest.</li>
 </ul>
-<div id="95f643db" class="cell" data-execution_count="7">
+<div id="c997940f" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model with the best parameters</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>best_rf <span class="op">=</span> RandomForestClassifier(<span class="op">**</span>best_params, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>best_rf.fit(X_train_comb, y_train_comb)</span>
@@ -1276,7 +1251,12 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 Kappa for Combined Features with Best Params: 0.6577181208053692</code></pre>
 </div>
 </div>
-<div id="03f45481" class="cell" data-execution_count="8">
+</section>
+</section>
+<section id="addressing-class-imbalance-with-smote-and-ensemble-modeling" class="level3">
+<h3 class="anchored" data-anchor-id="addressing-class-imbalance-with-smote-and-ensemble-modeling">Addressing Class Imbalance with SMOTE and Ensemble Modeling</h3>
+<p>To address class imbalance, Synthetic Minority Over-sampling Technique (SMOTE) was applied. An ensemble model comprising a Random Forest, Logistic Regression, and Support Vector Classifier was built using a soft voting strategy.</p>
+<div id="8a3c1d43" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Separate features and target variable</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> ca1_enhanced[original_features <span class="op">+</span> new_features]</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> ca1_enhanced[<span class="st">'OffTask'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="dv">1</span> <span class="cf">if</span> x <span class="op">==</span> <span class="st">'Y'</span> <span class="cf">else</span> <span class="dv">0</span>)</span>
@@ -1761,10 +1741,10 @@ Kappa for Combined Features with Ensemble: 0.3882224645583424</code></pre>
 </div>
 </div>
 </section>
-<section id="cross-validation-strategy" class="level4">
-<h4 class="anchored" data-anchor-id="cross-validation-strategy">Cross-Validation Strategy</h4>
-<p>To avoid overfitting and ensure that the model generalizes to new students, I used GroupKFold cross-validation based on <code>Unique-id</code>. This approach ensures that data from the same student does not appear in both training and testing sets.</p>
-<div id="96e8cb3a" class="cell" data-execution_count="9">
+<section id="cross-validation-strategy" class="level3">
+<h3 class="anchored" data-anchor-id="cross-validation-strategy">Cross-Validation Strategy</h3>
+<p>To ensure the model’s generalizability, we employed GroupKFold cross-validation based on <code>Unique-id</code>. This approach prevents data from the same student appearing in both training and testing sets, thereby providing a more robust evaluation.</p>
+<div id="0a082fa1" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-validation using GroupKFold with the ensemble model</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>gkf <span class="op">=</span> GroupKFold(n_splits<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> ca1_enhanced[<span class="st">'Unique-id'</span>]</span>
@@ -3925,10 +3905,10 @@ Average Kappa for Combined Features with Ensemble: 0.23459893731294215</code></p
 </div>
 </div>
 </section>
-<section id="feature-selection" class="level4">
-<h4 class="anchored" data-anchor-id="feature-selection">Feature Selection</h4>
-<p>I performed Recursive Feature Elimination (RFE) to select the top 10 most significant features, further refining the model.</p>
-<div id="1301bc21" class="cell" data-execution_count="10">
+<section id="feature-selection" class="level3">
+<h3 class="anchored" data-anchor-id="feature-selection">Feature Selection</h3>
+<p>Recursive Feature Elimination (RFE) was utilized to identify the top 10 most significant features. This step aimed to enhance model performance by reducing overfitting and improving computational efficiency.</p>
+<div id="975e8e07" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform Recursive Feature Elimination (RFE)</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>rfe <span class="op">=</span> RFE(estimator<span class="op">=</span>rf, n_features_to_select<span class="op">=</span><span class="dv">10</span>, step<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>rfe.fit(X_combined, y)</span>
@@ -4798,7 +4778,9 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 Kappa for Combined Features with Ensemble and RFE: 0.8835616438356164</code></pre>
 </div>
 </div>
-<div id="7b809679" class="cell" data-execution_count="11">
+<section id="cross-validation-with-selected-features" class="level4">
+<h4 class="anchored" data-anchor-id="cross-validation-with-selected-features">Cross-Validation with Selected Features</h4>
+<div id="09039fa9" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-validation using GroupKFold with the ensemble model and selected features</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>auc_scores_comb <span class="op">=</span> []</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>kappa_scores_comb <span class="op">=</span> []</span>
@@ -6962,13 +6944,105 @@ Average Kappa for Combined Features with Ensemble and RFE: 0.2404683378968202</c
 <h2 class="anchored" data-anchor-id="results">Results</h2>
 <section id="model-performance-comparison" class="level3">
 <h3 class="anchored" data-anchor-id="model-performance-comparison">Model Performance Comparison</h3>
+<p><strong>Model 1 (Original Features):</strong></p>
+<ul>
+<li><strong>AUC Score:</strong> 0.583</li>
+<li><strong>Cohen’s Kappa:</strong> 0.278</li>
+</ul>
+<p><strong>Interpretation:</strong> The baseline model using only the original features yielded an AUC score of 0.583, which is slightly better than random guessing (AUC of 0.5). The Cohen’s Kappa score of approximately 0.278 indicates a fair agreement between the predicted and actual classifications but suggests room for improvement.</p>
+<p><strong>Model 2 (Combined Features with Best Parameters):</strong></p>
+<ul>
+<li><strong>AUC Score:</strong> 0.75</li>
+<li><strong>Cohen’s Kappa:</strong> 0.658</li>
+</ul>
+<p><strong>Interpretation:</strong> Incorporating the newly engineered features and optimizing the hyperparameters significantly improved the model’s performance. The AUC increased to 0.75, indicating better discriminative ability, and the Cohen’s Kappa score rose to approximately 0.658, reflecting substantial agreement.</p>
+<p><strong>Model 2 with Ensemble and SMOTE:</strong></p>
+<ul>
+<li><strong>AUC Score:</strong> 0.803</li>
+<li><strong>Cohen’s Kappa:</strong> 0.388</li>
+</ul>
+<p><strong>Interpretation:</strong> Using SMOTE to address class imbalance and employing an ensemble model further enhanced the AUC to approximately 0.803. However, the Cohen’s Kappa score decreased to around 0.388. This discrepancy suggests that while the model’s ability to rank predictions improved, the overall agreement between predicted and actual classes did not improve proportionally.</p>
+<p><strong>Model 2 with Ensemble, SMOTE, and RFE:</strong></p>
+<ul>
+<li><strong>AUC Score:</strong> 0.942</li>
+<li><strong>Cohen’s Kappa:</strong> 0.884</li>
+</ul>
+<p><strong>Interpretation:</strong> Applying Recursive Feature Elimination (RFE) to select the top 10 features resulted in a significant boost in both AUC and Cohen’s Kappa scores. An AUC of approximately 0.942 indicates excellent model performance, and a Cohen’s Kappa of about 0.884 suggests almost perfect agreement.</p>
+<p><strong>Cross-Validation Results (With RFE):</strong></p>
+<ul>
+<li><strong>Average AUC:</strong> 0.730</li>
+<li><strong>Average Cohen’s Kappa:</strong> 0.240</li>
+</ul>
+<p><strong>Interpretation:</strong> The cross-validation results using GroupKFold showed an average AUC of 0.730 and an average Cohen’s Kappa of 0.240. While these scores are lower than the test set results, they provide a more realistic estimate of model performance on unseen data.</p>
 </section>
-<section id="discussion" class="level3">
-<h3 class="anchored" data-anchor-id="discussion">Discussion</h3>
 </section>
-<section id="conclusion" class="level3">
-<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<section id="discussion" class="level2">
+<h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
+<p>The progressive enhancements in model performance demonstrate the effectiveness of feature engineering and model optimization techniques:</p>
+<ol type="1">
+<li><p><strong>Feature Engineering:</strong> The introduction of new features derived from <code>ca2-dataset.csv</code> substantially improved the model’s ability to detect off-task behavior. This indicates that these features capture significant aspects of student interactions related to off-task activities.</p></li>
+<li><p><strong>Hyperparameter Tuning:</strong> Optimizing the Random Forest parameters led to better model performance, highlighting the importance of tailoring the model to the data characteristics.</p></li>
+<li><p><strong>Addressing Class Imbalance:</strong> Applying SMOTE balanced the training data, which is crucial when dealing with imbalanced classes. The increase in AUC after SMOTE suggests that the model became better at distinguishing between the classes.</p></li>
+<li><p><strong>Ensemble Modeling:</strong> Combining different algorithms (Random Forest, Logistic Regression, and SVC) in an ensemble improved the robustness of the predictions. The ensemble model benefits from the strengths of each individual classifier.</p></li>
+<li><p><strong>Feature Selection with RFE:</strong> Reducing the feature set to the most significant 10 features using RFE not only simplified the model but also enhanced performance. This suggests that these features are highly predictive of off-task behavior and that removing less important features can reduce noise and prevent overfitting.</p></li>
+<li><p><strong>Cross-Validation Insights:</strong> The cross-validation results, while lower than the test set scores, are critical for assessing how the model might perform on new, unseen data. The lower scores indicate potential overfitting, and they highlight the need for further model validation or potential adjustments.</p></li>
+</ol>
+<p><strong>Potential Reasons for Discrepancies:</strong></p>
+<ul>
+<li>The significant drop in Cohen’s Kappa during cross-validation suggests variability in model performance across different folds. This could be due to the inherent differences in student behaviors or the limited size of the dataset.</li>
+<li>The high performance on the test set after RFE may indicate overfitting to that specific split. Cross-validation provides a more generalized performance metric.</li>
+</ul>
+<p><strong>Implications for Educational Interventions:</strong></p>
+<ul>
+<li>The top features identified can help educators understand which behaviors are most indicative of off-task activities.</li>
+<li>Real-time monitoring systems can be developed using these key features to alert educators when a student may need intervention.</li>
+</ul>
 </section>
+<section id="limitations" class="level2">
+<h2 class="anchored" data-anchor-id="limitations">Limitations</h2>
+<p>Despite the promising results obtained from the enhanced behavior detection model, several limitations must be acknowledged to contextualize the findings and guide future research.</p>
+<p><strong>Dataset Size and Diversity</strong></p>
+<p>The datasets utilized in this study, <code>ca1-dataset.csv</code> and <code>ca2-dataset.csv</code>, contain 763 and 1,745 entries, respectively. While these datasets provided a valuable foundation for feature engineering and model development, their relatively small size may limit the generalizability of the results. A limited dataset might not capture the full spectrum of student behaviors and interactions, potentially leading to models that are tailored to the specific characteristics of the sampled population. This constraint can affect the model’s performance when applied to different student groups or educational settings.</p>
+<p><strong>Potential Overfitting</strong></p>
+<p>The significant improvement in model performance, particularly after applying Recursive Feature Elimination (RFE), raises concerns about potential overfitting. Overfitting occurs when a model learns patterns specific to the training data, including noise and outliers, which do not generalize well to unseen data. The discrepancy between the high test set performance (AUC of 0.942 and Cohen’s Kappa of 0.884) and the lower cross-validation scores (average AUC of 0.730 and average Cohen’s Kappa of 0.240) suggests that the model may not perform as effectively on new data. This overfitting can be attributed to several factors:</p>
+<ul>
+<li><strong>Feature Selection Bias:</strong> RFE might have selected features that are highly predictive in the training set but not necessarily in other datasets.</li>
+<li><strong>Class Imbalance:</strong> Despite using SMOTE to balance the classes, the original imbalance and the synthetic nature of the oversampled data may still influence the model’s learning process.</li>
+<li><strong>Complexity of the Ensemble Model:</strong> Combining multiple algorithms can increase the risk of overfitting if not properly regularized or if the individual models are themselves overfitted.</li>
+</ul>
+<p><strong>Need for External Validation</strong></p>
+<p>The models developed have not been validated on external datasets or in real-world educational environments. External validation is crucial for assessing the robustness and generalizability of the model across different contexts. Without testing the model on independent data, it’s challenging to determine whether the performance improvements are due to the model’s predictive capabilities or artifacts of the specific datasets used.</p>
+<p><strong>Implications of Limitations</strong></p>
+<p>These limitations imply that while the model shows high performance on the provided datasets, its applicability to broader educational settings remains uncertain. The potential overfitting and lack of external validation mean that educators and stakeholders should exercise caution when considering the deployment of this model in real-world applications.</p>
+</section>
+<section id="future-work-to-address-limitations" class="level2">
+<h2 class="anchored" data-anchor-id="future-work-to-address-limitations">Future Work to Address Limitations</h2>
+<p>To mitigate these limitations and enhance the model’s utility, the following steps are recommended:</p>
+<ul>
+<li><strong>Data Expansion:</strong> Collecting more extensive and diverse datasets will help capture a wider range of student behaviors, reducing the risk of overfitting and improving generalizability.</li>
+<li><strong>External Validation:</strong> Testing the model on independent datasets from different educational software or institutions will provide insights into its real-world applicability.</li>
+<li><strong>Regularization Techniques:</strong> Incorporating regularization methods and exploring simpler models may prevent overfitting by limiting model complexity.</li>
+<li><strong>Model Interpretability:</strong> Investigating the contribution of each feature to the model’s predictions can help identify any overreliance on specific features that may not generalize well.</li>
+<li><strong>Alternative Algorithms:</strong> Experimenting with other machine learning algorithms, such as gradient boosting machines or neural networks, could offer better performance and generalization.</li>
+<li><strong>Cross-Validation Strategies:</strong> Utilizing more robust cross-validation techniques, such as nested cross-validation, can provide a more accurate assessment of model performance.</li>
+</ul>
+<p>By addressing these areas, future research can develop a more robust behavior detection model that maintains high performance while generalizing effectively across different student populations and educational contexts.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This study successfully developed an enhanced behavior detector by:</p>
+<ul>
+<li>Engineering new features from detailed student interaction data.</li>
+<li>Combining these features with existing ones to improve model performance.</li>
+<li>Utilizing ensemble machine learning techniques and addressing class imbalance.</li>
+<li>Applying feature selection methods to identify the most significant predictors.</li>
+</ul>
+<p>The enhanced model demonstrates a high ability to detect off-task behavior, which is crucial for timely educational interventions. Future work could involve:</p>
+<ul>
+<li>Expanding the dataset to include more students for better generalization.</li>
+<li>Testing the model in a real-world educational setting.</li>
+<li>Exploring additional features or algorithms to further improve performance.</li>
+</ul>
 <section id="submission-guidelines" class="level3">
 <h3 class="anchored" data-anchor-id="submission-guidelines">Submission Guidelines</h3>
 <p>This document includes all required explanations. The code and data are organized to facilitate replication and further analysis. Please let me know if additional information is needed.</p>
@@ -6982,29 +7056,32 @@ Average Kappa for Combined Features with Ensemble and RFE: 0.2404683378968202</c
 <div id="ref-claude3.5sonnet2024" class="csl-entry" role="listitem">
 Anthropic. 2024. <span>“Claude 3.5 Sonnet.”</span> Large language model. <a href="https://claude.ai/">https://claude.ai/</a>.
 </div>
-<div id="ref-cursorsmall2024" class="csl-entry" role="listitem">
-Anysphere. 2024. <span>“Cursor-Small.”</span> AI model in Cursor AI code editor. <a href="https://www.cursor.com/">https://www.cursor.com/</a>.
+<div id="ref-baker2022algorithmic" class="csl-entry" role="listitem">
+Baker, Ryan S, and Aaron Hawn. 2022. <span>“Algorithmic Bias in Education.”</span> <em>International Journal of Artificial Intelligence in Education</em>, 1–41.
 </div>
-<div id="ref-baker2007modeling" class="csl-entry" role="listitem">
-Baker, Ryan SJd. 2007. <span>“Modeling and Understanding Students’ Off-Task Behavior in Intelligent Tutoring Systems.”</span> In <em>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</em>, 1059–68.
+<div id="ref-baker2009state" class="csl-entry" role="listitem">
+Baker, Ryan SJD, Kalina Yacef, et al. 2009. <span>“The State of Educational Data Mining in 2009: A Review and Future Visions.”</span> <em>Journal of Educational Data Mining</em> 1 (1): 3–17.
 </div>
-<div id="ref-bosch2015automatic" class="csl-entry" role="listitem">
-Bosch, Nigel, Sidney D’Mello, Ryan Baker, Jaclyn Ocumpaugh, Valerie Shute, Matthew Ventura, Lubin Wang, and Weinan Zhao. 2015. <span>“Automatic Detection of Learning-Centered Affective States in the Wild.”</span> In <em>Proceedings of the 20th International Conference on Intelligent User Interfaces</em>, 379–88.
+<div id="ref-cohausz2024fairness" class="csl-entry" role="listitem">
+Cohausz, Lea, Jakob Kappenberger, and Heiner Stuckenschmidt. 2024. <span>“What Fairness Metrics Can Really Tell You: A Case Study in the Educational Domain.”</span> In <em>Proceedings of the 14th Learning Analytics and Knowledge Conference</em>, 792–99.
 </div>
-<div id="ref-cocea2009log" class="csl-entry" role="listitem">
-Cocea, Mihaela, and Stephan Weibelzahl. 2009. <span>“Log File Analysis for Disengagement Detection in e-Learning Environments.”</span> <em>User Modeling and User-Adapted Interaction</em> 19: 341–85.
+<div id="ref-gemini1.5" class="csl-entry" role="listitem">
+Google. 2024. <span>“Gemini 1.5.”</span> Large language model. <a href="https://gemini.google.com/">https://gemini.google.com/</a>.
 </div>
-<div id="ref-liu2017closing" class="csl-entry" role="listitem">
-Liu, Ran, and Kenneth R Koedinger. 2017. <span>“Closing the Loop: Automated Data-Driven Cognitive Model Discoveries Lead to Improved Instruction and Learning Gains.”</span> <em>Journal of Educational Data Mining</em> 9 (1): 25–41.
+<div id="ref-openai2024-4o" class="csl-entry" role="listitem">
+OpenAI. 2024a. <span>“GPT-4o.”</span> Large language model. <a href="https://chatgpt.com/">https://chatgpt.com/</a>.
 </div>
-<div id="ref-openai2024o1preview" class="csl-entry" role="listitem">
-OpenAI. 2024. <span>“O1-Preview.”</span> Large language model. <a href="https://chatgpt.com/">https://chatgpt.com/</a>.
+<div id="ref-openai2024o1-preview" class="csl-entry" role="listitem">
+———. 2024b. <span>“O1-Preview.”</span> Large language model. <a href="https://chatgpt.com/">https://chatgpt.com/</a>.
 </div>
-<div id="ref-pardos2014affective" class="csl-entry" role="listitem">
-Pardos, Zachary A, Ryan SJD Baker, Maria OCZ San Pedro, Sujith M Gowda, and Supreeth M Gowda. 2014. <span>“Affective States and State Tests: Investigating How Affect and Engagement During the School Year Predict End-of-Year Learning Outcomes.”</span> <em>Journal of Learning Analytics</em> 1 (1): 107–28.
+<div id="ref-sao2012improving" class="csl-entry" role="listitem">
+Sao Pedro, Michael A, Ryan SJ d Baker, and Janice D Gobert. 2012. <span>“Improving Construct Validity Yields Better Models of Systematic Inquiry, Even with Less Information.”</span> In <em>User Modeling, Adaptation, and Personalization: 20th International Conference, UMAP 2012, Montreal, Canada, July 16-20, 2012. Proceedings 20</em>, 249–60. Springer.
 </div>
-<div id="ref-perplexity2024" class="csl-entry" role="listitem">
-Perplexity. 2024. <span>“Default Model.”</span> Large language model. <a href="https://www.perplexity.ai/">https://www.perplexity.ai/</a>.
+<div id="ref-siemens2012learning" class="csl-entry" role="listitem">
+Siemens, George, and Ryan SJ d Baker. 2012. <span>“Learning Analytics and Educational Data Mining: Towards Communication and Collaboration.”</span> In <em>Proceedings of the 2nd International Conference on Learning Analytics and Knowledge</em>, 252–54.
+</div>
+<div id="ref-slater2020iterative" class="csl-entry" role="listitem">
+Slater, Stefan, Ryan S Baker, and Yeyu Wang. 2020. <span>“Iterative Feature Engineering Through Text Replays of Model Errors.”</span> <em>International Educational Data Mining Society</em>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
