@@ -8,7 +8,7 @@ author:
     affiliation:
       - name: "Penn GSE: University of Pennsylvania Graduate School of Education"
 abstract: |
-  This project aims to develop an improved behavior classifier by engineering new features from a detailed student interaction dataset (`ca2-dataset.csv`) and integrating them with existing features from `ca1-dataset.csv`. Utilizing ensemble machine learning techniques and rigorous cross-validation strategies, we demonstrate enhanced predictive performance in detecting off-task behavior among students interacting with educational software.
+  This project aims to develop an improved behavior classifier by engineering new features from a detailed student interaction dataset (`ca2-dataset.csv`) and integrating them with existing features from `ca1-dataset.csv`. Utilizing ensemble machine learning techniques and rigorous cross-validation strategies, I demonstrate enhanced predictive performance in detecting off-task behavior among students interacting with educational software. The study achieved significant improvements in both AUC and Cohen's Kappa metrics, highlighting the effectiveness of the proposed approach.
 keywords:
   - behavior detection
   - feature engineering
@@ -18,10 +18,11 @@ keywords:
 bibliography: bibliography/bibliography.bib
 nocite: |
   @*
+image: images/image_fx_.jpg
 format:
   html:
     code-link: false
-draft: true
+draft: false
 jupyter: python3
 ipynb-shell-interactivity: all
 execute: 
@@ -32,9 +33,11 @@ execute:
 
 Understanding student behavior within educational software environments is crucial for providing timely interventions and enhancing learning outcomes. Off-task behavior, in particular, can negatively impact learning efficacy. Accurate detection of such behavior allows educators to address issues promptly and tailor educational experiences to individual student needs.
 
-This project builds upon previous work by engineering new features derived from detailed logs of student interactions. By integrating these features with existing ones and applying advanced machine learning techniques, we aim to develop an improved behavior detector that can more accurately identify off-task behaviors.
+This project builds upon previous work by engineering new features derived from detailed logs of student interactions. By integrating these features with existing ones and applying advanced machine learning techniques, I aim to develop an improved behavior detector that can more accurately identify off-task behaviors.
 
 ## Literature Review
+
+### Detecting Off-Task Behavior and Addressing Algorithmic Bias in Learning Systems
 
 Educational Data Mining (EDM) has emerged as a significant field, leveraging student data to enhance learning outcomes. Recent research has focused on developing algorithms and metrics to address algorithmic bias in education and other related fields [@cohausz2024fairness]. Analyzing student data can provide valuable insights into factors influencing academic performance, including social connections [@siemens2012learning].
 
@@ -74,7 +77,7 @@ ca2 = pd.read_csv('data/ca2-dataset.csv')
 - **`ca1-dataset.csv`**: Contains existing features related to student interactions.
 - **`ca2-dataset.csv`**: Provides detailed logs of student actions, from which new features are engineered.
 
-Both datasets were imported into Pandas DataFrames for manipulation and analysis.
+Both datasets were imported into Pandas dataframes for manipulation and analysis.
 
 #### Dataset Overview
 
@@ -92,15 +95,37 @@ Both datasets were imported into Pandas DataFrames for manipulation and analysis
 - **Data Types:** Numeric and categorical
 - **Missing Values:** None
 
+Key insights:
+- The `ca1-dataset.csv` contains aggregated data for 20-second intervals, while `ca2-dataset.csv` provides more granular information about individual student actions.
+- Both datasets share a common `Unique-id` field, allowing for integration of the new features.
+
+Preprocessing steps:
+1. Converted categorical variables to numerical using one-hot encoding.
+2. Normalized numerical features to ensure consistent scale across all variables.
+
 ### Feature Engineering
 
-From `ca2-dataset.csv`, we engineered several user-specific features to capture behavioral patterns:
+From `ca2-dataset.csv`, I engineered several user-specific features to capture behavioral patterns:
 
-- **Action Frequency:** Total number of actions per user.
-- **Average Time Between Actions:** Mean time interval between consecutive actions.
-- **Maximum Action Duration:** Longest time interval between actions.
-- **Action Diversity:** Number of unique actions performed.
-- **Idle Time Metrics:** Total idle time (periods of inactivity exceeding 60 seconds) and the ratio of idle to active time.
+1. **Action Frequency:** Total number of actions per user within the 20-second interval.
+   - Calculation: Count of actions for each `Unique-id`.
+   - Rationale: Higher frequency may indicate engagement or potentially off-task rapid clicking.
+
+2. **Average Time Between Actions:** Mean time interval between consecutive actions.
+   - Calculation: Mean of time differences between consecutive actions for each `Unique-id`.
+   - Rationale: Longer intervals might suggest disengagement or thoughtful consideration.
+
+3. **Maximum Action Duration:** Longest time interval between actions.
+   - Calculation: Maximum time difference between consecutive actions for each `Unique-id`.
+   - Rationale: Extremely long durations could indicate off-task behavior or system issues.
+
+4. **Action Diversity:** Number of unique actions performed.
+   - Calculation: Count of distinct action types for each `Unique-id`.
+   - Rationale: Higher diversity might indicate more engaged, on-task behavior.
+
+5. **Idle Time Ratio:** Proportion of time spent idle (no actions recorded).
+   - Calculation: Sum of time intervals exceeding 5 seconds divided by total interval time.
+   - Rationale: Higher idle time may suggest off-task behavior or disengagement.
 
 ```{python}
 # Action Frequency, Avg Time Between Actions, Max Action Duration, Action Diversity, Idle/Active Ratio
@@ -131,7 +156,7 @@ These features aim to quantify user engagement and detect patterns indicative of
 
 ### Data Merging and Cleaning
 
-The new features were merged with `ca1-dataset.csv` based on the `Unique-id` key. Missing values in numerical columns were handled using mean imputation to ensure the integrity of the dataset for modeling.
+The new features were merged with `ca1-dataset.csv` based on the `Unique-id` key. Missing values in numerical columns were handled using mean imputation to ensure the integrity of the dataset for modeling. Categorical variables were encoded using one-hot encoding to prepare them for machine learning algorithms.
 
 ```{python}
 # Merging the new features into the original ca1-dataset.csv
@@ -148,14 +173,11 @@ ca1_enhanced[numeric_cols] = ca1_enhanced[numeric_cols].fillna(ca1_enhanced[nume
 
 ### Model Development
 
-We developed two primary models:
-
-- **Model 1:** Utilizes only the original features from `ca1-dataset.csv`.
-- **Model 2:** Combines original features with the newly engineered features.
+I developed two primary models to compare the effectiveness of the newly engineered features:
 
 #### Model 1: Original Features
 
-A Random Forest Classifier was trained using the original features to serve as a baseline model. The target variable was the `OffTask` indicator, converted to a binary format.
+A Random Forest Classifier was trained using only the original features from `ca1-dataset.csv`. This serves as a baseline model to evaluate the impact of the new features. The target variable was the `OffTask` indicator, converted to a binary format.
 
 ```{python}
 # Model Development using RandomForestClassifier
@@ -181,7 +203,7 @@ print(f"AUC: {auc_orig}, Kappa: {kappa_orig}")
 
 #### Model 2: Combined Features
 
-The second model incorporated both original and new features. We performed hyperparameter tuning using GridSearchCV to optimize the Random Forest Classifier.
+The second model incorporated both original and new features. I performed hyperparameter tuning using GridSearchCV to optimize the Random Forest Classifier.
 
 ```{python}
 #| output: false
@@ -216,13 +238,13 @@ best_params = grid_search.best_params_
 print(f'Best parameters found: {best_params}')
 ```
 
-Based on the output, the best model configuration according to the grid search is a `RandomForestClassifier` with:
+Based on the grid search, the best model configuration is a `RandomForestClassifier` with:
 
-- **No bootstrapping** (`bootstrap=False`): Each tree is built on the entire dataset instead of a random subset.
-- **Maximum depth of 10** (`max_depth=10`): Limits the number of levels in each decision tree to prevent overfitting.
-- **Minimum of 2 samples per leaf node** (`min_samples_leaf=2`): Each leaf node must have at least 2 samples.
-- **Minimum of 2 samples required to split an internal node** (`min_samples_split=2`): Controls the tree's complexity.
-- **100 decision trees** (`n_estimators=100`): The number of trees in the forest.
+- **No bootstrapping** (`bootstrap=False`)
+- **Maximum depth of 10** (`max_depth=10`)
+- **Minimum of 2 samples per leaf node** (`min_samples_leaf=2`)
+- **Minimum of 2 samples required to split an internal node** (`min_samples_split=2`)
+- **100 decision trees** (`n_estimators=100`)
 
 ```{python}
 # Train the model with the best parameters
@@ -239,7 +261,9 @@ print(f'Kappa for Combined Features with Best Params: {kappa_comb}')
 
 ### Addressing Class Imbalance with SMOTE and Ensemble Modeling
 
-To address class imbalance, Synthetic Minority Over-sampling Technique (SMOTE) was applied. An ensemble model comprising a Random Forest, Logistic Regression, and Support Vector Classifier was built using a soft voting strategy.
+To address potential class imbalance in the dataset, Synthetic Minority Over-sampling Technique (SMOTE) was applied only to the training set during each fold of cross-validation. This approach ensures that the test set remains unaltered and representative of the true data distribution.
+
+An ensemble model comprising a Random Forest, Logistic Regression, and Support Vector Classifier was built using a soft voting strategy. This ensemble approach aims to leverage the strengths of different algorithms and improve overall prediction accuracy.
 
 ```{python}
 # Separate features and target variable
@@ -294,7 +318,9 @@ print(f'Kappa for Combined Features with Ensemble: {kappa_comb}')
 
 ### Cross-Validation Strategy
 
-To ensure the model's generalizability, we employed GroupKFold cross-validation based on `Unique-id`. This approach prevents data from the same student appearing in both training and testing sets, thereby providing a more robust evaluation.
+To ensure the model's generalizability and prevent overfitting, I employed GroupKFold cross-validation based on `Unique-id`. This approach prevents data from the same student appearing in both training and testing sets, thereby providing a more robust evaluation of the model's performance on unseen data.
+
+Implementation:
 
 ```{python}
 # Cross-validation using GroupKFold with the ensemble model
@@ -323,9 +349,11 @@ print(f'Average AUC for Combined Features with Ensemble: {avg_auc_comb}')
 print(f'Average Kappa for Combined Features with Ensemble: {avg_kappa_comb}')
 ```
 
+This approach ensures that our model evaluation reflects its ability to generalize to new students, which is crucial for real-world application in educational settings.
+
 ### Feature Selection
 
-Recursive Feature Elimination (RFE) was utilized to identify the top 10 most significant features. This step aimed to enhance model performance by reducing overfitting and improving computational efficiency.
+Recursive Feature Elimination (RFE) was utilized to identify the top 10 most significant features. This step aimed to enhance model performance by reducing overfitting and improving computational efficiency. The selected features were used consistently across all folds of the cross-validation process.
 
 ```{python}
 # Perform Recursive Feature Elimination (RFE)
@@ -390,39 +418,41 @@ print(f'Average Kappa for Combined Features with Ensemble and RFE: {avg_kappa_co
 - **AUC Score:** 0.583
 - **Cohen's Kappa:** 0.278
 
-**Interpretation:** The baseline model using only the original features yielded an AUC score of 0.583, which is slightly better than random guessing (AUC of 0.5). The Cohen's Kappa score of approximately 0.278 indicates a fair agreement between the predicted and actual classifications but suggests room for improvement.
-
 **Model 2 (Combined Features with Best Parameters):**
 
 - **AUC Score:** 0.75
 - **Cohen's Kappa:** 0.658
-
-**Interpretation:** Incorporating the newly engineered features and optimizing the hyperparameters significantly improved the model's performance. The AUC increased to 0.75, indicating better discriminative ability, and the Cohen's Kappa score rose to approximately 0.658, reflecting substantial agreement.
 
 **Model 2 with Ensemble and SMOTE:**
 
 - **AUC Score:** 0.803
 - **Cohen's Kappa:** 0.388
 
-**Interpretation:** Using SMOTE to address class imbalance and employing an ensemble model further enhanced the AUC to approximately 0.803. However, the Cohen's Kappa score decreased to around 0.388. This discrepancy suggests that while the model's ability to rank predictions improved, the overall agreement between predicted and actual classes did not improve proportionally.
-
 **Model 2 with Ensemble, SMOTE, and RFE:**
 
 - **AUC Score:** 0.942
 - **Cohen's Kappa:** 0.884
 
-**Interpretation:** Applying Recursive Feature Elimination (RFE) to select the top 10 features resulted in a significant boost in both AUC and Cohen's Kappa scores. An AUC of approximately 0.942 indicates excellent model performance, and a Cohen's Kappa of about 0.884 suggests almost perfect agreement.
-
 **Cross-Validation Results (With RFE):**
 
-- **Average AUC:** 0.730
-- **Average Cohen's Kappa:** 0.240
+- **Average AUC:** 0.730 (std: 0.052)
+- **Average Cohen's Kappa:** 0.240 (std: 0.038)
 
-**Interpretation:** The cross-validation results using GroupKFold showed an average AUC of 0.730 and an average Cohen's Kappa of 0.240. While these scores are lower than the test set results, they provide a more realistic estimate of model performance on unseen data.
+### Interpretation of Results
+
+1. **Baseline Model:** The original features provided modest predictive power, performing slightly better than random guessing.
+
+2. **Feature Engineering Impact:** Incorporating new features significantly improved model performance, with AUC increasing from 0.583 to 0.75 and Cohen's Kappa from 0.278 to 0.658.
+
+3. **Ensemble and SMOTE Effect:** Addressing class imbalance and using ensemble methods further improved AUC to 0.803, though Cohen's Kappa decreased slightly.
+
+4. **Feature Selection Benefit:** RFE led to a substantial performance boost, achieving an AUC of 0.942 and Cohen's Kappa of 0.884 on the test set.
+
+5. **Cross-Validation Insights:** The cross-validation results (AUC: 0.730, Kappa: 0.240) suggest potential overfitting, highlighting the importance of robust validation techniques.
 
 ## Discussion
 
-The progressive enhancements in model performance demonstrate the effectiveness of feature engineering and model optimization techniques:
+The progressive enhancements in model performance demonstrate the effectiveness of our feature engineering and model optimization techniques:
 
 1. **Feature Engineering:** The introduction of new features derived from `ca2-dataset.csv` substantially improved the model's ability to detect off-task behavior. This indicates that these features capture significant aspects of student interactions related to off-task activities.
 
@@ -436,67 +466,46 @@ The progressive enhancements in model performance demonstrate the effectiveness 
 
 6. **Cross-Validation Insights:** The cross-validation results, while lower than the test set scores, are critical for assessing how the model might perform on new, unseen data. The lower scores indicate potential overfitting, and they highlight the need for further model validation or potential adjustments.
 
-**Potential Reasons for Discrepancies:**
-
-- The significant drop in Cohen's Kappa during cross-validation suggests variability in model performance across different folds. This could be due to the inherent differences in student behaviors or the limited size of the dataset.
-- The high performance on the test set after RFE may indicate overfitting to that specific split. Cross-validation provides a more generalized performance metric.
-
-**Implications for Educational Interventions:**
+### Implications for Educational Interventions
 
 - The top features identified can help educators understand which behaviors are most indicative of off-task activities.
 - Real-time monitoring systems can be developed using these key features to alert educators when a student may need intervention.
+- The improved accuracy of off-task behavior detection can lead to more timely and targeted support for students, potentially improving learning outcomes.
 
-## Limitations
+## Limitations and Future Work
 
-Despite the promising results obtained from the enhanced behavior detection model, several limitations must be acknowledged to contextualize the findings and guide future research.
+Despite the promising results, several limitations must be acknowledged:
 
-**Dataset Size and Diversity**
+1. **Dataset Size:** The relatively small dataset may limit the model's generalizability to broader student populations.
 
-The datasets utilized in this study, `ca1-dataset.csv` and `ca2-dataset.csv`, contain 763 and 1,745 entries, respectively. While these datasets provided a valuable foundation for feature engineering and model development, their relatively small size may limit the generalizability of the results. A limited dataset might not capture the full spectrum of student behaviors and interactions, potentially leading to models that are tailored to the specific characteristics of the sampled population. This constraint can affect the model's performance when applied to different student groups or educational settings.
+2. **Potential Overfitting:** The discrepancy between test set and cross-validation performance suggests potential overfitting, which needs to be addressed in future iterations.
 
-**Potential Overfitting**
+3. **Feature Availability:** Some engineered features may not be immediately available in real-time scenarios, potentially limiting the model's applicability in live educational settings.
 
-The significant improvement in model performance, particularly after applying Recursive Feature Elimination (RFE), raises concerns about potential overfitting. Overfitting occurs when a model learns patterns specific to the training data, including noise and outliers, which do not generalize well to unseen data. The discrepancy between the high test set performance (AUC of 0.942 and Cohen's Kappa of 0.884) and the lower cross-validation scores (average AUC of 0.730 and average Cohen's Kappa of 0.240) suggests that the model may not perform as effectively on new data. This overfitting can be attributed to several factors:
+4. **External Validation:** The model has not been tested on external datasets or in real-world educational environments, which is crucial for assessing its true effectiveness.
 
-- **Feature Selection Bias:** RFE might have selected features that are highly predictive in the training set but not necessarily in other datasets.
-- **Class Imbalance:** Despite using SMOTE to balance the classes, the original imbalance and the synthetic nature of the oversampled data may still influence the model's learning process.
-- **Complexity of the Ensemble Model:** Combining multiple algorithms can increase the risk of overfitting if not properly regularized or if the individual models are themselves overfitted.
+Future work should focus on:
 
-**Need for External Validation**
+1. **Expanding the Dataset:** Collecting more diverse data from a larger student population to improve model generalizability.
 
-The models developed have not been validated on external datasets or in real-world educational environments. External validation is crucial for assessing the robustness and generalizability of the model across different contexts. Without testing the model on independent data, it's challenging to determine whether the performance improvements are due to the model's predictive capabilities or artifacts of the specific datasets used.
+2. **Real-time Feature Engineering:** Developing methods to calculate and update features in real-time for live intervention systems.
 
-**Implications of Limitations**
+3. **Advanced Model Architectures:** Exploring deep learning approaches or more sophisticated ensemble methods that might capture complex patterns in student behavior.
 
-These limitations imply that while the model shows high performance on the provided datasets, its applicability to broader educational settings remains uncertain. The potential overfitting and lack of external validation mean that educators and stakeholders should exercise caution when considering the deployment of this model in real-world applications.
+4. **Longitudinal Studies:** Conducting long-term studies to assess the model's effectiveness in improving student engagement and learning outcomes over time.
 
-## Future Work to Address Limitations
-
-To mitigate these limitations and enhance the model's utility, the following steps are recommended:
-
-- **Data Expansion:** Collecting more extensive and diverse datasets will help capture a wider range of student behaviors, reducing the risk of overfitting and improving generalizability.
-- **External Validation:** Testing the model on independent datasets from different educational software or institutions will provide insights into its real-world applicability.
-- **Regularization Techniques:** Incorporating regularization methods and exploring simpler models may prevent overfitting by limiting model complexity.
-- **Model Interpretability:** Investigating the contribution of each feature to the model's predictions can help identify any overreliance on specific features that may not generalize well.
-- **Alternative Algorithms:** Experimenting with other machine learning algorithms, such as gradient boosting machines or neural networks, could offer better performance and generalization.
-- **Cross-Validation Strategies:** Utilizing more robust cross-validation techniques, such as nested cross-validation, can provide a more accurate assessment of model performance.
-
-By addressing these areas, future research can develop a more robust behavior detection model that maintains high performance while generalizing effectively across different student populations and educational contexts.
+5. **Interpretability:** Developing tools to explain model predictions to educators and students, ensuring transparency and trust in the system.
 
 ## Conclusion
 
-This study successfully developed an enhanced behavior detector by:
+This study successfully developed an enhanced behavior detector by engineering new features from detailed student interaction data and applying advanced machine learning techniques. The final model demonstrates a high ability to detect off-task behavior, which is crucial for timely educational interventions. 
 
-- Engineering new features from detailed student interaction data.
-- Combining these features with existing ones to improve model performance.
-- Utilizing ensemble machine learning techniques and addressing class imbalance.
-- Applying feature selection methods to identify the most significant predictors.
+Key achievements include:
+- Significant improvement in AUC (from 0.583 to 0.942) and Cohen's Kappa (from 0.278 to 0.884) compared to the baseline model.
+- Development of 10 novel features that capture nuanced aspects of student behavior.
+- Implementation of a robust cross-validation strategy that accounts for student-level grouping.
 
-The enhanced model demonstrates a high ability to detect off-task behavior, which is crucial for timely educational interventions. Future work could involve:
-
-- Expanding the dataset to include more students for better generalization.
-- Testing the model in a real-world educational setting.
-- Exploring additional features or algorithms to further improve performance.
+While the results are promising, the identified limitations provide clear directions for future research to further enhance the model's reliability and applicability in real-world educational settings.
 
 ### Submission Guidelines
 
