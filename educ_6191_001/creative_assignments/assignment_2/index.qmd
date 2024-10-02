@@ -18,7 +18,7 @@ keywords:
 bibliography: bibliography/bibliography.bib
 nocite: |
   @*
-image: images/image_fx_.jpg
+image: images/image_fx_.png
 format:
   html:
     code-link: false
