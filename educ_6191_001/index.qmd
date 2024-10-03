@@ -1,5 +1,5 @@
 ---
-pagetitle: "John Baker - Learning Analytics"
+pagetitle: "John Baker – Learning Analytics"
 title: "Core Methods in Educational Data Mining"
 listing:
   contents:
