@@ -27,7 +27,7 @@ draft: false
 jupyter: python3
 ipynb-shell-interactivity: all
 execute: 
-  freeze: false
+  freeze: true
 ---
 
 ## Introduction
@@ -502,6 +502,7 @@ Future work should focus on:
 This study successfully developed an enhanced behavior detector by engineering new features from detailed student interaction data and applying advanced machine learning techniques. The final model demonstrates a high ability to detect off-task behavior, which is crucial for timely educational interventions. 
 
 Key achievements include:
+
 - Significant improvement in AUC (from 0.583 to 0.942) and Cohen's Kappa (from 0.278 to 0.884) compared to the baseline model.
 - Development of 10 novel features that capture nuanced aspects of student behavior.
 - Implementation of a robust cross-validation strategy that accounts for student-level grouping.
