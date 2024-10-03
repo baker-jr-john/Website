@@ -1,9 +1,9 @@
 ---
+pagetitle: "John Baker - Learning Analytics"
 title: "Core Methods in Educational Data Mining"
 listing:
   contents:
       - "creative_assignments/index.qmd"
-  sort: "date desc"
   type: default
   categories: false
   sort-ui: false
