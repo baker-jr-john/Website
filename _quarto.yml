@@ -5,6 +5,8 @@ project:
 website:
   title: "Penn GSE"
   favicon: simplified-shield.ico
+  site-url: https://penngse.johnbaker.io
+  page-navigation: true
   back-to-top-navigation: true
   page-footer:
     left: |

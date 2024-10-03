@@ -8,4 +8,6 @@ listing:
   sort-ui: false
   filter-ui: false
 title-block-banner: true
+page-navigation: false
+back-to-top-navigation: false
 ---

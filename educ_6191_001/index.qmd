@@ -10,4 +10,6 @@ listing:
   filter-ui: false
   fields: [title]
 title-block-banner: true
+page-navigation: true
+back-to-top-navigation: false
 ---
