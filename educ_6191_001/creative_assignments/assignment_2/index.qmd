@@ -97,10 +97,12 @@ Both datasets were imported into Pandas dataframes for manipulation and analysis
 - **Missing Values:** None
 
 Key insights:
+
 - The `ca1-dataset.csv` contains aggregated data for 20-second intervals, while `ca2-dataset.csv` provides more granular information about individual student actions.
 - Both datasets share a common `Unique-id` field, allowing for integration of the new features.
 
 Preprocessing steps:
+
 1. Converted categorical variables to numerical using one-hot encoding.
 2. Normalized numerical features to ensure consistent scale across all variables.
 
