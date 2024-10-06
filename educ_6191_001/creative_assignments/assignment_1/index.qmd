@@ -8,6 +8,7 @@ author:
     email: jbaker1@upenn.edu
     affiliation:
       - name: "Penn GSE: University of Pennsylvania Graduate School of Education"
+        url: https://www.gse.upenn.edu/
 abstract: |
   Detecting off-task behavior in educational settings is essential for enhancing student engagement and learning outcomes. This study presents a comprehensive analysis of machine learning models designed to classify off-task behavior using a real-world educational dataset. I explore the challenges of working with imbalanced datasets and evaluate the performance of various classifiers, including Random Forest, XGBoost, and Gradient Boosting. Through a series of experiments involving data resampling, hyperparameter tuning, threshold optimization, and performance evaluation using metrics like Cohen's Kappa score, I aim to optimize model performance and provide insights into the complexities of behavior detection in educational contexts.
 keywords:
