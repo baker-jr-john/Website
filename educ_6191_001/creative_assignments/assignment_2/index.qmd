@@ -8,6 +8,7 @@ author:
     email: jbaker1@upenn.edu
     affiliation:
       - name: "Penn GSE: University of Pennsylvania Graduate School of Education"
+        url: https://www.gse.upenn.edu/
 abstract: |
   This project aims to develop an improved behavior classifier by engineering new features from a detailed student interaction dataset (`ca2-dataset.csv`) and integrating them with existing features from `ca1-dataset.csv`. Utilizing ensemble machine learning techniques and rigorous cross-validation strategies, I demonstrate enhanced predictive performance in detecting off-task behavior among students interacting with educational software. The study achieved significant improvements in both AUC and Cohen's Kappa metrics, highlighting the effectiveness of the proposed approach.
 keywords:
