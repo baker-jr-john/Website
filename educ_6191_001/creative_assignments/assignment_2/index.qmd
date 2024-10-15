@@ -3,6 +3,7 @@ pagetitle: "John Baker – Learning Analytics"
 title: "Building an Enhanced Behavior Detector: A Machine Learning Approach"
 description: "Developing an improved behavior classifier using feature engineering and ensemble methods."
 date: 2024-10-02
+# date-modified: 
 author: 
   - name: John Baker
     email: jbaker1@upenn.edu
