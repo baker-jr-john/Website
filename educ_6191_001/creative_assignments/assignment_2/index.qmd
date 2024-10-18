@@ -3,7 +3,7 @@ pagetitle: "John Baker – Learning Analytics"
 title: "Building an Enhanced Behavior Detector: A Machine Learning Approach"
 description: "Developing an improved behavior classifier using feature engineering and ensemble methods."
 date: 2024-10-02
-# date-modified: 
+date-modified: 2024-10-17
 author: 
   - name: John Baker
     email: jbaker1@upenn.edu
@@ -323,14 +323,14 @@ print(f'Kappa for Combined Features with Ensemble: {kappa_comb}')
 
 ### Cross-Validation Strategy
 
-To ensure the model's generalizability and prevent overfitting, I employed GroupKFold cross-validation based on `Unique-id`. This approach prevents data from the same student appearing in both training and testing sets, thereby providing a more robust evaluation of the model's performance on unseen data.
+To ensure the model’s generalizability and prevent overfitting, I initially employed GroupKFold cross-validation based on `Unique-id`. However, based on feedback from [Jiayi Zhang](https://www.linkedin.com/in/jzhang7718/), I updated my strategy to employ GroupKFold cross-validation based on `namea`. This approach groups data by students, ensuring all data from one student is used for training or testing, not split between both. It prevents data leakage across folds, as logs from the same student will not appear in both sets—crucial in educational data mining due to highly individual student behavior. Cross-validating based on `namea` allows the model to learn from some students’ behavior patterns and generalize to others, mirroring real-world usage where the detector should work for new students. This method better indicates the model’s ability to generalize and ensures a more robust, fair evaluation.
 
 Implementation:
 
 ```{python}
 # Cross-validation using GroupKFold with the ensemble model
 gkf = GroupKFold(n_splits=5)
-groups = ca1_enhanced['Unique-id']
+groups = ca1_enhanced['namea']  # Change from 'Unique-id' to 'namea'
 
 auc_scores_comb = []
 kappa_scores_comb = []
@@ -358,7 +358,7 @@ This approach ensures that our model evaluation reflects its ability to generali
 
 ### Feature Selection
 
-Recursive Feature Elimination (RFE) was utilized to identify the top 10 most significant features. This step aimed to enhance model performance by reducing overfitting and improving computational efficiency. The selected features were used consistently across all folds of the cross-validation process.
+Recursive Feature Elimination (RFE) was utilized to identify the top ten most significant features. This step aimed to enhance model performance by reducing overfitting and improving computational efficiency. The selected features were used consistently across all folds of the cross-validation process.
 
 ```{python}
 # Perform Recursive Feature Elimination (RFE)
@@ -440,8 +440,8 @@ print(f'Average Kappa for Combined Features with Ensemble and RFE: {avg_kappa_co
 
 **Cross-Validation Results (With RFE):**
 
-- **Average AUC:** 0.730 (std: 0.052)
-- **Average Cohen's Kappa:** 0.240 (std: 0.038)
+- **Average AUC:** 0.760
+- **Average Cohen's Kappa:** 0.265
 
 ### Interpretation of Results
 
@@ -453,7 +453,7 @@ print(f'Average Kappa for Combined Features with Ensemble and RFE: {avg_kappa_co
 
 4. **Feature Selection Benefit:** RFE led to a substantial performance boost, achieving an AUC of 0.942 and Cohen's Kappa of 0.884 on the test set.
 
-5. **Cross-Validation Insights:** The cross-validation results (AUC: 0.730, Kappa: 0.240) suggest potential overfitting, highlighting the importance of robust validation techniques.
+5. **Cross-Validation Insights:** The cross-validation results (AUC: 0.760, Kappa: 0.265) suggest potential overfitting, highlighting the importance of robust validation techniques.
 
 ## Discussion
 

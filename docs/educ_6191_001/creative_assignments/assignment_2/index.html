@@ -215,6 +215,12 @@ div.csl-indent {
     </div>
   </div>
   
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">October 17, 2024</p>
+    </div>
+  </div>
     
   </div>
   
@@ -259,7 +265,7 @@ div.csl-indent {
 <section id="data-preparation" class="level3">
 <h3 class="anchored" data-anchor-id="data-preparation">Data Preparation</h3>
 <p>I began by importing essential libraries for data manipulation and machine learning, loading the datasets (<code>ca1</code> and <code>ca2</code>) from CSV files.</p>
-<div id="d88c1708" class="cell" data-execution_count="1">
+<div id="964ea938" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier, VotingClassifier</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split, GroupKFold, GridSearchCV</span>
@@ -338,7 +344,7 @@ div.csl-indent {
 <li>Rationale: Higher idle time may suggest off-task behavior or disengagement.</li>
 </ul></li>
 </ol>
-<div id="d650826b" class="cell" data-execution_count="2">
+<div id="a0580085" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Action Frequency, Avg Time Between Actions, Max Action Duration, Action Diversity, Idle/Active Ratio</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>action_freq <span class="op">=</span> ca2.groupby(<span class="st">'Unique-id'</span>)[<span class="st">'Row'</span>].count().reset_index()</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>action_freq.columns <span class="op">=</span> [<span class="st">'Unique-id'</span>, <span class="st">'Action_Frequency'</span>]</span>
@@ -367,7 +373,7 @@ div.csl-indent {
 <section id="data-merging-and-cleaning" class="level3">
 <h3 class="anchored" data-anchor-id="data-merging-and-cleaning">Data Merging and Cleaning</h3>
 <p>The new features were merged with <code>ca1-dataset.csv</code> based on the <code>Unique-id</code> key. Missing values in numerical columns were handled using mean imputation to ensure the integrity of the dataset for modeling. Categorical variables were encoded using one-hot encoding to prepare them for machine learning algorithms.</p>
-<div id="638a26c5" class="cell" data-execution_count="3">
+<div id="0bbf105c" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merging the new features into the original ca1-dataset.csv</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ca1_enhanced <span class="op">=</span> ca1.merge(action_freq, on<span class="op">=</span><span class="st">'Unique-id'</span>, how<span class="op">=</span><span class="st">'left'</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>ca1_enhanced <span class="op">=</span> ca1_enhanced.merge(avg_time_diff, on<span class="op">=</span><span class="st">'Unique-id'</span>, how<span class="op">=</span><span class="st">'left'</span>)</span>
@@ -386,7 +392,7 @@ div.csl-indent {
 <section id="model-1-original-features" class="level4">
 <h4 class="anchored" data-anchor-id="model-1-original-features">Model 1: Original Features</h4>
 <p>A Random Forest Classifier was trained using only the original features from <code>ca1-dataset.csv</code>. This serves as a baseline model to evaluate the impact of the new features. The target variable was the <code>OffTask</code> indicator, converted to a binary format.</p>
-<div id="e2bf1dbc" class="cell" data-execution_count="4">
+<div id="ba5da430" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model Development using RandomForestClassifier</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>original_features <span class="op">=</span> [<span class="st">'Avgright'</span>, <span class="st">'Avgbug'</span>, <span class="st">'Avghelp'</span>, <span class="st">'Avgchoice'</span>, <span class="st">'Avgstring'</span>, <span class="st">'Avgnumber'</span>, <span class="st">'Avgpoint'</span>, <span class="st">'Avgpchange'</span>, <span class="st">'Avgtime'</span>, <span class="st">'AvgtimeSDnormed'</span>, <span class="st">'Avgtimelast3SDnormed'</span>, <span class="st">'Avgtimelast5SDnormed'</span>, <span class="st">'Avgnotright'</span>, <span class="st">'Avghowmanywrong-up'</span>, <span class="st">'Avghelppct-up'</span>, <span class="st">'Avgwrongpct-up'</span>, <span class="st">'Avgtimeperact-up'</span>, <span class="st">'AvgPrev3Count-up'</span>, <span class="st">'AvgPrev5Count-up'</span>, <span class="st">'Avgrecent8help'</span>, <span class="st">'Avg recent5wrong'</span>, <span class="st">'Avgmanywrong-up'</span>, <span class="st">'AvgasymptoteA-up'</span>, <span class="st">'AvgasymptoteB-up'</span>]</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -821,7 +827,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <section id="model-2-combined-features" class="level4">
 <h4 class="anchored" data-anchor-id="model-2-combined-features">Model 2: Combined Features</h4>
 <p>The second model incorporated both original and new features. I performed hyperparameter tuning using GridSearchCV to optimize the Random Forest Classifier.</p>
-<div id="a964c349" class="cell" data-execution_count="5">
+<div id="e26797a1" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combined Features</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>new_features <span class="op">=</span> [<span class="st">'Action_Frequency'</span>, <span class="st">'Avg_Time_Between_Actions'</span>, <span class="st">'Max_Action_Duration'</span>, <span class="st">'Action_Diversity'</span>, <span class="st">'Idle_Active_Ratio'</span>]</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>X_combined <span class="op">=</span> ca1_enhanced[original_features <span class="op">+</span> new_features]</span>
@@ -848,7 +854,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the best parameters</span></span>
 <span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>best_params <span class="op">=</span> grid_search.best_params_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="d822991c" class="cell" data-execution_count="6">
+<div id="cf76f664" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Best parameters found: </span><span class="sc">{</span>best_params<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Best parameters found: {'bootstrap': False, 'max_depth': 10, 'min_samples_leaf': 2, 'min_samples_split': 2, 'n_estimators': 100}</code></pre>
@@ -862,7 +868,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li><strong>Minimum of 2 samples required to split an internal node</strong> (<code>min_samples_split=2</code>)</li>
 <li><strong>100 decision trees</strong> (<code>n_estimators=100</code>)</li>
 </ul>
-<div id="f3236ff2" class="cell" data-execution_count="7">
+<div id="0f00953a" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model with the best parameters</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>best_rf <span class="op">=</span> RandomForestClassifier(<span class="op">**</span>best_params, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>best_rf.fit(X_train_comb, y_train_comb)</span>
@@ -1293,7 +1299,7 @@ Kappa for Combined Features with Best Params: 0.6577181208053692</code></pre>
 <h3 class="anchored" data-anchor-id="addressing-class-imbalance-with-smote-and-ensemble-modeling">Addressing Class Imbalance with SMOTE and Ensemble Modeling</h3>
 <p>To address potential class imbalance in the dataset, Synthetic Minority Over-sampling Technique (SMOTE) was applied only to the training set during each fold of cross-validation. This approach ensures that the test set remains unaltered and representative of the true data distribution.</p>
 <p>An ensemble model comprising a Random Forest, Logistic Regression, and Support Vector Classifier was built using a soft voting strategy. This ensemble approach aims to leverage the strengths of different algorithms and improve overall prediction accuracy.</p>
-<div id="d6b90ccb" class="cell" data-execution_count="8">
+<div id="a8cd5e8e" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Separate features and target variable</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> ca1_enhanced[original_features <span class="op">+</span> new_features]</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> ca1_enhanced[<span class="st">'OffTask'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="dv">1</span> <span class="cf">if</span> x <span class="op">==</span> <span class="st">'Y'</span> <span class="cf">else</span> <span class="dv">0</span>)</span>
@@ -1780,12 +1786,12 @@ Kappa for Combined Features with Ensemble: 0.3882224645583424</code></pre>
 </section>
 <section id="cross-validation-strategy" class="level3">
 <h3 class="anchored" data-anchor-id="cross-validation-strategy">Cross-Validation Strategy</h3>
-<p>To ensure the model’s generalizability and prevent overfitting, I employed GroupKFold cross-validation based on <code>Unique-id</code>. This approach prevents data from the same student appearing in both training and testing sets, thereby providing a more robust evaluation of the model’s performance on unseen data.</p>
+<p>To ensure the model’s generalizability and prevent overfitting, I initially employed GroupKFold cross-validation based on <code>Unique-id</code>. However, based on feedback from <a href="https://www.linkedin.com/in/jzhang7718/">Jiayi Zhang</a>, I updated my strategy to employ GroupKFold cross-validation based on <code>namea</code>. This approach groups data by students, ensuring all data from one student is used for training or testing, not split between both. It prevents data leakage across folds, as logs from the same student will not appear in both sets—crucial in educational data mining due to highly individual student behavior. Cross-validating based on <code>namea</code> allows the model to learn from some students’ behavior patterns and generalize to others, mirroring real-world usage where the detector should work for new students. This method better indicates the model’s ability to generalize and ensures a more robust, fair evaluation.</p>
 <p>Implementation:</p>
-<div id="cbde5eca" class="cell" data-execution_count="9">
+<div id="0ee0abed" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-validation using GroupKFold with the ensemble model</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>gkf <span class="op">=</span> GroupKFold(n_splits<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> ca1_enhanced[<span class="st">'Unique-id'</span>]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> ca1_enhanced[<span class="st">'namea'</span>]  <span class="co"># Change from 'Unique-id' to 'namea'</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>auc_scores_comb <span class="op">=</span> []</span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>kappa_scores_comb <span class="op">=</span> []</span>
@@ -3938,16 +3944,16 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                        random_state=42)</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><label>lr</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-28" type="checkbox"><label for="sk-estimator-id-28" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;LogisticRegression<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></label><div class="sk-toggleable__content fitted"><pre>LogisticRegression(max_iter=1000, random_state=42)</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><label>svc</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-29" type="checkbox"><label for="sk-estimator-id-29" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;SVC<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.svm.SVC.html">?<span>Documentation for SVC</span></a></label><div class="sk-toggleable__content fitted"><pre>SVC(probability=True, random_state=42)</pre></div> </div></div></div></div></div></div></div></div></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Average AUC for Combined Features with Ensemble: 0.7169413261776276
-Average Kappa for Combined Features with Ensemble: 0.23459893731294215</code></pre>
+<pre><code>Average AUC for Combined Features with Ensemble: 0.7754631036811888
+Average Kappa for Combined Features with Ensemble: 0.2765342137632087</code></pre>
 </div>
 </div>
 <p>This approach ensures that our model evaluation reflects its ability to generalize to new students, which is crucial for real-world application in educational settings.</p>
 </section>
 <section id="feature-selection" class="level3">
 <h3 class="anchored" data-anchor-id="feature-selection">Feature Selection</h3>
-<p>Recursive Feature Elimination (RFE) was utilized to identify the top 10 most significant features. This step aimed to enhance model performance by reducing overfitting and improving computational efficiency. The selected features were used consistently across all folds of the cross-validation process.</p>
-<div id="114f570d" class="cell" data-execution_count="10">
+<p>Recursive Feature Elimination (RFE) was utilized to identify the top ten most significant features. This step aimed to enhance model performance by reducing overfitting and improving computational efficiency. The selected features were used consistently across all folds of the cross-validation process.</p>
+<div id="d1aa0a17" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform Recursive Feature Elimination (RFE)</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>rfe <span class="op">=</span> RFE(estimator<span class="op">=</span>rf, n_features_to_select<span class="op">=</span><span class="dv">10</span>, step<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>rfe.fit(X_combined, y)</span>
@@ -4819,7 +4825,7 @@ Kappa for Combined Features with Ensemble and RFE: 0.8835616438356164</code></pr
 </div>
 <section id="cross-validation-with-selected-features" class="level4">
 <h4 class="anchored" data-anchor-id="cross-validation-with-selected-features">Cross-Validation with Selected Features</h4>
-<div id="43c22ff0" class="cell" data-execution_count="11">
+<div id="1ac3be62" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-validation using GroupKFold with the ensemble model and selected features</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>auc_scores_comb <span class="op">=</span> []</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>kappa_scores_comb <span class="op">=</span> []</span>
@@ -6972,8 +6978,8 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                        random_state=42)</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><label>lr</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-55" type="checkbox"><label for="sk-estimator-id-55" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;LogisticRegression<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></label><div class="sk-toggleable__content fitted"><pre>LogisticRegression(max_iter=1000, random_state=42)</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><label>svc</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-56" type="checkbox"><label for="sk-estimator-id-56" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;SVC<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.svm.SVC.html">?<span>Documentation for SVC</span></a></label><div class="sk-toggleable__content fitted"><pre>SVC(probability=True, random_state=42)</pre></div> </div></div></div></div></div></div></div></div></div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Average AUC for Combined Features with Ensemble and RFE: 0.730252499023047
-Average Kappa for Combined Features with Ensemble and RFE: 0.2404683378968202</code></pre>
+<pre><code>Average AUC for Combined Features with Ensemble and RFE: 0.7600872171563662
+Average Kappa for Combined Features with Ensemble and RFE: 0.26520511012132253</code></pre>
 </div>
 </div>
 </section>
@@ -7005,8 +7011,8 @@ Average Kappa for Combined Features with Ensemble and RFE: 0.2404683378968202</c
 </ul>
 <p><strong>Cross-Validation Results (With RFE):</strong></p>
 <ul>
-<li><strong>Average AUC:</strong> 0.730 (std: 0.052)</li>
-<li><strong>Average Cohen’s Kappa:</strong> 0.240 (std: 0.038)</li>
+<li><strong>Average AUC:</strong> 0.760</li>
+<li><strong>Average Cohen’s Kappa:</strong> 0.265</li>
 </ul>
 </section>
 <section id="interpretation-of-results" class="level3">
@@ -7016,7 +7022,7 @@ Average Kappa for Combined Features with Ensemble and RFE: 0.2404683378968202</c
 <li><p><strong>Feature Engineering Impact:</strong> Incorporating new features significantly improved model performance, with AUC increasing from 0.583 to 0.75 and Cohen’s Kappa from 0.278 to 0.658.</p></li>
 <li><p><strong>Ensemble and SMOTE Effect:</strong> Addressing class imbalance and using ensemble methods further improved AUC to 0.803, though Cohen’s Kappa decreased slightly.</p></li>
 <li><p><strong>Feature Selection Benefit:</strong> RFE led to a substantial performance boost, achieving an AUC of 0.942 and Cohen’s Kappa of 0.884 on the test set.</p></li>
-<li><p><strong>Cross-Validation Insights:</strong> The cross-validation results (AUC: 0.730, Kappa: 0.240) suggest potential overfitting, highlighting the importance of robust validation techniques.</p></li>
+<li><p><strong>Cross-Validation Insights:</strong> The cross-validation results (AUC: 0.760, Kappa: 0.265) suggest potential overfitting, highlighting the importance of robust validation techniques.</p></li>
 </ol>
 </section>
 </section>
