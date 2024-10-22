@@ -1,0 +1,242 @@
+---
+pagetitle: "John Baker – Learning Analytics"
+title: "Knowledge Structure Mapping: Comprehensive Report"
+description: "A comprehensive exploration of knowledge structure mapping using Factor Analysis, KMeans clustering, and PCA to uncover latent skills in an eight-item test dataset."
+date: 2024-11-20
+# date-modified: 
+author: 
+  - name: John Baker
+    email: jbaker1@upenn.edu
+    affiliation:
+      - name: "Penn GSE: University of Pennsylvania Graduate School of Education"
+        url: https://www.gse.upenn.edu/
+abstract: |
+  This report presents a comprehensive approach to identifying the knowledge structure in an 8-item test dataset by using advanced statistical methods. The methods applied include Factor Analysis, Barnes's Q-Matrix method (simulated through KMeans Clustering), and Principal Component Analysis (PCA). Factor Analysis was primarily used to uncover latent skills, and its results were cross-validated through KMeans and PCA. The implementation involved comparing models with different numbers of components, ranging from 2 to 4, to determine the optimal skill representation. Visualizations, such as heatmaps and bar charts, were used to assess the model's effectiveness. The final Q-matrix was selected based on its ability to balance complexity with interpretability, providing a robust mapping of items to latent skills. The findings indicate that a 3-component Factor Analysis model best captures the relationships among test items, effectively identifying three distinct skills while avoiding overfitting or oversimplification.
+keywords:
+  - knowledge structure mapping
+  - Factor Analysis
+  - Q-matrix
+  - latent skills
+  - PCA
+bibliography: bibliography/bibliography.bib
+nocite: |
+  @*
+# image: images/image_fx_.png
+format:
+  html:
+    code-link: false
+draft: true
+jupyter: python3
+ipynb-shell-interactivity: all
+execute: 
+  freeze: false
+---
+
+## Introduction
+
+The purpose of this report is to investigate the knowledge structure underlying an 8-item test dataset by employing various statistical and machine learning methods. Knowledge structure mapping is crucial in understanding how different test items relate to latent skills, which can aid in developing educational tools, improving assessments, and tailoring instruction to student needs. This study uses Factor Analysis, KMeans clustering, and Principal Component Analysis (PCA) to explore and validate item-skill relationships, ultimately determining the most suitable skill structure representation for the dataset. By applying these methods, we aim to derive a comprehensive Q-matrix that effectively maps items to underlying skills, facilitating better interpretation of test results.
+
+## Literature Review
+
+### Goes here
+
+## Methods Used
+
+### Factor Analysis
+
+Factor Analysis was chosen as the primary method to discover the underlying latent skills in the dataset. The goal was to identify groups of items that likely measure the same skill based on their relationships. Initially, we selected 3 components to represent the skills expected to be present. This model was iterated to explore variations by changing the number of components to 2, 3, and 4 to test the model's robustness.
+
+- **Why Factor Analysis?**: Factor Analysis helps uncover hidden relationships between observed variables, which in this context were test items. By reducing dimensionality, it allows us to understand which items correlate with specific skills without explicit prior information.
+
+### Barnes's Q-Matrix Method (Simulated using KMeans Clustering)
+
+Barnes's Q-Matrix method was simulated using **KMeans Clustering** to explore item groupings into potential latent skills. Items were clustered into three skill groups to verify if the clusters aligned with our findings from Factor Analysis.
+
+- **Why KMeans Clustering?**: KMeans provides an alternative approach to grouping items based on their response patterns. This allows us to cross-check if the factor analysis findings are supported by unsupervised clustering.
+
+### Principal Component Analysis (PCA)
+
+PCA was used as an analogy to **Learning Factors Transfer Analysis**. It helped determine if skills could be identified using a component-based approach, examining how many latent factors best fit the data.
+
+- **Why PCA?**: PCA is another dimensionality reduction technique that helps identify variance and possible groupings of items in the dataset. It was used to validate the relationships found using Factor Analysis.
+
+## Implementation Details
+
+### Step-by-Step Implementation
+
+1. **Loading the Data**: The dataset was loaded using the pandas library. The data consisted of responses for 8 test items from multiple students.
+```{python}
+import pandas as pd
+
+# Load the dataset
+data = pd.read_csv('data/8items.csv')
+
+# Display the first few rows of the dataset
+data.head()
+```
+
+2. **Factor Analysis**: Factor Analysis was performed with 3 components to determine the skill structure, then repeated with 4 and 2 components to explore alternate structures. The `FactorAnalysis` module from `sklearn.decomposition` was used.
+
+```{python}
+from sklearn.decomposition import FactorAnalysis
+
+# Extract item data (excluding the 'student' column)
+item_data = data.drop(columns=['student'])
+
+# Fit a Factor Analysis model to identify latent skills
+# We'll start with trying to identify 3 latent factors (skills)
+n_factors = 3
+fa_model = FactorAnalysis(n_components=n_factors, random_state=42)
+fa_model.fit(item_data)
+
+# Get the factor loadings to understand item-skill relationships
+factor_loadings = fa_model.components_.T
+
+# Create a DataFrame to visualize the factor loadings
+factor_loadings_df = pd.DataFrame(factor_loadings, index=item_data.columns, columns=[f'Skill_{i+1}' for i in range(n_factors)])
+print(factor_loadings_df)
+```
+This code extracts the item data, fits a Factor Analysis model with three components, and visualizes the resulting factor loadings to understand the relationships between items and skills.
+
+3. **KMeans Clustering**: KMeans clustering was applied to transpose the item data and determine optimal groupings, representing item-skill relationships.
+
+```{python}
+from sklearn.cluster import KMeans
+
+# Transpose the item data so clustering is applied to items rather than students
+item_data_transposed = item_data.T
+
+# Apply KMeans clustering with 3 clusters
+kmeans = KMeans(n_clusters=3, random_state=42)
+kmeans.fit(item_data_transposed)
+
+# Get the cluster labels assigned to each item
+cluster_labels = kmeans.labels_
+
+# Create a DataFrame to visualize item-skill mapping
+kmeans_q_matrix_df = pd.DataFrame({'Item': item_data.columns, 'Mapped_Skill': [f'Skill_{label+1}' for label in cluster_labels]})
+print(kmeans_q_matrix_df)
+```
+This code applies KMeans clustering to determine optimal groupings of items into three clusters, representing potential latent skills. The resulting DataFrame shows the skill to which each item is mapped.
+
+4. **PCA Analysis**: PCA with 3 components was applied to identify major components underlying the item responses.
+
+```{python}
+from sklearn.decomposition import PCA
+
+# Perform PCA with 3 components
+pca_model = PCA(n_components=3)
+pca_model.fit(item_data)
+
+# Get the PCA loadings for each item
+pca_loadings = pca_model.components_.T
+
+# Create a DataFrame to visualize the PCA loadings
+pca_loadings_df = pd.DataFrame(pca_loadings, index=item_data.columns, columns=['Skill_1', 'Skill_2', 'Skill_3'])
+print(pca_loadings_df)
+```
+This code applies PCA to identify the major components underlying the item responses. The loadings are then visualized to understand the relationships between items and latent skills.
+
+5. **What's going on between here and 6?**: Do tell (summarize).
+
+```{python}
+# Determine the skill with the highest loading for each item from PCA
+pca_q_matrix = pca_loadings_df.idxmax(axis=1)
+
+# Create the Q-matrix as a DataFrame, showing the mapping between items and skills
+pca_q_matrix_df = pd.DataFrame({'Item': item_data.columns, 'Mapped_Skill': pca_q_matrix.values})
+pca_q_matrix_df
+```
+```{python}
+# Performing Factor Analysis with 4 components to explore the potential presence of additional latent skills
+n_factors_extended = 4
+fa_model_extended = FactorAnalysis(n_components=n_factors_extended, random_state=42)
+fa_model_extended.fit(item_data)
+
+# Get the factor loadings for the 4-component model
+factor_loadings_extended = fa_model_extended.components_.T
+
+# Create a DataFrame to visualize the factor loadings for the 4-component model
+factor_loadings_extended_df = pd.DataFrame(factor_loadings_extended, index=item_data.columns, columns=[f'Skill_{i+1}' for i in range(n_factors_extended)])
+factor_loadings_extended_df
+```
+```{python}
+# Performing Factor Analysis with 2 components to explore if a simpler model might explain the relationships
+n_factors_simpler = 2
+fa_model_simpler = FactorAnalysis(n_components=n_factors_simpler, random_state=42)
+fa_model_simpler.fit(item_data)
+
+# Get the factor loadings for the 2-component model
+factor_loadings_simpler = fa_model_simpler.components_.T
+
+# Create a DataFrame to visualize the factor loadings for the 2-component model
+factor_loadings_simpler_df = pd.DataFrame(factor_loadings_simpler, index=item_data.columns, columns=[f'Skill_{i+1}' for i in range(n_factors_simpler)])
+factor_loadings_simpler_df
+```
+*Explain what the code above does.*
+
+6. **Visualizations**: Heatmaps and bar charts were created using `matplotlib` and `seaborn` to visualize relationships between items and skills, making it easier to interpret and validate findings.
+
+```{python}
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Create a heatmap to visualize item-skill relationships from Factor Analysis
+plt.figure(figsize=(10, 6))
+sns.heatmap(factor_loadings_df, annot=True, cmap='coolwarm', linewidths=0.5, linecolor='black', cbar=True)
+plt.title('Item-Skill Relationships (Factor Analysis with 3 Components)')
+plt.xlabel('Skills')
+plt.ylabel('Items')
+plt.show()
+```
+```{python}
+# Create bar charts for each item to show its relationship across skills
+num_items = len(factor_loadings_df.index)
+fig, axes = plt.subplots(num_items, 1, figsize=(10, num_items * 2), sharex=True)
+
+for i, item in enumerate(factor_loadings_df.index):
+    axes[i].bar(factor_loadings_df.columns, factor_loadings_df.loc[item], color='skyblue')
+    axes[i].set_title(f'Relationship of {item} with Skills')
+    axes[i].set_ylabel('Loading Value')
+    axes[i].set_ylim(-1, 1)
+
+plt.xlabel('Skills')
+plt.tight_layout()
+plt.show()
+```
+This code provides visualizations of item-skill relationships using heatmaps and bar charts, making it easier to interpret the factor loadings and validate the findings. *More explanation. Explain per graph.*
+```{python}
+# Creating the final Q-matrix based on the visualization and analysis findings
+# Assigning each item to the skill with the highest loading from the Factor Analysis with 3 components
+final_q_matrix = factor_loadings_df.idxmax(axis=1)
+
+# Create a DataFrame to visualize the final Q-matrix, showing the mapping between items and skills
+final_q_matrix_df = pd.DataFrame({'Item': item_data.columns, 'Mapped_Skill': final_q_matrix.values})
+final_q_matrix_df
+```
+
+## Model Assessment
+
+### Evaluating the Goodness of Fit
+
+- **Factor Loadings**: The factor loadings for each item were examined to determine which skill had the highest influence. The loading values helped us decide the optimal number of components.
+- **Comparison Across Models**: Models with 2, 3, and 4 components were compared to evaluate the consistency of item-skill groupings. The goal was to identify which model explained the data most intuitively without overcomplicating relationships.
+- **Visualizations**: Heatmaps and bar charts were utilized to visualize the relationships between items and skills. This provided insight into which model (in terms of the number of components) best captured the underlying structure.
+
+## Evidence for Best Mapping
+
+### Justification for the Final Q-Matrix
+
+The final Q-matrix was derived from the 3-component Factor Analysis model as it struck the right balance between complexity and interpretability. The evidence from clustering and PCA supported the majority of item-skill groupings found in Factor Analysis.
+
+- **Consistency Across Methods**: Items 2, 4, and 6 consistently mapped to **Skill\_1**, while items 3, 7, and 8 were linked to **Skill\_2** across most methods. Items 1 and 5 were distinctly associated with **Skill\_3**, particularly highlighted in both PCA and Factor Analysis.
+- **Visual Confirmation**: Heatmaps illustrated the relationships clearly, indicating strong loadings for items corresponding to specific skills. Individual bar charts helped confirm these findings by breaking down each item's relationship with all skills.
+- **Iterative Testing**: We tested models with different component numbers. The 2-component model was overly simplistic, failing to represent some item relationships adequately. The 4-component model, while providing additional nuance, introduced unnecessary complexity without significant gain in interpretability.
+
+### Decision-Making Process
+
+The decision to choose the 3-component Factor Analysis model was made after careful comparison of different models and their visual representations. It was apparent that this model effectively captured key latent skills without overfitting or oversimplifying the relationships. Thus, the final Q-matrix was chosen based on its ability to coherently explain the data with support from multiple perspectives (Factor Analysis, KMeans, PCA).
+
+## Conclusion
+
+The knowledge structure mapping for the given dataset was successfully identified using a combination of Factor Analysis, KMeans clustering, and PCA. The final Q-matrix presents a clear and evidence-backed mapping of items to underlying skills, which was validated through visualizations and model assessments. The chosen methods and analyses ensured robustness and coherence in uncovering the latent skills being measured by the 8-item test.
