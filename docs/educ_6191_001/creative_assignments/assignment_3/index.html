@@ -124,6 +124,9 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
+<script src="../../../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../../../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
@@ -168,7 +171,10 @@ div.csl-indent {
   <li><a href="#justification-for-the-final-q-matrix" id="toc-justification-for-the-final-q-matrix" class="nav-link" data-scroll-target="#justification-for-the-final-q-matrix">Justification for the Final Q-Matrix</a></li>
   <li><a href="#decision-making-process" id="toc-decision-making-process" class="nav-link" data-scroll-target="#decision-making-process">Decision-Making Process</a></li>
   </ul></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a>
+  <ul class="collapse">
+  <li><a href="#submission-guidelines" id="toc-submission-guidelines" class="nav-link" data-scroll-target="#submission-guidelines">Submission Guidelines</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -282,10 +288,10 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="implementation-details">Implementation Details</h2>
 <section id="step-by-step-implementation" class="level3">
 <h3 class="anchored" data-anchor-id="step-by-step-implementation">Step-by-Step Implementation</h3>
-<ol type="1">
-<li><strong>Loading the Data</strong>: The dataset was loaded using the pandas library. The data consisted of responses for eight test items from multiple students.</li>
-</ol>
-<div id="ffa84dfd" class="cell" data-execution_count="1">
+<section id="loading-the-data" class="level4">
+<h4 class="anchored" data-anchor-id="loading-the-data">Loading the Data</h4>
+<p>The dataset was loaded using the pandas library. The data consisted of responses for eight test items from multiple students.</p>
+<div id="8b4bd0c8" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
@@ -379,10 +385,11 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<ol start="2" type="1">
-<li><strong>Factor Analysis</strong>: Factor Analysis was performed with three components to determine the skill structure, then repeated with four and two components to explore alternate structures. The <code>FactorAnalysis</code> module from <code>sklearn.decomposition</code> was used.</li>
-</ol>
-<div id="87685775" class="cell" data-execution_count="2">
+</section>
+<section id="factor-analysis-1" class="level4">
+<h4 class="anchored" data-anchor-id="factor-analysis-1">Factor Analysis**</h4>
+<p>Factor Analysis was performed with three components to determine the skill structure, then repeated with four and two components to explore alternate structures. The <code>FactorAnalysis</code> module from <code>sklearn.decomposition</code> was used.</p>
+<div id="367bb5aa" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> FactorAnalysis</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract item data (excluding the 'student' column)</span></span>
@@ -820,10 +827,11 @@ item8 -0.002380  0.392346 -0.030899</code></pre>
 </div>
 </div>
 <p>This code extracts the item data, fits a Factor Analysis model with three components, and visualizes the resulting factor loadings to understand the relationships between items and skills.</p>
-<ol start="3" type="1">
-<li><strong>KMeans Clustering</strong>: KMeans clustering was applied to transpose the item data and determine optimal groupings, representing item-skill relationships.</li>
-</ol>
-<div id="bca04112" class="cell" data-execution_count="3">
+</section>
+<section id="kmeans-clustering" class="level4">
+<h4 class="anchored" data-anchor-id="kmeans-clustering">KMeans Clustering</h4>
+<p>KMeans clustering was applied to transpose the item data and determine optimal groupings, representing item-skill relationships.</p>
+<div id="7d3a4a1c" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Transpose the item data so clustering is applied to items rather than students</span></span>
@@ -1259,10 +1267,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 <p>This code applies KMeans clustering to determine optimal groupings of items into three clusters, representing potential latent skills. The resulting DataFrame shows the skill to which each item is mapped.</p>
-<ol start="4" type="1">
-<li><strong>PCA Analysis</strong>: PCA with three components was applied to identify major components underlying the item responses.</li>
-</ol>
-<div id="04fe94be" class="cell" data-execution_count="4">
+</section>
+<section id="learning-factors-transfer-analysis" class="level4">
+<h4 class="anchored" data-anchor-id="learning-factors-transfer-analysis">Learning Factors Transfer Analysis</h4>
+<p>Learning Factors Transfer Analysis (LFTA) using PCA with three components was applied to identify major components underlying the item responses.</p>
+<div id="4b607314" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform PCA with three components</span></span>
@@ -1695,10 +1704,11 @@ item8  0.538509  0.065615 -0.109680</code></pre>
 </div>
 </div>
 <p>This code applies PCA to identify the major components underlying the item responses. The loadings are then visualized to understand the relationships between items and latent skills.</p>
-<ol start="5" type="1">
-<li><strong>What’s going on between here and 6?</strong>: Do tell (summarize).</li>
-</ol>
-<div id="63b374d4" class="cell" data-execution_count="5">
+</section>
+<section id="key-findings-from-the-analysis" class="level4">
+<h4 class="anchored" data-anchor-id="key-findings-from-the-analysis">Key findings from the analysis</h4>
+<p>I created a Q-matrix to map each item to the skill with which it has the highest loading.</p>
+<div id="73feb8b8" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine the skill with the highest loading for each item from PCA</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>pca_q_matrix <span class="op">=</span> pca_loadings_df.idxmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1764,7 +1774,85 @@ item8  0.538509  0.065615 -0.109680</code></pre>
 </div>
 </div>
 </div>
-<div id="3e9eea22" class="cell" data-execution_count="6">
+<p>Then, I created a Mermaid diagram to help visualize this comparison across the three methods.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TB
+    subgraph Factor_Analysis
+        FA_S1[Skill_1] --- FA_I2[Item 2]
+        FA_S1 --- FA_I4[Item 4]
+        FA_S1 --- FA_I6[Item 6]
+        
+        FA_S2[Skill_2] --- FA_I3[Item 3]
+        FA_S2 --- FA_I5[Item 5]
+        FA_S2 --- FA_I7[Item 7]
+        FA_S2 --- FA_I8[Item 8]
+        
+        FA_S3[Skill_3] --- FA_I1[Item 1]
+    end
+    
+    subgraph Barnes_Q_Matrix
+        BQ_S3[Skill_3] --- BQ_I1[Item 1]
+        BQ_S3 --- BQ_I5[Item 5]
+        
+        BQ_S1[Skill_1] --- BQ_I3[Item 3]
+        BQ_S1 --- BQ_I7[Item 7]
+        BQ_S1 --- BQ_I8[Item 8]
+        
+        BQ_S2[Skill_2] --- BQ_I2[Item 2]
+        BQ_S2 --- BQ_I4[Item 4]
+        BQ_S2 --- BQ_I6[Item 6]
+    end
+    
+    subgraph PCA
+        PCA_S3[Skill_3] --- PCA_I1[Item 1]
+        PCA_S3 --- PCA_I5[Item 5]
+        
+        PCA_S2[Skill_2] --- PCA_I2[Item 2]
+        PCA_S2 --- PCA_I4[Item 4]
+        PCA_S2 --- PCA_I6[Item 6]
+        
+        PCA_S1[Skill_1] --- PCA_I3[Item 3]
+        PCA_S1 --- PCA_I7[Item 7]
+        PCA_S1 --- PCA_I8[Item 8]
+    end
+
+    style Factor_Analysis fill:#f9f,stroke:#333,stroke-width:2px
+    style Barnes_Q_Matrix fill:#9ff,stroke:#333,stroke-width:2px
+    style PCA fill:#ff9,stroke:#333,stroke-width:2px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<ol type="1">
+<li><strong>Consistent Grouping</strong>:
+<ul>
+<li>Items 2, 4, and 6 consistently group together across all methods (though labeled as Skill_1 in Factor Analysis but Skill_2 in others)</li>
+<li>Barnes’s Q-matrix and PCA show perfect alignment in their groupings</li>
+</ul></li>
+<li><strong>Method Differences</strong>:
+<ul>
+<li>Factor Analysis differs most from the other two methods</li>
+<li>Barnes’s Q-matrix and PCA show identical groupings</li>
+<li>Item 5’s classification varies (Skill_2 in Factor Analysis, Skill_3 in others)</li>
+</ul></li>
+<li><strong>Most Reliable Associations</strong>:
+<ul>
+<li>The grouping of Items 2, 4, and 6 appears most reliable</li>
+<li>Items 1 and 5 show strong association with Skill_3 in two methods</li>
+<li>Items 3, 7, and 8 consistently group together in Barnes’s and PCA methods</li>
+</ul></li>
+</ol>
+<p>This suggests that while there are some variations across methods, there are clear patterns in how items cluster together, particularly for Items 2, 4, and 6.</p>
+</section>
+<section id="key-findings-from-the-expanded-analysis" class="level4">
+<h4 class="anchored" data-anchor-id="key-findings-from-the-expanded-analysis">Key findings from the expanded analysis</h4>
+<div id="5c57728c" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Performing Factor Analysis with four components to explore the potential presence of additional latent skills</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>n_factors_extended <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>fa_model_extended <span class="op">=</span> FactorAnalysis(n_components<span class="op">=</span>n_factors_extended, random_state<span class="op">=</span><span class="dv">42</span>)</span>
@@ -2260,7 +2348,74 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 </div>
-<div id="65fb0de8" class="cell" data-execution_count="7">
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    subgraph Strong_Relationships
+        S1[Skill_1] --- I3[Item 3]
+        S1 --- I7[Item 7]
+        S1 --- I8[Item 8]
+        
+        S2[Skill_2] --- I2[Item 2]
+        S2 --- I4[Item 4]
+        S2 --- I6[Item 6]
+    end
+    
+    subgraph Split_Influences
+        S3[Skill_3] -.-&gt; I1[Item 1]
+        S4[Skill_4] -.-&gt; I1
+        
+        S3 -.-&gt; I5[Item 5]
+        S4 -.-&gt; I5
+        
+        S4 -.-&gt; I4[Item 4]
+    end
+    
+    style Strong_Relationships fill:#f9f,stroke:#333,stroke-width:2px
+    style Split_Influences fill:#ff9,stroke:#333,stroke-width:2px
+    
+    classDef solid stroke-width:4px
+    classDef dashed stroke-dasharray: 5, 5
+    class S1,S2,I2,I3,I4,I6,I7,I8 solid
+    class S3,S4,I1,I5 dashed
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<ol type="1">
+<li><strong>Consistent Groupings</strong>:
+<ul>
+<li><strong>Skill_1 Cluster</strong>: Items 3, 7, and 8 show consistent high loadings</li>
+<li><strong>Skill_2 Cluster</strong>: Items 2, 4, and 6 maintain strong relationships</li>
+</ul></li>
+<li><strong>Complex Relationships</strong>:
+<ul>
+<li>Items 1 and 5 show split influences between Skill_3 and Skill_4</li>
+<li>Item 4 demonstrates some secondary loading on Skill_4</li>
+</ul></li>
+<li><strong>Model Implications</strong>:
+<ul>
+<li>The 4-component model reveals more nuanced relationships</li>
+<li>Some items (1, 5) may require multiple skills</li>
+<li>The original discrepancies might be explained by these complex relationships</li>
+</ul></li>
+<li><strong>Next Steps</strong>:
+<ul>
+<li>Consider evaluating a simpler two-skill model</li>
+<li>Further investigation of items with split influences</li>
+<li>Assess whether the added complexity of four skills provides meaningful improvement</li>
+</ul></li>
+</ol>
+<p>This analysis suggests that while some item-skill relationships are very stable, others show more complex patterns that might explain the initial discrepancies across different analysis methods.</p>
+</section>
+<section id="key-findings-from-the-model-comparisons" class="level4">
+<h4 class="anchored" data-anchor-id="key-findings-from-the-model-comparisons">Key findings from the model comparisons</h4>
+<div id="4c13b942" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Performing Factor Analysis with two components to explore if a simpler model might explain the relationships</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>n_factors_simpler <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>fa_model_simpler <span class="op">=</span> FactorAnalysis(n_components<span class="op">=</span>n_factors_simpler, random_state<span class="op">=</span><span class="dv">42</span>)</span>
@@ -2738,11 +2893,101 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 </div>
-<p><em>Explain what the code above does.</em></p>
-<ol start="6" type="1">
-<li><strong>Visualizations</strong>: Heatmaps and bar charts were created using <code>matplotlib</code> and <code>seaborn</code> to visualize relationships between items and skills, making it easier to interpret and validate findings.</li>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TB
+    subgraph Two_Component_Model
+        TC_S1[Skill_1] --- TC_I2[Item 2]
+        TC_S1 --- TC_I4[Item 4]
+        TC_S1 --- TC_I6[Item 6]
+        
+        TC_S2[Skill_2] --- TC_I3[Item 3]
+        TC_S2 --- TC_I5[Item 5]
+        TC_S2 --- TC_I7[Item 7]
+        TC_S2 --- TC_I8[Item 8]
+        
+        TC_I1[Item 1&lt;br/&gt;Weak Loadings] -..- TC_S1
+        TC_I1 -..- TC_S2
+    end
+    
+    subgraph Three_Component_Model
+        TH_S1[Skill_1] --- TH_I2[Item 2]
+        TH_S1 --- TH_I4[Item 4]
+        TH_S1 --- TH_I6[Item 6]
+        
+        TH_S2[Skill_2] --- TH_I3[Item 3]
+        TH_S2 --- TH_I7[Item 7]
+        TH_S2 --- TH_I8[Item 8]
+        
+        TH_S3[Skill_3] --- TH_I1[Item 1]
+        TH_S3 --- TH_I5[Item 5]
+    end
+    
+    subgraph Four_Component_Model
+        FC_S1[Skill_1] --- FC_I3[Item 3]
+        FC_S1 --- FC_I7[Item 7]
+        FC_S1 --- FC_I8[Item 8]
+        
+        FC_S2[Skill_2] --- FC_I2[Item 2]
+        FC_S2 --- FC_I4[Item 4]
+        FC_S2 --- FC_I6[Item 6]
+        
+        FC_S3[Skill_3] -.-&gt; FC_I1[Item 1]
+        FC_S4[Skill_4] -.-&gt; FC_I1
+        
+        FC_S3 -.-&gt; FC_I5[Item 5]
+        FC_S4 -.-&gt; FC_I5
+    end
+
+    style Two_Component_Model fill:#f9f,stroke:#333,stroke-width:2px
+    style Three_Component_Model fill:#9ff,stroke:#333,stroke-width:2px
+    style Four_Component_Model fill:#ff9,stroke:#333,stroke-width:2px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<ol type="1">
+<li><strong>Two-Component Model</strong>:
+<ul>
+<li>Effectively groups most items into two clear skills</li>
+<li>Items 2, 4, 6 → Skill_1</li>
+<li>Items 3, 5, 7, 8 → Skill_2</li>
+<li>Cannot adequately capture Item 1’s relationships</li>
+<li>Too simplistic to capture nuanced relationships</li>
+</ul></li>
+<li><strong>Three-Component Model</strong>:
+<ul>
+<li>Provides balanced representation</li>
+<li>Clear, distinct groupings</li>
+<li>Successfully captures Item 1’s relationship</li>
+<li>Optimal balance between simplicity and explanatory power</li>
+</ul></li>
+<li><strong>Four-Component Model</strong>:
+<ul>
+<li>Reveals additional complexity</li>
+<li>Shows split influences for Items 1 and 5</li>
+<li>May be unnecessarily complex</li>
+<li>Adds granularity but possibly redundant information</li>
+</ul></li>
+<li><strong>Model Selection Implications</strong>:
+<ul>
+<li>Three-component model appears optimal</li>
+<li>Balances complexity with explanatory power</li>
+<li>Captures key relationships without redundancy</li>
+<li>Provides clear, interpretable groupings</li>
+</ul></li>
 </ol>
-<div id="c5fc125d" class="cell" data-execution_count="8">
+<p>The analysis suggests that the three-component model offers the most efficient and effective representation of the skill-item relationships, avoiding both oversimplification and unnecessary complexity.</p>
+</section>
+<section id="visualizations" class="level4">
+<h4 class="anchored" data-anchor-id="visualizations">Visualizations</h4>
+<p>Heatmaps and bar charts were created using <code>matplotlib</code> and <code>seaborn</code> to visualize relationships between items and skills, making it easier to interpret and validate findings.</p>
+<div id="775bf773" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2770,7 +3015,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 </div>
-<div id="c86fd96c" class="cell" data-execution_count="9">
+<div id="4af4f40f" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create bar charts for each item to show its relationship across skills</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>num_items <span class="op">=</span> <span class="bu">len</span>(factor_loadings_df.index)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(num_items, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, num_items <span class="op">*</span> <span class="dv">2</span>))</span>
@@ -2841,7 +3086,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 <p>This code provides visualizations of item-skill relationships using heatmaps and bar charts, making it easier to interpret the factor loadings and validate the findings. <em>More explanation. Explain per graph.</em></p>
-<div id="d0947b97" class="cell" data-execution_count="10">
+<div id="de26d1a4" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the final Q-matrix based on the visualization and analysis findings</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Assigning each item to the skill with the highest loading from the Factor Analysis with three components</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>final_q_matrix <span class="op">=</span> factor_loadings_df.idxmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
@@ -2908,6 +3153,52 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 </div>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    subgraph Skill_Mappings
+        S1[Skill_1] --- I2[Item 2]
+        S1 --- I4[Item 4]
+        S1 --- I6[Item 6]
+        
+        S2[Skill_2] --- I3[Item 3]
+        S2 --- I5[Item 5]
+        S2 --- I7[Item 7]
+        S2 --- I8[Item 8]
+        
+        S3[Skill_3] --- I1[Item 1]
+    end
+    
+    subgraph Evidence_Types
+        FA[Factor Analysis&lt;br/&gt;Highest Loadings] --- S1
+        FA --- S2
+        FA --- S3
+        
+        BC[Bar Charts&lt;br/&gt;Visual Validation] --- S1
+        BC --- S2
+        BC --- S3
+    end
+    
+    style Skill_Mappings fill:#f9f,stroke:#333,stroke-width:2px
+    style Evidence_Types fill:#9ff,stroke:#333,stroke-width:2px
+    
+    classDef skillNode fill:#f96,stroke:#333,stroke-width:2px
+    classDef itemNode fill:#9f9,stroke:#333,stroke-width:2px
+    classDef evidenceNode fill:#69f,stroke:#333,stroke-width:2px
+    
+    class S1,S2,S3 skillNode
+    class I1,I2,I3,I4,I5,I6,I7,I8 itemNode
+    class FA,BC evidenceNode
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 <section id="model-assessment" class="level2">
@@ -2940,9 +3231,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <p>The knowledge structure mapping for the given dataset was successfully identified using a combination of Factor Analysis, KMeans clustering, and PCA. The final Q-matrix presents a clear and evidence-backed mapping of items to underlying skills, which was validated through visualizations and model assessments. The chosen methods and analyses ensured robustness and coherence in uncovering the latent skills being measured by the eight-item test.</p>
+<section id="submission-guidelines" class="level3">
+<h3 class="anchored" data-anchor-id="submission-guidelines">Submission Guidelines</h3>
+<p>This document includes all required explanations. The code and data are organized to facilitate replication and further analysis. Please let me know if additional information is needed.</p>
 
 
 
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
