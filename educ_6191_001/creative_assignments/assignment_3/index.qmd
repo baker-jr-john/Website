@@ -95,7 +95,7 @@ data = pd.read_csv('data/8items.csv')
 data.head()
 ```
 
-#### Factor Analysis**
+#### Factor Analysis
 
 Factor Analysis was performed with three components to determine the skill structure, then repeated with four and two components to explore alternate structures. The `FactorAnalysis` module from `sklearn.decomposition` was used.
 
@@ -118,6 +118,7 @@ factor_loadings = fa_model.components_.T
 factor_loadings_df = pd.DataFrame(factor_loadings, index=item_data.columns, columns=[f'Skill_{i+1}' for i in range(n_factors)])
 print(factor_loadings_df)
 ```
+
 This code extracts the item data, fits a Factor Analysis model with three components, and visualizes the resulting factor loadings to understand the relationships between items and skills.
 
 #### KMeans Clustering
@@ -141,9 +142,10 @@ cluster_labels = kmeans.labels_
 kmeans_q_matrix_df = pd.DataFrame({'Item': item_data.columns, 'Mapped_Skill': [f'Skill_{label+1}' for label in cluster_labels]})
 print(kmeans_q_matrix_df)
 ```
+
 This code applies KMeans clustering to determine optimal groupings of items into three clusters, representing potential latent skills. The resulting DataFrame shows the skill to which each item is mapped.
 
-#### Learning Factors Transfer Analysis
+#### PCA
 
 Learning Factors Transfer Analysis (LFTA) using PCA with three components was applied to identify major components underlying the item responses.
 
@@ -161,6 +163,7 @@ pca_loadings = pca_model.components_.T
 pca_loadings_df = pd.DataFrame(pca_loadings, index=item_data.columns, columns=['Skill_1', 'Skill_2', 'Skill_3'])
 print(pca_loadings_df)
 ```
+
 This code applies PCA to identify the major components underlying the item responses. The loadings are then visualized to understand the relationships between items and latent skills.
 
 #### Key findings from the analysis
@@ -175,35 +178,11 @@ pca_q_matrix = pca_loadings_df.idxmax(axis=1)
 pca_q_matrix_df = pd.DataFrame({'Item': item_data.columns, 'Mapped_Skill': pca_q_matrix.values})
 pca_q_matrix_df
 ```
-Then, I created a Mermaid diagram to help visualize this comparison across the three methods.
+
+Then, I created a [Mermaid](https://mermaid.js.org/) diagram to help visualize this comparison across the three methods.
+
 ```{mermaid}
 graph TB
-    subgraph Factor_Analysis
-        FA_S1[Skill_1] --- FA_I2[Item 2]
-        FA_S1 --- FA_I4[Item 4]
-        FA_S1 --- FA_I6[Item 6]
-        
-        FA_S2[Skill_2] --- FA_I3[Item 3]
-        FA_S2 --- FA_I5[Item 5]
-        FA_S2 --- FA_I7[Item 7]
-        FA_S2 --- FA_I8[Item 8]
-        
-        FA_S3[Skill_3] --- FA_I1[Item 1]
-    end
-    
-    subgraph Barnes_Q_Matrix
-        BQ_S3[Skill_3] --- BQ_I1[Item 1]
-        BQ_S3 --- BQ_I5[Item 5]
-        
-        BQ_S1[Skill_1] --- BQ_I3[Item 3]
-        BQ_S1 --- BQ_I7[Item 7]
-        BQ_S1 --- BQ_I8[Item 8]
-        
-        BQ_S2[Skill_2] --- BQ_I2[Item 2]
-        BQ_S2 --- BQ_I4[Item 4]
-        BQ_S2 --- BQ_I6[Item 6]
-    end
-    
     subgraph PCA
         PCA_S3[Skill_3] --- PCA_I1[Item 1]
         PCA_S3 --- PCA_I5[Item 5]
@@ -216,11 +195,38 @@ graph TB
         PCA_S1 --- PCA_I7[Item 7]
         PCA_S1 --- PCA_I8[Item 8]
     end
+    
+    subgraph KMeans
+        BQ_S3[Skill_3] --- BQ_I1[Item 1]
+        BQ_S3 --- BQ_I5[Item 5]
+        
+        BQ_S1[Skill_1] --- BQ_I3[Item 3]
+        BQ_S1 --- BQ_I7[Item 7]
+        BQ_S1 --- BQ_I8[Item 8]
+        
+        BQ_S2[Skill_2] --- BQ_I2[Item 2]
+        BQ_S2 --- BQ_I4[Item 4]
+        BQ_S2 --- BQ_I6[Item 6]
+    end
+    
+    subgraph Factor_Analysis
+        FA_S1[Skill_1] --- FA_I2[Item 2]
+        FA_S1 --- FA_I4[Item 4]
+        FA_S1 --- FA_I6[Item 6]
+        
+        FA_S2[Skill_2] --- FA_I3[Item 3]
+        FA_S2 --- FA_I5[Item 5]
+        FA_S2 --- FA_I7[Item 7]
+        FA_S2 --- FA_I8[Item 8]
+        
+        FA_S3[Skill_3] --- FA_I1[Item 1]
+    end
 
-    style Factor_Analysis fill:#f9f,stroke:#333,stroke-width:2px
-    style Barnes_Q_Matrix fill:#9ff,stroke:#333,stroke-width:2px
-    style PCA fill:#ff9,stroke:#333,stroke-width:2px
+    style PCA fill:#f9f,stroke:#333,stroke-width:2px
+    style KMeans fill:#9ff,stroke:#333,stroke-width:2px
+    style Factor_Analysis fill:#ff9,stroke:#333,stroke-width:2px
 ```
+
 1. **Consistent Grouping**:
    - Items 2, 4, and 6 consistently group together across all methods (though labeled as Skill_1 in Factor Analysis but Skill_2 in others)
    - Barnes's Q-matrix and PCA show perfect alignment in their groupings
@@ -252,7 +258,6 @@ factor_loadings_extended = fa_model_extended.components_.T
 factor_loadings_extended_df = pd.DataFrame(factor_loadings_extended, index=item_data.columns, columns=[f'Skill_{i+1}' for i in range(n_factors_extended)])
 factor_loadings_extended_df
 ```
-
 ```{mermaid}
 graph TD
     subgraph Strong_Relationships
@@ -319,7 +324,6 @@ factor_loadings_simpler = fa_model_simpler.components_.T
 factor_loadings_simpler_df = pd.DataFrame(factor_loadings_simpler, index=item_data.columns, columns=[f'Skill_{i+1}' for i in range(n_factors_simpler)])
 factor_loadings_simpler_df
 ```
-
 ```{mermaid}
 graph TB
     subgraph Two_Component_Model
@@ -397,8 +401,6 @@ graph TB
 
 The analysis suggests that the three-component model offers the most efficient and effective representation of the skill-item relationships, avoiding both oversimplification and unnecessary complexity.
 
-#### Visualizations
-
 Heatmaps and bar charts were created using `matplotlib` and `seaborn` to visualize relationships between items and skills, making it easier to interpret and validate findings.
 
 ```{python}
@@ -428,7 +430,9 @@ plt.tight_layout()
 
 plt.show()
 ```
-This code provides visualizations of item-skill relationships using heatmaps and bar charts, making it easier to interpret the factor loadings and validate the findings. *More explanation. Explain per graph.*
+
+This code provides visualizations of item-skill relationships using heatmaps and bar charts, making it easier to interpret the factor loadings and validate the findings.
+
 ```{python}
 # Creating the final Q-matrix based on the visualization and analysis findings
 # Assigning each item to the skill with the highest loading from the Factor Analysis with three components
@@ -438,7 +442,6 @@ final_q_matrix = factor_loadings_df.idxmax(axis=1)
 final_q_matrix_df = pd.DataFrame({'Item': item_data.columns, 'Mapped_Skill': final_q_matrix.values})
 final_q_matrix_df
 ```
-
 ```{mermaid}
 graph TD
     subgraph Skill_Mappings
