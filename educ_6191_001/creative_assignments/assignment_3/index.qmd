@@ -1,7 +1,7 @@
 ---
 pagetitle: "John Baker – Learning Analytics"
 title: "Knowledge Structure Mapping: Comprehensive Report"
-description: "A comprehensive exploration of knowledge structure mapping using Factor Analysis, KMeans clustering, and PCA to uncover latent skills in an eight-item test dataset."
+description: "An in-depth exploration of knowledge structure mapping using Factor Analysis, KMeans clustering, and PCA to uncover latent skills in an eight-item test dataset."
 date: 2024-11-20
 # date-modified: 
 author: 
@@ -467,7 +467,7 @@ I create some [Mermaid](https://mermaid.js.org/) diagrams to gain further insigh
 
 [^1]: Refer to [Creative Assignment 3's GitHub repository](https://github.com/baker-jr-john/Website/blob/main/educ_6191_001/creative_assignments/assignment_3/index.qmd) for the code behind the diagrams.
 
-##### Comparison Across the Three Methods
+**Comparison Across the Three Methods**
 
 ```{mermaid}
 graph TB
@@ -515,7 +515,7 @@ graph TB
     style Factor_Analysis fill:#ff9,stroke:#333,stroke-width:2px
 ```
 
-##### Factor Analysis with Four Components
+**Testing Alternative Factor Analysis Models**
 
 ```{mermaid}
 graph TD
@@ -548,7 +548,7 @@ graph TD
     class S3,S4,I1,I5 dashed
 ```
 
-##### Factor Analysis with Two Components
+**Comparison Across the Three Models**
 
 ```{mermaid}
 graph TB
@@ -599,6 +599,30 @@ graph TB
     style Three_Component_Model fill:#9ff,stroke:#333,stroke-width:2px
     style Four_Component_Model fill:#ff9,stroke:#333,stroke-width:2px
 ```
+
+They reinforce and extend previous insights, adding a nuanced understanding of item-skill relationships and the interplay between methods. Here are some key observations derived from the diagrams:
+
+##### Consistency Across Methods
+
+The three-component structure shows items 2, 4, and 6 consistently mapping to a similar skill across all methods, implying a robust underlying structure. This consistency also appears in items 3, 7, and 8 in KMeans and PCA, suggesting reliability in these assignments.
+
+##### Method-Specific Variations
+
+Factor Analysis diverges slightly by assigning items 1 and 5 differently than KMeans and PCA. This difference highlights potential complexities in item 5, which seems influenced by multiple skills. These diagrams illustrate how each method offers unique perspectives, yet also converge on certain item-skill relationships, adding confidence to these common groupings.
+
+##### Alternative Model Structures
+
+The alternative models, such as the four-component model, introduce additional skills that help identify nuanced relationships but also add complexity. For example, the **Four_Component_Model** diagram shows potential secondary skill influences (cross-loadings) in items 1 and 5, indicating they may require multiple skills. Similarly, the two-component model simplifies the structure but struggles to fully capture item 1, highlighting limitations in overly simplified models.
+
+##### Insight into Complex Items
+
+The **Split_Influences** and **Strong_Relationships** diagrams provide additional insights into items that do not fit neatly into a single skill. For instance, item 5 shows varied associations across methods, supporting the idea that it may assess overlapping skills or a composite skill. This aligns with the **Weak Loadings** observed in two-component models and cross-loadings in four-component models.
+
+##### Interpretability
+
+The diagrams support the three-skill model as an optimal balance of interpretability and complexity, confirming previous findings. However, they also visualize the potential for models with additional components to capture complex interactions, which may be valuable for specific educational or diagnostic applications where precision is paramount.
+
+The diagrams enhance the interpretative clarity of the results, confirm the three-component structure’s robustness, and illustrate how alternative models could provide further insight into complex item relationships if needed.
 
 #### Heatmap of Factor Loadings (Three Components)
 
