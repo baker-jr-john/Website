@@ -720,9 +720,9 @@ graph TD
 - **Item 5**:
   - While **item5** had comparable loadings on both **Skill_2** and **Skill_3**, it was assigned to **Skill_2** due to a slightly higher loading.
 
-### Discussion
+## Discussion
 
-#### Model Comparison and Selection
+### Model Comparison and Selection
 
 After comparing models with two, three, and four components, the **three-component Factor Analysis model** emerged as the most suitable representation of the latent skills in the dataset.
 
@@ -743,7 +743,7 @@ After comparing models with two, three, and four components, the **three-compone
     - Adds unnecessary complexity without significant interpretive benefits.
     - May overfit the data.
 
-#### Justification for the Final Q-Matrix
+### Justification for the Final Q-Matrix
 
 The final Q-matrix, derived from the three-component Factor Analysis model, is well-justified by its consistency with the findings from multiple methods.
 
@@ -759,7 +759,7 @@ The final Q-matrix, derived from the three-component Factor Analysis model, is w
 - **Interpretability**:
   - The three-skill model provides clear and meaningful interpretations of the data, which is essential for practical applications in educational assessment.
 
-#### Implications of the Findings
+### Implications of the Findings
 
 The knowledge structure mapping obtained from this study has significant implications for educational practice.
 
@@ -771,10 +771,9 @@ The knowledge structure mapping obtained from this study has significant implica
 
 - **Educational Impact**:
   - By understanding the relationships between items and skills, test designers can create assessments that more effectively target specific skills, ensuring a balanced coverage of the identified latent skills. The item-skill mappings can also help identify potentially redundant or less informative items, allowing for more efficient and focused assessments.
-  
     Moreover, educators can leverage the findings to diagnose student strengths and weaknesses at the skill level. The identification of specific skills associated with each item enables targeted remediation or enrichment activities, focusing on the areas where students may need additional support. This information can also guide the development of instructional materials and resources, ensuring that students have ample opportunities to practice and master the identified skills.
 
-#### Limitations and Future Work
+### Limitations and Future Work
 
 Despite the insights provided by this study, there are limitations to consider.
 
