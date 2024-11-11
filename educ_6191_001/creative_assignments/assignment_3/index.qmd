@@ -282,7 +282,7 @@ I transpose the item data to cluster items based on their response patterns.
 
 ```{python}
 # Import K-Means module
-from sklearn.cluster import K-Means
+from sklearn.cluster import KMeans
 
 # Transpose the item data to have items as rows and students as columns
 item_data_transposed = item_data.T
