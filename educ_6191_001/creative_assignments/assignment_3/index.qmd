@@ -465,7 +465,7 @@ factor_loadings_simpler_df
 
 I create some [Mermaid](https://mermaid.js.org/) diagrams to gain further insight.[^1]
 
-[^1]: Refer to [the Creative Assignment 3's GitHub repository](https://github.com/baker-jr-john/Website/blob/main/educ_6191_001/creative_assignments/assignment_3/index.qmd) for the code behind the diagrams.
+[^1]: Refer to [Creative Assignment 3's GitHub repository](https://github.com/baker-jr-john/Website/blob/main/educ_6191_001/creative_assignments/assignment_3/index.qmd) for the code behind the diagrams.
 
 ##### Comparison Across the Three Methods
 
