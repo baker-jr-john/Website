@@ -150,7 +150,9 @@ div.csl-indent {
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#background-and-related-work" id="toc-background-and-related-work" class="nav-link" data-scroll-target="#background-and-related-work">Background and Related Work</a>
   <ul class="collapse">
-  <li><a href="#knowledge-structure-mapping" id="toc-knowledge-structure-mapping" class="nav-link" data-scroll-target="#knowledge-structure-mapping">Knowledge Structure Mapping</a></li>
+  <li><a href="#methods-for-knowledge-structure-mapping" id="toc-methods-for-knowledge-structure-mapping" class="nav-link" data-scroll-target="#methods-for-knowledge-structure-mapping">Methods for Knowledge Structure Mapping</a></li>
+  <li><a href="#applications-in-educational-data-mining" id="toc-applications-in-educational-data-mining" class="nav-link" data-scroll-target="#applications-in-educational-data-mining">Applications in Educational Data Mining</a></li>
+  <li><a href="#limitations-and-challenges" id="toc-limitations-and-challenges" class="nav-link" data-scroll-target="#limitations-and-challenges">Limitations and Challenges</a></li>
   </ul></li>
   <li><a href="#methods-used" id="toc-methods-used" class="nav-link" data-scroll-target="#methods-used">Methods Used</a>
   <ul class="collapse">
@@ -247,57 +249,61 @@ div.csl-indent {
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Understanding the knowledge structure of learners is fundamental in the field of educational assessment and learning analytics. <strong>Knowledge structure mapping</strong> allows educators and researchers to uncover the relationships between test items and the underlying skills or concepts they measure. This understanding is crucial for developing effective educational tools, improving assessment strategies, and tailoring instruction to meet individual student needs. By mapping how different items relate to latent skills, educators can identify areas where students may struggle and provide targeted interventions.</p>
-<p>Despite its importance, determining the optimal representation of latent skills within test data poses significant challenges, especially with limited datasets. Traditional methods often rely on assumptions that may not hold true across different educational contexts or types of assessments. Therefore, there is a need for robust, data-driven approaches that can accurately identify and validate the underlying skill structures in assessment data.</p>
-<p>This study addresses this gap by investigating the knowledge structure underlying an eight-item test dataset using advanced statistical and machine learning techniques. Specifically, we employ <strong>Factor Analysis</strong> to uncover latent skills within the data, <strong>KMeans clustering</strong> to simulate Barnes’s Q-Matrix method for grouping items based on response patterns, and <strong>Principal Component Analysis (PCA)</strong> to validate the item-skill relationships identified. By comparing models with varying numbers of components—from two to four—we aim to determine the most suitable skill structure representation for the dataset.</p>
-<p>Our approach contributes to the existing body of research by providing a comprehensive methodology that balances complexity with interpretability. The final <strong>Q-matrix</strong> derived from our analysis offers a robust mapping of items to latent skills, enhancing the interpretability of test results. This study not only demonstrates the effectiveness of combining multiple analytical methods for knowledge structure mapping but also provides insights that can inform the development of more nuanced educational assessments and personalized learning strategies.</p>
+<p>Imagine if educators could uncover the hidden connections between what students know and what they’re tested on. This is the power of knowledge structure mapping. <strong>Knowledge structure mapping</strong> allows educators and researchers to uncover the relationships between test items and the underlying skills or concepts they measure. This understanding is crucial for developing effective educational tools, improving assessment strategies, and tailoring instruction to meet individual student needs. By mapping how different items relate to latent skills, educators can identify areas where students may struggle and provide targeted interventions.</p>
+<p>Determining the optimal representation of latent skills within limited test data is challenging, as traditional methods often rely on assumptions that may not generalize across educational contexts or assessment types. Therefore, there is a need for robust, data-driven approaches that can accurately identify and validate the underlying skill structures in assessment data.</p>
+<p>This study addresses this gap by investigating the knowledge structure underlying an eight-item test dataset using a comprehensive methodology that balances model complexity and interpretability. By combining advanced statistical and machine learning techniques—specifically, <strong>Factor Analysis</strong> to uncover latent skills, <strong>KMeans clustering</strong> to simulate Barnes’s Q-Matrix method for grouping items, and <strong>Principal Component Analysis (PCA)</strong> to validate the identified item-skill relationships—I aim to robustly identify the underlying skill structures. To determine the optimal skill representation, I compare models with varying numbers of components, from two to four, seeking a balance between capturing sufficient detail and maintaining simplicity for educational interpretation and application. The resulting <strong>Q-matrix</strong> derived from this multi-method approach offers a clear, empirically-derived mapping of items to latent skills, enhancing the interpretability and utility of test results for educators and researchers.</p>
+<p>My approach contributes to the existing body of research by providing a comprehensive methodology that balances complexity with interpretability. The final <strong>Q-matrix</strong> derived from my analysis offers a robust mapping of items to latent skills, enhancing the interpretability of test results. This study not only demonstrates the effectiveness of combining multiple analytical methods for knowledge structure mapping but also provides insights that can inform the development of more nuanced educational assessments and personalized learning strategies.</p>
 </section>
 <section id="background-and-related-work" class="level2">
 <h2 class="anchored" data-anchor-id="background-and-related-work">Background and Related Work</h2>
-<section id="knowledge-structure-mapping" class="level3">
-<h3 class="anchored" data-anchor-id="knowledge-structure-mapping">Knowledge Structure Mapping</h3>
 <p><strong>Knowledge structure mapping</strong> is a fundamental process in educational data mining that involves analyzing and visualizing learners’ conceptual understanding and cognitive organization of information <span class="citation" data-cites="gordon2003learning">(<a href="#ref-gordon2003learning" role="doc-biblioref">Gordon and Jorgensen 2003</a>)</span>. It enables educators and researchers to represent relationships between different pieces of knowledge, facilitating the development of personalized learning experiences and more effective educational tools.</p>
-<p>Several methods have been developed to map knowledge structures, each with its own advantages and limitations.</p>
-<p>One key method is <strong>Learning Factors Analysis (LFA)</strong>, which is used to evaluate and refine cognitive models <span class="citation" data-cites="cen2006learning">(<a href="#ref-cen2006learning" role="doc-biblioref">Cen, Koedinger, and Junker 2006</a>)</span>. LFA leverages student performance data to improve the accuracy of these models, thereby enhancing personalized learning by tailoring instruction to individual student needs.</p>
+<section id="methods-for-knowledge-structure-mapping" class="level3">
+<h3 class="anchored" data-anchor-id="methods-for-knowledge-structure-mapping">Methods for Knowledge Structure Mapping</h3>
+<p>Several methods have been developed to map knowledge structures, each with its own advantages and limitations. <strong>Learning Factors Analysis (LFA)</strong> is one such method used to evaluate and refine cognitive models <span class="citation" data-cites="cen2006learning">(<a href="#ref-cen2006learning" role="doc-biblioref">Cen, Koedinger, and Junker 2006</a>)</span>. LFA leverages student performance data to improve the accuracy of these models, thereby enhancing personalized learning by tailoring instruction to individual student needs.</p>
 <p><strong>Partial Order Knowledge Spaces (POKS)</strong> provide another powerful framework for representing knowledge structures <span class="citation" data-cites="desmarais2006learned">(<a href="#ref-desmarais2006learned" role="doc-biblioref">Desmarais, Meshkinfam, and Gagnon 2006</a>)</span>. POKS uses partially ordered sets of skills to model how knowledge builds upon itself. For example, mastering addition might be a prerequisite for learning multiplication, reflecting the hierarchical nature of certain learning processes.</p>
-<p><strong>Factor Analysis</strong> is a statistical technique widely used in knowledge structure mapping to uncover hidden relationships between observed variables—such as test items—and underlying latent variables—such as skills <span class="citation" data-cites="beavers2019practical">(<a href="#ref-beavers2019practical" role="doc-biblioref">Beavers et al. 2019</a>)</span>. By analyzing correlations among test items, Factor Analysis can reveal clusters of items that measure the same underlying skill. This data-driven approach helps in identifying latent skills without requiring prior knowledge of the skill structure.</p>
-<p><strong>Barnes’s Q-matrix method</strong> is a specific technique for representing the relationship between items and skills using a binary matrix <span class="citation" data-cites="barnes2005q">(<a href="#ref-barnes2005q" role="doc-biblioref">Barnes 2005</a>)</span>. In this matrix, rows represent test items, columns represent skills, and entries indicate whether a skill is required for a particular item. The Q-matrix provides a visual and analytical tool for understanding which skills are assessed by each item, and it is widely used in cognitive modeling and educational data mining.</p>
+<p>Another widely used method for knowledge structure mapping is <strong>Factor Analysis</strong>, a statistical technique widely used in knowledge structure mapping to uncover hidden relationships between observed variables—such as test items—and underlying latent variables—such as skills <span class="citation" data-cites="beavers2019practical">(<a href="#ref-beavers2019practical" role="doc-biblioref">Beavers et al. 2019</a>)</span>. By analyzing correlations among test items, Factor Analysis can reveal clusters of items that measure the same underlying skill. This data-driven approach helps in identifying latent skills without requiring prior knowledge of the skill structure.</p>
+<p>While Factor Analysis and PCA rely on statistical techniques, <strong>Barnes’s Q-matrix method</strong> takes a different approach. It is a specific technique for representing the relationship between items and skills using a binary matrix <span class="citation" data-cites="barnes2005q">(<a href="#ref-barnes2005q" role="doc-biblioref">Barnes 2005</a>)</span>. In this matrix, rows represent test items, columns represent skills, and entries indicate whether a skill is required for a particular item. The Q-matrix provides a visual and analytical tool for understanding which skills are assessed by each item, and it is widely used in cognitive modeling and educational data mining.</p>
 <p><strong>KMeans Clustering</strong> can simulate the Q-matrix method by grouping items based on response patterns without prior knowledge of the skill structure. By clustering items that have similar response profiles, researchers can infer potential underlying skills that explain these patterns. This unsupervised learning approach allows for the exploration of latent skill groupings in the absence of predefined skill mappings.</p>
 <p><strong>Principal Component Analysis (PCA)</strong> is another statistical method employed in knowledge structure mapping to reduce the dimensionality of data while preserving as much variance as possible. PCA identifies principal components, which are linear combinations of the original variables (test items), and these components can be interpreted as underlying skills or factors influencing student performance. PCA helps in validating the item-skill relationships identified through other methods like Factor Analysis by providing an alternative perspective on the data’s structure.</p>
-<p>These methods are applied in various contexts within educational data mining:</p>
+<p>These methods collectively provide a toolbox for researchers to uncover the underlying structure of knowledge in educational data.</p>
+</section>
+<section id="applications-in-educational-data-mining" class="level3">
+<h3 class="anchored" data-anchor-id="applications-in-educational-data-mining">Applications in Educational Data Mining</h3>
+<p>The knowledge structure mapping methods discussed above have found wide application in educational data mining, including:</p>
 <ul>
 <li><p><strong>Intelligent Tutoring Systems (ITSs):</strong> Knowledge structure mapping is crucial for ITSs to personalize instruction and provide tailored feedback based on individual student performance and identified skill gaps <span class="citation" data-cites="de2008educational">(<a href="#ref-de2008educational" role="doc-biblioref">Baker, Barnes, and Beck 2008</a>)</span>.</p></li>
 <li><p><strong>Predicting Student Performance:</strong> Understanding knowledge structures enables the prediction of student performance on assessments and helps in identifying students who are at risk of falling behind, allowing for timely interventions <span class="citation" data-cites="de2008educational">(<a href="#ref-de2008educational" role="doc-biblioref">Baker, Barnes, and Beck 2008</a>)</span>.</p></li>
 <li><p><strong>Analyzing Student Behavior:</strong> Knowledge structure mapping can be used to analyze student behavior patterns, such as help-seeking actions, providing insights into how students approach learning tasks and where they may encounter difficulties <span class="citation" data-cites="cukurova2022learning">(<a href="#ref-cukurova2022learning" role="doc-biblioref">Cukurova et al. 2022</a>)</span>.</p></li>
 </ul>
 <p>The importance of using data-driven approaches, such as Factor Analysis, KMeans clustering, and PCA, lies in their ability to uncover patterns and relationships that might not be apparent through traditional methods <span class="citation" data-cites="chen2018knowedu">(<a href="#ref-chen2018knowedu" role="doc-biblioref">Chen et al. 2018</a>)</span>. These techniques allow researchers to identify latent skills and understand how knowledge is organized within a dataset, which can be applied to improve educational practices and assessment designs.</p>
-<p>However, each method has its limitations. Factor Analysis and PCA typically assume that the data are continuous and normally distributed, which may not always be the case with binary test item responses. KMeans clustering requires the specification of the number of clusters in advance and may not capture complex, hierarchical relationships between items and skills. Despite these limitations, when used in combination, these methods can provide a robust analysis of knowledge structures by cross-validating findings and offering complementary insights.</p>
+</section>
+<section id="limitations-and-challenges" class="level3">
+<h3 class="anchored" data-anchor-id="limitations-and-challenges">Limitations and Challenges</h3>
+<p>Despite their utility, each knowledge structure mapping method has its limitations. Factor Analysis and PCA typically assume that the data are continuous and normally distributed, which may not always be the case with binary test item responses. KMeans clustering requires the specification of the number of clusters in advance and may not capture complex, hierarchical relationships between items and skills. Despite these limitations, when used in combination, these methods can provide a robust analysis of knowledge structures by cross-validating findings and offering complementary insights.</p>
 </section>
 </section>
 <section id="methods-used" class="level2">
 <h2 class="anchored" data-anchor-id="methods-used">Methods Used</h2>
 <section id="overview" class="level3">
 <h3 class="anchored" data-anchor-id="overview">Overview</h3>
-<p>This study employs a combination of statistical and machine learning techniques—<strong>Factor Analysis</strong>, <strong>KMeans Clustering</strong>, and <strong>Principal Component Analysis (PCA)</strong>—to uncover the latent skills underlying an eight-item test dataset. Each method offers unique insights into the data, and their combined use allows for cross-validation of findings, enhancing the robustness of the knowledge structure mapping.</p>
+<p>This study employs a combination of statistical and machine learning techniques—<strong>Factor Analysis</strong>, <strong>KMeans Clustering</strong>, and <strong>Principal Component Analysis (PCA)</strong>—to uncover the latent skills underlying an eight-item test dataset. Each method offers unique insights into the data, and their combined use allows for a comprehensive analysis of the knowledge structure. Each technique complements and validates the findings of the others, contributing to a robust understanding of the underlying skill structure.</p>
 </section>
 <section id="factor-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="factor-analysis">Factor Analysis</h3>
 <p><strong>Factor Analysis</strong> was chosen as the primary method to discover the underlying latent skills measured by the test items. This statistical technique identifies factors (latent variables) that explain the patterns of correlations among observed variables (test items). By reducing the dimensionality of the data, Factor Analysis helps reveal the structure of the latent skills that influence student performance.</p>
 <p><strong>Rationale</strong>:</p>
 <ul>
-<li><strong>Data-Driven Identification</strong>: Factor Analysis does not require prior knowledge of the skill structure, making it suitable for exploratory analysis in identifying latent skills.</li>
-<li><strong>Correlation Structure</strong>: It effectively captures the underlying correlation structure among test items, which is essential for understanding how items group together based on the skills they assess.</li>
+<li><strong>Data-Driven Identification and Correlation Structure</strong>: Given the exploratory nature of this study and the aim to uncover latent skills, Factor Analysis is an appropriate choice, as it does not require prior knowledge of the skill structure and can effectively capture the underlying correlation patterns among test items.</li>
 </ul>
 <p><strong>Assumptions and Justifications</strong>:</p>
 <ul>
-<li><strong>Binary Data Consideration</strong>: Although Factor Analysis traditionally assumes continuous and normally distributed data, it can be applied to binary data in exploratory contexts. Given that test item responses are binary (correct or incorrect), we acknowledge that this application may introduce limitations, but it is acceptable for exploratory purposes.</li>
-<li><strong>Sample Size Adequacy</strong>: The dataset contains responses from a sufficient number of students to justify the use of Factor Analysis despite the binary nature of the data.</li>
-<li><strong>Number of Factors</strong>: We initially selected three factors based on the expectation of three underlying skills. To ensure robustness, models with two and four factors were also tested to explore alternative structures.</li>
+<li><strong>Binary Data Consideration and Sample Size Adequacy</strong>: Although Factor Analysis traditionally assumes continuous and normally distributed data, its application to binary data is acceptable in exploratory contexts, particularly when the sample size is sufficient, as in this study.</li>
+<li><strong>Number of Factors</strong>: I initially selected three factors based on the expectation of three underlying skills. To ensure robustness, models with two and four factors were also tested to explore alternative structures.</li>
 </ul>
 </section>
 <section id="barness-q-matrix-method-simulated-using-kmeans-clustering" class="level3">
 <h3 class="anchored" data-anchor-id="barness-q-matrix-method-simulated-using-kmeans-clustering">Barnes’s Q-Matrix Method (Simulated using KMeans Clustering)</h3>
-<p>To simulate <strong>Barnes’s Q-Matrix method</strong>, we employed <strong>KMeans Clustering</strong> on the transposed item data. The Q-matrix is a binary matrix that maps test items to the skills they require, and simulating this process helps in identifying clusters of items associated with specific skills.</p>
+<p><strong>KMeans Clustering</strong> is used to simulate <strong>Barnes’s Q-Matrix method</strong>, providing an alternative perspective on item groupings based on response patterns, without imposing prior assumptions about the skill structure. This allows for a data-driven validation of the Factor Analysis results.</p>
 <p><strong>Rationale</strong>:</p>
 <ul>
 <li><strong>Unsupervised Learning</strong>: KMeans Clustering groups items based on similarity in response patterns without prior assumptions about the skill structure, effectively simulating the Q-matrix creation.</li>
@@ -310,31 +316,31 @@ div.csl-indent {
 </ul>
 <p><strong>Assumptions and Justifications</strong>:</p>
 <ul>
-<li><strong>Number of Clusters</strong>: We set the number of clusters to three, consistent with the initial number of factors in Factor Analysis, to facilitate comparison.</li>
-<li><strong>Distance Metric</strong>: The default Euclidean distance was used for clustering, appropriate for binary data when the focus is on the similarity of response patterns.</li>
+<li><strong>Number of Clusters</strong>: I set the number of clusters to three, consistent with the initial number of factors in Factor Analysis, to facilitate comparison.</li>
+<li><strong>Distance Metric</strong>: The default Euclidean distance is used, as it is suitable for capturing the similarity of response patterns in binary data.</li>
 </ul>
 </section>
 <section id="principal-component-analysis-pca" class="level3">
 <h3 class="anchored" data-anchor-id="principal-component-analysis-pca">Principal Component Analysis (PCA)</h3>
-<p><strong>Principal Component Analysis (PCA)</strong> was utilized to further validate the item-skill relationships identified through Factor Analysis and KMeans Clustering. PCA reduces data dimensionality by transforming the original variables into a new set of uncorrelated variables (principal components) that capture the maximum variance.</p>
+<p><strong>Principal Component Analysis (PCA)</strong> is employed as an additional method to validate the item-skill relationships identified through Factor Analysis and KMeans Clustering. By examining the variance explained by each principal component, PCA helps confirm the significance of the identified latent skills.</p>
 <p><strong>Rationale</strong>:</p>
 <ul>
 <li><strong>Alternative Dimensionality Reduction</strong>: PCA offers an alternative method for identifying underlying structures in the data, providing a means to cross-validate findings from Factor Analysis.</li>
-<li><strong>Variance Explanation</strong>: By examining the amount of variance explained by each principal component, we can infer the significance of the underlying skills.</li>
+<li><strong>Variance Explanation</strong>: By examining the amount of variance explained by each principal component, I can infer the significance of the underlying skills.</li>
 </ul>
 <p><strong>Assumptions and Justifications</strong>:</p>
 <ul>
-<li><strong>Binary Data Consideration</strong>: Similar to Factor Analysis, PCA is traditionally applied to continuous data. However, for exploratory purposes and with appropriate caution, it can be applied to binary data to identify major components influencing response patterns.</li>
+<li><strong>Binary Data Consideration</strong>: While PCA assumes continuous data, its application to binary data is acceptable for exploratory purposes, particularly when used in conjunction with other methods that can validate its findings.</li>
 <li><strong>Number of Components</strong>: Three principal components were extracted to maintain consistency with the other methods and to facilitate direct comparison.</li>
 </ul>
 </section>
 <section id="model-iteration-and-comparison" class="level3">
 <h3 class="anchored" data-anchor-id="model-iteration-and-comparison">Model Iteration and Comparison</h3>
-<p>To determine the optimal skill representation, we iteratively tested models with varying numbers of components—two, three, and four—across all methods.</p>
+<p>To determine the optimal skill representation, I iteratively tested models with varying numbers of components—two, three, and four—across all methods.</p>
 <p><strong>Rationale</strong>:</p>
 <ul>
 <li><strong>Exploring Complexity</strong>: Testing multiple models allows us to explore how the complexity of the model affects the interpretability and explanatory power of the latent skills.</li>
-<li><strong>Avoiding Overfitting and Oversimplification</strong>: By comparing models with different numbers of components, we aim to find a balance between capturing sufficient detail and maintaining simplicity.</li>
+<li><strong>Avoiding Overfitting and Oversimplification</strong>: By comparing models with different numbers of components, I aim to find a balance between capturing sufficient detail and maintaining simplicity.</li>
 </ul>
 <p><strong>Assumptions and Justifications</strong>:</p>
 <ul>
@@ -344,11 +350,11 @@ div.csl-indent {
 </section>
 <section id="data-preparation-and-preprocessing" class="level3">
 <h3 class="anchored" data-anchor-id="data-preparation-and-preprocessing">Data Preparation and Preprocessing</h3>
-<p>Before applying the methods, the data were prepared and preprocessed to ensure accurate analysis.</p>
+<p>Before applying the methods, the data are prepared and preprocessed to ensure accurate analysis.</p>
 <p><strong>Steps</strong>:</p>
 <ul>
-<li><strong>Data Loading</strong>: The dataset was loaded using pandas, containing binary responses (correct or incorrect) for eight test items across multiple students.</li>
-<li><strong>Item Data Extraction</strong>: The ‘student’ identifier column was excluded to focus on item responses.</li>
+<li><strong>Data Loading</strong>: The dataset is loaded using pandas, containing binary responses (correct or incorrect) for eight test items across multiple students.</li>
+<li><strong>Item Data Extraction</strong>: The ‘student’ identifier column is excluded to focus on item responses.</li>
 <li><strong>Data Transformation</strong>: For KMeans Clustering, the item data were transposed to cluster items rather than students.</li>
 </ul>
 <p><strong>Assumptions and Justifications</strong>:</p>
@@ -359,13 +365,13 @@ div.csl-indent {
 </section>
 <section id="summary-of-methodological-approach" class="level3">
 <h3 class="anchored" data-anchor-id="summary-of-methodological-approach">Summary of Methodological Approach</h3>
-<p>By combining Factor Analysis, KMeans Clustering, and PCA, we leverage the strengths of each method while mitigating their individual limitations.</p>
+<p>By leveraging the strengths of Factor Analysis, KMeans Clustering, and PCA, this study employs a multi-method approach that mitigates the limitations of individual techniques.</p>
 <ul>
 <li><strong>Factor Analysis</strong> identifies latent skills based on correlation structures.</li>
 <li><strong>KMeans Clustering</strong> groups items based on response pattern similarities without prior assumptions.</li>
 <li><strong>PCA</strong> validates the findings by identifying principal components that explain the most variance.</li>
 </ul>
-<p>This multi-method approach enhances the reliability of the knowledge structure mapping and provides a comprehensive understanding of the latent skills assessed by the test items.</p>
+<p>This approach enhances the reliability and robustness of the knowledge structure mapping, providing a comprehensive understanding of the latent skills assessed by the test items.</p>
 </section>
 </section>
 <section id="implementation-details" class="level2">
@@ -374,8 +380,8 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="data-preparation">Data Preparation</h3>
 <section id="loading-the-data" class="level4">
 <h4 class="anchored" data-anchor-id="loading-the-data">Loading the Data</h4>
-<p>To begin the analysis, we loaded the dataset containing binary responses (correct or incorrect) for eight test items from multiple students. The <code>pandas</code> library was used for data manipulation due to its efficiency and ease of use with tabular data.</p>
-<div id="318a9aff" class="cell" data-execution_count="1">
+<p>To begin the analysis, I loaded the dataset containing binary responses (correct or incorrect) for eight test items from multiple students. The <code>pandas</code> library is used for data manipulation due to its efficiency and ease of use with tabular data.</p>
+<div id="39d46fae" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -473,13 +479,13 @@ div.csl-indent {
 <p><strong>Explanation</strong>:</p>
 <ul>
 <li><strong>Data Loading</strong>: The dataset <code>8items.csv</code> is read into a pandas DataFrame called <code>data</code>.</li>
-<li><strong>Data Inspection</strong>: Using <code>data.head()</code>, we display the first few rows to verify that the data has been loaded correctly.</li>
+<li><strong>Data Inspection</strong>: Using <code>data.head()</code>, I display the first few rows to verify that the data has been loaded correctly.</li>
 </ul>
 </section>
 <section id="data-exploration" class="level4">
 <h4 class="anchored" data-anchor-id="data-exploration">Data Exploration</h4>
-<p>Before proceeding, we explored the data to understand its structure and check for any anomalies.</p>
-<div id="bacdde27" class="cell" data-execution_count="2">
+<p>Before proceeding, I explored the data to understand its structure and check for anomalies.</p>
+<div id="fb841e05" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the dimensions of the dataset</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Dataset dimensions: </span><span class="sc">{</span>data<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -503,8 +509,8 @@ dtype: int64</code></pre>
 </div>
 <p><strong>Explanation</strong>:</p>
 <ul>
-<li><strong>Dataset Dimensions</strong>: We print the shape of the DataFrame to confirm the number of students (rows) and items (columns).</li>
-<li><strong>Missing Values</strong>: We check for any missing values that could affect the analysis.</li>
+<li><strong>Dataset Dimensions</strong>: I print the shape of the DataFrame to confirm the number of students (rows) and items (columns).</li>
+<li><strong>Missing Values</strong>: I check for any missing values that could affect the analysis.</li>
 </ul>
 <p><strong>Findings</strong>:</p>
 <ul>
@@ -516,21 +522,21 @@ dtype: int64</code></pre>
 <h3 class="anchored" data-anchor-id="factor-analysis-1">Factor Analysis</h3>
 <section id="preparing-data-for-factor-analysis" class="level4">
 <h4 class="anchored" data-anchor-id="preparing-data-for-factor-analysis">Preparing Data for Factor Analysis</h4>
-<p>We extracted the item response data, excluding any non-item columns such as ‘student’ identifiers.</p>
-<div id="502afac4" class="cell" data-execution_count="3">
+<p>I extracted the item response data, excluding any non-item columns such as ‘student’ identifiers.</p>
+<div id="f37060dd" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract item data (excluding the 'student' column if present)</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>item_data <span class="op">=</span> data.drop(columns<span class="op">=</span>[<span class="st">'student'</span>], errors<span class="op">=</span><span class="st">'ignore'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Explanation</strong>:</p>
 <ul>
-<li><strong>Data Extraction</strong>: We drop the ‘student’ column to focus solely on the item responses.</li>
+<li><strong>Data Extraction</strong>: I drop the ‘student’ column to focus solely on the item responses.</li>
 <li><strong>Error Handling</strong>: The <code>errors='ignore'</code> parameter ensures that if the ‘student’ column is not present, the code will not raise an error.</li>
 </ul>
 </section>
 <section id="performing-factor-analysis" class="level4">
 <h4 class="anchored" data-anchor-id="performing-factor-analysis">Performing Factor Analysis</h4>
-<p>We applied Factor Analysis with three components to identify latent skills in the dataset. The <code>FactorAnalysis</code> module from <code>sklearn.decomposition</code> was used to perform the analysis.</p>
-<div id="a8e4b3be" class="cell" data-execution_count="4">
+<p>I apply Factor Analysis with three components to identify latent skills in the dataset. The <code>FactorAnalysis</code> module from <code>sklearn.decomposition</code> is used to perform the analysis.</p>
+<div id="fab07965" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import FactorAnalysis module</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> FactorAnalysis</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -950,7 +956,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>FactorAnalysis(n_components=3, random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;FactorAnalysis<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.decomposition.FactorAnalysis.html">?<span>Documentation for FactorAnalysis</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>FactorAnalysis(n_components=3, random_state=42)</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="3ecd703c" class="cell" data-execution_count="5">
+<div id="0fb6081c" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the factor loadings</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>factor_loadings <span class="op">=</span> fa_model.components_.T</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -963,12 +969,12 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 <p><strong>Explanation</strong>:</p>
 <ul>
-<li><strong>Model Initialization</strong>: We initialize the <code>FactorAnalysis</code> model with <code>n_components=3</code>, intending to extract three latent skills.</li>
-<li><strong>Model Fitting</strong>: The model is fitted to <code>item_data</code>.</li>
-<li><strong>Factor Loadings</strong>: We obtain the factor loadings, which represent the correlation coefficients between items and factors (skills).</li>
-<li><strong>DataFrame Creation</strong>: The factor loadings are organized into a DataFrame for better visualization and interpretation.</li>
+<li><strong>Model Initialization</strong>: I initialize the <code>FactorAnalysis</code> model with <code>n_components=3</code>, intending to extract three latent skills.</li>
+<li><strong>Model Fitting</strong>: The model is fit to <code>item_data</code>.</li>
+<li><strong>Factor Loadings</strong>: I obtain the factor loadings, which represent the correlation coefficients between items and factors (skills).</li>
+<li><strong>DataFrame Creation</strong>: The factor loadings are organized into a dataframe for better visualization and interpretation.</li>
 </ul>
-<div id="f18a36bb" class="cell" data-execution_count="6">
+<div id="fb11f7f9" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the factor loadings</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(factor_loadings_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -990,8 +996,8 @@ item8 -0.002380  0.392346 -0.030899</code></pre>
 <h3 class="anchored" data-anchor-id="kmeans-clustering">KMeans Clustering</h3>
 <section id="transposing-item-data" class="level4">
 <h4 class="anchored" data-anchor-id="transposing-item-data">Transposing Item Data</h4>
-<p>To cluster items based on their response patterns, we transpose the item data.</p>
-<div id="d0b464d3" class="cell" data-execution_count="7">
+<p>To cluster items based on their response patterns, I transpose the item data.</p>
+<div id="fa152b9f" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import KMeans module</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1414,7 +1420,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KMeans(n_clusters=3, random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked=""><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;KMeans<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.cluster.KMeans.html">?<span>Documentation for KMeans</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>KMeans(n_clusters=3, random_state=42)</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="df53ad15" class="cell" data-execution_count="8">
+<div id="f642e055" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the cluster labels for each item</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>cluster_labels <span class="op">=</span> kmeans.labels_</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1426,20 +1432,20 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 <p><strong>Explanation</strong>:</p>
 <ul>
-<li><strong>Transposition</strong>: Clustering is performed on items, so we transpose the data to have items as the observations.</li>
+<li><strong>Transposition</strong>: Clustering is performed on items, so I transpose the data to have items as the observations.</li>
 </ul>
 </section>
 <section id="applying-kmeans-clustering" class="level4">
 <h4 class="anchored" data-anchor-id="applying-kmeans-clustering">Applying KMeans Clustering</h4>
-<p>We apply KMeans clustering to group items into clusters representing latent skills.</p>
+<p>I apply KMeans clustering to group items into clusters representing latent skills.</p>
 <p><strong>Explanation</strong>:</p>
 <ul>
-<li><strong>Model Initialization</strong>: We initialize the <code>KMeans</code> model with <code>n_clusters=3</code>.</li>
+<li><strong>Model Initialization</strong>: I initialize the <code>KMeans</code> model with <code>n_clusters=3</code>.</li>
 <li><strong>Model Fitting</strong>: The model is fitted to <code>item_data_transposed</code>.</li>
 <li><strong>Cluster Labels</strong>: Each item is assigned a cluster label, indicating its grouping.</li>
-<li><strong>Mapping Items to Skills</strong>: We map cluster labels to skill identifiers for interpretation.</li>
+<li><strong>Mapping Items to Skills</strong>: I map cluster labels to skill identifiers for interpretation.</li>
 </ul>
-<div id="51f5f88f" class="cell" data-execution_count="9">
+<div id="070aa0c5" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the item-cluster mapping</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(kmeans_q_matrix_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1461,8 +1467,8 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <h3 class="anchored" data-anchor-id="principal-component-analysis-pca-1">Principal Component Analysis (PCA)</h3>
 <section id="performing-pca" class="level4">
 <h4 class="anchored" data-anchor-id="performing-pca">Performing PCA</h4>
-<p>We use PCA to identify principal components that may represent latent skills.</p>
-<div id="e33b996a" class="cell" data-execution_count="10">
+<p>I use PCA to identify principal components that may represent latent skills.</p>
+<div id="8a754720" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import PCA module</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1879,7 +1885,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>PCA(n_components=3)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" checked=""><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;PCA<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.decomposition.PCA.html">?<span>Documentation for PCA</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>PCA(n_components=3)</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="c2ac6e64" class="cell" data-execution_count="11">
+<div id="cd0c2278" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the PCA loadings</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>pca_loadings <span class="op">=</span> pca_model.components_.T</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1892,11 +1898,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 <p><strong>Explanation</strong>:</p>
 <ul>
-<li><strong>Model Initialization</strong>: We initialize the <code>PCA</code> model with <code>n_components=3</code>.</li>
+<li><strong>Model Initialization</strong>: I initialize the <code>PCA</code> model with <code>n_components=3</code>.</li>
 <li><strong>Model Fitting</strong>: The model is fitted to <code>item_data</code>.</li>
 <li><strong>PCA Loadings</strong>: The loadings indicate the contribution of each item to the principal components.</li>
 </ul>
-<div id="11254168" class="cell" data-execution_count="12">
+<div id="c2eb2dff" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the PCA loadings</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pca_loadings_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1919,8 +1925,8 @@ item8  0.538509  0.065615 -0.109680</code></pre>
 <h2 class="anchored" data-anchor-id="results">Results</h2>
 <section id="mapping-items-to-skills-using-pca" class="level3">
 <h3 class="anchored" data-anchor-id="mapping-items-to-skills-using-pca">Mapping Items to Skills Using PCA</h3>
-<p>To further understand the item-skill relationships, we created a Q-matrix based on the <strong>Principal Component Analysis (PCA)</strong> loadings. Each item was assigned to the skill (principal component) with which it had the highest loading.</p>
-<div id="bdd88230" class="cell" data-execution_count="13">
+<p>To further understand the item-skill relationships, I create a Q-matrix based on the <strong>Principal Component Analysis (PCA)</strong> loadings. Each item is assigned to the skill (principal component) with which it has the highest loading.</p>
+<div id="ffc09a60" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine the skill with the highest loading for each item from PCA</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>pca_q_matrix <span class="op">=</span> pca_loadings_df.idxmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1989,7 +1995,7 @@ item8  0.538509  0.065615 -0.109680</code></pre>
 </section>
 <section id="comparison-across-methods" class="level3">
 <h3 class="anchored" data-anchor-id="comparison-across-methods">Comparison Across Methods</h3>
-<p>We compared the item-skill mappings obtained from <strong>Factor Analysis</strong>, <strong>KMeans Clustering</strong>, and <strong>PCA</strong> to identify consistent patterns and discrepancies.</p>
+<p>I compare the item-skill mappings obtained from <strong>Factor Analysis</strong>, <strong>KMeans Clustering</strong>, and <strong>PCA</strong> to identify consistent patterns and discrepancies.</p>
 <ol type="1">
 <li><strong>Consistent Groupings</strong>:
 <ul>
@@ -2010,10 +2016,10 @@ item8  0.538509  0.065615 -0.109680</code></pre>
 </section>
 <section id="testing-alternative-factor-analysis-models" class="level3">
 <h3 class="anchored" data-anchor-id="testing-alternative-factor-analysis-models">Testing Alternative Factor Analysis Models</h3>
-<p>To determine the optimal number of latent skills, we tested <strong>Factor Analysis</strong> models with two, three, and four components.</p>
+<p>To determine the optimal number of latent skills, I test <strong>Factor Analysis</strong> models with two, three, and four components.</p>
 <section id="factor-analysis-with-four-components" class="level4">
 <h4 class="anchored" data-anchor-id="factor-analysis-with-four-components">Factor Analysis with Four Components</h4>
-<div id="3f8e10f4" class="cell" data-execution_count="14">
+<div id="eee0469d" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Performing Factor Analysis with four components to explore the potential presence of additional latent skills</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>n_factors_extended <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>fa_model_extended <span class="op">=</span> FactorAnalysis(n_components<span class="op">=</span>n_factors_extended, random_state<span class="op">=</span><span class="dv">42</span>)</span>
@@ -2529,7 +2535,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="factor-analysis-with-two-components" class="level4">
 <h4 class="anchored" data-anchor-id="factor-analysis-with-two-components">Factor Analysis with Two Components</h4>
-<div id="6dc405da" class="cell" data-execution_count="15">
+<div id="995e6945" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Performing Factor Analysis with two components to explore if a simpler model might explain the relationships</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>n_factors_simpler <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>fa_model_simpler <span class="op">=</span> FactorAnalysis(n_components<span class="op">=</span>n_factors_simpler, random_state<span class="op">=</span><span class="dv">42</span>)</span>
@@ -3025,7 +3031,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <h3 class="anchored" data-anchor-id="visualizations">Visualizations</h3>
 <section id="diagrams" class="level4">
 <h4 class="anchored" data-anchor-id="diagrams">Diagrams</h4>
-<p>I created some <a href="https://mermaid.js.org/">Mermaid</a> diagrams to gain further insight.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>I create some <a href="https://mermaid.js.org/">Mermaid</a> diagrams to gain further insight.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <section id="comparison-across-the-three-methods" class="level5">
 <h5 class="anchored" data-anchor-id="comparison-across-the-three-methods">Comparison Across the Three Methods</h5>
 <div class="cell" data-layout-align="default">
@@ -3189,8 +3195,8 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="heatmap-of-factor-loadings-three-components" class="level4">
 <h4 class="anchored" data-anchor-id="heatmap-of-factor-loadings-three-components">Heatmap of Factor Loadings (Three Components)</h4>
-<p>We visualized the factor loadings from the three-component Factor Analysis model using a heatmap.</p>
-<div id="145bdbae" class="cell" data-execution_count="16">
+<p>I visualize the factor loadings from the three-component Factor Analysis model using a heatmap.</p>
+<div id="e422d199" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3234,8 +3240,8 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="bar-charts-for-individual-items" class="level4">
 <h4 class="anchored" data-anchor-id="bar-charts-for-individual-items">Bar Charts for Individual Items</h4>
-<p>We generated bar charts to illustrate the factor loadings of each item across the three skills.</p>
-<div id="8c891187" class="cell" data-execution_count="17">
+<p>I generate bar charts to illustrate the factor loadings of each item across the three skills.</p>
+<div id="9f8cab63" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create bar charts for each item to show its relationship across skills</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>num_items <span class="op">=</span> <span class="bu">len</span>(factor_loadings_df.index)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(num_items, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, num_items <span class="op">*</span> <span class="dv">2</span>))</span>
@@ -3319,8 +3325,8 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="creating-the-final-q-matrix" class="level3">
 <h3 class="anchored" data-anchor-id="creating-the-final-q-matrix">Creating the Final Q-Matrix</h3>
-<p>Based on the analyses and visualizations, we created the final <strong>Q-matrix</strong> by assigning each item to the skill with which it has the highest loading from the three-component Factor Analysis model.</p>
-<div id="2bdfce4e" class="cell" data-execution_count="18">
+<p>Based on the analyses and visualizations, I create the final <strong>Q-matrix</strong> by assigning each item to the skill with which it has the highest loading from the three-component Factor Analysis model.</p>
+<div id="3c0751de" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the final Q-matrix based on the visualization and analysis findings</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Assigning each item to the skill with the highest loading from the Factor Analysis with three components</span></span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>final_q_matrix <span class="op">=</span> factor_loadings_df.idxmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
@@ -3455,7 +3461,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <h3 class="anchored" data-anchor-id="discussion">Discussion</h3>
 <section id="model-comparison-and-selection" class="level4">
 <h4 class="anchored" data-anchor-id="model-comparison-and-selection">Model Comparison and Selection</h4>
-<p>After comparing models with two, three, and four components, we determined that the <strong>three-component Factor Analysis model</strong> offers the optimal balance between simplicity and explanatory power.</p>
+<p>After comparing models with two, three, and four components, the <strong>three-component Factor Analysis model</strong> emerged as the most suitable representation of the latent skills in the dataset.</p>
 <ul>
 <li><strong>Two-Component Model</strong>:
 <ul>
@@ -3485,7 +3491,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="justification-for-the-final-q-matrix" class="level4">
 <h4 class="anchored" data-anchor-id="justification-for-the-final-q-matrix">Justification for the Final Q-Matrix</h4>
-<p>The final Q-matrix derived from the three-component Factor Analysis model is justified based on:</p>
+<p>The final Q-matrix, derived from the three-component Factor Analysis model, is well-justified by its consistency with the findings from multiple methods.</p>
 <ul>
 <li><strong>Consistency Across Methods</strong>:
 <ul>
@@ -3506,6 +3512,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="implications-of-the-findings" class="level4">
 <h4 class="anchored" data-anchor-id="implications-of-the-findings">Implications of the Findings</h4>
+<p>The knowledge structure mapping obtained from this study has significant implications for educational practice.</p>
 <ul>
 <li><strong>Stable Item-Skill Relationships</strong>:
 <ul>
@@ -3517,20 +3524,22 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </ul></li>
 <li><strong>Educational Impact</strong>:
 <ul>
-<li>Understanding these item-skill mappings can inform test design and instructional strategies, allowing educators to focus on specific skills where students may need additional support.</li>
-</ul></li>
+<li>By understanding the relationships between items and skills, test designers can create assessments that more effectively target specific skills, ensuring a balanced coverage of the identified latent skills. The item-skill mappings can also help identify potentially redundant or less informative items, allowing for more efficient and focused assessments.</li>
+</ul>
+Moreover, educators can leverage the findings to diagnose student strengths and weaknesses at the skill level. The identification of specific skills associated with each item enables targeted remediation or enrichment activities, focusing on the areas where students may need additional support. This information can also guide the development of instructional materials and resources, ensuring that students have ample opportunities to practice and master the identified skills.</li>
 </ul>
 </section>
 <section id="limitations-and-future-work" class="level4">
 <h4 class="anchored" data-anchor-id="limitations-and-future-work">Limitations and Future Work</h4>
+<p>Despite the insights provided by this study, there are limitations to consider.</p>
 <ul>
 <li><strong>Binary Data Consideration</strong>:
 <ul>
-<li>The use of Factor Analysis and PCA on binary data may not fully meet the assumptions of these methods. Future studies could explore Item Response Theory (IRT) models more suited for binary responses.</li>
+<li>The use of Factor Analysis and PCA on binary data may not fully meet the assumptions of these methods. Future research could explore the application of Item Response Theory (IRT) models, which are specifically designed for analyzing binary response data.</li>
 </ul></li>
 <li><strong>Sample Size and Generalizability</strong>:
 <ul>
-<li>With only eight items, the findings may not generalize to larger assessments. Replicating the study with more items could validate the model further.</li>
+<li>The small sample size of eight items limits the generalizability of the findings. Replicating the study with a larger set of items and a more diverse student population would help validate the identified skill structure and its applicability to different educational contexts.</li>
 </ul></li>
 <li><strong>Cross-Validation</strong>:
 <ul>
@@ -3542,8 +3551,28 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>Through the application of <strong>Factor Analysis</strong>, <strong>KMeans Clustering</strong>, and <strong>Principal Component Analysis</strong>, we successfully identified the underlying knowledge structure of the eight-item test dataset. The three-component Factor Analysis model emerged as the most effective representation of the latent skills, providing a clear and interpretable mapping of items to skills.</p>
-<p>The final <strong>Q-matrix</strong> reflects consistent item-skill relationships validated across multiple methods and supported by visualizations. This comprehensive approach ensures robustness and reliability in uncovering the latent skills measured by the test items, offering valuable insights for educational assessment and instructional design.</p>
+<p>This study makes significant contributions to the field of educational assessment and learning analytics by demonstrating the effectiveness of a comprehensive, multi-method approach for uncovering the latent skill structure in an eight-item test dataset. By leveraging the complementary strengths of <strong>Factor Analysis</strong>, <strong>KMeans Clustering</strong>, and <strong>Principal Component Analysis (PCA)</strong>, I have identified a robust and interpretable three-skill model that best represents the underlying knowledge structure.</p>
+<p>The key findings of this study include:</p>
+<ol type="1">
+<li>The identification of three distinct latent skills that capture the essential relationships among the test items.</li>
+<li>The development of a final <strong>Q-matrix</strong> that provides a clear and empirically-derived mapping of items to skills, consistent across multiple analytical methods.</li>
+<li>The validation of the item-skill relationships through visualizations, including heatmaps and bar charts, which support the interpretability of the identified skill structure.</li>
+</ol>
+<p>The practical significance of this work lies in its potential to inform and enhance educational assessment and instructional practices. By providing a more precise understanding of the skills assessed by individual test items, this study enables educators and test designers to:</p>
+<ul>
+<li>Develop more targeted and efficient assessments that effectively measure specific skills.</li>
+<li>Identify areas where students may need additional support or remediation based on their performance on skill-related items.</li>
+<li>Design instructional interventions and resources that align with the identified skill structure, promoting more personalized and adaptive learning experiences.</li>
+</ul>
+<p>Moreover, the multi-method approach presented in this study serves as a valuable template for future research in educational data mining and learning analytics. Researchers can build upon this methodology to investigate the knowledge structures underlying different types of assessments, learning materials, and educational contexts.</p>
+<p>Future research should focus on addressing the limitations of this study and exploring new avenues for extending its findings. Specific opportunities include:</p>
+<ol type="1">
+<li>Applying Item Response Theory (IRT) models, which are specifically designed for analyzing binary response data, to validate and refine the identified skill structure.</li>
+<li>Replicating the study with larger and more diverse datasets, including assessments with a greater number of items and student populations from various educational backgrounds.</li>
+<li>Investigating the generalizability of the identified skill structure across different domains, grade levels, and assessment formats.</li>
+<li>Exploring the integration of the derived Q-matrix with adaptive learning systems and intelligent tutoring platforms to enable real-time, skill-based feedback and personalized learning paths.</li>
+</ol>
+<p>By addressing these challenges and opportunities, future research can further advance our understanding of knowledge structure mapping and its applications in educational settings, ultimately contributing to the development of more effective and equitable learning experiences for all students.</p>
 <section id="submission-guidelines" class="level3">
 <h3 class="anchored" data-anchor-id="submission-guidelines">Submission Guidelines</h3>
 <p>This document includes all required explanations. The code and data are organized to facilitate replication and further analysis. Please let me know if additional information is needed.</p>
@@ -3555,8 +3584,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-claude3opus2024" class="csl-entry" role="listitem">
+Anthropic. 2024a. <span>“Claude 3 Opus.”</span> Large language model. <a href="https://claude.ai/">https://claude.ai/</a>.
+</div>
 <div id="ref-claude3.5sonnet2024" class="csl-entry" role="listitem">
-Anthropic. 2024. <span>“Claude 3.5 Sonnet.”</span> Large language model. <a href="https://claude.ai/">https://claude.ai/</a>.
+———. 2024b. <span>“Claude 3.5 Sonnet.”</span> Large language model. <a href="https://claude.ai/">https://claude.ai/</a>.
 </div>
 <div id="ref-de2008educational" class="csl-entry" role="listitem">
 Baker, Ryan Shaun Joazeiro de, Tiffany Barnes, and Joseph E Beck. 2008. <span>“Educational Data Mining 2008.”</span> In <em>The 1st International Conference on Educational Data Mining Montréal</em>.
@@ -3586,7 +3618,10 @@ Google. 2024. <span>“Gemini 1.5.”</span> Large language model. <a href="http
 Gordon, John L, and Lee Jorgensen. 2003. <span>“Learning Support Using Knowledge Structure Maps.”</span> In <em>Meeting of Annual Conference 2003 Forum for the Advancement of Continuing Education, UK: University of Stirling</em>. Citeseer.
 </div>
 <div id="ref-openai2024-4o" class="csl-entry" role="listitem">
-OpenAI. 2024. <span>“GPT-4o.”</span> Large language model. <a href="https://chatgpt.com/">https://chatgpt.com/</a>.
+OpenAI. 2024a. <span>“GPT-4o.”</span> Large language model. <a href="https://chatgpt.com/">https://chatgpt.com/</a>.
+</div>
+<div id="ref-openai2024o1-preview" class="csl-entry" role="listitem">
+———. 2024b. <span>“O1-Preview.”</span> Large language model. <a href="https://chatgpt.com/">https://chatgpt.com/</a>.
 </div>
 </div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
