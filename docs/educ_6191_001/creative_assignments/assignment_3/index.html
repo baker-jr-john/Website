@@ -178,7 +178,13 @@ div.csl-indent {
   <li><a href="#testing-alternative-factor-analysis-models" id="toc-testing-alternative-factor-analysis-models" class="nav-link" data-scroll-target="#testing-alternative-factor-analysis-models">Testing Alternative Factor Analysis Models</a></li>
   <li><a href="#visualizations" id="toc-visualizations" class="nav-link" data-scroll-target="#visualizations">Visualizations</a></li>
   <li><a href="#creating-the-final-q-matrix" id="toc-creating-the-final-q-matrix" class="nav-link" data-scroll-target="#creating-the-final-q-matrix">Creating the Final Q-Matrix</a></li>
-  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
+  </ul></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a>
+  <ul class="collapse">
+  <li><a href="#model-comparison-and-selection" id="toc-model-comparison-and-selection" class="nav-link" data-scroll-target="#model-comparison-and-selection">Model Comparison and Selection</a></li>
+  <li><a href="#justification-for-the-final-q-matrix" id="toc-justification-for-the-final-q-matrix" class="nav-link" data-scroll-target="#justification-for-the-final-q-matrix">Justification for the Final Q-Matrix</a></li>
+  <li><a href="#implications-of-the-findings" id="toc-implications-of-the-findings" class="nav-link" data-scroll-target="#implications-of-the-findings">Implications of the Findings</a></li>
+  <li><a href="#limitations-and-future-work" id="toc-limitations-and-future-work" class="nav-link" data-scroll-target="#limitations-and-future-work">Limitations and Future Work</a></li>
   </ul></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a>
   <ul class="collapse">
@@ -381,7 +387,7 @@ div.csl-indent {
 <section id="loading-the-data" class="level4">
 <h4 class="anchored" data-anchor-id="loading-the-data">Loading the Data</h4>
 <p>To begin the analysis, I loaded the dataset containing binary responses (correct or incorrect) for eight test items from multiple students. The <code>pandas</code> library is used for data manipulation due to its efficiency and ease of use with tabular data.</p>
-<div id="39d46fae" class="cell" data-execution_count="1">
+<div id="4ec3d221" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -478,14 +484,14 @@ div.csl-indent {
 </div>
 <p><strong>Explanation</strong>:</p>
 <ul>
-<li><strong>Data Loading</strong>: The dataset <code>8items.csv</code> is read into a pandas DataFrame called <code>data</code>.</li>
+<li><strong>Data Loading</strong>: The dataset <code>8items.csv</code> is read into a pandas dataframe called <code>data</code>.</li>
 <li><strong>Data Inspection</strong>: Using <code>data.head()</code>, I display the first few rows to verify that the data has been loaded correctly.</li>
 </ul>
 </section>
 <section id="data-exploration" class="level4">
 <h4 class="anchored" data-anchor-id="data-exploration">Data Exploration</h4>
 <p>Before proceeding, I explored the data to understand its structure and check for anomalies.</p>
-<div id="fb841e05" class="cell" data-execution_count="2">
+<div id="a7a34d44" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the dimensions of the dataset</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Dataset dimensions: </span><span class="sc">{</span>data<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -509,7 +515,7 @@ dtype: int64</code></pre>
 </div>
 <p><strong>Explanation</strong>:</p>
 <ul>
-<li><strong>Dataset Dimensions</strong>: I print the shape of the DataFrame to confirm the number of students (rows) and items (columns).</li>
+<li><strong>Dataset Dimensions</strong>: I print the shape of the dataframe to confirm the number of students (rows) and items (columns).</li>
 <li><strong>Missing Values</strong>: I check for any missing values that could affect the analysis.</li>
 </ul>
 <p><strong>Findings</strong>:</p>
@@ -523,7 +529,7 @@ dtype: int64</code></pre>
 <section id="preparing-data-for-factor-analysis" class="level4">
 <h4 class="anchored" data-anchor-id="preparing-data-for-factor-analysis">Preparing Data for Factor Analysis</h4>
 <p>I extracted the item response data, excluding any non-item columns such as ‘student’ identifiers.</p>
-<div id="f37060dd" class="cell" data-execution_count="3">
+<div id="432d69a5" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract item data (excluding the 'student' column if present)</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>item_data <span class="op">=</span> data.drop(columns<span class="op">=</span>[<span class="st">'student'</span>], errors<span class="op">=</span><span class="st">'ignore'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -536,7 +542,7 @@ dtype: int64</code></pre>
 <section id="performing-factor-analysis" class="level4">
 <h4 class="anchored" data-anchor-id="performing-factor-analysis">Performing Factor Analysis</h4>
 <p>I apply Factor Analysis with three components to identify latent skills in the dataset. The <code>FactorAnalysis</code> module from <code>sklearn.decomposition</code> is used to perform the analysis.</p>
-<div id="fab07965" class="cell" data-execution_count="4">
+<div id="8c85975a" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import FactorAnalysis module</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> FactorAnalysis</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -956,11 +962,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>FactorAnalysis(n_components=3, random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;FactorAnalysis<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.decomposition.FactorAnalysis.html">?<span>Documentation for FactorAnalysis</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>FactorAnalysis(n_components=3, random_state=42)</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="0fb6081c" class="cell" data-execution_count="5">
+<div id="5c7d92ff" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the factor loadings</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>factor_loadings <span class="op">=</span> fa_model.components_.T</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DataFrame for the factor loadings</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe for the factor loadings</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>factor_loadings_df <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    factor_loadings,</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>item_data.columns,</span>
@@ -972,9 +978,9 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li><strong>Model Initialization</strong>: I initialize the <code>FactorAnalysis</code> model with <code>n_components=3</code>, intending to extract three latent skills.</li>
 <li><strong>Model Fitting</strong>: The model is fit to <code>item_data</code>.</li>
 <li><strong>Factor Loadings</strong>: I obtain the factor loadings, which represent the correlation coefficients between items and factors (skills).</li>
-<li><strong>DataFrame Creation</strong>: The factor loadings are organized into a dataframe for better visualization and interpretation.</li>
+<li><strong>Dataframe Creation</strong>: The factor loadings are organized into a dataframe for better visualization and interpretation.</li>
 </ul>
-<div id="fb11f7f9" class="cell" data-execution_count="6">
+<div id="652f0fd7" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the factor loadings</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(factor_loadings_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -997,7 +1003,7 @@ item8 -0.002380  0.392346 -0.030899</code></pre>
 <section id="transposing-item-data" class="level4">
 <h4 class="anchored" data-anchor-id="transposing-item-data">Transposing Item Data</h4>
 <p>To cluster items based on their response patterns, I transpose the item data.</p>
-<div id="fa152b9f" class="cell" data-execution_count="7">
+<div id="70304229" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import KMeans module</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1420,11 +1426,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KMeans(n_clusters=3, random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked=""><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;KMeans<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.cluster.KMeans.html">?<span>Documentation for KMeans</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>KMeans(n_clusters=3, random_state=42)</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="f642e055" class="cell" data-execution_count="8">
+<div id="906e7add" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the cluster labels for each item</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>cluster_labels <span class="op">=</span> kmeans.labels_</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DataFrame to display the item-cluster mapping</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe to display the item-cluster mapping</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Item'</span>: item_data.columns,</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Mapped_Skill'</span>: [<span class="ss">f'Skill_</span><span class="sc">{</span>label<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> label <span class="kw">in</span> cluster_labels]</span>
@@ -1445,7 +1451,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li><strong>Cluster Labels</strong>: Each item is assigned a cluster label, indicating its grouping.</li>
 <li><strong>Mapping Items to Skills</strong>: I map cluster labels to skill identifiers for interpretation.</li>
 </ul>
-<div id="070aa0c5" class="cell" data-execution_count="9">
+<div id="571de232" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the item-cluster mapping</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(kmeans_q_matrix_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1468,7 +1474,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <section id="performing-pca" class="level4">
 <h4 class="anchored" data-anchor-id="performing-pca">Performing PCA</h4>
 <p>I use PCA to identify principal components that may represent latent skills.</p>
-<div id="8a754720" class="cell" data-execution_count="10">
+<div id="ba649175" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import PCA module</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1885,11 +1891,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>PCA(n_components=3)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" checked=""><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;PCA<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.decomposition.PCA.html">?<span>Documentation for PCA</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>PCA(n_components=3)</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="cd0c2278" class="cell" data-execution_count="11">
+<div id="bc8af334" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the PCA loadings</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>pca_loadings <span class="op">=</span> pca_model.components_.T</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DataFrame for the PCA loadings</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe for the PCA loadings</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>pca_loadings_df <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    pca_loadings,</span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>item_data.columns,</span>
@@ -1902,7 +1908,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li><strong>Model Fitting</strong>: The model is fitted to <code>item_data</code>.</li>
 <li><strong>PCA Loadings</strong>: The loadings indicate the contribution of each item to the principal components.</li>
 </ul>
-<div id="c2eb2dff" class="cell" data-execution_count="12">
+<div id="32319a03" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the PCA loadings</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pca_loadings_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1926,11 +1932,11 @@ item8  0.538509  0.065615 -0.109680</code></pre>
 <section id="mapping-items-to-skills-using-pca" class="level3">
 <h3 class="anchored" data-anchor-id="mapping-items-to-skills-using-pca">Mapping Items to Skills Using PCA</h3>
 <p>To further understand the item-skill relationships, I create a Q-matrix based on the <strong>Principal Component Analysis (PCA)</strong> loadings. Each item is assigned to the skill (principal component) with which it has the highest loading.</p>
-<div id="ffc09a60" class="cell" data-execution_count="13">
+<div id="41fb8f51" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine the skill with the highest loading for each item from PCA</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>pca_q_matrix <span class="op">=</span> pca_loadings_df.idxmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the Q-matrix as a DataFrame, showing the mapping between items and skills</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the Q-matrix as a dataframe, showing the mapping between items and skills</span></span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>pca_q_matrix_df <span class="op">=</span> pd.DataFrame({<span class="st">'Item'</span>: item_data.columns, <span class="st">'Mapped_Skill'</span>: pca_q_matrix.values})</span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>pca_q_matrix_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
@@ -2019,7 +2025,7 @@ item8  0.538509  0.065615 -0.109680</code></pre>
 <p>To determine the optimal number of latent skills, I test <strong>Factor Analysis</strong> models with two, three, and four components.</p>
 <section id="factor-analysis-with-four-components" class="level4">
 <h4 class="anchored" data-anchor-id="factor-analysis-with-four-components">Factor Analysis with Four Components</h4>
-<div id="eee0469d" class="cell" data-execution_count="14">
+<div id="14515edb" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Performing Factor Analysis with four components to explore the potential presence of additional latent skills</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>n_factors_extended <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>fa_model_extended <span class="op">=</span> FactorAnalysis(n_components<span class="op">=</span>n_factors_extended, random_state<span class="op">=</span><span class="dv">42</span>)</span>
@@ -2028,7 +2034,7 @@ item8  0.538509  0.065615 -0.109680</code></pre>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the factor loadings for the 4-component model</span></span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>factor_loadings_extended <span class="op">=</span> fa_model_extended.components_.T</span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DataFrame to visualize the factor loadings for the four-component model</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe to visualize the factor loadings for the four-component model</span></span>
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>factor_loadings_extended_df <span class="op">=</span> pd.DataFrame(factor_loadings_extended, index<span class="op">=</span>item_data.columns, columns<span class="op">=</span>[<span class="ss">f'Skill_</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_factors_extended)])</span>
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>factor_loadings_extended_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
@@ -2535,7 +2541,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </section>
 <section id="factor-analysis-with-two-components" class="level4">
 <h4 class="anchored" data-anchor-id="factor-analysis-with-two-components">Factor Analysis with Two Components</h4>
-<div id="995e6945" class="cell" data-execution_count="15">
+<div id="0eafafac" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Performing Factor Analysis with two components to explore if a simpler model might explain the relationships</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>n_factors_simpler <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>fa_model_simpler <span class="op">=</span> FactorAnalysis(n_components<span class="op">=</span>n_factors_simpler, random_state<span class="op">=</span><span class="dv">42</span>)</span>
@@ -2544,7 +2550,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the factor loadings for the two-component model</span></span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>factor_loadings_simpler <span class="op">=</span> fa_model_simpler.components_.T</span>
 <span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DataFrame to visualize the factor loadings for the two-component model</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe to visualize the factor loadings for the two-component model</span></span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>factor_loadings_simpler_df <span class="op">=</span> pd.DataFrame(factor_loadings_simpler, index<span class="op">=</span>item_data.columns, columns<span class="op">=</span>[<span class="ss">f'Skill_</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_factors_simpler)])</span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>factor_loadings_simpler_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
@@ -3196,7 +3202,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <section id="heatmap-of-factor-loadings-three-components" class="level4">
 <h4 class="anchored" data-anchor-id="heatmap-of-factor-loadings-three-components">Heatmap of Factor Loadings (Three Components)</h4>
 <p>I visualize the factor loadings from the three-component Factor Analysis model using a heatmap.</p>
-<div id="e422d199" class="cell" data-execution_count="16">
+<div id="e45d0e22" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3241,7 +3247,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <section id="bar-charts-for-individual-items" class="level4">
 <h4 class="anchored" data-anchor-id="bar-charts-for-individual-items">Bar Charts for Individual Items</h4>
 <p>I generate bar charts to illustrate the factor loadings of each item across the three skills.</p>
-<div id="9f8cab63" class="cell" data-execution_count="17">
+<div id="87d66d70" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create bar charts for each item to show its relationship across skills</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>num_items <span class="op">=</span> <span class="bu">len</span>(factor_loadings_df.index)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(num_items, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, num_items <span class="op">*</span> <span class="dv">2</span>))</span>
@@ -3326,12 +3332,12 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <section id="creating-the-final-q-matrix" class="level3">
 <h3 class="anchored" data-anchor-id="creating-the-final-q-matrix">Creating the Final Q-Matrix</h3>
 <p>Based on the analyses and visualizations, I create the final <strong>Q-matrix</strong> by assigning each item to the skill with which it has the highest loading from the three-component Factor Analysis model.</p>
-<div id="3c0751de" class="cell" data-execution_count="18">
+<div id="7fcb3a15" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the final Q-matrix based on the visualization and analysis findings</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Assigning each item to the skill with the highest loading from the Factor Analysis with three components</span></span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>final_q_matrix <span class="op">=</span> factor_loadings_df.idxmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a DataFrame to visualize the final Q-matrix, showing the mapping between items and skills</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe to visualize the final Q-matrix, showing the mapping between items and skills</span></span>
 <span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>final_q_matrix_df <span class="op">=</span> pd.DataFrame({<span class="st">'Item'</span>: item_data.columns, <span class="st">'Mapped_Skill'</span>: final_q_matrix.values})</span>
 <span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>final_q_matrix_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
@@ -3457,10 +3463,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </ul></li>
 </ul>
 </section>
-<section id="discussion" class="level3">
-<h3 class="anchored" data-anchor-id="discussion">Discussion</h3>
-<section id="model-comparison-and-selection" class="level4">
-<h4 class="anchored" data-anchor-id="model-comparison-and-selection">Model Comparison and Selection</h4>
+</section>
+<section id="discussion" class="level2">
+<h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
+<section id="model-comparison-and-selection" class="level3">
+<h3 class="anchored" data-anchor-id="model-comparison-and-selection">Model Comparison and Selection</h3>
 <p>After comparing models with two, three, and four components, the <strong>three-component Factor Analysis model</strong> emerged as the most suitable representation of the latent skills in the dataset.</p>
 <ul>
 <li><strong>Two-Component Model</strong>:
@@ -3489,8 +3496,8 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </ul></li>
 </ul>
 </section>
-<section id="justification-for-the-final-q-matrix" class="level4">
-<h4 class="anchored" data-anchor-id="justification-for-the-final-q-matrix">Justification for the Final Q-Matrix</h4>
+<section id="justification-for-the-final-q-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="justification-for-the-final-q-matrix">Justification for the Final Q-Matrix</h3>
 <p>The final Q-matrix, derived from the three-component Factor Analysis model, is well-justified by its consistency with the findings from multiple methods.</p>
 <ul>
 <li><strong>Consistency Across Methods</strong>:
@@ -3510,8 +3517,8 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </ul></li>
 </ul>
 </section>
-<section id="implications-of-the-findings" class="level4">
-<h4 class="anchored" data-anchor-id="implications-of-the-findings">Implications of the Findings</h4>
+<section id="implications-of-the-findings" class="level3">
+<h3 class="anchored" data-anchor-id="implications-of-the-findings">Implications of the Findings</h3>
 <p>The knowledge structure mapping obtained from this study has significant implications for educational practice.</p>
 <ul>
 <li><strong>Stable Item-Skill Relationships</strong>:
@@ -3525,12 +3532,12 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li><strong>Educational Impact</strong>:
 <ul>
 <li>By understanding the relationships between items and skills, test designers can create assessments that more effectively target specific skills, ensuring a balanced coverage of the identified latent skills. The item-skill mappings can also help identify potentially redundant or less informative items, allowing for more efficient and focused assessments.</li>
-</ul>
-Moreover, educators can leverage the findings to diagnose student strengths and weaknesses at the skill level. The identification of specific skills associated with each item enables targeted remediation or enrichment activities, focusing on the areas where students may need additional support. This information can also guide the development of instructional materials and resources, ensuring that students have ample opportunities to practice and master the identified skills.</li>
+<li>Moreover, educators can leverage the findings to diagnose student strengths and weaknesses at the skill level. The identification of specific skills associated with each item enables targeted remediation or enrichment activities, focusing on the areas where students may need additional support. This information can also guide the development of instructional materials and resources, ensuring that students have ample opportunities to practice and master the identified skills.</li>
+</ul></li>
 </ul>
 </section>
-<section id="limitations-and-future-work" class="level4">
-<h4 class="anchored" data-anchor-id="limitations-and-future-work">Limitations and Future Work</h4>
+<section id="limitations-and-future-work" class="level3">
+<h3 class="anchored" data-anchor-id="limitations-and-future-work">Limitations and Future Work</h3>
 <p>Despite the insights provided by this study, there are limitations to consider.</p>
 <ul>
 <li><strong>Binary Data Consideration</strong>:
@@ -3546,7 +3553,6 @@ Moreover, educators can leverage the findings to diagnose student strengths and 
 <li>Incorporating cross-validation techniques could strengthen the confidence in the selected model.</li>
 </ul></li>
 </ul>
-</section>
 </section>
 </section>
 <section id="conclusion" class="level2">

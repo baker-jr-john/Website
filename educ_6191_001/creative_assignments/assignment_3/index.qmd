@@ -771,7 +771,7 @@ The knowledge structure mapping obtained from this study has significant implica
 
 - **Educational Impact**:
   - By understanding the relationships between items and skills, test designers can create assessments that more effectively target specific skills, ensuring a balanced coverage of the identified latent skills. The item-skill mappings can also help identify potentially redundant or less informative items, allowing for more efficient and focused assessments.
-    Moreover, educators can leverage the findings to diagnose student strengths and weaknesses at the skill level. The identification of specific skills associated with each item enables targeted remediation or enrichment activities, focusing on the areas where students may need additional support. This information can also guide the development of instructional materials and resources, ensuring that students have ample opportunities to practice and master the identified skills.
+  - Moreover, educators can leverage the findings to diagnose student strengths and weaknesses at the skill level. The identification of specific skills associated with each item enables targeted remediation or enrichment activities, focusing on the areas where students may need additional support. This information can also guide the development of instructional materials and resources, ensuring that students have ample opportunities to practice and master the identified skills.
 
 ### Limitations and Future Work
 
