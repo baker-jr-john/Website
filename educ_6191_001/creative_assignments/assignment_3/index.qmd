@@ -58,7 +58,7 @@ While Factor Analysis and PCA rely on statistical techniques, **Barnes's Q-matri
 
 **K-Means Clustering** can simulate the Q-matrix method by grouping items based on response patterns without prior knowledge of the skill structure. By clustering items that have similar response profiles, researchers can infer potential underlying skills that explain these patterns. This unsupervised learning approach allows for the exploration of latent skill groupings in the absence of predefined skill mappings.
 
-**Principal Component Analysis (PCA)** is another statistical method employed in knowledge structure mapping to reduce the dimensionality of data while preserving as much variance as possible. PCA identifies principal components, which are linear combinations of the original variables (test items). These components can be interpreted as underlying skills or factors influencing student performance. PCA helps validate the item-skill relationships identified through other methods like Factor Analysis by providing an alternative perspective on the data structure.
+**Principal Component Analysis (PCA)** is another statistical method employed in knowledge structure mapping to reduce the dimensionality of data while preserving as much variance as possible. PCA identifies principal components, which are linear combinations of the original variables (test items). These components can be interpreted as underlying skills or factors influencing student performance. PCA helps validate the item-skill relationships identified through other methods like Factor Analysis by providing an alternative perspective on the data structure [@kargupta2001distributed].
 
 These methods collectively provide a toolbox for researchers to uncover the underlying structure of knowledge in educational data.
 
@@ -178,6 +178,9 @@ This approach enhances the reliability and robustness of the knowledge structure
 To begin the analysis, I loaded the dataset containing binary responses (correct or incorrect) for eight test items from multiple students. The `pandas` library is used for data manipulation due to its efficiency and ease of use with tabular data.
 
 ```{python}
+#| label: tbl-prep
+#| tbl-cap: First few rows of the dataset
+
 # Import necessary libraries
 import pandas as pd
 
@@ -377,6 +380,9 @@ The PCA results offer additional insights into the item-skill relationships, whi
 I created a Q-matrix based on the **Principal Component Analysis (PCA)** loadings to further understand the item-skill relationships. Each item is assigned to the skill (principal component) with which it has the highest loading.
 
 ```{python}
+#| label: tbl-qmarix1
+#| tbl-cap: PCA Q-Matrix
+
 # Determine the skill with the highest loading for each item from PCA
 pca_q_matrix = pca_loadings_df.idxmax(axis=1)
 
@@ -412,6 +418,10 @@ I test **Factor Analysis** models with two, three, and four components to determ
 n_factors_extended = 4
 fa_model_extended = FactorAnalysis(n_components=n_factors_extended, random_state=42)
 fa_model_extended.fit(item_data)
+```
+```{python}
+#| label: tbl-qmarix2
+#| tbl-cap: Factor Analysis with Four Components
 
 # Get the factor loadings for the 4-component model
 factor_loadings_extended = fa_model_extended.components_.T
@@ -441,7 +451,10 @@ factor_loadings_extended_df
 n_factors_simpler = 2
 fa_model_simpler = FactorAnalysis(n_components=n_factors_simpler, random_state=42)
 fa_model_simpler.fit(item_data)
-
+```
+```{python}
+#| label: tbl-qmarix3
+#| tbl-cap: Factor Analysis with Two Components
 # Get the factor loadings for the two-component model
 factor_loadings_simpler = fa_model_simpler.components_.T
 
@@ -466,8 +479,6 @@ factor_loadings_simpler_df
 I create some [Mermaid](https://mermaid.js.org/) diagrams to gain further insight.[^1]
 
 [^1]: Refer to [Creative Assignment 3's GitHub repository](https://github.com/baker-jr-john/Website/blob/main/educ_6191_001/creative_assignments/assignment_3/index.qmd) for the code behind the diagrams.
-
-**Comparison Across the Three Methods**
 
 ```{mermaid}
 graph TB
@@ -514,9 +525,10 @@ graph TB
     style KMeans fill:#9ff,stroke:#333,stroke-width:2px
     style Factor_Analysis fill:#ff9,stroke:#333,stroke-width:2px
 ```
-
-**Testing Alternative Factor Analysis Models**
-
+<figcaption style="font-size: 0.9em; color: #555555; text-align: left; margin-top: 8px;">
+    Diagram 1: Comparison Across the Three Methods
+</figcaption>
+<br>
 ```{mermaid}
 graph TD
     subgraph Strong_Relationships
@@ -547,9 +559,10 @@ graph TD
     class S1,S2,I2,I3,I4,I6,I7,I8 solid
     class S3,S4,I1,I5 dashed
 ```
-
-**Comparison Across the Three Models**
-
+<figcaption style="font-size: 0.9em; color: #555555; text-align: left; margin-top: 8px;">
+    Diagram 2: Testing Alternative Factor Analysis Models
+</figcaption>
+<br>
 ```{mermaid}
 graph TB
     subgraph Two_Component_Model
@@ -599,7 +612,10 @@ graph TB
     style Three_Component_Model fill:#9ff,stroke:#333,stroke-width:2px
     style Four_Component_Model fill:#ff9,stroke:#333,stroke-width:2px
 ```
-
+<figcaption style="font-size: 0.9em; color: #555555; text-align: left; margin-top: 8px;">
+    Diagram 3: Comparison Across the Three Models
+</figcaption>
+<br>
 They reinforce and extend previous insights, adding a nuanced understanding of item-skill relationships and the interplay between methods. Here are some key observations derived from the diagrams:
 
 ##### Consistency Across Methods
@@ -629,15 +645,16 @@ The diagrams enhance the interpretative clarity of the results, confirm the robu
 Using a heatmap, I visualize the factor loadings from the three-component Factor Analysis model.
 
 ```{python}
+#| label: fig-heatmap
+#| fig-cap: "Factor Analysis with Three Components"
+
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Create a heatmap to visualize item-skill relationships from Factor Analysis
 plt.figure(figsize=(10, 6))
 sns.heatmap(factor_loadings_df, annot=True, cmap='coolwarm', linewidths=0.5, linecolor='black', cbar=True)
-plt.title('Item-Skill Relationships (Factor Analysis with 3 Components)')
-plt.xlabel('Skills')
-plt.ylabel('Items')
+_ = plt.title('Item-Skill Relationships (Factor Analysis with Three Components)')
 plt.show()
 ```
 
@@ -656,15 +673,18 @@ plt.show()
 I generate bar charts to illustrate the factor loadings of each item across the three skills.
 
 ```{python}
+#| label: fig-barcharts
+#| fig-cap: "Bar Charts for Individual Items"
+
 # Create bar charts for each item to show its relationship across skills
 num_items = len(factor_loadings_df.index)
 fig, axes = plt.subplots(num_items, 1, figsize=(9, num_items * 2))
 
 for i, item in enumerate(factor_loadings_df.index):
     axes[i].bar(factor_loadings_df.columns, factor_loadings_df.loc[item], color='skyblue')
-    axes[i].set_title(f'Relationship of {item} with Skills')
-    axes[i].set_ylabel('Loading Value')
-    axes[i].set_ylim(-1, 1)
+    _ = axes[i].set_title(f'Relationship of {item} with Skills')
+    _ = axes[i].set_ylabel('Loading Value')
+    _ = axes[i].set_ylim(-1, 1)
 
 plt.tight_layout()
 
@@ -684,6 +704,9 @@ plt.show()
 Based on the analyses and visualizations, I create the final **Q-matrix** by assigning each item to the skill with the highest loading from the three-component Factor Analysis model.
 
 ```{python}
+#| label: tbl-qmarix4
+#| tbl-cap: Final Q-Matrix
+
 # Creating the final Q-matrix based on the visualization and analysis findings
 # Assigning each item to the skill with the highest loading from the Factor Analysis with three components
 final_q_matrix = factor_loadings_df.idxmax(axis=1)
@@ -692,6 +715,7 @@ final_q_matrix = factor_loadings_df.idxmax(axis=1)
 final_q_matrix_df = pd.DataFrame({'Item': item_data.columns, 'Mapped_Skill': final_q_matrix.values})
 final_q_matrix_df
 ```
+
 ```{mermaid}
 graph TD
     subgraph Skill_Mappings
@@ -728,7 +752,10 @@ graph TD
     class I1,I2,I3,I4,I5,I6,I7,I8 itemNode
     class FA,BC evidenceNode
 ```
-
+<figcaption style="font-size: 0.9em; color: #555555; text-align: left; margin-top: 8px;">
+    Diagram 4: Final Q-Matirx
+</figcaption>
+<br>
 **Explanation:**
 
 - **Skill_1**: Assigned to items **2**, **4**, and **6** due to their highest loadings on this skill.
@@ -802,7 +829,7 @@ The knowledge structure mapping obtained from this study has significant implica
 Despite the insights provided by this study, there are limitations to consider.
 
 - **Binary Data Consideration**:
-  - The use of Factor Analysis and PCA on binary data may not fully meet the assumptions of these methods. Future research could explore the application of Item Response Theory (IRT) models specifically designed for analyzing binary response data.
+  - The use of Factor Analysis and PCA on binary data may not fully meet the assumptions of these methods. Future research could explore the application of Item Response Theory (IRT) models specifically designed for analyzing binary response data [@van2015handbook].
 
 - **Sample Size and Generalizability**:
   - The small sample size of eight items limits the generalizability of the findings. Replicating the study with a larger set of items and a more diverse student population would help validate the identified skill structure and its applicability to different educational contexts.
