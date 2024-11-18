@@ -234,45 +234,82 @@ item_data = data.drop(columns=['student'], errors='ignore')
 - **Data Extraction**: I drop the 'student' column to focus solely on the item responses.
 - **Error Handling**: The `errors='ignore'` parameter ensures that the code will not raise an error if the 'student' column is not present.
 
+#### Determining the Number of Factors Using Scree Plot
+
+```{python}
+# Import necessary modules
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+from factor_analyzer import FactorAnalyzer
+
+# Standardize the data
+scaler = StandardScaler()
+item_data_scaled = scaler.fit_transform(item_data)
+
+# Perform factor analysis with maximum factors
+fa_model = FactorAnalyzer(rotation=None)
+fa_model.fit(item_data_scaled)
+```
+```{python}
+# Get eigenvalues and variance explained
+ev, v = fa_model.get_eigenvalues()
+variance = fa_model.get_factor_variance()
+
+# Extract variance explained and cumulative variance
+variance_explained = variance[1]
+cumulative_variance_explained = variance[2]
+
+# Total variance explained by the factors
+total_variance_explained = cumulative_variance_explained[-1]
+print(f"Total Variance Explained by Factors: {total_variance_explained}")
+```
+```{python}
+# Plot the scree plot
+plt.figure(figsize=(8, 5))
+plt.plot(range(1, len(ev) + 1), ev, 'o-', color='blue')
+_ = plt.title('Scree Plot for Factor Analysis')
+_ = plt.xlabel('Factor Number')
+_ = plt.ylabel('Eigenvalue')
+plt.grid(True)
+plt.show()
+```
+
+**Explanation**:
+
+- The scree plot shows a clear "elbow" after the second factor, where the eigenvalues drop sharply initially and then level off. This "elbow" suggests that the first two factors capture most of the meaningful variance, with subsequent factors contributing relatively little.
+
 #### Performing Factor Analysis
 
 I apply Factor Analysis with three components to identify latent skills in the dataset. The `FactorAnalysis` module from `sklearn.decomposition` is used to perform the analysis.
 
 ```{python}
-# Import FactorAnalysis module
-from sklearn.decomposition import FactorAnalysis
-
-# Specify the number of factors (latent skills) to extract
-n_factors = 3
-
-# Initialize the Factor Analysis model
-fa_model = FactorAnalysis(n_components=n_factors, random_state=42)
-
-# Fit the model to the item data
-fa_model.fit(item_data)
-```
-```{python}
 # Retrieve the factor loadings
-factor_loadings = fa_model.components_.T
+factor_loadings = fa_model.loadings_
+
+# Dynamically determine the number of factors extracted
+n_factors_extracted = factor_loadings.shape[1]
 
 # Create a data frame for the factor loadings
 factor_loadings_df = pd.DataFrame(
     factor_loadings,
     index=item_data.columns,
-    columns=[f'Skill_{i+1}' for i in range(n_factors)]
+    columns=[f'Skill_{i+1}' for i in range(n_factors_extracted)]
 )
 ```
 
 **Explanation**:
 
-- **Model Initialization**: I initialize the `FactorAnalysis` model with `n_components=3`, intending to extract three latent skills.
-- **Model Fitting**: The model is fit to `item_data`.
+- **Model Initialization**: I initialize the `FactorAnalyzer` model.
+- **Model Fitting**: The model is fit to `item_data_scaled`.
 - **Factor Loadings**: I obtain the factor loadings representing the correlation coefficients between items and factors (skills).
 - **Data frame Creation**: The factor loadings are organized into a data frame for better visualization and interpretation.
 
 ```{python}
+#| label: tbl-factor
+#| tbl-cap: Factor Loadings
+
 # Display the factor loadings
-print(factor_loadings_df)
+factor_loadings_df
 ```
 
 The factor loadings suggest that items group together based on their highest loadings, indicating the presence of three distinct latent skills.
@@ -288,7 +325,7 @@ I transpose the item data to cluster items based on their response patterns.
 from sklearn.cluster import KMeans
 
 # Transpose the item data to have items as rows and students as columns
-item_data_transposed = item_data.T
+item_data_transposed = item_data_scaled.T
 
 # Specify the number of clusters (skills)
 n_clusters = 3
@@ -314,6 +351,34 @@ kmeans_q_matrix_df = pd.DataFrame({
 
 - **Transposition**: Clustering is performed on items, so I transpose the data to have items as the observations.
 
+#### Determining the Number of Clusters Using Elbow Method
+
+```{python}
+# Import necessary module
+import numpy as np
+
+# Calculate WCSS for different number of clusters
+wcss = []
+for i in range(1, 7):
+    kmeans_elbow = KMeans(n_clusters=i, random_state=42)
+    kmeans_elbow.fit(item_data_transposed)
+    wcss.append(kmeans_elbow.inertia_)
+```
+```{python}
+# Plot the elbow graph
+plt.figure(figsize=(8, 5))
+plt.plot(range(1, 7), wcss, 'o-', color='red')
+_ = plt.title('Elbow Method for K-Means Clustering')
+_ = plt.xlabel('Number of Clusters')
+_ = plt.ylabel('Within-Cluster Sum of Squares (WCSS)')
+plt.grid(True)
+plt.show()
+```
+
+**Explanation**:
+
+- The elbow plot indicates that the WCSS significantly decreases up to three clusters, after which the rate of decrease slows down, suggesting that three clusters are optimal.
+
 #### Applying K-Means Clustering
 
 I apply K-Means clustering to group items into clusters representing latent skills.
@@ -326,27 +391,54 @@ I apply K-Means clustering to group items into clusters representing latent skil
 - **Mapping Items to Skills**: I map cluster labels to skill identifiers for interpretation.
 
 ```{python}
+#| label: tbl-kmeans
+#| tbl-cap: Item-Cluster Mapping
+
 # Display the item-cluster mapping
-print(kmeans_q_matrix_df)
+kmeans_q_matrix_df
 ```
 
 The clustering results provide an alternative item-skill mapping that can be compared with the Factor Analysis findings.
 
 ### Principal Component Analysis (PCA)
 
+#### Determining the Number of Components Using Scree Plot
+
+```{python}
+# Import necessary module
+from sklearn.decomposition import PCA
+
+# Initialize PCA to get all components
+pca = PCA()
+pca.fit(item_data_scaled)
+
+# Calculate explained variance
+explained_variance = pca.explained_variance_
+
+# Plot the scree plot
+plt.figure(figsize=(8, 5))
+plt.plot(range(1, len(explained_variance) + 1), explained_variance, 'o-', color='green')
+_ = plt.title('Scree Plot for PCA')
+_ = plt.xlabel('Principal Component Number')
+_ = plt.ylabel('Eigenvalue')
+plt.grid(True)
+plt.show()
+```
+
+**Explanation**:
+
+- The scree plot for PCA suggests that two components are optimal, as the eigenvalues level off after the second component.
+
 #### Performing PCA
 
 I use PCA to identify principal components that may represent latent skills.
 
 ```{python}
-# Import PCA module
-from sklearn.decomposition import PCA
-
 # Initialize the PCA model with three components
 pca_model = PCA(n_components=3)
 
 # Fit the PCA model to the item data
-pca_model.fit(item_data)
+pca_model.fit(item_data_scaled)
 ```
 ```{python}
 # Retrieve the PCA loadings
@@ -363,12 +455,15 @@ pca_loadings_df = pd.DataFrame(
 **Explanation**:
 
 - **Model Initialization**: I initialize the `PCA` model with `n_components=3`.
-- **Model Fitting**: The model is fitted to `item_data`.
+- **Model Fitting**: The model is fitted to `item_data_scaled`.
 - **PCA Loadings**: The loadings indicate the contribution of each item to the principal components.
 
 ```{python}
+#| label: tbl-pca
+#| tbl-cap: PCA Loadings
+
 # Display the PCA loadings
-print(pca_loadings_df)
+pca_loadings_df
 ```
 
 The PCA results offer additional insights into the item-skill relationships, which can be compared with the results from Factor Analysis and K-Means Clustering.
@@ -377,7 +472,7 @@ The PCA results offer additional insights into the item-skill relationships, whi
 
 ### Mapping Items to Skills Using PCA
 
-I created a Q-matrix based on the **Principal Component Analysis (PCA)** loadings to further understand the item-skill relationships. Each item is assigned to the skill (principal component) with which it has the highest loading.
+To understand the item-skill relationships further, I created a Q-matrix based on the **Principal Component Analysis (PCA)** loadings to further understand the item-skill relationships. Each item is assigned to the skill (principal component) with which it has the highest loading.
 
 ```{python}
 #| label: tbl-qmarix1
@@ -393,19 +488,7 @@ pca_q_matrix_df
 
 ### Comparison Across Methods
 
-To identify consistent patterns and discrepancies, I compare the item-skill mappings obtained from **Factor Analysis**, **K-Means Clustering**, and **PCA**.
-
-1. **Consistent Groupings**:
-   - **Items 2, 4, and 6** consistently group together across all methods, suggesting they measure the same underlying skill.
-   - **Items 3, 7, and 8** also show consistent grouping in K-Means and PCA results.
-
-2. **Method Differences**:
-   - **Factor Analysis** shows some differences compared to K-Means and PCA, particularly in the assignment of **Items 1 and 5**.
-   - **K-Means Clustering** and **PCA** exhibit identical groupings, reinforcing the reliability of these methods in this context.
-
-3. **Item-Specific Observations**:
-   - **Item 5**: Its classification varies across methods (assigned to `Skill_2` in Factor Analysis and `Skill_3` in PCA and K-Means), indicating that multiple skills may influence it.
-   - **Item 1**: Assigned to `Skill_3` in both Factor Analysis and PCA, suggesting a strong association.
+The mappings obtained from Factor Analysis, K-Means Clustering, and PCA show considerable agreement, suggesting the presence of three distinct latent skills assessed by the test items.
 
 ### Testing Alternative Factor Analysis Models
 
@@ -416,15 +499,15 @@ I test **Factor Analysis** models with two, three, and four components to determ
 ```{python}
 # Performing Factor Analysis with four components to explore the potential presence of additional latent skills
 n_factors_extended = 4
-fa_model_extended = FactorAnalysis(n_components=n_factors_extended, random_state=42)
-fa_model_extended.fit(item_data)
+fa_model_extended = FactorAnalyzer(n_factors=n_factors_extended, rotation=None)
+fa_model_extended.fit(item_data_scaled)
 ```
 ```{python}
 #| label: tbl-qmarix2
 #| tbl-cap: Factor Analysis with Four Components
 
 # Get the factor loadings for the 4-component model
-factor_loadings_extended = fa_model_extended.components_.T
+factor_loadings_extended = fa_model_extended.loadings_
 
 # Create a data frame to visualize the factor loadings for the four-component model
 factor_loadings_extended_df = pd.DataFrame(factor_loadings_extended, index=item_data.columns, columns=[f'Skill_{i+1}' for i in range(n_factors_extended)])
@@ -433,44 +516,37 @@ factor_loadings_extended_df
 
 **Observations from the Four-Component Model**:
 
-1. **Consistent Groupings**:
-   - **Skill_1**: Items 3, 7, and 8 have high loadings, indicating a strong association.
-   - **Skill_2**: Items 2, 4, and 6 maintain strong relationships.
-
-2. **Complex Relationships**:
-   - **Items 1 and 5** show split loadings between **Skill_3** and **Skill_4**, suggesting they may require multiple skills.
-   - **Item 4** exhibits secondary loading on **Skill_4**, indicating potential cross-loading.
-
-3. **Model Implications**:
-   - The four-component model reveals nuanced relationships but introduces complexity that may not significantly enhance interpretability.
+- **Complexity and Overfitting**: The four-component model introduces additional complexity without significant gains in explained variance. Some items load significantly on multiple factors, making interpretation challenging.
+- **Item Loadings**:
+  - **Item2** and **Item4** have substantial loadings on both **Skill_2** and **Skill_4**, indicating overlapping skills.
+  - **Item5** loads highly on both **Skill_1** and **Skill_3**, suggesting it may be measuring a combination of skills.
+- **Interpretability**: The overlapping loadings reduce the model's interpretability, making it less practical for educational applications.
 
 #### Factor Analysis with Two Components
 
 ```{python}
 # Performing Factor Analysis with two components to explore if a simpler model might explain the relationships
 n_factors_simpler = 2
-fa_model_simpler = FactorAnalysis(n_components=n_factors_simpler, random_state=42)
-fa_model_simpler.fit(item_data)
+fa_model_simpler = FactorAnalyzer(n_factors=n_factors_simpler, rotation=None)
+fa_model_simpler.fit(item_data_scaled)
 ```
 ```{python}
 #| label: tbl-qmarix3
 #| tbl-cap: Factor Analysis with Two Components
 # Get the factor loadings for the two-component model
-factor_loadings_simpler = fa_model_simpler.components_.T
+factor_loadings_simpler = fa_model_simpler.loadings_
 
 # Create a data frame to visualize the factor loadings for the two-component model
 factor_loadings_simpler_df = pd.DataFrame(factor_loadings_simpler, index=item_data.columns, columns=[f'Skill_{i+1}' for i in range(n_factors_simpler)])
 factor_loadings_simpler_df
 ```
 
-**Observations from the Two-Component Model**:
-
-1. **Simplified Groupings**:
-   - **Skill_1**: Items 2, 4, and 6 cluster together.
-   - **Skill_2**: Items 3, 5, 7, and 8 group together.
-
-2. **Limitations**:
-   - **Item 1** does not fit well into this two-skill structure, indicating that the model is too simplistic to capture all item relationships.
+- **Simplicity vs. Variance Explained**: The two-component model is simpler but explains less variance compared to the three-component model.
+- **Item Loadings**:
+  - **Item3**, **Item5**, **Item7**, and **Item8** load highly on **Skill_1**.
+  - **Item2**, **Item4**, and **Item6** load on **Skill_2**.
+  - **Item1** has very low loadings on both factors, suggesting it may not be well-represented in this model.
+- **Loss of Detail**: The two-component model may be too simplistic, failing to capture nuances in the data, particularly the unique contribution of **Item1**.
 
 ### Visualizations
 
@@ -483,162 +559,132 @@ I create some [Mermaid](https://mermaid.js.org/) diagrams to gain further insigh
 ```{mermaid}
 graph TB
     subgraph PCA
-        PCA_S3[Skill_3] --- PCA_I1[Item 1]
-        PCA_S3 --- PCA_I5[Item 5]
+        PCA_S1[Skill_1] --- PCA_I3[Item 3]
+        PCA_S1 --- PCA_I7[Item 7]
+        PCA_S1 --- PCA_I8[Item 8]
         
         PCA_S2[Skill_2] --- PCA_I2[Item 2]
         PCA_S2 --- PCA_I4[Item 4]
         PCA_S2 --- PCA_I6[Item 6]
         
-        PCA_S1[Skill_1] --- PCA_I3[Item 3]
-        PCA_S1 --- PCA_I7[Item 7]
-        PCA_S1 --- PCA_I8[Item 8]
+        PCA_S3[Skill_3] --- PCA_I1[Item 1]
+        PCA_S3 --- PCA_I5[Item 5]
     end
     
     subgraph KMeans
-        BQ_S3[Skill_3] --- BQ_I1[Item 1]
-        BQ_S3 --- BQ_I5[Item 5]
+        KM_S1[Skill_1] --- KM_I3[Item 3]
+        KM_S1 --- KM_I5[Item 5]
+        KM_S1 --- KM_I7[Item 7]
+        KM_S1 --- KM_I8[Item 8]
         
-        BQ_S1[Skill_1] --- BQ_I3[Item 3]
-        BQ_S1 --- BQ_I7[Item 7]
-        BQ_S1 --- BQ_I8[Item 8]
+        KM_S2[Skill_2] --- KM_I2[Item 2]
+        KM_S2 --- KM_I4[Item 4]
+        KM_S2 --- KM_I6[Item 6]
         
-        BQ_S2[Skill_2] --- BQ_I2[Item 2]
-        BQ_S2 --- BQ_I4[Item 4]
-        BQ_S2 --- BQ_I6[Item 6]
+        KM_S3[Skill_3] --- KM_I1[Item 1]
     end
     
     subgraph Factor_Analysis
-        FA_S1[Skill_1] --- FA_I2[Item 2]
-        FA_S1 --- FA_I4[Item 4]
-        FA_S1 --- FA_I6[Item 6]
+        FA_S1[Skill_1] --- FA_I3[Item 3]
+        FA_S1 --- FA_I5[Item 5]
+        FA_S1 --- FA_I7[Item 7]
+        FA_S1 --- FA_I8[Item 8]
         
-        FA_S2[Skill_2] --- FA_I3[Item 3]
-        FA_S2 --- FA_I5[Item 5]
-        FA_S2 --- FA_I7[Item 7]
-        FA_S2 --- FA_I8[Item 8]
+        FA_S2[Skill_2] --- FA_I2[Item 2]
+        FA_S2 --- FA_I4[Item 4]
+        FA_S2 --- FA_I6[Item 6]
         
         FA_S3[Skill_3] --- FA_I1[Item 1]
     end
 
     style PCA fill:#f9f,stroke:#333,stroke-width:2px
-    style KMeans fill:#9ff,stroke:#333,stroke-width:2px
-    style Factor_Analysis fill:#ff9,stroke:#333,stroke-width:2px
+    style KMeans fill:#bbf,stroke:#333,stroke-width:2px
+    style Factor_Analysis fill:#bfb,stroke:#333,stroke-width:2px
 ```
 <figcaption style="font-size: 0.9em; color: #555555; text-align: left; margin-top: 8px;">
     Diagram 1: Comparison Across the Three Methods
 </figcaption>
 <br>
-```{mermaid}
-graph TD
-    subgraph Strong_Relationships
-        S1[Skill_1] --- I3[Item 3]
-        S1 --- I7[Item 7]
-        S1 --- I8[Item 8]
-        
-        S2[Skill_2] --- I2[Item 2]
-        S2 --- I4[Item 4]
-        S2 --- I6[Item 6]
-    end
-    
-    subgraph Split_Influences
-        S3[Skill_3] -.-> I1[Item 1]
-        S4[Skill_4] -.-> I1
-        
-        S3 -.-> I5[Item 5]
-        S4 -.-> I5
-        
-        S4 -.-> I4[Item 4]
-    end
-    
-    style Strong_Relationships fill:#f9f,stroke:#333,stroke-width:2px
-    style Split_Influences fill:#ff9,stroke:#333,stroke-width:2px
-    
-    classDef solid stroke-width:4px
-    classDef dashed stroke-dasharray: 5, 5
-    class S1,S2,I2,I3,I4,I6,I7,I8 solid
-    class S3,S4,I1,I5 dashed
-```
-<figcaption style="font-size: 0.9em; color: #555555; text-align: left; margin-top: 8px;">
-    Diagram 2: Testing Alternative Factor Analysis Models
-</figcaption>
-<br>
+
+##### Diagram 1: Method Comparison (Factor Analysis, K-Means, PCA)
+- **Key Observations**:
+  1. **Consistency Across Methods**: Many items (e.g., Item 3 and Item 7) align similarly across Factor Analysis, K-Means, and PCA, reinforcing the robustness of these mappings.
+  2. **Item Overlap**: The clustering of items (e.g., Items 3, 7, and 8 under Skill_1) consistently suggests a strong latent skill grouping.
+  3. **Discrepancies**: While most items map consistently, some differences (e.g., Item 5 under Factor Analysis vs. PCA) suggest subtle differences in how these methods interpret data structures.
+  4. **Skill 3 Representation**: This skill emerges consistently across methods but captures fewer items, which might indicate a niche or less represented skill.
+
+The visual comparison highlights overlaps and outliers more effectively than numerical tables, making it easier to identify items that contribute ambiguously to multiple skills or are method-dependent.
 ```{mermaid}
 graph TB
-    subgraph Two_Component_Model
-        TC_S1[Skill_1] --- TC_I2[Item 2]
-        TC_S1 --- TC_I4[Item 4]
-        TC_S1 --- TC_I6[Item 6]
-        
-        TC_S2[Skill_2] --- TC_I3[Item 3]
-        TC_S2 --- TC_I5[Item 5]
-        TC_S2 --- TC_I7[Item 7]
-        TC_S2 --- TC_I8[Item 8]
-        
-        TC_I1[Item 1<br/>Weak Loadings] -..- TC_S1
-        TC_I1 -..- TC_S2
-    end
-    
-    subgraph Three_Component_Model
-        TH_S1[Skill_1] --- TH_I2[Item 2]
-        TH_S1 --- TH_I4[Item 4]
-        TH_S1 --- TH_I6[Item 6]
-        
-        TH_S2[Skill_2] --- TH_I3[Item 3]
-        TH_S2 --- TH_I7[Item 7]
-        TH_S2 --- TH_I8[Item 8]
-        
-        TH_S3[Skill_3] --- TH_I1[Item 1]
-        TH_S3 --- TH_I5[Item 5]
-    end
-    
     subgraph Four_Component_Model
         FC_S1[Skill_1] --- FC_I3[Item 3]
         FC_S1 --- FC_I7[Item 7]
         FC_S1 --- FC_I8[Item 8]
+        FC_S1 -.-> FC_I5[Item 5]
         
-        FC_S2[Skill_2] --- FC_I2[Item 2]
-        FC_S2 --- FC_I4[Item 4]
-        FC_S2 --- FC_I6[Item 6]
+        FC_S2[Skill_2] --- FC_I6[Item 6]
+        FC_S2 -.-> FC_I2[Item 2]
+        FC_S2 -.-> FC_I4[Item 4]
         
-        FC_S3[Skill_3] -.-> FC_I1[Item 1]
-        FC_S4[Skill_4] -.-> FC_I1
+        FC_S3[Skill_3] --- FC_I1[Item 1]
+        FC_S3 --- FC_I5
         
-        FC_S3 -.-> FC_I5[Item 5]
-        FC_S4 -.-> FC_I5
+        FC_S4[Skill_4] -.-> FC_I2
+        FC_S4 -.-> FC_I4
+    end
+    
+    subgraph Three_Component_Model
+        TH_S1[Skill_1] --- TH_I3[Item 3]
+        TH_S1 --- TH_I7[Item 7]
+        TH_S1 --- TH_I8[Item 8]
+        TH_S1 --- TH_I5[Item 5]
+        
+        TH_S2[Skill_2] --- TH_I2[Item 2]
+        TH_S2 --- TH_I4[Item 4]
+        TH_S2 --- TH_I6[Item 6]
+        
+        TH_S3[Skill_3] --- TH_I1[Item 1]
+        TH_S3 -.-> TH_I5
+    end
+    
+    subgraph Two_Component_Model
+        TC_S1[Skill_1] --- TC_I3[Item 3]
+        TC_S1 --- TC_I5[Item 5]
+        TC_S1 --- TC_I7[Item 7]
+        TC_S1 --- TC_I8[Item 8]
+        
+        TC_S2[Skill_2] --- TC_I2[Item 2]
+        TC_S2 --- TC_I4[Item 4]
+        TC_S2 --- TC_I6[Item 6]
+        
+        TC_I1[Item 1<br/>Weak Loadings] -..- TC_S1
+        TC_I1 -..- TC_S2
     end
 
-    style Two_Component_Model fill:#f9f,stroke:#333,stroke-width:2px
-    style Three_Component_Model fill:#9ff,stroke:#333,stroke-width:2px
-    style Four_Component_Model fill:#ff9,stroke:#333,stroke-width:2px
+    style Two_Component_Model fill:#bfb,stroke:#333,stroke-width:2px
+    style Three_Component_Model fill:#bbf,stroke:#333,stroke-width:2px
+    style Four_Component_Model fill:#f9f,stroke:#333,stroke-width:2px
 ```
 <figcaption style="font-size: 0.9em; color: #555555; text-align: left; margin-top: 8px;">
-    Diagram 3: Comparison Across the Three Models
+    Diagram 2: Comparison Across the Three Models
 </figcaption>
 <br>
-They reinforce and extend previous insights, adding a nuanced understanding of item-skill relationships and the interplay between methods. Here are some key observations derived from the diagrams:
 
-##### Consistency Across Methods
+##### Diagram 2: Model Comparison (Two-, Three-, and Four-Component Models)
+- **Key Observations**:
+  1. **Two-Component Model**: Simpler but lacks granularity, as evident in fewer distinct mappings and the merging of certain skills.
+  2. **Three-Component Model**: Balanced in complexity and interpretability, with clear item-skill relationships (e.g., Items 3, 7, and 8 consistently linked to Skill 1).
+  3. **Four-Component Model**: Overcomplicates relationships with multiple cross-loadings (e.g., Item 5 linked to both Skill 1 and Skill 3), making the model harder to interpret.
+  4. **Weak Loadings (Item 1)**: Visualizing weak loadings in the two-component model underscores its limited ability to represent all test items adequately.
 
-The three-component structure shows items 2, 4, and 6 consistently mapping to a similar skill across all methods, implying a robust underlying structure. This consistency also appears in items 3, 7, and 8 in K-Means and PCA, suggesting reliability in these assignments.
+The diagrams provide a clear visual distinction between the interpretability trade-offs of different models. For instance, they highlight how additional components in the four-component model lead to more overlap, supporting the conclusion that the three-component model is optimal.
 
-##### Method-Specific Variations
-
-Factor Analysis diverges slightly by assigning items 1 and 5 differently than K-Means and PCA. This difference highlights potential complexities in item 5, which seems influenced by multiple skills. These diagrams illustrate how each method offers unique perspectives yet also converges on certain item-skill relationships, adding confidence to these common groupings.
-
-##### Alternative Model Structures
-
-The alternative models, such as the four-component model, introduce additional skills that help identify nuanced relationships but also add complexity. For example, the **Four_Component_Model** diagram shows potential secondary skill influences (cross-loadings) in items 1 and 5, indicating they may require multiple skills. Similarly, the two-component model simplifies the structure but struggles to fully capture item 1, highlighting limitations in overly simplified models.
-
-##### Insight into Complex Items
-
-The **Split_Influences** and **Strong_Relationships** diagrams provide additional insights into items that do not neatly fit into a single skill. For instance, item 5 shows varied associations across methods, supporting the idea that it may assess overlapping skills or a composite skill. This aligns with the **Weak Loadings** observed in two-component models and cross-loadings in four-component models.
-
-##### Interpretability
-
-The diagrams support the three-skill model as an optimal balance of interpretability and complexity, confirming previous findings. However, they also visualize the potential for models with additional components to capture complex interactions, which may be valuable for specific educational or diagnostic applications where precision is paramount.
-
-The diagrams enhance the interpretative clarity of the results, confirm the robustness of the three-component structure, and illustrate how alternative models could provide further insight into complex item relationships if needed.
+##### Broader Insights:
+- **Support for Prior Work**: The diagrams reinforce the findings that a three-component model is the most interpretable and aligns well across methods.
+- **New Learnings**:
+  - **Item-Specific Trends**: Items like Item 5 show variability across methods and models, suggesting they may assess complex or multiple skills.
+  - **Skill Coverage**: Skills identified in PCA seem broader, potentially capturing more nuanced relationships, while K-Means provides a stricter clustering.
+  - **Cross-Method Validation**: The diagrams visually validate the multi-method approach, showing where methods agree or diverge.
 
 #### Heatmap of Factor Loadings (Three Components)
 
@@ -648,7 +694,6 @@ Using a heatmap, I visualize the factor loadings from the three-component Factor
 #| label: fig-heatmap
 #| fig-cap: "Factor Analysis with Three Components"
 
-import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Create a heatmap to visualize item-skill relationships from Factor Analysis
@@ -658,15 +703,29 @@ _ = plt.title('Item-Skill Relationships (Factor Analysis with Three Components)'
 plt.show()
 ```
 
-**Key Observations from the Heatmap**:
+##### Key Observations:
+1. **Dominant Item-Skill Relationships**:
+   - **Item 1** strongly loads on **Skill 3** (0.99), indicating that it is almost exclusively associated with this latent skill.
+   - **Item 3**, **Item 7**, and **Item 8** have high loadings on **Skill 1** (0.81, 0.78, and 0.78, respectively), showing that they are closely related to this skill.
+   - **Item 6** is strongly associated with **Skill 2** (1.00), suggesting it is a clear indicator of this skill.
 
-- **Strong Associations**:
-  - **Item6** has a high loading on **Skill_1** (~0.45).
-  - **Items 3, 7, and 8** have high loadings on **Skill_2** (~0.39 to 0.40).
-  - **Item1** shows a notable loading on **Skill_3** (~0.37).
+2. **Cross-Skill Contributions**:
+   - **Item 5** has moderate loadings on both **Skill 1** (0.48) and **Skill 3** (0.33), indicating that it measures a mix of these skills.
+   - **Item 2** has a moderate loading on **Skill 2** (0.30), with negligible contributions to other skills, suggesting it is moderately representative of this skill but not a strong indicator.
 
-- **Weaker Associations**:
-  - Other items have lower or split loadings, indicating weaker or more complex relationships with the skills.
+3. **Weak Loadings**:
+   - **Item 4** shows relatively weak loadings across all skills, with the highest on **Skill 2** (0.33). This suggests that it may not align well with any single skill or may be ambiguously measuring multiple skills.
+   - Similarly, **Item 2** and **Item 5** exhibit weak or mixed relationships across skills, warranting further investigation.
+
+4. **Distinct Skills**:
+   - **Skill 1**: Clearly defined by **Item 3**, **Item 7**, and **Item 8**.
+   - **Skill 2**: Dominated by **Item 6**, with some contributions from **Item 2** and **Item 4**.
+   - **Skill 3**: Clearly represented by **Item 1**, with partial contributions from **Item 5**.
+
+##### Insights:
+- **Item-Skill Assignment**: The heatmap visually confirms the appropriateness of assigning items to the skills based on their dominant factor loadings.
+- **Complex or Ambiguous Items**: Items like **Item 5** and **Item 4** exhibit weaker or mixed relationships, suggesting potential challenges in their interpretation or measurement of a specific skill.
+- **Skill Coverage**: Each skill appears to have at least one strongly associated item, ensuring that all skills are represented in the model.
 
 #### Bar Charts for Individual Items
 
@@ -691,14 +750,38 @@ plt.tight_layout()
 plt.show()
 ```
 
-**Insights from the Bar Charts**:
+##### Key Insights:
+1. **Dominant Item-Skill Relationships**:
+   - **Item 1**: Almost exclusively associated with **Skill 3**, with a very high loading value (~0.99). It does not meaningfully load on **Skill 1** or **Skill 2**.
+   - **Item 3**, **Item 7**, and **Item 8**: Strongly associated with **Skill 1**, with high positive loadings (~0.81 and ~0.78). These items clearly represent this latent skill.
+   - **Item 6**: Solely aligned with **Skill 2** (loading ~1.00), making it the clearest representative of this skill.
 
-- **Item-Specific Relationships**:
-  - **Item1**: Highest loading on **Skill_3**.
-  - **Item2**, **Item4**, **Item6**: Highest loadings on **Skill_1**.
-  - **Items 3, 7, 8**: Highest loadings on **Skill_2**.
-  - **Item5**: Similar loadings on **Skill_2** and **Skill_3**, indicating potential dual influence.
+2. **Mixed and Moderate Relationships**:
+   - **Item 5**: Shows moderate loadings on both **Skill 1** (~0.48) and **Skill 3** (~0.33), indicating that it may measure a combination of these skills.
+   - **Item 2**: Moderately aligned with **Skill 2** (~0.30) but has negligible loadings on the other skills, making it a less prominent representative of any single skill.
 
+3. **Ambiguous or Weak Relationships**:
+   - **Item 4**: Has low to moderate loadings across the board, with the highest (~0.33) on **Skill 2**. This indicates that the item may be ambiguous or weakly related to the latent skills in this model.
+   - **Item 2**: Although moderately associated with **Skill 2**, its low loadings suggest it does not strongly differentiate itself in measuring this skill.
+
+4. **Distinct Skills**:
+   - **Skill 1**: Clearly defined by **Item 3**, **Item 7**, and **Item 8**.
+   - **Skill 2**: Primarily represented by **Item 6**, with minor contributions from **Item 2** and **Item 4**.
+   - **Skill 3**: Dominated by **Item 1**, with partial contributions from **Item 5**.
+
+##### What We Learn:
+1. **Support for Factor Analysis Findings**:
+   - The charts confirm that the three-component model successfully captures distinct latent skills, with most items showing strong associations with a single skill.
+   - The visualization highlights items that load cleanly on one skill (e.g., Item 6 for Skill 2, Item 1 for Skill 3).
+
+2. **Ambiguous Items**:
+   - Items like **Item 4** and **Item 5** demonstrate weaker or mixed relationships, indicating potential issues with their design or alignment with specific skills.
+   - These items may require revision or could indicate the need for further exploration of an additional component.
+
+3. **Strength of Representation**:
+   - Certain skills (e.g., Skill 1 and Skill 3) have multiple items with high loadings, providing strong representation.
+   - Skill 2 is highly dependent on a single dominant item (**Item 6**), which could make it more vulnerable to measurement error.
+   
 ### Creating the Final Q-Matrix
 
 Based on the analyses and visualizations, I create the final **Q-matrix** by assigning each item to the skill with the highest loading from the three-component Factor Analysis model.
@@ -717,108 +800,493 @@ final_q_matrix_df
 ```
 
 ```{mermaid}
-graph TD
-    subgraph Skill_Mappings
-        S1[Skill_1] --- I2[Item 2]
-        S1 --- I4[Item 4]
-        S1 --- I6[Item 6]
+graph LR
+    subgraph Final_Q_Matrix_Mappings
+        S1[Skill_1] --- I3[Item 3]
+        S1 --- I5[Item 5]
+        S1 --- I7[Item 7]
+        S1 --- I8[Item 8]
         
-        S2[Skill_2] --- I3[Item 3]
-        S2 --- I5[Item 5]
-        S2 --- I7[Item 7]
-        S2 --- I8[Item 8]
+        S2[Skill_2] --- I2[Item 2]
+        S2 --- I4[Item 4]
+        S2 --- I6[Item 6]
         
         S3[Skill_3] --- I1[Item 1]
     end
     
-    subgraph Evidence_Types
-        FA[Factor Analysis<br/>Highest Loadings] --- S1
-        FA --- S2
-        FA --- S3
-        
-        BC[Bar Charts<br/>Visual Validation] --- S1
-        BC --- S2
-        BC --- S3
-    end
-    
-    style Skill_Mappings fill:#f9f,stroke:#333,stroke-width:2px
-    style Evidence_Types fill:#9ff,stroke:#333,stroke-width:2px
-    
-    classDef skillNode fill:#f96,stroke:#333,stroke-width:2px
-    classDef itemNode fill:#9f9,stroke:#333,stroke-width:2px
-    classDef evidenceNode fill:#69f,stroke:#333,stroke-width:2px
-    
-    class S1,S2,S3 skillNode
-    class I1,I2,I3,I4,I5,I6,I7,I8 itemNode
-    class FA,BC evidenceNode
+    style Final_Q_Matrix_Mappings fill:#bfb,stroke:#333,stroke-width:2px
 ```
 <figcaption style="font-size: 0.9em; color: #555555; text-align: left; margin-top: 8px;">
-    Diagram 4: Final Q-Matirx
+    Diagram 3: Final Q-Matirx
 </figcaption>
 <br>
-**Explanation:**
 
-- **Skill_1**: Assigned to items **2**, **4**, and **6** due to their highest loadings on this skill.
-- **Skill_2**: Assigned to items **3**, **5**, **7**, and **8** based on their highest loadings.
-- **Skill_3**: Assigned to **item1**, which has its highest loading on this skill.
+### Key Strengths of the Final Q-Matrix and Diagram
+1. **Clear Mapping**:
+   - Each item is assigned to the skill with the highest loading, ensuring that the relationships are driven by the statistical analysis.
+   - The diagram visually highlights these relationships, making it easy to understand and communicate the structure.
 
-**Observations:**
+2. **Skill Representation**:
+   - **Skill 1**: Represented by four items (**Item 3**, **Item 5**, **Item 7**, and **Item 8**), providing robust coverage and reliability for assessing this skill.
+   - **Skill 2**: Supported by three items (**Item 2**, **Item 4**, and **Item 6**), with **Item 6** being the strongest indicator.
+   - **Skill 3**: Represented by **Item 1**, a highly specific item exclusively aligned with this skill.
 
-- **Consistency with Previous Findings**:
-  - This Q-matrix aligns with the item-skill relationships observed in the bar charts and heatmaps.
-  - Items grouped under each skill share similar characteristics and response patterns.
+3. **Alignment with Analyses**:
+   - The Q-matrix directly reflects the findings from the Factor Analysis heatmap and bar charts, ensuring consistency and validation of the mappings.
 
-- **Item 5**:
-  - While **item5** had comparable loadings on both **Skill_2** and **Skill_3**, it was assigned to **Skill_2** due to a slightly higher loading.
+4. **Balanced Complexity**:
+   - By selecting three components, the Q-matrix strikes a balance between interpretability and detail, avoiding the over-complexity of a four-component model while capturing nuances missed in a two-component model.
+
+### Observations and Recommendations
+1. **Strength of Item Representation**:
+   - **Skill 3** relies on a single item (**Item 1**). While **Item 1** has a strong loading, additional items may be needed to ensure the skill is robustly assessed.
+   - **Skill 2** shows moderate contributions from **Item 2** and **Item 4**, which might require review to ensure their alignment with this skill.
+
+2. **Ambiguous Items**:
+   - **Item 5** has a mixed loading (moderate on **Skill 1** and **Skill 3**), but its assignment to **Skill 1** aligns well with the overall structure.
+   - **Item 4** has weaker loadings but is still included under **Skill 2**, reflecting its statistical alignment while acknowledging its relative ambiguity.
+
+### Utility of the Diagram
+The diagram is an excellent tool for:
+
+- Communicating the Q-matrix to stakeholders (e.g., educators, researchers) in a visually intuitive format.
+- Supporting discussions about item revisions or further refinements to the skill structure.
+- Illustrating the rationale for skill-specific interventions or curriculum changes.
+
+### Model Evaluation Metrics
+
+#### Calculating Proportion of Variance Explained ($R^2$)
+
+**For Factor Analysis**:
+
+```{python}
+# Compute the communalities
+communalities = fa_model.get_communalities()
+
+# Total variance explained
+total_variance_explained = np.sum(communalities)
+
+# Total variance (number of variables)
+total_variance = item_data_scaled.shape[1]
+
+# Proportion of variance explained
+r_squared_fa = total_variance_explained / total_variance
+
+print(f"Factor Analysis R^2: {r_squared_fa:.2f}")
+```
+
+**Interpretation:**
+
+- The $R^2$ value of **0.56** indicates that the three-factor model explains **56%** of the total variance in the data.
+- **Implications:**
+  - A proportion of variance explained greater than 50% is generally considered acceptable in exploratory Factor Analysis, especially with psychological or educational data where constructs are often complex.
+  - However, it also suggests that **44%** of the variance is not explained by the model, which may be due to measurement error, unique variance of items, or additional latent factors not captured by the model.
+
+**For PCA**:
+
+```{python}
+# Calculate cumulative variance explained
+cumulative_variance = np.cumsum(pca_model.explained_variance_ratio_)
+print(f"PCA cumulative variance explained by first 3 components: {cumulative_variance[2]:.2f}")
+```
+
+**Interpretation:**
+
+- The first three principal components explain **66%** of the total variance in the data.
+- **Implications:**
+  - This indicates a slightly better variance explanation than the Factor Analysis model.
+  - PCA aims to capture the maximum variance with the fewest components, so a higher cumulative variance explained is desirable.
+  - However, PCA components may not be as interpretable as factors from Factor Analysis, since PCA components are linear combinations that maximize variance without considering underlying latent constructs.
+
+**Comparison:**
+
+- The PCA model explains more variance (66%) compared to the Factor Analysis model (56%).
+- This difference may be due to the methodological differences between PCA and Factor Analysis:
+  - **PCA** focuses on capturing variance and is sensitive to the scale of the data.
+  - **Factor Analysis** models the underlying latent constructs and accounts for measurement error.
+
+**Considerations:**
+
+- **Adequacy of Variance Explained:**
+  - In social sciences, cumulative variance explained between 50% and 75% is generally acceptable.
+  - Both models fall within this range, but there is room for improvement.
+- **Unexplained Variance:**
+  - The unexplained variance suggests that additional factors or components might exist, or that some items do not fit well within the identified latent skills.
+
+#### Calculating Cohen's Kappa Coefficient
+
+```{python}
+from sklearn.metrics import confusion_matrix
+from scipy.optimize import linear_sum_assignment
+
+# Map skill labels to numeric codes for Factor Analysis
+fa_skill_codes = final_q_matrix_df['Mapped_Skill'].map({'Skill_1': 0, 'Skill_2': 1, 'Skill_3': 2}).values
+
+# K-Means cluster labels
+kmeans_labels = kmeans.labels_
+
+# Compute confusion matrix
+confusion = confusion_matrix(fa_skill_codes, kmeans_labels)
+print("Confusion Matrix:")
+print(confusion)
+
+# Align clusters with skills using the Hungarian algorithm
+row_ind, col_ind = linear_sum_assignment(-confusion)
+mapping = dict(zip(col_ind, row_ind))
+
+# Map K-Means labels to Factor Analysis skill codes
+kmeans_labels_mapped = np.array([mapping[label] for label in kmeans_labels])
+
+# Compute Cohen's kappa
+from sklearn.metrics import cohen_kappa_score
+
+kappa = cohen_kappa_score(fa_skill_codes, kmeans_labels_mapped)
+print(f"Cohen's kappa after alignment: {kappa:.2f}")
+```
+
+**Interpretation:**
+
+- **Confusion Matrix:**
+  - The confusion matrix shows perfect agreement between the methods after alignment:
+    - All items assigned to Skill 1 in Factor Analysis are also assigned to the corresponding cluster in K-Means.
+    - The same applies to Skills 2 and 3.
+- **Cohen's Kappa Value:**
+  - A Kappa value of **1.00** indicates **perfect agreement** between the two methods after alignment.
+- **Implications:**
+  - This high level of agreement suggests that both methods are consistently identifying the same underlying item-skill structures.
+  - It provides strong validation for the robustness of your item-skill mappings.
+
+**Considerations:**
+
+- **Alignment Step:**
+  - The necessity of aligning clusters to skills underscores that cluster labels are arbitrary.
+  - It's important to perform this alignment to make meaningful comparisons.
+
+- **Cohen's Kappa Interpretation:**
+  - Kappa values range from -1 to 1, where:
+    - **< 0**: Less than chance agreement.
+    - **0–0.20**: Slight agreement.
+    - **0.21–0.40**: Fair agreement.
+    - **0.41–0.60**: Moderate agreement.
+    - **0.61–0.80**: Substantial agreement.
+    - **0.81–1.00**: Almost perfect agreement.
+  - A value of **1.00** confirms that the two methods are in complete concordance post-alignment.
+
+### **Overall Evaluation**
+
+**Strengths:**
+
+- **Converging Evidence:**
+  - The high Cohen's Kappa value indicates that different analytical methods converge on the same item-skill mappings, enhancing confidence in your results.
+- **Variance Explained:**
+  - Both Factor Analysis and PCA explain a substantial portion of the variance, supporting the validity of the three-component model.
+- **Methodological Rigor:**
+  - Your approach of using multiple methods and comparing them through quantitative metrics strengthens the robustness of your findings.
+
+**Limitations:**
+
+- **Variance Not Explained:**
+  - Approximately 34% to 44% of the variance remains unexplained, which could be due to:
+    - Measurement error.
+    - Additional latent skills not captured by the model.
+    - Unique variances of items.
+- **Assumptions of Methods:**
+  - Factor Analysis and PCA assumptions may not be fully met with binary data, which could affect the variance explained.
+
+#### Verifying Item-Skill Mappings
+
+```{python}
+print("Factor Analysis Mappings:")
+print(final_q_matrix_df)
+```
+
+**Interpretation:**
+
+- **Item Assignments**: Each item is assigned to the skill with which it has the highest factor loading from your final Q-matrix.
+- **Skill Representation**:
+  - **Skill_1**: Items 3, 5, 7, 8
+  - **Skill_2**: Items 2, 4, 6
+  - **Skill_3**: Item 1
+
+**Significance:**
+
+- **Consistent Mapping**: The assignments reflect the conclusions drawn from your Factor Analysis, where items are mapped based on dominant loadings.
+- **Foundation for Comparison**: These mappings serve as the reference point for comparing with the K-Means Clustering results.
+
+```{python}
+print("\nK-Means Clustering Mappings (before alignment):")
+print(kmeans_q_matrix_df)
+```
+
+**Interpretation:**
+
+- **Cluster Assignments**: Items are assigned to clusters labeled as Skill_1, Skill_2, or Skill_3, based on the K-Means Clustering algorithm.
+- **Arbitrary Labels**: The cluster labels (e.g., Skill_1, Skill_2) are assigned by the algorithm and do not necessarily correspond to the skills identified in Factor Analysis.
+
+**Significance:**
+
+- **Initial Comparison**: At first glance, the mappings appear similar to the Factor Analysis mappings, but due to arbitrary labeling, a direct comparison isn't meaningful yet.
+- **Need for Alignment**: To accurately compare the item-skill assignments, cluster labels must be aligned with the skills from Factor Analysis.
+
+```{python}
+# Map clusters to skills after alignment
+kmeans_skill_names_aligned = ['Skill_' + str(mapping[label] + 1) for label in kmeans_labels]
+kmeans_q_matrix_df_aligned = kmeans_q_matrix_df.copy()
+kmeans_q_matrix_df_aligned['Mapped_Skill'] = kmeans_skill_names_aligned
+```
+
+**Process:**
+
+- **Alignment Using the Hungarian Algorithm**:
+  - Since cluster labels are arbitrary, you used the **Hungarian algorithm** (also known as the **linear sum assignment method**) to find the optimal one-to-one mapping between clusters and skills.
+  - This algorithm minimizes the total disagreement between the two sets of labels.
+
+- **Mapping Clusters to Skills**:
+  - You created a mapping dictionary (`mapping`) that aligns each cluster label with the corresponding skill from Factor Analysis.
+  - This ensures that clusters are correctly interpreted in the context of your identified skills.
+
+```{python}
+print("\nK-Means Clustering Mappings (after alignment):")
+print(kmeans_q_matrix_df_aligned)
+```
+
+**Interpretation:**
+
+- **Aligned Assignments**: After alignment, the cluster labels now correspond to the same skills as in the Factor Analysis mappings.
+- **Perfect Agreement**: The item-skill assignments from K-Means Clustering now match exactly with those from Factor Analysis.
+
+**Significance:**
+
+- **Validation of Consistency**: The perfect match indicates strong agreement between the two methods.
+- **Robustness of Findings**: The consistency across methods reinforces the reliability of your item-skill mappings.
 
 ## Discussion
 
-### Model Comparison and Selection
+### Overview of Model Comparison and Selection
+
+#### Model Complexity and Interpretability
 
 After comparing models with two, three, and four components, the **three-component Factor Analysis model** emerged as the most suitable representation of the latent skills in the dataset.
 
-- **Two-Component Model**:
-  - **Advantages**: Simplifies the skill structure.
-  - **Disadvantages**: It fails to capture the complexity of **item1** and provides less precise mapping for other items.
+**Two-Component Model**
 
-- **Three-Component Model**:
-  - **Advantages**:
-    - Accurately captures key item-skill relationships.
-    - Provides clear and interpretable groupings.
-    - Balances model complexity with explanatory power.
-  - **Disadvantages**: Slightly more complex than the two-component model but justified by the improved fit.
+- **Simplicity:** The two-component model is the simplest, reducing the latent skills to two factors.
+- **Interpretability:**
+  - Some items showed weak loadings or ambiguous associations.
+  - **Item 1**, for example, had very low loadings on both factors, suggesting it doesn't fit well within this model.
+- **Implications:**
+  - The model may be too simplistic, failing to capture important nuances in the data.
+  - It potentially merges distinct skills into broader categories, which could obscure meaningful distinctions.
 
-- **Four-Component Model**:
-  - **Advantages**: Reveals nuanced relationships and potential cross-loadings.
-  - **Disadvantages**:
-    - Adds unnecessary complexity without significant interpretive benefits.
-    - May overfit the data.
+**Three-Component Model**
+
+- **Balance:** Offers a middle ground between simplicity and complexity.
+- **Interpretability:**
+  - Provides clear and distinct latent skills.
+  - Most items load strongly on a single factor, enhancing interpretability.
+- **Findings:**
+  - The model captures the nuances in the data without unnecessary complexity.
+  - **Item 5** shows moderate loadings on two skills, indicating split influences but remains interpretable.
+
+**Four-Component Model**
+
+- **Complexity:** Introduces additional complexity with a fourth factor.
+- **Interpretability:**
+  - Overlapping loadings make the model harder to interpret.
+  - Some items load significantly on multiple factors, causing ambiguity.
+- **Implications:**
+  - The added complexity doesn't substantially increase explained variance.
+  - May overfit the data, capturing noise rather than meaningful structure.
+
+**Summary:**
+
+- **Trade-Offs:**
+  - The **two-component model** may underfit, missing key distinctions between skills.
+  - The **four-component model** may overfit, adding unnecessary complexity without practical benefits.
+- **Optimal Complexity:**
+  - The **three-component model** strikes a balance, capturing essential structures while maintaining interpretability.
+
+#### Variance Explained and Model Fit
+
+**Factor Analysis Variance Explained**
+
+- **Two-Component Model:**
+  - Lower proportion of variance explained (~ less than 56%).
+  - Indicates insufficient capture of the data's variability.
+- **Three-Component Model:**
+  - Explains approximately **56%** of the total variance.
+  - Represents a reasonable fit for exploratory purposes.
+- **Four-Component Model:**
+  - Slight increase in variance explained.
+  - Not significant enough to justify added complexity.
+
+**PCA Variance Explained**
+
+- **Three-Component Model:**
+  - Cumulative variance explained is **66%**.
+  - Indicates a substantial capture of data variability.
+- **Comparison:**
+  - PCA generally explains more variance than Factor Analysis in your findings.
+  - However, PCA components may not be as interpretable in terms of latent skills.
+
+**Summary:**
+
+- **Thresholds:**
+  - In social sciences, explaining around 50-75% variance is acceptable.
+- **Diminishing Returns:**
+  - The variance explained by adding a fourth component doesn't justify the increased complexity.
+- **Model Fit:**
+  - The three-component model provides an acceptable fit with reasonable simplicity.
+
+#### Consistency Across Methods
+
+**Agreement Among Methods**
+
+- **Three-Component Model:**
+  - High consistency in item-skill mappings across Factor Analysis, K-Means Clustering, and PCA.
+  - **Cohen's Kappa Coefficient** of **1.00** after alignment indicates perfect agreement.
+- **Two- and Four-Component Models:**
+  - Less consistent across methods.
+  - Ambiguities in item assignments due to overlapping loadings.
+
+**Summary:**
+
+- **Cross-Validation:**
+  - Consistency strengthens the validity of your findings.
+- **Reinforcement:**
+  - Different methods converging on the same solution supports the robustness of the three-component model.
+- **Practical Implications:**
+  - A consistent model is more reliable for educational applications, such as test design and interpretation.
+
+#### Model Evaluation Metrics
+
+**Proportion of Variance Explained ($R^2$)**
+
+- **Factor Analysis:**
+  - **Three-Component Model $R^2$:** Approximately **0.56**.
+  - Indicates that 56% of the variance is captured by the model.
+- **PCA:**
+  - **Three-Component Model Cumulative Variance:** **66%**.
+  - Suggests a better variance capture, but PCA components may be less interpretable.
+
+**Cohen's Kappa Coefficient**
+
+- **Value:** **1.00** after alignment.
+- **Interpretation:**
+  - Indicates perfect agreement between item-skill mappings from Factor Analysis and K-Means Clustering.
+- **Significance:**
+  - Validates the consistency and reliability of the three-component model.
+
+**Summary:**
+
+- **Balance of Metrics:**
+  - The three-component model provides a good balance between variance explained and interpretability.
+- **Limitations:**
+  - Acknowledge that a portion of variance remains unexplained.
+  - Suggests potential areas for further investigation or alternative modeling approaches.
+
+#### Final Model Selection
+
+**Reasons for Selecting the Three-Component Model**
+
+- **Optimal Balance:**
+  - Captures essential structures without overcomplicating the model.
+- **High Interpretability:**
+  - Clear item-skill relationships make it practical for educational use.
+- **Strong Validation:**
+  - Consistent findings across multiple methods reinforce its selection.
+- **Model Performance:**
+  - Satisfactory variance explained and perfect agreement in item assignments.
+
+**Implications for the Q-Matrix**
+
+- **Robust Mapping:**
+  - The final Q-matrix derived from the three-component model provides a reliable item-skill mapping.
+- **Educational Utility:**
+  - Enhances interpretability of test results.
+  - Aids in identifying areas for instructional focus and intervention.
 
 ### Justification for the Final Q-Matrix
 
-The final Q-matrix, derived from the three-component Factor Analysis model, is well-justified by its consistency with the findings from multiple methods.
+#### Derivation from Multiple Methods
 
-- **Consistency Across Methods**:
-  - **Items 2, 4, 6** consistently map to **Skill_1**.
-  - **Items 3, 7, 8** consistently map to **Skill_2**.
-  - **Item1** is uniquely associated with **Skill_3**.
+**Integration of Analytical Findings**
 
-- **Support from PCA and K-Means Clustering**:
-  - PCA and K-Means results align closely with the Factor Analysis findings, reinforcing the validity of the item-skill mappings.
-  - For instance, **item1** and **item5** show strong associations with **Skill_3** in both PCA and K-Means, while **Factor Analysis** assigns **item5** to **Skill_2** due to the slightly higher loading.
+- **Factor Analysis**: The Final Q-Matrix is primarily based on the results of your three-component Factor Analysis, where each item is assigned to the skill with the highest factor loading.
 
-- **Interpretability**:
-  - The three-skill model provides clear and meaningful interpretations of the data, which is essential for practical applications in educational assessment.
+- **K-Means Clustering** and **PCA**: The item-skill mappings derived from these methods align closely with the Factor Analysis results, reinforcing the assignments in the Final Q-Matrix.
 
-### Implications of the Findings
+  - **Consistency in Item Groupings**: Items that cluster together in K-Means and load on the same principal components in PCA correspond to the same skills identified in Factor Analysis.
 
-The knowledge structure mapping obtained from this study has significant implications for educational practice.
+**Justification**:
 
-- **Stable Item-Skill Relationships**:
-  - The consistent grouping of certain items suggests that robust underlying skills are being measured.
+- **Converging Evidence**: The consistent findings across multiple methods provide strong evidence that the item-skill assignments in the Final Q-Matrix accurately reflect the underlying knowledge structure.
 
-- **Complex Items**:
-  - **Item5** exhibits split influences, indicating it may assess multiple skills or a skill that overlaps between **Skill_2** and **Skill_3**.
+- **Robustness**: Using different analytical techniques reduces the likelihood that the results are artifacts of a specific method, increasing confidence in the Q-Matrix.
+
+#### Support from Model Evaluation Metrics
+
+**Variance Explained**
+
+- **Factor Analysis $R^2$**: The three-component model explains approximately **56%** of the total variance.
+
+- **PCA Variance**: The first three principal components account for **66%** of the variance.
+
+**Cohen's Kappa Coefficient**
+
+- **Value of 1.00**: Indicates perfect agreement between the item-skill mappings from Factor Analysis and K-Means Clustering after alignment.
+
+**Justification**:
+
+- **Adequate Model Fit**: The proportion of variance explained suggests that the model captures a substantial amount of the data's variability, which is acceptable in exploratory analyses.
+
+- **Validation of Mappings**: The perfect Cohen's Kappa score confirms that different methods agree on the item-skill assignments, supporting the validity of the Final Q-Matrix.
+
+#### Balance of Complexity and Interpretability
+
+**Model Selection**
+
+- **Three-Component Model**: Chosen for providing the best balance between capturing sufficient detail and maintaining simplicity.
+
+**Justification**:
+
+- **Avoiding Overfitting**: The four-component model introduced complexity without significant gains in variance explained, making it less interpretable.
+
+- **Preventing Oversimplification**: The two-component model failed to capture important nuances, with some items not fitting well.
+
+- **Practical Interpretability**: The three-component model allows for clear and distinct item-skill relationships, making the Q-Matrix practical for educational purposes.
+
+#### Consistency Across Analytical Methods
+
+**Alignment of Results**
+
+- **Factor Analysis, K-Means Clustering, and PCA** all indicate similar item-skill groupings.
+
+**Visualizations**
+
+- **Mermaid Diagrams and Heatmaps**: Provide visual confirmation of the consistent item-skill relationships across methods.
+
+**Justification**:
+
+- **Cross-Method Validation**: Consistency across methods strengthens the argument that the Final Q-Matrix accurately represents the latent skills.
+
+- **Reinforcement of Findings**: Visual tools help illustrate the robustness of the mappings, making the justification more compelling.
+
+#### Educational Relevance and Practicality
+
+**Clear Skill Definitions**
+
+- **Skill 1**: Represented by items that measure a specific aspect of the knowledge domain (e.g., problem-solving).
+
+- **Skill 2**: Comprised of items assessing another distinct competency (e.g., conceptual understanding).
+
+- **Skill 3**: Associated with an item measuring a unique skill (e.g., factual recall).
+
+**Justification**:
+
+- **Actionable Insights**: The Q-Matrix provides educators with clear information about which items assess which skills, facilitating targeted instruction and remediation.
+
+- **Test Design Improvement**: Understanding item-skill relationships helps in refining assessments to better measure the intended skills.
 
 - **Educational Impact**:
   - By understanding the relationships between items and skills, test designers can create assessments that more effectively target specific skills, ensuring a balanced coverage of the identified latent skills. The item-skill mappings can also help identify potentially redundant or less informative items, allowing for more efficient and focused assessments.
@@ -828,14 +1296,31 @@ The knowledge structure mapping obtained from this study has significant implica
 
 Despite the insights provided by this study, there are limitations to consider.
 
+**Acknowledging Split Influences**
+
+- **Item 5**: Exhibits moderate loadings on both Skill 1 and Skill 3.
+
+**Justification**:
+
+- **Assignment Based on Dominant Loading**: Despite the split influence, Item 5 is assigned to Skill 1 due to its higher loading, aligning with the overall structure.
+
+- **Consideration for Revision**: Recognizing the split influence allows for potential item revision to enhance its alignment with a single skill.
+
+**Ensuring Skill Representation**
+
+- **Skill 3**: Currently represented by a single item (Item 1).
+
+**Justification**:
+
+- **Recognition of Limitations**: Acknowledging that Skill 3 relies on a single item highlights an area for potential expansion in future assessments.
+
+- **Maintaining Integrity**: Despite the limited representation, the strong loading of Item 1 on Skill 3 justifies its inclusion in the Q-Matrix.
+
 - **Binary Data Consideration**:
   - The use of Factor Analysis and PCA on binary data may not fully meet the assumptions of these methods. Future research could explore the application of Item Response Theory (IRT) models specifically designed for analyzing binary response data [@van2015handbook].
 
 - **Sample Size and Generalizability**:
   - The small sample size of eight items limits the generalizability of the findings. Replicating the study with a larger set of items and a more diverse student population would help validate the identified skill structure and its applicability to different educational contexts.
-
-- **Cross-Validation**:
-  - Incorporating cross-validation techniques could strengthen the confidence in the selected model.
 
 ## Conclusion
 
@@ -845,7 +1330,7 @@ The key findings of this study include:
 
 1. The identification of three distinct latent skills that capture the essential relationships among the test items.
 2. Developing a final **Q-matrix** that provides a precise and empirically derived mapping of items to skills consistent across multiple analytical methods.
-3. Validating of the item-skill relationships through visualizations, including heatmaps and bar charts, supports the interpretability of the identified skill structure.
+3. Validating of the item-skill relationships supports the interpretability of the identified skill structure.
 
 The practical significance of this work lies in its potential to inform and enhance educational assessment and instructional practices. By providing a more precise understanding of the skills assessed by individual test items, this study enables educators and test designers to:
 
