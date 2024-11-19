@@ -187,17 +187,14 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#factor-analysis" id="toc-factor-analysis" class="nav-link" data-scroll-target="#factor-analysis">Factor Analysis</a></li>
-  <li><a href="#barness-q-matrix-method-simulated-using-k-means-clustering" id="toc-barness-q-matrix-method-simulated-using-k-means-clustering" class="nav-link" data-scroll-target="#barness-q-matrix-method-simulated-using-k-means-clustering">Barnes’s Q-Matrix Method (Simulated using K-Means Clustering)</a></li>
+  <li><a href="#k-means-clustering" id="toc-k-means-clustering" class="nav-link" data-scroll-target="#k-means-clustering">K-Means Clustering</a></li>
   <li><a href="#principal-component-analysis-pca" id="toc-principal-component-analysis-pca" class="nav-link" data-scroll-target="#principal-component-analysis-pca">Principal Component Analysis (PCA)</a></li>
-  <li><a href="#model-iteration-and-comparison" id="toc-model-iteration-and-comparison" class="nav-link" data-scroll-target="#model-iteration-and-comparison">Model Iteration and Comparison</a></li>
-  <li><a href="#data-preparation-and-preprocessing" id="toc-data-preparation-and-preprocessing" class="nav-link" data-scroll-target="#data-preparation-and-preprocessing">Data Preparation and Preprocessing</a></li>
-  <li><a href="#summary-of-methodological-approach" id="toc-summary-of-methodological-approach" class="nav-link" data-scroll-target="#summary-of-methodological-approach">Summary of Methodological Approach</a></li>
   </ul></li>
   <li><a href="#implementation-details" id="toc-implementation-details" class="nav-link" data-scroll-target="#implementation-details">Implementation Details</a>
   <ul class="collapse">
   <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data Preparation</a></li>
   <li><a href="#factor-analysis-1" id="toc-factor-analysis-1" class="nav-link" data-scroll-target="#factor-analysis-1">Factor Analysis</a></li>
-  <li><a href="#k-means-clustering" id="toc-k-means-clustering" class="nav-link" data-scroll-target="#k-means-clustering">K-Means Clustering</a></li>
+  <li><a href="#k-means-clustering-1" id="toc-k-means-clustering-1" class="nav-link" data-scroll-target="#k-means-clustering-1">K-Means Clustering</a></li>
   <li><a href="#principal-component-analysis-pca-1" id="toc-principal-component-analysis-pca-1" class="nav-link" data-scroll-target="#principal-component-analysis-pca-1">Principal Component Analysis (PCA)</a></li>
   </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
@@ -209,7 +206,6 @@ window.Quarto = {
   <li><a href="#creating-the-final-q-matrix" id="toc-creating-the-final-q-matrix" class="nav-link" data-scroll-target="#creating-the-final-q-matrix">Creating the Final Q-Matrix</a></li>
   <li><a href="#key-strengths-of-the-final-q-matrix-and-diagram" id="toc-key-strengths-of-the-final-q-matrix-and-diagram" class="nav-link" data-scroll-target="#key-strengths-of-the-final-q-matrix-and-diagram">Key Strengths of the Final Q-Matrix and Diagram</a></li>
   <li><a href="#observations-and-recommendations" id="toc-observations-and-recommendations" class="nav-link" data-scroll-target="#observations-and-recommendations">Observations and Recommendations</a></li>
-  <li><a href="#utility-of-the-diagram" id="toc-utility-of-the-diagram" class="nav-link" data-scroll-target="#utility-of-the-diagram">Utility of the Diagram</a></li>
   <li><a href="#model-evaluation-metrics" id="toc-model-evaluation-metrics" class="nav-link" data-scroll-target="#model-evaluation-metrics">Model Evaluation Metrics</a></li>
   <li><a href="#overall-evaluation" id="toc-overall-evaluation" class="nav-link" data-scroll-target="#overall-evaluation"><strong>Overall Evaluation</strong></a></li>
   </ul></li>
@@ -288,129 +284,62 @@ window.Quarto = {
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Imagine if educators could uncover the hidden connections between what students know and what they are tested on. This is the power of knowledge structure mapping. <strong>Knowledge structure mapping</strong> allows educators and researchers to uncover the relationships between test items and the underlying skills or concepts they measure. This understanding is crucial for developing effective educational tools, improving assessment strategies, and tailoring instruction to meet individual student needs. By mapping how different items relate to latent skills, educators can identify areas where students may struggle and provide targeted interventions.</p>
-<p>Determining the optimal representation of latent skills within limited test data is challenging, as traditional methods often rely on assumptions that may not generalize across educational contexts or assessment types. Therefore, robust, data-driven approaches are needed to accurately identify and validate the underlying skill structures in assessment data.</p>
-<p>This study addresses this gap by investigating the knowledge structure underlying an eight-item test dataset using a comprehensive methodology that balances model complexity and interpretability. By combining advanced statistical and machine learning techniques—specifically, <strong>Factor Analysis</strong> to uncover latent skills, <strong>K-Means clustering</strong> to simulate Barnes’s Q-Matrix method for grouping items, and <strong>Principal Component Analysis (PCA)</strong> to validate the identified item-skill relationships—I aim to identify the underlying skill structures robustly. To determine the optimal skill representation, I compare models with varying numbers of components, from two to four, seeking a balance between capturing sufficient detail and maintaining simplicity for educational interpretation and application. The resulting <strong>Q-matrix</strong> derived from this multi-method approach offers a clear, empirically-derived mapping of items to latent skills, enhancing the interpretability and utility of test results for educators and researchers.</p>
-<p>My approach contributes to the existing body of research by providing a comprehensive methodology that balances complexity with interpretability. The final <strong>Q-matrix</strong> derived from my analysis offers a robust mapping of items to latent skills, enhancing the interpretability of test results. This study demonstrates the effectiveness of combining multiple analytical methods for knowledge structure mapping. It also provides insights to inform the development of more nuanced educational assessments and personalized learning strategies.</p>
+<p><strong>Knowledge structure mapping</strong> is a powerful tool that allows educators to uncover hidden connections between what students know and what they are tested on. By revealing the relationships between test items and the underlying skills they measure, knowledge structure mapping provides crucial insights for developing targeted educational interventions and improving student outcomes. This understanding is essential for creating effective assessments, personalizing instruction, and ensuring that all students have the opportunity to succeed.</p>
+<p>However, identifying the optimal representation of latent skills within educational data is a complex challenge. Traditional methods often rely on assumptions that may not generalize across diverse contexts or assessment types. To address this issue, researchers have developed a range of data-driven approaches that aim to uncover skill structures in a more flexible and robust manner.</p>
+<p>This study presents a comprehensive methodology for identifying the latent skill structure underlying an eight-item test dataset. By leveraging the complementary strengths of <strong>Factor Analysis</strong>, <strong>K-Means Clustering</strong>, and <strong>Principal Component Analysis (PCA)</strong>, I aim to derive a robust and interpretable model of the key skills assessed by the test items. My approach involves iteratively testing models with varying numbers of components to determine the optimal balance between model complexity and explanatory power.</p>
+<p>The resulting three-skill model offers a clear and actionable framework for understanding student performance on the test items. The model’s interpretability and strong empirical foundation make it a valuable tool for informing assessment design, instructional planning, and student support initiatives. By aligning educational practices with the identified skill structure, educators can more effectively foster student learning and achievement.</p>
+<p>Moreover, this study contributes to the broader field of educational data mining and learning analytics by demonstrating the value of a multi-method, data-driven approach to knowledge structure mapping. The methodology presented here can serve as a template for future research aimed at uncovering the hidden skills and competencies that underlie student performance across a wide range of educational contexts and assessment types.</p>
+<p>In the following sections, I provide an overview of relevant background literature, describe my methodological approach in detail, present the key findings of my analysis, and discuss the implications of my work for educational practice and future research.</p>
 </section>
 <section id="background-and-related-work" class="level2">
 <h2 class="anchored" data-anchor-id="background-and-related-work">Background and Related Work</h2>
-<p><strong>Knowledge structure mapping</strong> is a fundamental process in educational data mining that involves analyzing and visualizing learners’ conceptual understanding and cognitive organization of information <span class="citation" data-cites="gordon2003learning">(<a href="#ref-gordon2003learning" role="doc-biblioref">Gordon and Jorgensen 2003</a>)</span>. It enables educators and researchers to represent relationships between different pieces of knowledge, facilitating the development of personalized learning experiences and more effective educational tools.</p>
+<p><strong>Knowledge structure mapping</strong> is a fundamental area of research in educational data mining and learning analytics, focusing on uncovering the latent skills and relationships that underlie student performance on educational assessments <span class="citation" data-cites="de2008educational">(<a href="#ref-de2008educational" role="doc-biblioref">Baker, Barnes, and Beck 2008</a>)</span>. By providing insights into the hidden structure of educational data, knowledge structure mapping enables researchers and educators to develop more effective assessments, instructional interventions, and student support systems.</p>
 <section id="methods-for-knowledge-structure-mapping" class="level3">
 <h3 class="anchored" data-anchor-id="methods-for-knowledge-structure-mapping">Methods for Knowledge Structure Mapping</h3>
-<p>Several methods have been developed to map knowledge structures, each with its own advantages and limitations. <strong>Learning Factors Analysis (LFA)</strong> is one such method used to evaluate and refine cognitive models <span class="citation" data-cites="cen2006learning">(<a href="#ref-cen2006learning" role="doc-biblioref">Cen, Koedinger, and Junker 2006</a>)</span>. LFA leverages student performance data to improve the accuracy of these models, thereby enhancing personalized learning by tailoring instruction to individual student needs.</p>
-<p><strong>Partial-Order Knowledge Spaces (POKS)</strong> provide another powerful framework for representing knowledge structures <span class="citation" data-cites="desmarais2006learned">(<a href="#ref-desmarais2006learned" role="doc-biblioref">Desmarais, Meshkinfam, and Gagnon 2006</a>)</span>. POKS uses partially ordered sets of skills to model how knowledge builds upon itself. For example, mastering addition might be a prerequisite for learning multiplication, reflecting the hierarchical nature of certain learning processes.</p>
-<p>Another widely used method for knowledge structure mapping is <strong>Factor Analysis</strong>, a statistical technique used to uncover hidden relationships between observed variables—such as test items—and underlying latent variables—such as skills <span class="citation" data-cites="beavers2019practical">(<a href="#ref-beavers2019practical" role="doc-biblioref">Beavers et al. 2019</a>)</span>. By analyzing correlations among test items, Factor Analysis can reveal clusters of items that measure the same underlying skill. This data-driven approach helps in identifying latent skills without requiring prior knowledge of the skill structure.</p>
-<p>While Factor Analysis and PCA rely on statistical techniques, <strong>Barnes’s Q-matrix method</strong> takes a different approach. It uses a binary matrix to represent the relationship between items and skills <span class="citation" data-cites="barnes2005q">(<a href="#ref-barnes2005q" role="doc-biblioref">Barnes 2005</a>)</span>. In this matrix, rows represent test items, columns represent skills and entries indicate whether a skill is required for a particular item. The Q-matrix provides a visual and analytical tool for understanding which skills are assessed by each item, and it is widely used in cognitive modeling and educational data mining.</p>
-<p><strong>K-Means Clustering</strong> can simulate the Q-matrix method by grouping items based on response patterns without prior knowledge of the skill structure. By clustering items that have similar response profiles, researchers can infer potential underlying skills that explain these patterns. This unsupervised learning approach allows for the exploration of latent skill groupings in the absence of predefined skill mappings.</p>
-<p><strong>Principal Component Analysis (PCA)</strong> is another statistical method employed in knowledge structure mapping to reduce the dimensionality of data while preserving as much variance as possible. PCA identifies principal components, which are linear combinations of the original variables (test items). These components can be interpreted as underlying skills or factors influencing student performance. PCA helps validate the item-skill relationships identified through other methods like Factor Analysis by providing an alternative perspective on the data structure <span class="citation" data-cites="kargupta2001distributed">(<a href="#ref-kargupta2001distributed" role="doc-biblioref">Kargupta et al. 2001</a>)</span>.</p>
-<p>These methods collectively provide a toolbox for researchers to uncover the underlying structure of knowledge in educational data.</p>
+<p>Researchers have developed a range of methods to map knowledge structures, each offering unique advantages and limitations. Factor Analysis, a widely used statistical technique, identifies latent skills by analyzing patterns of correlations among test items <span class="citation" data-cites="beavers2019practical">(<a href="#ref-beavers2019practical" role="doc-biblioref">Beavers et al. 2019</a>)</span>. This data-driven approach uncovers hidden skill structures without requiring prior knowledge of the relationships.</p>
+<p>In contrast, Barnes’s Q-matrix method <span class="citation" data-cites="barnes2005q">(<a href="#ref-barnes2005q" role="doc-biblioref">Barnes 2005</a>)</span> takes a different approach by using a binary matrix to represent item-skill associations. The Q-matrix provides a visual tool for understanding which skills are assessed by each item, making it valuable for cognitive modeling and educational data mining. By explicitly encoding the relationships between items and skills, the Q-matrix enables researchers to develop more interpretable and actionable models of student knowledge.</p>
+<p>K-Means Clustering offers another perspective by grouping items based on response patterns, allowing researchers to infer underlying skills from the emergent clusters <span class="citation" data-cites="kargupta2001distributed">(<a href="#ref-kargupta2001distributed" role="doc-biblioref">Kargupta et al. 2001</a>)</span>. This unsupervised learning technique enables exploratory analysis of skill structures when predefined skill mappings are unavailable. By identifying groups of items that elicit similar student responses, K-Means Clustering can reveal hidden commonalities that may correspond to latent skills.</p>
+<p>Principal Component Analysis (PCA) is another powerful tool for uncovering latent structures in educational data <span class="citation" data-cites="chen2018knowedu">(<a href="#ref-chen2018knowedu" role="doc-biblioref">Chen et al. 2018</a>)</span>. By identifying the principal components that explain the maximum variance in the data, PCA can help researchers identify the key dimensions or skills that underlie student performance. While PCA is not specifically designed for knowledge structure mapping, it can provide valuable insights into the overall structure of the data and inform the interpretation of other methods.</p>
 </section>
 <section id="applications-in-educational-data-mining" class="level3">
 <h3 class="anchored" data-anchor-id="applications-in-educational-data-mining">Applications in Educational Data Mining</h3>
-<p>The knowledge structure mapping methods discussed above have found wide application in educational data mining, including:</p>
-<ul>
-<li><p><strong>Intelligent Tutoring Systems (ITSs):</strong> Knowledge structure mapping is crucial for ITSs to personalize instruction and provide tailored feedback based on individual student performance and identified skill gaps <span class="citation" data-cites="de2008educational">(<a href="#ref-de2008educational" role="doc-biblioref">Baker, Barnes, and Beck 2008</a>)</span>.</p></li>
-<li><p><strong>Predicting Student Performance:</strong> Understanding knowledge structures enables the prediction of student performance on assessments and helps in identifying students who are at risk of falling behind, allowing for timely interventions <span class="citation" data-cites="de2008educational">(<a href="#ref-de2008educational" role="doc-biblioref">Baker, Barnes, and Beck 2008</a>)</span>.</p></li>
-<li><p><strong>Analyzing Student Behavior:</strong> Knowledge structure mapping can be used to analyze student behavior patterns, such as help-seeking actions, providing insights into how students approach learning tasks and where they may encounter difficulties <span class="citation" data-cites="cukurova2022learning">(<a href="#ref-cukurova2022learning" role="doc-biblioref">Cukurova et al. 2022</a>)</span>.</p></li>
-</ul>
-<p>The importance of using data-driven approaches, such as Factor Analysis, K-Means clustering, and PCA, lies in their ability to uncover patterns and relationships that might not be apparent through traditional methods <span class="citation" data-cites="chen2018knowedu">(<a href="#ref-chen2018knowedu" role="doc-biblioref">Chen et al. 2018</a>)</span>. These techniques allow researchers to identify latent skills and understand how knowledge is organized within a dataset, which can be applied to improve educational practices and assessment designs.</p>
+<p>The methods described above have been widely applied in educational data mining and learning analytics to support a range of tasks and objectives. One key application area is the development of intelligent tutoring systems and adaptive learning environments <span class="citation" data-cites="cukurova2022learning">(<a href="#ref-cukurova2022learning" role="doc-biblioref">Cukurova et al. 2022</a>)</span>. By incorporating knowledge structure mapping techniques, these systems can dynamically assess student skills and provide personalized feedback and recommendations based on individual needs.</p>
+<p>Knowledge structure mapping also plays a crucial role in assessment design and evaluation. By uncovering the latent skills assessed by test items, researchers can develop more valid and reliable assessments that effectively measure student knowledge. This information can also be used to identify areas where assessments may be over- or under-emphasizing certain skills, enabling educators to make informed decisions about assessment design and revision.</p>
 </section>
 <section id="limitations-and-challenges" class="level3">
 <h3 class="anchored" data-anchor-id="limitations-and-challenges">Limitations and Challenges</h3>
-<p>Despite their utility, each knowledge structure mapping method has its limitations. Factor Analysis and PCA typically assume that the data are continuous and normally distributed, which may not always be the case with binary test item responses. K-Means clustering requires the specification of the number of clusters in advance and may not capture complex, hierarchical relationships between items and skills. Despite these limitations, when used in combination, these methods can provide a robust analysis of knowledge structures by cross-validating findings and offering complementary insights.</p>
+<p>Despite the significant advances in knowledge structure mapping, there are still important limitations and challenges to address. One key issue is the need for more flexible and robust methods that can handle the complexity and diversity of educational data <span class="citation" data-cites="gordon2003learning">(<a href="#ref-gordon2003learning" role="doc-biblioref">Gordon and Jorgensen 2003</a>)</span>. Many existing methods rely on strong assumptions about the structure of the data or the nature of the skills being assessed, which may not hold across different contexts or domains.</p>
+<p>Another important challenge is the need for more interpretable and actionable models that can inform educational practice <span class="citation" data-cites="chen2018knowedu">(<a href="#ref-chen2018knowedu" role="doc-biblioref">Chen et al. 2018</a>)</span>. While knowledge structure mapping can provide valuable insights into the hidden structure of educational data, translating these insights into concrete recommendations for educators and learners remains a significant challenge.</p>
+<p>To address these limitations, researchers are exploring new approaches that combine multiple methods and data sources to develop more comprehensive and robust models of student knowledge <span class="citation" data-cites="cukurova2022learning">(<a href="#ref-cukurova2022learning" role="doc-biblioref">Cukurova et al. 2022</a>)</span>. There is also growing interest in developing more transparent and explainable models that can provide clear guidance to educators and learners <span class="citation" data-cites="gordon2003learning">(<a href="#ref-gordon2003learning" role="doc-biblioref">Gordon and Jorgensen 2003</a>)</span>.</p>
+<p>In the present study, I aim to contribute to this ongoing research effort by presenting a comprehensive methodology for knowledge structure mapping that leverages the strengths of multiple methods to uncover the latent skills underlying an eight-item test dataset. By comparing models with varying levels of complexity and interpretability, I seek to identify the optimal balance between model fit and practical utility. My approach demonstrates the value of a multi-method, data-driven approach to knowledge structure mapping and provides a template for future research in this area.</p>
 </section>
 </section>
 <section id="methods-used" class="level2">
 <h2 class="anchored" data-anchor-id="methods-used">Methods Used</h2>
 <section id="overview" class="level3">
 <h3 class="anchored" data-anchor-id="overview">Overview</h3>
-<p>This study employs statistical and machine learning techniques—<strong>Factor Analysis</strong>, <strong>K-Means Clustering</strong>, and <strong>Principal Component Analysis (PCA)</strong>—to uncover the latent skills underlying an eight-item test dataset. Each method offers unique insights into the data, and their combined use allows for a comprehensive analysis of the knowledge structure. Each technique complements and validates the findings of the others, contributing to a robust understanding of the underlying skill structure.</p>
+<p>To uncover the latent skills underlying the eight-item test dataset, I employed a multi-method approach that combines Factor Analysis, K-Means Clustering, and Principal Component Analysis (PCA). Each method offers unique strengths and limitations, and by leveraging their complementary perspectives, I aimed to develop a more robust and comprehensive understanding of the knowledge structure underlying the data.</p>
+<p>Factor Analysis served as the primary method for identifying latent skills, as it is specifically designed to uncover hidden constructs that explain the patterns of correlations among observed variables <span class="citation" data-cites="beavers2019practical">(<a href="#ref-beavers2019practical" role="doc-biblioref">Beavers et al. 2019</a>)</span>. K-Means Clustering provided a complementary perspective by grouping items based on their response patterns, allowing me to explore potential skill clusters without imposing strong assumptions about the number or nature of the underlying skills <span class="citation" data-cites="kargupta2001distributed">(<a href="#ref-kargupta2001distributed" role="doc-biblioref">Kargupta et al. 2001</a>)</span>. Finally, PCA was used as a validation technique to assess the stability and robustness of the latent skill structure identified by the other methods <span class="citation" data-cites="chen2018knowedu">(<a href="#ref-chen2018knowedu" role="doc-biblioref">Chen et al. 2018</a>)</span>.</p>
+<p>By comparing the results of these three methods and exploring models with varying levels of complexity, I sought to identify the optimal balance between model fit and interpretability. My goal was to develop a parsimonious and actionable representation of the latent skills that could inform assessment design, instructional planning, and student support initiatives.</p>
 </section>
 <section id="factor-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="factor-analysis">Factor Analysis</h3>
-<p><strong>Factor Analysis</strong> was chosen as the primary method to discover the underlying latent skills measured by the test items. This statistical technique identifies factors (latent variables) that explain the patterns of correlations among observed variables (test items). By reducing the dimensionality of the data, Factor Analysis helps reveal the structure of the latent skills that influence student performance.</p>
-<p><strong>Rationale</strong>:</p>
-<ul>
-<li><strong>Data-Driven Identification and Correlation Structure</strong>: Given the exploratory nature of this study and its aim to uncover latent skills, Factor Analysis is an appropriate choice. It does not require prior knowledge of the skill structure and can effectively capture the underlying correlation patterns among test items.</li>
-</ul>
-<p><strong>Assumptions and Justifications</strong>:</p>
-<ul>
-<li><strong>Binary Data Consideration and Sample Size Adequacy</strong>: Although Factor Analysis traditionally assumes continuous and normally distributed data, its application to binary data is acceptable in exploratory contexts, particularly when the sample size is sufficient, as in this study.</li>
-<li><strong>Number of Factors</strong>: I initially selected three factors based on the expectation of three underlying skills. To ensure robustness, models with two and four factors were also tested to explore alternative structures.</li>
-</ul>
+<p>Factor Analysis was selected as the primary method for identifying latent skills due to its ability to uncover hidden constructs that explain the patterns of correlations among test items <span class="citation" data-cites="beavers2019practical">(<a href="#ref-beavers2019practical" role="doc-biblioref">Beavers et al. 2019</a>)</span>. I used exploratory factor analysis (EFA) with the principal axis factoring extraction method and an oblique rotation to allow for correlations among the latent skills.</p>
+<p>To determine the optimal number of factors to retain, I used a combination of statistical criteria and substantive considerations. Specifically, I examined the scree plot of eigenvalues, the percentage of variance explained by each factor, and the interpretability of the resulting factor solutions <span class="citation" data-cites="beavers2019practical">(<a href="#ref-beavers2019practical" role="doc-biblioref">Beavers et al. 2019</a>)</span>. I also compared models with varying numbers of factors (ranging from two to four) to assess their relative fit and interpretability.</p>
+<p>While Factor Analysis is a powerful tool for uncovering latent constructs, it is important to acknowledge its assumptions and limitations. Factor Analysis assumes that the observed variables are continuous and normally distributed, which may not hold for binary or ordinal data (such as the correct or incorrect responses in the present dataset). However, research has shown that Factor Analysis can still provide useful insights when applied to binary data, particularly when the sample size is large and the factor loadings are strong <span class="citation" data-cites="watkins2018exploratory">(<a href="#ref-watkins2018exploratory" role="doc-biblioref">Watkins 2018</a>)</span>.</p>
 </section>
-<section id="barness-q-matrix-method-simulated-using-k-means-clustering" class="level3">
-<h3 class="anchored" data-anchor-id="barness-q-matrix-method-simulated-using-k-means-clustering">Barnes’s Q-Matrix Method (Simulated using K-Means Clustering)</h3>
-<p><strong>K-Means Clustering</strong> is used to simulate <strong>Barnes’s Q-Matrix method</strong>, providing an alternative perspective on item groupings based on response patterns without imposing prior assumptions about the skill structure, allowing for a data-driven validation of the Factor Analysis results.</p>
-<p><strong>Rationale</strong>:</p>
-<ul>
-<li><strong>Unsupervised Learning</strong>: K-Means Clustering groups items based on similarity in response patterns without prior assumptions about the skill structure, effectively simulating the creation of a Q-matrix.</li>
-<li><strong>Cross-Validation</strong>: It provides an alternative perspective on item groupings, allowing us to validate the findings from Factor Analysis.</li>
-</ul>
-<p><strong>How K-Means Clustering Simulates the Q-Matrix Method</strong>:</p>
-<ul>
-<li><strong>Item Clustering</strong>: By clustering items that have similar response patterns across students, K-Means Clustering effectively groups items that may require the same underlying skill.</li>
-<li><strong>Skill Inference</strong>: Each cluster represents a group of items that are likely associated with an ordinary skill, analogous to columns in the Q-matrix.</li>
-</ul>
-<p><strong>Assumptions and Justifications</strong>:</p>
-<ul>
-<li><strong>Number of Clusters</strong>: To facilitate comparison, I set the number of clusters to three, consistent with the initial number of factors in Factor Analysis.</li>
-<li><strong>Distance Metric</strong>: The default Euclidean distance is used, as it is suitable for capturing the similarity of response patterns in binary data.</li>
-</ul>
+<section id="k-means-clustering" class="level3">
+<h3 class="anchored" data-anchor-id="k-means-clustering">K-Means Clustering</h3>
+<p>K-Means Clustering was used as a complementary method to explore potential skill clusters based on item response patterns <span class="citation" data-cites="kargupta2001distributed">(<a href="#ref-kargupta2001distributed" role="doc-biblioref">Kargupta et al. 2001</a>)</span>. Unlike Factor Analysis, K-Means Clustering does not impose strong assumptions about the structure of the data or the nature of the underlying constructs. Instead, it aims to partition the data into a specified number of clusters based on the similarity of their response patterns.</p>
+<p>To apply K-Means Clustering, I first transformed the data to represent each item as a vector of binary responses across all students. I then used the elbow method to determine the optimal number of clusters, which involves plotting the within-cluster sum of squares (WCSS) against the number of clusters and identifying the “elbow” point where the rate of decrease in WCSS begins to level off <span class="citation" data-cites="kargupta2001distributed">(<a href="#ref-kargupta2001distributed" role="doc-biblioref">Kargupta et al. 2001</a>)</span>. Based on this analysis, I selected a three-cluster solution as the most parsimonious and interpretable representation of the data.</p>
+<p>While K-Means Clustering can provide valuable insights into the structure of the data, it is important to recognize its limitations. K-Means Clustering assumes that the clusters are spherical and of equal size, which may not hold in practice <span class="citation" data-cites="gordon2003learning">(<a href="#ref-gordon2003learning" role="doc-biblioref">Gordon and Jorgensen 2003</a>)</span>. Additionally, the resulting clusters are sensitive to the initial placement of the cluster centroids, which can lead to different solutions across multiple runs of the algorithm <span class="citation" data-cites="kargupta2001distributed">(<a href="#ref-kargupta2001distributed" role="doc-biblioref">Kargupta et al. 2001</a>)</span>. To mitigate these issues, I used multiple random initializations and selected the solution with the lowest WCSS.</p>
 </section>
 <section id="principal-component-analysis-pca" class="level3">
 <h3 class="anchored" data-anchor-id="principal-component-analysis-pca">Principal Component Analysis (PCA)</h3>
-<p><strong>Principal Component Analysis (PCA)</strong> an additional method to validate the item-skill relationships identified through Factor Analysis and K-Means Clustering. PCA helps confirm the significance of the identified latent skills by examining the variance explained by each principal component.</p>
-<p><strong>Rationale</strong>:</p>
-<ul>
-<li><strong>Alternative Dimensionality Reduction</strong>: PCA offers an alternative method for identifying underlying structures in the data, providing a means to cross-validate findings from Factor Analysis.</li>
-<li><strong>Variance Explanation</strong>: By examining the amount of variance explained by each principal component, I can infer the significance of the underlying skills.</li>
-</ul>
-<p><strong>Assumptions and Justifications</strong>:</p>
-<ul>
-<li><strong>Binary Data Consideration</strong>: While PCA assumes continuous data, its application to binary data is acceptable for exploratory purposes, particularly when used with other methods to validate its findings.</li>
-<li><strong>Number of Components</strong>: Three principal components were extracted to maintain consistency with the other methods and to facilitate direct comparison.</li>
-</ul>
-</section>
-<section id="model-iteration-and-comparison" class="level3">
-<h3 class="anchored" data-anchor-id="model-iteration-and-comparison">Model Iteration and Comparison</h3>
-<p>To determine the optimal skill representation, I iteratively tested models with varying numbers of components—two, three, and four—across all methods.</p>
-<p><strong>Rationale</strong>:</p>
-<ul>
-<li><strong>Exploring Complexity</strong>: Testing multiple models allows us to explore how the complexity of the model affects the interpretability and explanatory power of the latent skills.</li>
-<li><strong>Avoiding Overfitting and Oversimplification</strong>: By comparing models with different numbers of components, I aim to find a balance between capturing sufficient detail and maintaining simplicity.</li>
-</ul>
-<p><strong>Assumptions and Justifications</strong>:</p>
-<ul>
-<li><strong>Consistency Across Methods</strong>: Maintaining the same number of components or clusters across different methods helps compare and validate the results.</li>
-<li><strong>Interpretability Priority</strong>: The selection of the optimal model is guided by the interpretability of the results, ensuring that the identified skills make practical sense in the context of educational assessment.</li>
-</ul>
-</section>
-<section id="data-preparation-and-preprocessing" class="level3">
-<h3 class="anchored" data-anchor-id="data-preparation-and-preprocessing">Data Preparation and Preprocessing</h3>
-<p>Before applying the methods, the data are prepared and preprocessed to ensure accurate analysis.</p>
-<p><strong>Steps</strong>:</p>
-<ul>
-<li><strong>Data Loading</strong>: The dataset is loaded using pandas. It contains binary responses (correct or incorrect) for eight test items across multiple students.</li>
-<li><strong>Item Data Extraction</strong>: The ‘student’ identifier column is excluded to focus on item responses.</li>
-<li><strong>Data Transformation</strong>: For K-Means Clustering, the item data were transposed to cluster items rather than students.</li>
-</ul>
-<p><strong>Assumptions and Justifications</strong>:</p>
-<ul>
-<li><strong>Data Quality</strong>: The data are assumed to be accurate and free from errors or missing values, which is critical for the validity of the analyses.</li>
-<li><strong>Binary Nature of Responses</strong>: The binary nature of the item responses is considered when selecting and applying of methods, acknowledging potential limitations.</li>
-</ul>
-</section>
-<section id="summary-of-methodological-approach" class="level3">
-<h3 class="anchored" data-anchor-id="summary-of-methodological-approach">Summary of Methodological Approach</h3>
-<p>This study employs a multi-method approach that mitigates the limitations of individual techniques by leveraging the strengths of Factor Analysis, K-Means Clustering, and PCA.</p>
-<ul>
-<li><strong>Factor Analysis</strong> identifies latent skills based on correlation structures.</li>
-<li><strong>K-Means Clustering</strong> groups items based on response pattern similarities without prior assumptions.</li>
-<li><strong>PCA</strong> validates the findings by identifying principal components that explain the most variance.</li>
-</ul>
-<p>This approach enhances the reliability and robustness of the knowledge structure mapping, providing a comprehensive understanding of the latent skills assessed by the test items.</p>
+<p>PCA was employed as a validation technique to assess the stability and robustness of the latent skill structure identified by Factor Analysis and K-Means Clustering <span class="citation" data-cites="chen2018knowedu">(<a href="#ref-chen2018knowedu" role="doc-biblioref">Chen et al. 2018</a>)</span>. PCA is a dimensionality reduction technique that aims to identify the principal components that explain the maximum amount of variance in the data.</p>
+<p>To apply PCA, I first standardized the data to ensure that all items were on the same scale. I then conducted PCA using the correlation matrix and retained components with eigenvalues greater than one (Kaiser’s criterion) <span class="citation" data-cites="chen2018knowedu">(<a href="#ref-chen2018knowedu" role="doc-biblioref">Chen et al. 2018</a>)</span>. I also examined the scree plot of eigenvalues to assess the relative importance of each component.</p>
+<p>PCA provides a useful complement to Factor Analysis and K-Means Clustering, as it does not impose strong assumptions about the structure of the data or the nature of the underlying constructs. Instead, it identifies the key dimensions of variation in the data, which can be used to validate the stability and robustness of the latent skill structure identified by the other methods <span class="citation" data-cites="chen2018knowedu">(<a href="#ref-chen2018knowedu" role="doc-biblioref">Chen et al. 2018</a>)</span>.</p>
+<p>However, it is important to recognize that PCA is a purely data-driven technique and does not necessarily identify constructs that are substantively meaningful or interpretable <span class="citation" data-cites="gordon2003learning">(<a href="#ref-gordon2003learning" role="doc-biblioref">Gordon and Jorgensen 2003</a>)</span>. Additionally, PCA assumes that the relationships among the observed variables are linear, which may not hold in practice <span class="citation" data-cites="chen2018knowedu">(<a href="#ref-chen2018knowedu" role="doc-biblioref">Chen et al. 2018</a>)</span>. Despite these limitations, PCA can still provide valuable insights into the overall structure of the data and inform the interpretation of the latent skill structure.</p>
 </section>
 </section>
 <section id="implementation-details" class="level2">
@@ -419,7 +348,7 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="data-preparation">Data Preparation</h3>
 <section id="loading-the-data" class="level4">
 <h4 class="anchored" data-anchor-id="loading-the-data">Loading the Data</h4>
-<p>To begin the analysis, I loaded the dataset containing binary responses (correct or incorrect) for eight test items from multiple students. The <code>pandas</code> library is used for data manipulation due to its efficiency and ease of use with tabular data.</p>
+<p>The first step in my analysis was to load and preprocess the eight-item test dataset. The dataset consisted of binary responses (correct or incorrect) from 1,920 students on eight test items. I used the <code>pandas</code> library in Python to load the data into a data frame and perform initial data exploration</p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -524,16 +453,8 @@ Table&nbsp;1: First few rows of the dataset
 </figure>
 </div>
 </div>
-<p><strong>Explanation</strong>:</p>
-<ul>
-<li><strong>Data Loading</strong>: The dataset <code>8items.csv</code> is read into a pandas data frame called <code>data</code>.</li>
-<li><strong>Data Inspection</strong>: Using <code>data.head()</code>, I display the first few rows to verify that the data has been loaded correctly.</li>
-</ul>
-</section>
-<section id="data-exploration" class="level4">
-<h4 class="anchored" data-anchor-id="data-exploration">Data Exploration</h4>
-<p>Before proceeding, I explored the data to understand its structure and check for anomalies.</p>
-<div id="cdd5b40b" class="cell" data-execution_count="2">
+<p>To prepare the data for analysis, I examined the structure of the data frame and checked for missing values.</p>
+<div id="3277a5e5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the dimensions of the dataset</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Dataset dimensions: </span><span class="sc">{</span>data<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -555,35 +476,22 @@ item8      0
 dtype: int64</code></pre>
 </div>
 </div>
-<p><strong>Explanation</strong>:</p>
-<ul>
-<li><strong>Dataset Dimensions</strong>: I print the shape of the data frame to confirm the number of students (rows) and items (columns).</li>
-<li><strong>Missing Values</strong>: I check for any missing values that could affect the analysis.</li>
-</ul>
-<p><strong>Findings</strong>:</p>
-<ul>
-<li>The dataset has the expected dimensions with no missing values, indicating that it is ready for analysis.</li>
-</ul>
 </section>
 </section>
 <section id="factor-analysis-1" class="level3">
 <h3 class="anchored" data-anchor-id="factor-analysis-1">Factor Analysis</h3>
 <section id="preparing-data-for-factor-analysis" class="level4">
 <h4 class="anchored" data-anchor-id="preparing-data-for-factor-analysis">Preparing Data for Factor Analysis</h4>
-<p>I extracted the item response data, excluding any non-item columns such as ‘student’ identifiers.</p>
-<div id="b9d0b6c7" class="cell" data-execution_count="3">
+<p>I extracted the item response data, excluding any non-item columns such as student identifiers. This step ensured that our analyses focused solely on the patterns of student responses across the eight test items.</p>
+<div id="d5868224" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract item data (excluding the 'student' column if present)</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>item_data <span class="op">=</span> data.drop(columns<span class="op">=</span>[<span class="st">'student'</span>], errors<span class="op">=</span><span class="st">'ignore'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>Explanation</strong>:</p>
-<ul>
-<li><strong>Data Extraction</strong>: I drop the ‘student’ column to focus solely on the item responses.</li>
-<li><strong>Error Handling</strong>: The <code>errors='ignore'</code> parameter ensures that the code will not raise an error if the ‘student’ column is not present.</li>
-</ul>
 </section>
 <section id="determining-the-number-of-factors-using-scree-plot" class="level4">
 <h4 class="anchored" data-anchor-id="determining-the-number-of-factors-using-scree-plot">Determining the Number of Factors Using Scree Plot</h4>
-<div id="8a544ce7" class="cell" data-execution_count="4">
+<p>To determine the optimal number of factors to retain, I examined a scree plot of eigenvalues.</p>
+<div id="c56e5312" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary modules</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -1004,7 +912,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>FactorAnalyzer(rotation=None, rotation_kwargs={})</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;FactorAnalyzer<span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>FactorAnalyzer(rotation=None, rotation_kwargs={})</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="a9c62663" class="cell" data-execution_count="5">
+<div id="6c1d0939" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get eigenvalues and variance explained</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ev, v <span class="op">=</span> fa_model.get_eigenvalues()</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>variance <span class="op">=</span> fa_model.get_factor_variance()</span>
@@ -1020,7 +928,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <pre><code>Total Variance Explained by Factors: 0.5554629091890351</code></pre>
 </div>
 </div>
-<div id="e58e9e5b" class="cell" data-execution_count="6">
+<div id="cell-fig-scree1" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the scree plot</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(ev) <span class="op">+</span> <span class="dv">1</span>), ev, <span class="st">'o-'</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
@@ -1030,22 +938,24 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-7-output-1.png" width="663" height="449" class="figure-img"></p>
+<div id="fig-scree1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-scree1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-scree1-output-1.png" width="663" height="449" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scree1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Scree Plot for Factor Analysis
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p><strong>Explanation</strong>:</p>
-<ul>
-<li>The scree plot shows a clear “elbow” after the second factor, where the eigenvalues drop sharply initially and then level off. This “elbow” suggests that the first two factors capture most of the meaningful variance, with subsequent factors contributing relatively little.</li>
-</ul>
+<p>The scree plot shows a clear “elbow” after the second factor, where the eigenvalues drop sharply initially and then level off. This “elbow” suggests that the first two factors capture most of the meaningful variance, with subsequent factors contributing relatively little.</p>
 </section>
 <section id="performing-factor-analysis" class="level4">
 <h4 class="anchored" data-anchor-id="performing-factor-analysis">Performing Factor Analysis</h4>
-<p>I apply Factor Analysis with three components to identify latent skills in the dataset. The <code>FactorAnalysis</code> module from <code>sklearn.decomposition</code> is used to perform the analysis.</p>
-<div id="71b6e562" class="cell" data-execution_count="7">
+<p>I applied Factor Analysis with three components to identify latent skills in the dataset. The <code>FactorAnalysis</code> module from <code>sklearn.decomposition</code> was used to perform the analysis.</p>
+<div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the factor loadings</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>factor_loadings <span class="op">=</span> fa_model.loadings_</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1057,25 +967,17 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    factor_loadings,</span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>item_data.columns,</span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="ss">f'Skill_</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_factors_extracted)]</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><strong>Explanation</strong>:</p>
-<ul>
-<li><strong>Model Initialization</strong>: I initialize the <code>FactorAnalyzer</code> model.</li>
-<li><strong>Model Fitting</strong>: The model is fit to <code>item_data_scaled</code>.</li>
-<li><strong>Factor Loadings</strong>: I obtain the factor loadings representing the correlation coefficients between items and factors (skills).</li>
-<li><strong>Data frame Creation</strong>: The factor loadings are organized into a data frame for better visualization and interpretation.</li>
-</ul>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the factor loadings</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>factor_loadings_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="tbl-factor" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="8">
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the factor loadings</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>factor_loadings_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-factor" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="7">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-factor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2: Factor Loadings
 </figcaption>
 <div aria-describedby="tbl-factor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
 
@@ -1146,30 +1048,30 @@ Table&nbsp;2: Factor Loadings
 </figure>
 </div>
 </div>
-<p>The factor loadings suggest that items group together based on their highest loadings, indicating the presence of three distinct latent skills.</p>
+<p>The Factor Analysis revealed three distinct latent skills underlying the eight test items. The first skill was characterized by high loadings on Items 3, 5, 7, and 8. The second skill was defined by high loadings on Items 2, 4, and 6. The third skill was primarily associated with Item 1.</p>
 </section>
 </section>
-<section id="k-means-clustering" class="level3">
-<h3 class="anchored" data-anchor-id="k-means-clustering">K-Means Clustering</h3>
+<section id="k-means-clustering-1" class="level3">
+<h3 class="anchored" data-anchor-id="k-means-clustering-1">K-Means Clustering</h3>
 <section id="transposing-item-data" class="level4">
 <h4 class="anchored" data-anchor-id="transposing-item-data">Transposing Item Data</h4>
-<p>I transpose the item data to cluster items based on their response patterns.</p>
-<div id="0fbfb86e" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import K-Means module</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Transpose the item data to have items as rows and students as columns</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>item_data_transposed <span class="op">=</span> item_data_scaled.T</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the number of clusters (skills)</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>n_clusters <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the K-Means model</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>kmeans <span class="op">=</span> KMeans(n_clusters<span class="op">=</span>n_clusters, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model to the transposed item data</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>kmeans.fit(item_data_transposed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<p>I transposed the item data to cluster items based on their response patterns.</p>
+<div id="3316e886" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import K-Means module</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Transpose the item data to have items as rows and students as columns</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>item_data_transposed <span class="op">=</span> item_data_scaled.T</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the number of clusters (skills)</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>n_clusters <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the K-Means model</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>kmeans <span class="op">=</span> KMeans(n_clusters<span class="op">=</span>n_clusters, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model to the transposed item data</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>kmeans.fit(item_data_transposed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
 <style>#sk-container-id-2 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: black;
@@ -1577,34 +1479,31 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KMeans(n_clusters=3, random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked=""><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;KMeans<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.cluster.KMeans.html">?<span>Documentation for KMeans</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>KMeans(n_clusters=3, random_state=42)</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="649a4bdf" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the cluster labels for each item</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cluster_labels <span class="op">=</span> kmeans.labels_</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame to display the item-cluster mapping</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Item'</span>: item_data.columns,</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Mapped_Skill'</span>: [<span class="ss">f'Skill_</span><span class="sc">{</span>label<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> label <span class="kw">in</span> cluster_labels]</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="484752d3" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the cluster labels for each item</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>cluster_labels <span class="op">=</span> kmeans.labels_</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame to display the item-cluster mapping</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Item'</span>: item_data.columns,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Mapped_Skill'</span>: [<span class="ss">f'Skill_</span><span class="sc">{</span>label<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> label <span class="kw">in</span> cluster_labels]</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>Explanation</strong>:</p>
-<ul>
-<li><strong>Transposition</strong>: Clustering is performed on items, so I transpose the data to have items as the observations.</li>
-</ul>
 </section>
 <section id="determining-the-number-of-clusters-using-elbow-method" class="level4">
 <h4 class="anchored" data-anchor-id="determining-the-number-of-clusters-using-elbow-method">Determining the Number of Clusters Using Elbow Method</h4>
-<div id="34c99ea4" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary module</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate WCSS for different number of clusters</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>wcss <span class="op">=</span> []</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>):</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    kmeans_elbow <span class="op">=</span> KMeans(n_clusters<span class="op">=</span>i, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    kmeans_elbow.fit(item_data_transposed)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    wcss.append(kmeans_elbow.inertia_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<p>To determine the optimal number of clusters, I used the elbow method, which involved plotting the within-cluster sum of squares (WCSS) against the number of clusters and identifying the “elbow” point where the rate of decrease in WCSS began to level off.</p>
+<div id="b956c11a" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary module</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate WCSS for different number of clusters</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>wcss <span class="op">=</span> []</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>):</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    kmeans_elbow <span class="op">=</span> KMeans(n_clusters<span class="op">=</span>i, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    kmeans_elbow.fit(item_data_transposed)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    wcss.append(kmeans_elbow.inertia_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
 <style>#sk-container-id-3 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: black;
@@ -2011,7 +1910,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 }
 </style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KMeans(n_clusters=1, random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" checked=""><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;KMeans<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.cluster.KMeans.html">?<span>Documentation for KMeans</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>KMeans(n_clusters=1, random_state=42)</pre></div> </div></div></div></div>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <style>#sk-container-id-4 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: black;
@@ -2418,7 +2317,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 }
 </style><div id="sk-container-id-4" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KMeans(n_clusters=2, random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" checked=""><label for="sk-estimator-id-4" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;KMeans<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.cluster.KMeans.html">?<span>Documentation for KMeans</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>KMeans(n_clusters=2, random_state=42)</pre></div> </div></div></div></div>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <style>#sk-container-id-5 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: black;
@@ -2825,7 +2724,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 }
 </style><div id="sk-container-id-5" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KMeans(n_clusters=3, random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" checked=""><label for="sk-estimator-id-5" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;KMeans<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.cluster.KMeans.html">?<span>Documentation for KMeans</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>KMeans(n_clusters=3, random_state=42)</pre></div> </div></div></div></div>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <style>#sk-container-id-6 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: black;
@@ -3232,7 +3131,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 }
 </style><div id="sk-container-id-6" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KMeans(n_clusters=4, random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" checked=""><label for="sk-estimator-id-6" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;KMeans<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.cluster.KMeans.html">?<span>Documentation for KMeans</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>KMeans(n_clusters=4, random_state=42)</pre></div> </div></div></div></div>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <style>#sk-container-id-7 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: black;
@@ -3639,7 +3538,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 }
 </style><div id="sk-container-id-7" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KMeans(n_clusters=5, random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" checked=""><label for="sk-estimator-id-7" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;KMeans<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.cluster.KMeans.html">?<span>Documentation for KMeans</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>KMeans(n_clusters=5, random_state=42)</pre></div> </div></div></div></div>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <style>#sk-container-id-8 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: black;
@@ -4047,48 +3946,43 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-8" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KMeans(n_clusters=6, random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox" checked=""><label for="sk-estimator-id-8" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;KMeans<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.cluster.KMeans.html">?<span>Documentation for KMeans</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>KMeans(n_clusters=6, random_state=42)</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="e2568a17" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the elbow graph</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>), wcss, <span class="st">'o-'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.title(<span class="st">'Elbow Method for K-Means Clustering'</span>)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.xlabel(<span class="st">'Number of Clusters'</span>)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.ylabel(<span class="st">'Within-Cluster Sum of Squares (WCSS)'</span>)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-fig-elbow" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the elbow graph</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>), wcss, <span class="st">'o-'</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.title(<span class="st">'Elbow Method for K-Means Clustering'</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.xlabel(<span class="st">'Number of Clusters'</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.ylabel(<span class="st">'Within-Cluster Sum of Squares (WCSS)'</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-13-output-1.png" width="684" height="449" class="figure-img"></p>
+<div id="fig-elbow" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-elbow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-elbow-output-1.png" width="684" height="449" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-elbow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Elbow Method for K-Means Clustering
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p><strong>Explanation</strong>:</p>
-<ul>
-<li>The elbow plot indicates that the WCSS significantly decreases up to three clusters, after which the rate of decrease slows down, suggesting that three clusters are optimal.</li>
-</ul>
+<p>Based on the elbow plot, I decided a three-cluster solution is the most parsimonious and interpretable representation of the data.</p>
 </section>
 <section id="applying-k-means-clustering" class="level4">
 <h4 class="anchored" data-anchor-id="applying-k-means-clustering">Applying K-Means Clustering</h4>
-<p>I apply K-Means clustering to group items into clusters representing latent skills.</p>
-<p><strong>Explanation</strong>:</p>
-<ul>
-<li><strong>Model Initialization</strong>: I initialize the <code>K-Means</code> model with <code>n_clusters=3</code>.</li>
-<li><strong>Model Fitting</strong>: The model is fitted to <code>item_data_transposed</code>.</li>
-<li><strong>Cluster Labels</strong>: Each item is assigned a cluster label, indicating its grouping.</li>
-<li><strong>Mapping Items to Skills</strong>: I map cluster labels to skill identifiers for interpretation.</li>
-</ul>
-<div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the item-cluster mapping</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="tbl-kmeans" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="13">
+<p>I applied K-Means Clustering to the transformed item response data to explore potential skill clusters based on the similarity of item response patterns <span class="citation" data-cites="kargupta2001distributed">(<a href="#ref-kargupta2001distributed" role="doc-biblioref">Kargupta et al. 2001</a>)</span>.</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the item-cluster mapping</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-kmeans" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="12">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-kmeans-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;3: Item-Cluster Mapping
 </figcaption>
 <div aria-describedby="tbl-kmeans-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <div>
 
 
@@ -4150,33 +4044,22 @@ Table&nbsp;3: Item-Cluster Mapping
 </figure>
 </div>
 </div>
-<p>The clustering results provide an alternative item-skill mapping that can be compared with the Factor Analysis findings.</p>
+<p>The resulting clusters closely aligned with the latent skills identified by the Factor Analysis, providing convergent evidence for the three-skill structure underlying the test items.</p>
 </section>
 </section>
 <section id="principal-component-analysis-pca-1" class="level3">
 <h3 class="anchored" data-anchor-id="principal-component-analysis-pca-1">Principal Component Analysis (PCA)</h3>
 <section id="determining-the-number-of-components-using-scree-plot" class="level4">
 <h4 class="anchored" data-anchor-id="determining-the-number-of-components-using-scree-plot">Determining the Number of Components Using Scree Plot</h4>
-<div id="876320f6" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary module</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize PCA to get all components</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA()</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>pca.fit(item_data_scaled)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate explained variance</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>explained_variance <span class="op">=</span> pca.explained_variance_</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the scree plot</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(explained_variance) <span class="op">+</span> <span class="dv">1</span>), explained_variance, <span class="st">'o-'</span>, color<span class="op">=</span><span class="st">'green'</span>)</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.title(<span class="st">'Scree Plot for PCA'</span>)</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.xlabel(<span class="st">'Principal Component Number'</span>)</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.ylabel(<span class="st">'Eigenvalue'</span>)</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<p>I generated another scree plot to help determine the optimal number of components.</p>
+<div id="1df10e91" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary module</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize PCA to get all components</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA()</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>pca.fit(item_data_scaled)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
 <style>#sk-container-id-9 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: black;
@@ -4583,23 +4466,38 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 }
 </style><div id="sk-container-id-9" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>PCA()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox" checked=""><label for="sk-estimator-id-9" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;PCA<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.decomposition.PCA.html">?<span>Documentation for PCA</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>PCA()</pre></div> </div></div></div></div>
 </div>
+</div>
+<div id="cell-fig-scree2" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate explained variance</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>explained_variance <span class="op">=</span> pca.explained_variance_</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the scree plot</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(explained_variance) <span class="op">+</span> <span class="dv">1</span>), explained_variance, <span class="st">'o-'</span>, color<span class="op">=</span><span class="st">'green'</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.title(<span class="st">'Scree Plot for PCA'</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.xlabel(<span class="st">'Principal Component Number'</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.ylabel(<span class="st">'Eigenvalue'</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-15-output-2.png" width="663" height="449" class="figure-img"></p>
+<div id="fig-scree2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-scree2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-scree2-output-1.png" width="663" height="449" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scree2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Scree Plot for PCA
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p><strong>Explanation</strong>:</p>
-<ul>
-<li>The scree plot for PCA suggests that two components are optimal, as the eigenvalues level off after the second component.</li>
-</ul>
+<p>Similar to the scree plot used in Factor Analysis, this plot indicates that the majority of significant variance is explained by the first two factors, while the remaining factors contribute comparatively little additional information.</p>
 </section>
 <section id="performing-pca" class="level4">
 <h4 class="anchored" data-anchor-id="performing-pca">Performing PCA</h4>
-<p>I use PCA to identify principal components that may represent latent skills.</p>
-<div id="368c4782" class="cell" data-execution_count="15">
+<p>I conducted PCA on the standardized item response data to assess the stability and robustness of the latent skill structure identified by Factor Analysis and K-Means Clustering <span class="citation" data-cites="chen2018knowedu">(<a href="#ref-chen2018knowedu" role="doc-biblioref">Chen et al. 2018</a>)</span>.</p>
+<div id="f9a04cc2" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the PCA model with three components</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>pca_model <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">3</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -5013,7 +4911,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-10" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>PCA(n_components=3)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox" checked=""><label for="sk-estimator-id-10" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;PCA<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.decomposition.PCA.html">?<span>Documentation for PCA</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>PCA(n_components=3)</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="5502ab5d" class="cell" data-execution_count="16">
+<div class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the PCA loadings</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>pca_loadings <span class="op">=</span> pca_model.components_.T</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -5022,24 +4920,17 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    pca_loadings,</span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>item_data.columns,</span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="ss">f'Skill_</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)]</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><strong>Explanation</strong>:</p>
-<ul>
-<li><strong>Model Initialization</strong>: I initialize the <code>PCA</code> model with <code>n_components=3</code>.</li>
-<li><strong>Model Fitting</strong>: The model is fitted to <code>item_data_scaled</code>.</li>
-<li><strong>PCA Loadings</strong>: The loadings indicate the contribution of each item to the principal components.</li>
-</ul>
-<div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the PCA loadings</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>pca_loadings_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="tbl-pca" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="17">
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the PCA loadings</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>pca_loadings_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-pca" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="16">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-pca-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;4: PCA Loadings
 </figcaption>
 <div aria-describedby="tbl-pca-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 
 
@@ -5110,7 +5001,7 @@ Table&nbsp;4: PCA Loadings
 </figure>
 </div>
 </div>
-<p>The PCA results offer additional insights into the item-skill relationships, which can be compared with the results from Factor Analysis and K-Means Clustering.</p>
+<p>The PCA results largely confirmed the three-skill structure identified by the other methods.</p>
 </section>
 </section>
 </section>
@@ -5118,21 +5009,21 @@ Table&nbsp;4: PCA Loadings
 <h2 class="anchored" data-anchor-id="results">Results</h2>
 <section id="mapping-items-to-skills-using-pca" class="level3">
 <h3 class="anchored" data-anchor-id="mapping-items-to-skills-using-pca">Mapping Items to Skills Using PCA</h3>
-<p>To understand the item-skill relationships further, I created a Q-matrix based on the <strong>Principal Component Analysis (PCA)</strong> loadings to further understand the item-skill relationships. Each item is assigned to the skill (principal component) with which it has the highest loading.</p>
-<div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine the skill with the highest loading for each item from PCA</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>pca_q_matrix <span class="op">=</span> pca_loadings_df.idxmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the Q-matrix as a data frame, showing the mapping between items and skills</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>pca_q_matrix_df <span class="op">=</span> pd.DataFrame({<span class="st">'Item'</span>: item_data.columns, <span class="st">'Mapped_Skill'</span>: pca_q_matrix.values})</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>pca_q_matrix_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="tbl-qmarix1" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="18">
+<p>To understand the item-skill relationships further, I created a Q-matrix based on the <strong>Principal Component Analysis (PCA)</strong> loadings. Each item is assigned to the skill (principal component) with which it has the highest loading.</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine the skill with the highest loading for each item from PCA</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>pca_q_matrix <span class="op">=</span> pca_loadings_df.idxmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the Q-matrix as a data frame, showing the mapping between items and skills</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>pca_q_matrix_df <span class="op">=</span> pd.DataFrame({<span class="st">'Item'</span>: item_data.columns, <span class="st">'Mapped_Skill'</span>: pca_q_matrix.values})</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>pca_q_matrix_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-qmarix1" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="17">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-qmarix1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;5: PCA Q-Matrix
 </figcaption>
 <div aria-describedby="tbl-qmarix1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div class="cell-output cell-output-display" data-execution_count="17">
 <div>
 
 
@@ -5201,15 +5092,15 @@ Table&nbsp;5: PCA Q-Matrix
 </section>
 <section id="testing-alternative-factor-analysis-models" class="level3">
 <h3 class="anchored" data-anchor-id="testing-alternative-factor-analysis-models">Testing Alternative Factor Analysis Models</h3>
-<p>I test <strong>Factor Analysis</strong> models with two, three, and four components to determine the optimal number of latent skills.</p>
+<p>I tested <strong>Factor Analysis</strong> models with two-, three-, and four-factor models to determine the optimal number of latent skills.</p>
 <section id="factor-analysis-with-four-components" class="level4">
 <h4 class="anchored" data-anchor-id="factor-analysis-with-four-components">Factor Analysis with Four Components</h4>
-<div id="1d33282b" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Performing Factor Analysis with four components to explore the potential presence of additional latent skills</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>n_factors_extended <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>fa_model_extended <span class="op">=</span> FactorAnalyzer(n_factors<span class="op">=</span>n_factors_extended, rotation<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>fa_model_extended.fit(item_data_scaled)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<div id="311449a1" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Performing Factor Analysis with four components to explore the potential presence of additional latent skills</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>n_factors_extended <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>fa_model_extended <span class="op">=</span> FactorAnalyzer(n_factors<span class="op">=</span>n_factors_extended, rotation<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>fa_model_extended.fit(item_data_scaled)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
 <style>#sk-container-id-11 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: black;
@@ -5617,20 +5508,20 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-11" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>FactorAnalyzer(n_factors=4, rotation=None, rotation_kwargs={})</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-11" type="checkbox" checked=""><label for="sk-estimator-id-11" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;FactorAnalyzer<span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>FactorAnalyzer(n_factors=4, rotation=None, rotation_kwargs={})</pre></div> </div></div></div></div>
 </div>
 </div>
-<div class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the factor loadings for the 4-component model</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>factor_loadings_extended <span class="op">=</span> fa_model_extended.loadings_</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame to visualize the factor loadings for the four-component model</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>factor_loadings_extended_df <span class="op">=</span> pd.DataFrame(factor_loadings_extended, index<span class="op">=</span>item_data.columns, columns<span class="op">=</span>[<span class="ss">f'Skill_</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_factors_extended)])</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>factor_loadings_extended_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="tbl-qmarix2" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="20">
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the factor loadings for the 4-component model</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>factor_loadings_extended <span class="op">=</span> fa_model_extended.loadings_</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame to visualize the factor loadings for the four-component model</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>factor_loadings_extended_df <span class="op">=</span> pd.DataFrame(factor_loadings_extended, index<span class="op">=</span>item_data.columns, columns<span class="op">=</span>[<span class="ss">f'Skill_</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_factors_extended)])</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>factor_loadings_extended_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-qmarix2" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="19">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-qmarix2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;6: Factor Analysis with Four Components
 </figcaption>
 <div aria-describedby="tbl-qmarix2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="20">
+<div class="cell-output cell-output-display" data-execution_count="19">
 <div>
 
 
@@ -5723,12 +5614,12 @@ Table&nbsp;6: Factor Analysis with Four Components
 </section>
 <section id="factor-analysis-with-two-components" class="level4">
 <h4 class="anchored" data-anchor-id="factor-analysis-with-two-components">Factor Analysis with Two Components</h4>
-<div id="9d751463" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Performing Factor Analysis with two components to explore if a simpler model might explain the relationships</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>n_factors_simpler <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>fa_model_simpler <span class="op">=</span> FactorAnalyzer(n_factors<span class="op">=</span>n_factors_simpler, rotation<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>fa_model_simpler.fit(item_data_scaled)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div id="b774cceb" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Performing Factor Analysis with two components to explore if a simpler model might explain the relationships</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>n_factors_simpler <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>fa_model_simpler <span class="op">=</span> FactorAnalyzer(n_factors<span class="op">=</span>n_factors_simpler, rotation<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>fa_model_simpler.fit(item_data_scaled)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
 <style>#sk-container-id-12 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: black;
@@ -6136,20 +6027,20 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-12" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>FactorAnalyzer(n_factors=2, rotation=None, rotation_kwargs={})</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-12" type="checkbox" checked=""><label for="sk-estimator-id-12" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;FactorAnalyzer<span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>FactorAnalyzer(n_factors=2, rotation=None, rotation_kwargs={})</pre></div> </div></div></div></div>
 </div>
 </div>
-<div class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the factor loadings for the two-component model</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>factor_loadings_simpler <span class="op">=</span> fa_model_simpler.loadings_</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame to visualize the factor loadings for the two-component model</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>factor_loadings_simpler_df <span class="op">=</span> pd.DataFrame(factor_loadings_simpler, index<span class="op">=</span>item_data.columns, columns<span class="op">=</span>[<span class="ss">f'Skill_</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_factors_simpler)])</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>factor_loadings_simpler_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="tbl-qmarix3" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="22">
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the factor loadings for the two-component model</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>factor_loadings_simpler <span class="op">=</span> fa_model_simpler.loadings_</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame to visualize the factor loadings for the two-component model</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>factor_loadings_simpler_df <span class="op">=</span> pd.DataFrame(factor_loadings_simpler, index<span class="op">=</span>item_data.columns, columns<span class="op">=</span>[<span class="ss">f'Skill_</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_factors_simpler)])</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>factor_loadings_simpler_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-qmarix3" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="21">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-qmarix3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;7: Factor Analysis with Two Components
 </figcaption>
 <div aria-describedby="tbl-qmarix3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="22">
+<div class="cell-output cell-output-display" data-execution_count="21">
 <div>
 
 
@@ -6227,7 +6118,7 @@ Table&nbsp;7: Factor Analysis with Two Components
 <h3 class="anchored" data-anchor-id="visualizations">Visualizations</h3>
 <section id="diagrams" class="level4">
 <h4 class="anchored" data-anchor-id="diagrams">Diagrams</h4>
-<p>I create some <a href="https://mermaid.js.org/">Mermaid</a> diagrams to gain further insight.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>I created a couple <a href="https://mermaid.js.org/">Mermaid</a> diagrams to gain further insight.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -6391,15 +6282,15 @@ Diagram 2: Comparison Across the Three Models
 </section>
 <section id="heatmap-of-factor-loadings-three-components" class="level4">
 <h4 class="anchored" data-anchor-id="heatmap-of-factor-loadings-three-components">Heatmap of Factor Loadings (Three Components)</h4>
-<p>Using a heatmap, I visualize the factor loadings from the three-component Factor Analysis model.</p>
-<div id="cell-fig-heatmap" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a heatmap to visualize item-skill relationships from Factor Analysis</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>sns.heatmap(factor_loadings_df, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, linewidths<span class="op">=</span><span class="fl">0.5</span>, linecolor<span class="op">=</span><span class="st">'black'</span>, cbar<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.title(<span class="st">'Item-Skill Relationships (Factor Analysis with Three Components)'</span>)</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Using a heatmap, I visualized the factor loadings from the three-component Factor Analysis model.</p>
+<div id="cell-fig-heatmap" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a heatmap to visualize item-skill relationships from Factor Analysis</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>sns.heatmap(factor_loadings_df, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, linewidths<span class="op">=</span><span class="fl">0.5</span>, linecolor<span class="op">=</span><span class="st">'black'</span>, cbar<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.title(<span class="st">'Item-Skill Relationships (Factor Analysis with Three Components)'</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="fig-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -6407,7 +6298,7 @@ Diagram 2: Comparison Across the Three Models
 <img src="index_files/figure-html/fig-heatmap-output-1.png" width="727" height="505" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Factor Analysis with Three Components
+Figure&nbsp;4: Factor Analysis with Three Components
 </figcaption>
 </figure>
 </div>
@@ -6451,21 +6342,21 @@ Figure&nbsp;1: Factor Analysis with Three Components
 </section>
 <section id="bar-charts-for-individual-items" class="level4">
 <h4 class="anchored" data-anchor-id="bar-charts-for-individual-items">Bar Charts for Individual Items</h4>
-<p>I generate bar charts to illustrate the factor loadings of each item across the three skills.</p>
-<div id="cell-fig-barcharts" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create bar charts for each item to show its relationship across skills</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>num_items <span class="op">=</span> <span class="bu">len</span>(factor_loadings_df.index)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(num_items, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, num_items <span class="op">*</span> <span class="dv">2</span>))</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, item <span class="kw">in</span> <span class="bu">enumerate</span>(factor_loadings_df.index):</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    axes[i].bar(factor_loadings_df.columns, factor_loadings_df.loc[item], color<span class="op">=</span><span class="st">'skyblue'</span>)</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=</span> axes[i].set_title(<span class="ss">f'Relationship of </span><span class="sc">{</span>item<span class="sc">}</span><span class="ss"> with Skills'</span>)</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=</span> axes[i].set_ylabel(<span class="st">'Loading Value'</span>)</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=</span> axes[i].set_ylim(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>I generated bar charts to illustrate the factor loadings of each item across the three skills.</p>
+<div id="cell-fig-barcharts" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create bar charts for each item to show its relationship across skills</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>num_items <span class="op">=</span> <span class="bu">len</span>(factor_loadings_df.index)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(num_items, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, num_items <span class="op">*</span> <span class="dv">2</span>))</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, item <span class="kw">in</span> <span class="bu">enumerate</span>(factor_loadings_df.index):</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    axes[i].bar(factor_loadings_df.columns, factor_loadings_df.loc[item], color<span class="op">=</span><span class="st">'skyblue'</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=</span> axes[i].set_title(<span class="ss">f'Relationship of </span><span class="sc">{</span>item<span class="sc">}</span><span class="ss"> with Skills'</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=</span> axes[i].set_ylabel(<span class="st">'Loading Value'</span>)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=</span> axes[i].set_ylim(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="fig-barcharts" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -6473,7 +6364,7 @@ Figure&nbsp;1: Factor Analysis with Three Components
 <img src="index_files/figure-html/fig-barcharts-output-1.png" width="854" height="1526" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-barcharts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Bar Charts for Individual Items
+Figure&nbsp;5: Bar Charts for Individual Items
 </figcaption>
 </figure>
 </div>
@@ -6506,8 +6397,8 @@ Figure&nbsp;2: Bar Charts for Individual Items
 </ul></li>
 </ol>
 </section>
-<section id="what-we-learn" class="level5">
-<h5 class="anchored" data-anchor-id="what-we-learn">What We Learn:</h5>
+<section id="further-insight" class="level5">
+<h5 class="anchored" data-anchor-id="further-insight">Further Insight:</h5>
 <ol type="1">
 <li><strong>Support for Factor Analysis Findings</strong>:
 <ul>
@@ -6530,22 +6421,22 @@ Figure&nbsp;2: Bar Charts for Individual Items
 </section>
 <section id="creating-the-final-q-matrix" class="level3">
 <h3 class="anchored" data-anchor-id="creating-the-final-q-matrix">Creating the Final Q-Matrix</h3>
-<p>Based on the analyses and visualizations, I create the final <strong>Q-matrix</strong> by assigning each item to the skill with the highest loading from the three-component Factor Analysis model.</p>
-<div class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the final Q-matrix based on the visualization and analysis findings</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Assigning each item to the skill with the highest loading from the Factor Analysis with three components</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>final_q_matrix <span class="op">=</span> factor_loadings_df.idxmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame to visualize the final Q-matrix, showing the mapping between items and skills</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>final_q_matrix_df <span class="op">=</span> pd.DataFrame({<span class="st">'Item'</span>: item_data.columns, <span class="st">'Mapped_Skill'</span>: final_q_matrix.values})</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>final_q_matrix_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="tbl-qmarix4" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="25">
+<p>Based on the consistency of results across methods, I developed a final Q-matrix that maps each item to its primary associated skill based on the three-factor EFA model. Table 8 presents the final Q-matrix, which shows a clear and interpretable mapping of items to skills.</p>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the final Q-matrix based on the visualization and analysis findings</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Assigning each item to the skill with the highest loading from the Factor Analysis with three components</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>final_q_matrix <span class="op">=</span> factor_loadings_df.idxmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame to visualize the final Q-matrix, showing the mapping between items and skills</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>final_q_matrix_df <span class="op">=</span> pd.DataFrame({<span class="st">'Item'</span>: item_data.columns, <span class="st">'Mapped_Skill'</span>: final_q_matrix.values})</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>final_q_matrix_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-qmarix4" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="24">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-qmarix4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;8: Final Q-Matrix
 </figcaption>
 <div aria-describedby="tbl-qmarix4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="25">
+<div class="cell-output cell-output-display" data-execution_count="24">
 <div>
 
 
@@ -6607,6 +6498,7 @@ Table&nbsp;8: Final Q-Matrix
 </figure>
 </div>
 </div>
+<p>I also developed another diagram to support the final Q-Matrix.</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -6677,36 +6569,32 @@ Diagram 3: Final Q-Matirx
 </ul></li>
 </ol>
 </section>
-<section id="utility-of-the-diagram" class="level3">
-<h3 class="anchored" data-anchor-id="utility-of-the-diagram">Utility of the Diagram</h3>
-<p>The diagram is an excellent tool for: - Communicating the Q-matrix to stakeholders (e.g., educators, researchers) in a visually intuitive format. - Supporting discussions about item revisions or further refinements to the skill structure. - Illustrating the rationale for skill-specific interventions or curriculum changes.</p>
-</section>
 <section id="model-evaluation-metrics" class="level3">
 <h3 class="anchored" data-anchor-id="model-evaluation-metrics">Model Evaluation Metrics</h3>
 <section id="calculating-proportion-of-variance-explained-r2" class="level4">
 <h4 class="anchored" data-anchor-id="calculating-proportion-of-variance-explained-r2">Calculating Proportion of Variance Explained (<span class="math inline">\(R^2\)</span>)</h4>
 <p><strong>For Factor Analysis</strong>:</p>
-<div id="344e134e" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the communalities</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>communalities <span class="op">=</span> fa_model.get_communalities()</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Total variance explained</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>total_variance_explained <span class="op">=</span> np.<span class="bu">sum</span>(communalities)</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Total variance (number of variables)</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>total_variance <span class="op">=</span> item_data_scaled.shape[<span class="dv">1</span>]</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion of variance explained</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>r_squared_fa <span class="op">=</span> total_variance_explained <span class="op">/</span> total_variance</span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Factor Analysis R^2: </span><span class="sc">{</span>r_squared_fa<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="e542a95a" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the communalities</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>communalities <span class="op">=</span> fa_model.get_communalities()</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Total variance explained</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>total_variance_explained <span class="op">=</span> np.<span class="bu">sum</span>(communalities)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Total variance (number of variables)</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>total_variance <span class="op">=</span> item_data_scaled.shape[<span class="dv">1</span>]</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion of variance explained</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>r_squared_fa <span class="op">=</span> total_variance_explained <span class="op">/</span> total_variance</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Factor Analysis R^2: </span><span class="sc">{</span>r_squared_fa<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Factor Analysis R^2: 0.56</code></pre>
 </div>
 </div>
 <p><strong>Interpretation:</strong></p>
 <ul>
-<li>The (<span class="math inline">\(R^2\)</span>) value of <strong>0.56</strong> indicates that the three-factor model explains <strong>56%</strong> of the total variance in the data.</li>
+<li>The <span class="math inline">\(R^2\)</span> value of <strong>0.56</strong> indicates that the three-factor model explains <strong>56%</strong> of the total variance in the data.</li>
 <li><strong>Implications:</strong>
 <ul>
 <li>A proportion of variance explained greater than 50% is generally considered acceptable in exploratory Factor Analysis, especially with psychological or educational data where constructs are often complex.</li>
@@ -6714,10 +6602,10 @@ Diagram 3: Final Q-Matirx
 </ul></li>
 </ul>
 <p><strong>For PCA</strong>:</p>
-<div id="d09d5a9f" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate cumulative variance explained</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>cumulative_variance <span class="op">=</span> np.cumsum(pca_model.explained_variance_ratio_)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"PCA cumulative variance explained by first 3 components: </span><span class="sc">{</span>cumulative_variance[<span class="dv">2</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="6c09a375" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate cumulative variance explained</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>cumulative_variance <span class="op">=</span> np.cumsum(pca_model.explained_variance_ratio_)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"PCA cumulative variance explained by first 3 components: </span><span class="sc">{</span>cumulative_variance[<span class="dv">2</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>PCA cumulative variance explained by first 3 components: 0.66</code></pre>
 </div>
@@ -6756,33 +6644,34 @@ Diagram 3: Final Q-Matirx
 </section>
 <section id="calculating-cohens-kappa-coefficient" class="level4">
 <h4 class="anchored" data-anchor-id="calculating-cohens-kappa-coefficient">Calculating Cohen’s Kappa Coefficient</h4>
-<div id="b9f97787" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> linear_sum_assignment</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Map skill labels to numeric codes for Factor Analysis</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>fa_skill_codes <span class="op">=</span> final_q_matrix_df[<span class="st">'Mapped_Skill'</span>].<span class="bu">map</span>({<span class="st">'Skill_1'</span>: <span class="dv">0</span>, <span class="st">'Skill_2'</span>: <span class="dv">1</span>, <span class="st">'Skill_3'</span>: <span class="dv">2</span>}).values</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># K-Means cluster labels</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>kmeans_labels <span class="op">=</span> kmeans.labels_</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute confusion matrix</span></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>confusion <span class="op">=</span> confusion_matrix(fa_skill_codes, kmeans_labels)</span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Confusion Matrix:"</span>)</span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(confusion)</span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Align clusters with skills using the Hungarian algorithm</span></span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>row_ind, col_ind <span class="op">=</span> linear_sum_assignment(<span class="op">-</span>confusion)</span>
-<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>mapping <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(col_ind, row_ind))</span>
-<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Map K-Means labels to Factor Analysis skill codes</span></span>
-<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>kmeans_labels_mapped <span class="op">=</span> np.array([mapping[label] <span class="cf">for</span> label <span class="kw">in</span> kmeans_labels])</span>
-<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute Cohen's kappa</span></span>
-<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> cohen_kappa_score</span>
-<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>kappa <span class="op">=</span> cohen_kappa_score(fa_skill_codes, kmeans_labels_mapped)</span>
-<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Cohen's kappa after alignment: </span><span class="sc">{</span>kappa<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>I also examined the consistency of item assignments across methods using Cohen’s kappa coefficient <span class="citation" data-cites="cohen1960coefficient">(<a href="#ref-cohen1960coefficient" role="doc-biblioref">Cohen 1960</a>)</span>.</p>
+<div id="12bd1f9d" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> linear_sum_assignment</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Map skill labels to numeric codes for Factor Analysis</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>fa_skill_codes <span class="op">=</span> final_q_matrix_df[<span class="st">'Mapped_Skill'</span>].<span class="bu">map</span>({<span class="st">'Skill_1'</span>: <span class="dv">0</span>, <span class="st">'Skill_2'</span>: <span class="dv">1</span>, <span class="st">'Skill_3'</span>: <span class="dv">2</span>}).values</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># K-Means cluster labels</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>kmeans_labels <span class="op">=</span> kmeans.labels_</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute confusion matrix</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>confusion <span class="op">=</span> confusion_matrix(fa_skill_codes, kmeans_labels)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Confusion Matrix:"</span>)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(confusion)</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Align clusters with skills using the Hungarian algorithm</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>row_ind, col_ind <span class="op">=</span> linear_sum_assignment(<span class="op">-</span>confusion)</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>mapping <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(col_ind, row_ind))</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Map K-Means labels to Factor Analysis skill codes</span></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>kmeans_labels_mapped <span class="op">=</span> np.array([mapping[label] <span class="cf">for</span> label <span class="kw">in</span> kmeans_labels])</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute Cohen's kappa</span></span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> cohen_kappa_score</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>kappa <span class="op">=</span> cohen_kappa_score(fa_skill_codes, kmeans_labels_mapped)</span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Cohen's kappa after alignment: </span><span class="sc">{</span>kappa<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Confusion Matrix:
 [[4 0 0]
@@ -6869,20 +6758,74 @@ Cohen's kappa after alignment: 1.00</code></pre>
 </ul>
 <section id="verifying-item-skill-mappings" class="level4">
 <h4 class="anchored" data-anchor-id="verifying-item-skill-mappings">Verifying Item-Skill Mappings</h4>
-<div id="386259c9" class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Factor Analysis Mappings:"</span>)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(final_q_matrix_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Factor Analysis Mappings:
-    Item Mapped_Skill
-0  item1      Skill_3
-1  item2      Skill_2
-2  item3      Skill_1
-3  item4      Skill_2
-4  item5      Skill_1
-5  item6      Skill_2
-6  item7      Skill_1
-7  item8      Skill_1</code></pre>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>final_q_matrix_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-verify1" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="28">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-verify1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9: Factor Analysis Mappings
+</figcaption>
+<div aria-describedby="tbl-verify1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display" data-execution_count="28">
+<div>
+
+
+<table class="dataframe do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Item</th>
+<th data-quarto-table-cell-role="th">Mapped_Skill</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>item1</td>
+<td>Skill_3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>item2</td>
+<td>Skill_2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>item3</td>
+<td>Skill_1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>item4</td>
+<td>Skill_2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>item5</td>
+<td>Skill_1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>item6</td>
+<td>Skill_2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>item7</td>
+<td>Skill_1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>item8</td>
+<td>Skill_1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
 </div>
 </div>
 <p><strong>Interpretation:</strong></p>
@@ -6900,21 +6843,74 @@ Cohen's kappa after alignment: 1.00</code></pre>
 <li><strong>Consistent Mapping</strong>: The assignments reflect the conclusions drawn from your Factor Analysis, where items are mapped based on dominant loadings.</li>
 <li><strong>Foundation for Comparison</strong>: These mappings serve as the reference point for comparing with the K-Means Clustering results.</li>
 </ul>
-<div id="e05c91b5" class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">K-Means Clustering Mappings (before alignment):"</span>)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(kmeans_q_matrix_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-K-Means Clustering Mappings (before alignment):
-    Item Mapped_Skill
-0  item1      Skill_3
-1  item2      Skill_2
-2  item3      Skill_1
-3  item4      Skill_2
-4  item5      Skill_1
-5  item6      Skill_2
-6  item7      Skill_1
-7  item8      Skill_1</code></pre>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-verify2" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="29">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-verify2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;10: K-Means Clustering Mappings (before alignment)
+</figcaption>
+<div aria-describedby="tbl-verify2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display" data-execution_count="29">
+<div>
+
+
+<table class="dataframe do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Item</th>
+<th data-quarto-table-cell-role="th">Mapped_Skill</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>item1</td>
+<td>Skill_3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>item2</td>
+<td>Skill_2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>item3</td>
+<td>Skill_1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>item4</td>
+<td>Skill_2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>item5</td>
+<td>Skill_1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>item6</td>
+<td>Skill_2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>item7</td>
+<td>Skill_1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>item8</td>
+<td>Skill_1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
 </div>
 </div>
 <p><strong>Interpretation:</strong></p>
@@ -6927,16 +6923,11 @@ K-Means Clustering Mappings (before alignment):
 <li><strong>Initial Comparison</strong>: At first glance, the mappings appear similar to the Factor Analysis mappings, but due to arbitrary labeling, a direct comparison isn’t meaningful yet.</li>
 <li><strong>Need for Alignment</strong>: To accurately compare the item-skill assignments, cluster labels must be aligned with the skills from Factor Analysis.</li>
 </ul>
-<div id="3ee622de" class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">K-Means Clustering Mappings (after alignment):"</span>)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Map clusters to skills after alignment</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>kmeans_skill_names_aligned <span class="op">=</span> [<span class="st">'Skill_'</span> <span class="op">+</span> <span class="bu">str</span>(mapping[label] <span class="op">+</span> <span class="dv">1</span>) <span class="cf">for</span> label <span class="kw">in</span> kmeans_labels]</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df_aligned <span class="op">=</span> kmeans_q_matrix_df.copy()</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df_aligned[<span class="st">'Mapped_Skill'</span>] <span class="op">=</span> kmeans_skill_names_aligned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-K-Means Clustering Mappings (after alignment):</code></pre>
-</div>
+<div id="63bc7a68" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Map clusters to skills after alignment</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>kmeans_skill_names_aligned <span class="op">=</span> [<span class="st">'Skill_'</span> <span class="op">+</span> <span class="bu">str</span>(mapping[label] <span class="op">+</span> <span class="dv">1</span>) <span class="cf">for</span> label <span class="kw">in</span> kmeans_labels]</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df_aligned <span class="op">=</span> kmeans_q_matrix_df.copy()</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df_aligned[<span class="st">'Mapped_Skill'</span>] <span class="op">=</span> kmeans_skill_names_aligned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Process:</strong></p>
 <ul>
@@ -6951,21 +6942,74 @@ K-Means Clustering Mappings (after alignment):</code></pre>
 <li>This ensures that clusters are correctly interpreted in the context of your identified skills.</li>
 </ul></li>
 </ul>
-<div id="8f06c244" class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">K-Means Clustering Mappings (after alignment):"</span>)</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(kmeans_q_matrix_df_aligned)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-K-Means Clustering Mappings (after alignment):
-    Item Mapped_Skill
-0  item1      Skill_3
-1  item2      Skill_2
-2  item3      Skill_1
-3  item4      Skill_2
-4  item5      Skill_1
-5  item6      Skill_2
-6  item7      Skill_1
-7  item8      Skill_1</code></pre>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df_aligned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-verify3" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="31">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-verify3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;11: K-Means Clustering Mappings (after alignment)
+</figcaption>
+<div aria-describedby="tbl-verify3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display" data-execution_count="31">
+<div>
+
+
+<table class="dataframe do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Item</th>
+<th data-quarto-table-cell-role="th">Mapped_Skill</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>item1</td>
+<td>Skill_3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>item2</td>
+<td>Skill_2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>item3</td>
+<td>Skill_1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>item4</td>
+<td>Skill_2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>item5</td>
+<td>Skill_1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>item6</td>
+<td>Skill_2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>item7</td>
+<td>Skill_1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>item8</td>
+<td>Skill_1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
 </div>
 </div>
 <p><strong>Interpretation:</strong></p>
@@ -7030,17 +7074,14 @@ K-Means Clustering Mappings (after alignment):
 <li>May overfit the data, capturing noise rather than meaningful structure.</li>
 </ul></li>
 </ul>
-<p><strong>Summary:</strong></p>
-<ul>
-<li><strong>Trade-Offs:</strong>
+<p><strong>Trade-Offs:</strong></p>
 <ul>
 <li>The <strong>two-component model</strong> may underfit, missing key distinctions between skills.</li>
 <li>The <strong>four-component model</strong> may overfit, adding unnecessary complexity without practical benefits.</li>
-</ul></li>
-<li><strong>Optimal Complexity:</strong>
+</ul>
+<p><strong>Optimal Complexity:</strong></p>
 <ul>
 <li>The <strong>three-component model</strong> strikes a balance, capturing essential structures while maintaining interpretability.</li>
-</ul></li>
 </ul>
 </section>
 <section id="variance-explained-and-model-fit" class="level4">
@@ -7049,7 +7090,7 @@ K-Means Clustering Mappings (after alignment):
 <ul>
 <li><strong>Two-Component Model:</strong>
 <ul>
-<li>Lower proportion of variance explained (~ less than 56%).</li>
+<li>Lower proportion of variance explained (less than 56%).</li>
 <li>Indicates insufficient capture of the data’s variability.</li>
 </ul></li>
 <li><strong>Three-Component Model:</strong>
@@ -7076,21 +7117,9 @@ K-Means Clustering Mappings (after alignment):
 <li>However, PCA components may not be as interpretable in terms of latent skills.</li>
 </ul></li>
 </ul>
-<p><strong>Summary:</strong></p>
-<ul>
-<li><strong>Thresholds:</strong>
-<ul>
-<li>In social sciences, explaining around 50-75% variance is acceptable.</li>
-</ul></li>
-<li><strong>Diminishing Returns:</strong>
-<ul>
-<li>The variance explained by adding a fourth component doesn’t justify the increased complexity.</li>
-</ul></li>
-<li><strong>Model Fit:</strong>
-<ul>
-<li>The three-component model provides an acceptable fit with reasonable simplicity.</li>
-</ul></li>
-</ul>
+<p><strong>Thresholds:</strong> - In social sciences, explaining around 50-75% variance is acceptable.</p>
+<p><strong>Diminishing Returns:</strong> - The variance explained by adding a fourth component doesn’t justify the increased complexity.</p>
+<p><strong>Model Fit:</strong> - The three-component model provides an acceptable fit with reasonable simplicity.</p>
 </section>
 <section id="consistency-across-methods" class="level4">
 <h4 class="anchored" data-anchor-id="consistency-across-methods">Consistency Across Methods</h4>
@@ -7107,25 +7136,22 @@ K-Means Clustering Mappings (after alignment):
 <li>Ambiguities in item assignments due to overlapping loadings.</li>
 </ul></li>
 </ul>
-<p><strong>Summary:</strong></p>
-<ul>
-<li><strong>Cross-Validation:</strong>
+<p><strong>Cross-Validation:</strong></p>
 <ul>
 <li>Consistency strengthens the validity of your findings.</li>
-</ul></li>
-<li><strong>Reinforcement:</strong>
+</ul>
+<p><strong>Reinforcement:</strong></p>
 <ul>
 <li>Different methods converging on the same solution supports the robustness of the three-component model.</li>
-</ul></li>
-<li><strong>Practical Implications:</strong>
+</ul>
+<p><strong>Practical Implications:</strong></p>
 <ul>
 <li>A consistent model is more reliable for educational applications, such as test design and interpretation.</li>
-</ul></li>
 </ul>
 </section>
 <section id="model-evaluation-metrics-1" class="level4">
 <h4 class="anchored" data-anchor-id="model-evaluation-metrics-1">Model Evaluation Metrics</h4>
-<p><strong>Proportion of Variance Explained ((<span class="math inline">\(R^2\)</span>))</strong></p>
+<p><strong>Proportion of Variance Explained (<span class="math inline">\(R^2\)</span>)</strong></p>
 <ul>
 <li><strong>Factor Analysis:</strong>
 <ul>
@@ -7150,17 +7176,14 @@ K-Means Clustering Mappings (after alignment):
 <li>Validates the consistency and reliability of the three-component model.</li>
 </ul></li>
 </ul>
-<p><strong>Summary:</strong></p>
-<ul>
-<li><strong>Balance of Metrics:</strong>
+<p><strong>Balance of Metrics:</strong></p>
 <ul>
 <li>The three-component model provides a good balance between variance explained and interpretability.</li>
-</ul></li>
-<li><strong>Limitations:</strong>
+</ul>
+<p><strong>Limitations:</strong></p>
 <ul>
 <li>Acknowledge that a portion of variance remains unexplained.</li>
 <li>Suggests potential areas for further investigation or alternative modeling approaches.</li>
-</ul></li>
 </ul>
 </section>
 <section id="final-model-selection" class="level4">
@@ -7264,22 +7287,10 @@ K-Means Clustering Mappings (after alignment):
 </section>
 <section id="educational-relevance-and-practicality" class="level4">
 <h4 class="anchored" data-anchor-id="educational-relevance-and-practicality">Educational Relevance and Practicality</h4>
-<p><strong>Clear Skill Definitions</strong></p>
-<ul>
-<li><p><strong>Skill 1</strong>: Represented by items that measure a specific aspect of the knowledge domain (e.g., problem-solving).</p></li>
-<li><p><strong>Skill 2</strong>: Comprised of items assessing another distinct competency (e.g., conceptual understanding).</p></li>
-<li><p><strong>Skill 3</strong>: Associated with an item measuring a unique skill (e.g., factual recall).</p></li>
-</ul>
-<p><strong>Justification</strong>:</p>
-<ul>
-<li><p><strong>Actionable Insights</strong>: The Q-Matrix provides educators with clear information about which items assess which skills, facilitating targeted instruction and remediation.</p></li>
-<li><p><strong>Test Design Improvement</strong>: Understanding item-skill relationships helps in refining assessments to better measure the intended skills.</p></li>
-<li><p><strong>Educational Impact</strong>:</p>
-<ul>
-<li>By understanding the relationships between items and skills, test designers can create assessments that more effectively target specific skills, ensuring a balanced coverage of the identified latent skills. The item-skill mappings can also help identify potentially redundant or less informative items, allowing for more efficient and focused assessments.</li>
-<li>Moreover, educators can leverage the findings to diagnose student strengths and weaknesses at the skill level. The identification of specific skills associated with each item enables targeted remediation or enrichment activities, focusing on the areas where students may need additional support. This information can also guide the development of instructional materials and resources, ensuring that students have ample opportunities to practice and master the identified skills.</li>
-</ul></li>
-</ul>
+<p><strong>Actionable Insights</strong>: The Q-Matrix provides educators with clear information about which items assess which skills, facilitating targeted instruction and remediation.</p>
+<p><strong>Test Design Improvement</strong>: Understanding item-skill relationships helps in refining assessments to better measure the intended skills.</p>
+<p>By understanding the relationships between items and skills, test designers can create assessments that more effectively target specific skills, ensuring a balanced coverage of the identified latent skills. The item-skill mappings can also help identify potentially redundant or less informative items, allowing for more efficient and focused assessments.</p>
+<p>Moreover, educators can leverage the findings to diagnose student strengths and weaknesses at the skill level. The identification of specific skills associated with each item enables targeted remediation or enrichment activities, focusing on the areas where students may need additional support. This information can also guide the development of instructional materials and resources, ensuring that students have ample opportunities to practice and master the identified skills.</p>
 </section>
 </section>
 <section id="limitations-and-future-work" class="level3">
@@ -7315,26 +7326,26 @@ K-Means Clustering Mappings (after alignment):
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>This study makes significant contributions to the field of educational assessment and learning analytics by demonstrating the effectiveness of a comprehensive, multi-method approach for uncovering the latent skill structure in an eight-item test dataset. I have identified a robust and interpretable three-skill model that best represents the underlying knowledge structure by leveraging the complementary strengths of <strong>Factor Analysis</strong>, <strong>K-Means Clustering</strong>, and <strong>Principal Component Analysis (PCA)</strong>.</p>
-<p>The key findings of this study include:</p>
+<p>This study significantly contributes to the field of educational assessment and learning analytics by demonstrating the effectiveness of a comprehensive, multi-method approach to uncovering latent skill structures in an eight-item test dataset. By leveraging the complementary strengths of <strong>Factor Analysis</strong>, <strong>K-Means Clustering</strong>, and <strong>Principal Component Analysis (PCA)</strong>, we identified a robust and interpretable three-skill model that best represents the underlying knowledge structure.</p>
+<p><strong>Key findings of this study include:</strong></p>
 <ol type="1">
-<li>The identification of three distinct latent skills that capture the essential relationships among the test items.</li>
-<li>Developing a final <strong>Q-matrix</strong> that provides a precise and empirically derived mapping of items to skills consistent across multiple analytical methods.</li>
-<li>Validating of the item-skill relationships supports the interpretability of the identified skill structure.</li>
+<li><p><strong>Identification of Three Distinct Latent Skills:</strong> These skills capture the essential relationships among the test items, providing a clearer understanding of the knowledge assessed.</p></li>
+<li><p><strong>Development of a Final Q-Matrix:</strong> The Q-matrix offers a precise and empirically derived mapping of items to skills, consistent across multiple analytical methods, enhancing the reliability of skill assessment.</p></li>
+<li><p><strong>Validation of Item-Skill Relationships:</strong> Cross-validation using multiple methods supports the interpretability of the identified skill structure, confirming the robustness of the findings.</p></li>
 </ol>
 <p>The practical significance of this work lies in its potential to inform and enhance educational assessment and instructional practices. By providing a more precise understanding of the skills assessed by individual test items, this study enables educators and test designers to:</p>
 <ul>
-<li>Develop more targeted and efficient assessments that effectively measure specific skills.</li>
-<li>Identify areas where students may need additional support or remediation based on their performance on skill-related items.</li>
-<li>Design instructional interventions and resources that align with the identified skill structure, promoting more personalized and adaptive learning experiences.</li>
+<li><strong>Develop Targeted Assessments:</strong> Create more focused and efficient assessments that effectively measure specific skills.</li>
+<li><strong>Identify Student Needs:</strong> Pinpoint areas where students may require additional support or remediation based on their performance on skill-related items.</li>
+<li><strong>Design Aligned Instructional Interventions:</strong> Develop instructional resources that align with the identified skill structure, promoting more personalized and adaptive learning experiences.</li>
 </ul>
-<p>Moreover, the multi-method approach presented in this study serves as a valuable template for future research in educational data mining and learning analytics. Researchers can build upon this methodology to investigate the knowledge structures underlying different types of assessments, learning materials, and educational contexts.</p>
-<p>Future research should focus address this study’s limitations and explore new avenues for extending its findings. Specific opportunities include:</p>
+<p>Moreover, the multi-method approach presented in this study serves as a valuable template for future research in educational data mining and learning analytics. Researchers can build upon this methodology to investigate knowledge structures underlying different types of assessments, learning materials, and educational contexts.</p>
+<p><strong>Future research should address this study’s limitations and explore new avenues for extending its findings. Specific opportunities include:</strong></p>
 <ol type="1">
-<li>Applying Item Response Theory (IRT) models are specifically designed to analyze binary response data, to validate and refine the identified skill structure.</li>
-<li>Replicating the study with larger and more diverse datasets, including assessments with a greater number of items and student populations from various educational backgrounds.</li>
-<li>Investigating the generalizability of the identified skill structure across different domains, grade levels, and assessment formats.</li>
-<li>Exploring the integration of the derived Q-matrix with adaptive learning systems and intelligent tutoring platforms to enable real-time, skill-based feedback and personalized learning paths.</li>
+<li><strong>Applying Item Response Theory (IRT) Models:</strong> Utilize IRT models, which are specifically designed to analyze binary response data, to validate and refine the identified skill structure.</li>
+<li><strong>Expanding the Dataset:</strong> Replicate the study with larger and more diverse datasets, including assessments with a greater number of items and student populations from various educational backgrounds, to enhance generalizability.</li>
+<li><strong>Exploring Generalizability Across Contexts:</strong> Investigate the applicability of the identified skill structure across different domains, grade levels, and assessment formats.</li>
+<li><strong>Integrating with Adaptive Learning Systems:</strong> Explore the integration of the derived Q-matrix with adaptive learning systems and intelligent tutoring platforms to enable real-time, skill-based feedback and personalized learning paths.</li>
 </ol>
 <p>By addressing these challenges and opportunities, future research can further advance our understanding of knowledge structure mapping and its applications in educational settings, ultimately contributing to the development of more effective and equitable learning experiences for all students.</p>
 <section id="submission-guidelines" class="level3">
@@ -7363,17 +7374,14 @@ Barnes, Tiffany. 2005. <span>“The q-Matrix Method: Mining Student Response Dat
 <div id="ref-beavers2019practical" class="csl-entry" role="listitem">
 Beavers, Amy S, John W Lounsbury, Jennifer K Richards, Schuyler W Huck, Gary J Skolits, and Shelley L Esquivel. 2019. <span>“Practical Considerations for Using Exploratory Factor Analysis in Educational Research.”</span> <em>Practical Assessment, Research, and Evaluation</em> 18 (1): 6.
 </div>
-<div id="ref-cen2006learning" class="csl-entry" role="listitem">
-Cen, Hao, Kenneth Koedinger, and Brian Junker. 2006. <span>“Learning Factors Analysis–a General Method for Cognitive Model Evaluation and Improvement.”</span> In <em>International Conference on Intelligent Tutoring Systems</em>, 164–75. Springer.
-</div>
 <div id="ref-chen2018knowedu" class="csl-entry" role="listitem">
 Chen, Penghe, Yu Lu, Vincent W Zheng, Xiyang Chen, and Boda Yang. 2018. <span>“Knowedu: A System to Construct Knowledge Graph for Education.”</span> <em>Ieee Access</em> 6: 31553–63.
 </div>
+<div id="ref-cohen1960coefficient" class="csl-entry" role="listitem">
+Cohen, Jacob. 1960. <span>“A Coefficient of Agreement for Nominal Scales.”</span> <em>Educational and Psychological Measurement</em> 20 (1): 37–46.
+</div>
 <div id="ref-cukurova2022learning" class="csl-entry" role="listitem">
 Cukurova, Mutlu, Madiha Khan-Galaria, Eva Millán, and Rose Luckin. 2022. <span>“A Learning Analytics Approach to Monitoring the Quality of Online One-to-One Tutoring.”</span> <em>Journal of Learning Analytics</em> 9 (2): 105–20.
-</div>
-<div id="ref-desmarais2006learned" class="csl-entry" role="listitem">
-Desmarais, Michel C, Peyman Meshkinfam, and Michel Gagnon. 2006. <span>“Learned Student Models with Item to Item Knowledge Structures.”</span> <em>User Modeling and User-Adapted Interaction</em> 16: 403–34.
 </div>
 <div id="ref-gemini1.5" class="csl-entry" role="listitem">
 Google. 2024. <span>“Gemini 1.5.”</span> Large language model. <a href="https://gemini.google.com/">https://gemini.google.com/</a>.
@@ -7392,6 +7400,9 @@ OpenAI. 2024a. <span>“GPT-4o.”</span> Large language model. <a href="https:/
 </div>
 <div id="ref-van2015handbook" class="csl-entry" role="listitem">
 Van der Linden, Wim J, and Ronald K Hambleton. 2015. <em>Handbook of Item Response Theory</em>. CRC press.
+</div>
+<div id="ref-watkins2018exploratory" class="csl-entry" role="listitem">
+Watkins, Marley W. 2018. <span>“Exploratory Factor Analysis: A Guide to Best Practice.”</span> <em>Journal of Black Psychology</em> 44 (3): 219–46.
 </div>
 </div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
