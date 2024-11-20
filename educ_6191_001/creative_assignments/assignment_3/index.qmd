@@ -942,7 +942,7 @@ print(f"Cohen's kappa after alignment: {kappa:.2f}")
     - **0.81–1.00**: Almost perfect agreement.
   - A value of **1.00** confirms that the two methods are in complete concordance post-alignment.
 
-### **Overall Evaluation**
+### Overall Evaluation
 
 **Strengths:**
 
