@@ -21,20 +21,20 @@ keywords:
 bibliography: bibliography/bibliography.bib
 nocite: |
   @*
-# image: images/image_fx_.png
+image: images/image_fx_.png
 format:
   html:
     code-link: false
-draft: true
+draft: false
 jupyter: python3
 ipynb-shell-interactivity: all
 execute: 
-  freeze: false
+  freeze: true
 ---
 
 ## Introduction
 
-**Knowledge structure mapping** is a powerful tool that allows educators to uncover hidden connections between what students know and what they are tested on. By revealing the relationships between test items and the underlying skills they measure, knowledge structure mapping provides crucial insights for developing targeted educational interventions and improving student outcomes. This understanding is essential for creating effective assessments, personalizing instruction, and ensuring that all students have the opportunity to succeed.
+**Knowledge structure mapping** is a powerful tool that allows educators to uncover hidden connections between what students know and what they are tested on. By revealing the relationships between test items and the underlying skills they measure, **knowledge structure mapping** provides crucial insights for developing targeted educational interventions and improving student outcomes. This understanding is essential for creating effective assessments, personalizing instruction, and ensuring that all students have the opportunity to succeed.
 
 However, identifying the optimal representation of latent skills within educational data is a complex challenge. Traditional methods often rely on assumptions that may not generalize across diverse contexts or assessment types. To address this issue, researchers have developed a range of data-driven approaches that aim to uncover skill structures in a more flexible and robust manner.
 
@@ -42,75 +42,75 @@ This study presents a comprehensive methodology for identifying the latent skill
 
 The resulting three-skill model offers a clear and actionable framework for understanding student performance on the test items. The model's interpretability and strong empirical foundation make it a valuable tool for informing assessment design, instructional planning, and student support initiatives. By aligning educational practices with the identified skill structure, educators can more effectively foster student learning and achievement.
 
-Moreover, this study contributes to the broader field of educational data mining and learning analytics by demonstrating the value of a multi-method, data-driven approach to knowledge structure mapping. The methodology presented here can serve as a template for future research aimed at uncovering the hidden skills and competencies that underlie student performance across a wide range of educational contexts and assessment types.
+Moreover, this study contributes to the broader field of educational data mining and learning analytics by demonstrating the value of a multi-method, data-driven approach to **knowledge structure mapping**. The methodology presented here can serve as a template for future research aimed at uncovering the hidden skills and competencies that underlie student performance across a wide range of educational contexts and assessment types.
 
 In the following sections, I provide an overview of relevant background literature, describe my methodological approach in detail, present the key findings of my analysis, and discuss the implications of my work for educational practice and future research.
 
 ## Background and Related Work
 
-**Knowledge structure mapping** is a fundamental area of research in educational data mining and learning analytics, focusing on uncovering the latent skills and relationships that underlie student performance on educational assessments [@de2008educational]. By providing insights into the hidden structure of educational data, knowledge structure mapping enables researchers and educators to develop more effective assessments, instructional interventions, and student support systems.
+**Knowledge structure mapping** is a fundamental area of research in educational data mining and learning analytics, focusing on uncovering the latent skills and relationships that underlie student performance on educational assessments [@de2008educational]. By providing insights into the hidden structure of educational data, **knowledge structure mapping** enables researchers and educators to develop more effective assessments, instructional interventions, and student support systems.
 
 ### Methods for Knowledge Structure Mapping
 
-Researchers have developed a range of methods to map knowledge structures, each offering unique advantages and limitations. Factor Analysis, a widely used statistical technique, identifies latent skills by analyzing patterns of correlations among test items [@beavers2019practical]. This data-driven approach uncovers hidden skill structures without requiring prior knowledge of the relationships.
+Researchers have developed a range of methods to map knowledge structures, each offering unique advantages and limitations. **Factor Analysis**, a widely used statistical technique, identifies latent skills by analyzing patterns of correlations among test items [@beavers2019practical]. This data-driven approach uncovers hidden skill structures without requiring prior knowledge of the relationships.
 
 In contrast, Barnes's Q-matrix method [@barnes2005q] takes a different approach by using a binary matrix to represent item-skill associations. The Q-matrix provides a visual tool for understanding which skills are assessed by each item, making it valuable for cognitive modeling and educational data mining. By explicitly encoding the relationships between items and skills, the Q-matrix enables researchers to develop more interpretable and actionable models of student knowledge.
 
-K-Means Clustering offers another perspective by grouping items based on response patterns, allowing researchers to infer underlying skills from the emergent clusters [@kargupta2001distributed]. This unsupervised learning technique enables exploratory analysis of skill structures when predefined skill mappings are unavailable. By identifying groups of items that elicit similar student responses, K-Means Clustering can reveal hidden commonalities that may correspond to latent skills.
+**K-Means Clustering** offers another perspective by grouping items based on response patterns, allowing researchers to infer underlying skills from the emergent clusters [@kargupta2001distributed]. This unsupervised learning technique enables exploratory analysis of skill structures when predefined skill mappings are unavailable. By identifying groups of items that elicit similar student responses, **K-Means Clustering** can reveal hidden commonalities that may correspond to latent skills.
 
-Principal Component Analysis (PCA) is another powerful tool for uncovering latent structures in educational data [@chen2018knowedu]. By identifying the principal components that explain the maximum variance in the data, PCA can help researchers identify the key dimensions or skills that underlie student performance. While PCA is not specifically designed for knowledge structure mapping, it can provide valuable insights into the overall structure of the data and inform the interpretation of other methods.
+**Principal Component Analysis (PCA** is another powerful tool for uncovering latent structures in educational data [@chen2018knowedu]. By identifying the principal components that explain the maximum variance in the data, **PCA** can help researchers identify the key dimensions or skills that underlie student performance. While **PCA** is not specifically designed for **knowledge structure mapping**, it can provide valuable insights into the overall structure of the data and inform the interpretation of other methods.
 
 ### Applications in Educational Data Mining
 
-The methods described above have been widely applied in educational data mining and learning analytics to support a range of tasks and objectives. One key application area is the development of intelligent tutoring systems and adaptive learning environments [@cukurova2022learning]. By incorporating knowledge structure mapping techniques, these systems can dynamically assess student skills and provide personalized feedback and recommendations based on individual needs.
+The methods described above have been widely applied in educational data mining and learning analytics to support a range of tasks and objectives. One key application area is the development of intelligent tutoring systems and adaptive learning environments [@cukurova2022learning]. By incorporating **knowledge structure mapping** techniques, these systems can dynamically assess student skills and provide personalized feedback and recommendations based on individual needs.
 
-Knowledge structure mapping also plays a crucial role in assessment design and evaluation. By uncovering the latent skills assessed by test items, researchers can develop more valid and reliable assessments that effectively measure student knowledge. This information can also be used to identify areas where assessments may be over- or under-emphasizing certain skills, enabling educators to make informed decisions about assessment design and revision.
+**Knowledge structure mapping** also plays a crucial role in assessment design and evaluation. By uncovering the latent skills assessed by test items, researchers can develop more valid and reliable assessments that effectively measure student knowledge. This information can also be used to identify areas where assessments may be over- or under-emphasizing certain skills, enabling educators to make informed decisions about assessment design and revision.
 
 ### Limitations and Challenges
 
-Despite the significant advances in knowledge structure mapping, there are still important limitations and challenges to address. One key issue is the need for more flexible and robust methods that can handle the complexity and diversity of educational data [@gordon2003learning]. Many existing methods rely on strong assumptions about the structure of the data or the nature of the skills being assessed, which may not hold across different contexts or domains.
+Despite the significant advances in **knowledge structure mapping**, there are still important limitations and challenges to address. One key issue is the need for more flexible and robust methods that can handle the complexity and diversity of educational data [@gordon2003learning]. Many existing methods rely on strong assumptions about the structure of the data or the nature of the skills being assessed, which may not hold across different contexts or domains.
 
-Another important challenge is the need for more interpretable and actionable models that can inform educational practice [@chen2018knowedu]. While knowledge structure mapping can provide valuable insights into the hidden structure of educational data, translating these insights into concrete recommendations for educators and learners remains a significant challenge.
+Another important challenge is the need for more interpretable and actionable models that can inform educational practice [@chen2018knowedu]. While **knowledge structure mapping** can provide valuable insights into the hidden structure of educational data, translating these insights into concrete recommendations for educators and learners remains a significant challenge.
 
 To address these limitations, researchers are exploring new approaches that combine multiple methods and data sources to develop more comprehensive and robust models of student knowledge [@cukurova2022learning]. There is also growing interest in developing more transparent and explainable models that can provide clear guidance to educators and learners [@gordon2003learning].
 
-In the present study, I aim to contribute to this ongoing research effort by presenting a comprehensive methodology for knowledge structure mapping that leverages the strengths of multiple methods to uncover the latent skills underlying an eight-item test dataset. By comparing models with varying levels of complexity and interpretability, I seek to identify the optimal balance between model fit and practical utility. My approach demonstrates the value of a multi-method, data-driven approach to knowledge structure mapping and provides a template for future research in this area.
+In the present study, I aim to contribute to this ongoing research effort by presenting a comprehensive methodology for **knowledge structure mapping** that leverages the strengths of multiple methods to uncover the latent skills underlying an eight-item test dataset. By comparing models with varying levels of complexity and interpretability, I seek to identify the optimal balance between model fit and practical utility. My approach demonstrates the value of a multi-method, data-driven approach to **knowledge structure mapping** and provides a template for future research in this area.
 
 ## Methods Used
 
 ### Overview
 
-To uncover the latent skills underlying the eight-item test dataset, I employed a multi-method approach that combines Factor Analysis, K-Means Clustering, and Principal Component Analysis (PCA). Each method offers unique strengths and limitations, and by leveraging their complementary perspectives, I aimed to develop a more robust and comprehensive understanding of the knowledge structure underlying the data.
+To uncover the latent skills underlying the eight-item test dataset, I employed a multi-method approach that combines **Factor Analysis**, **K-Means Clustering**, and **PCA**. Each method offers unique strengths and limitations, and by leveraging their complementary perspectives, I aimed to develop a more robust and comprehensive understanding of the knowledge structure underlying the data.
 
-Factor Analysis served as the primary method for identifying latent skills, as it is specifically designed to uncover hidden constructs that explain the patterns of correlations among observed variables [@beavers2019practical]. K-Means Clustering provided a complementary perspective by grouping items based on their response patterns, allowing me to explore potential skill clusters without imposing strong assumptions about the number or nature of the underlying skills [@kargupta2001distributed]. Finally, PCA was used as a validation technique to assess the stability and robustness of the latent skill structure identified by the other methods [@chen2018knowedu].
+**Factor Analysis** served as the primary method for identifying latent skills, as it is specifically designed to uncover hidden constructs that explain the patterns of correlations among observed variables [@beavers2019practical]. **K-Means Clustering** provided a complementary perspective by grouping items based on their response patterns, allowing me to explore potential skill clusters without imposing strong assumptions about the number or nature of the underlying skills [@kargupta2001distributed]. Finally, **PCA** was used as a validation technique to assess the stability and robustness of the latent skill structure identified by the other methods [@chen2018knowedu].
 
 By comparing the results of these three methods and exploring models with varying levels of complexity, I sought to identify the optimal balance between model fit and interpretability. My goal was to develop a parsimonious and actionable representation of the latent skills that could inform assessment design, instructional planning, and student support initiatives.
 
 ### Factor Analysis
 
-Factor Analysis was selected as the primary method for identifying latent skills due to its ability to uncover hidden constructs that explain the patterns of correlations among test items [@beavers2019practical]. I used exploratory factor analysis (EFA) with the principal axis factoring extraction method and an oblique rotation to allow for correlations among the latent skills.
+**Factor Analysis** was selected as the primary method for identifying latent skills due to its ability to uncover hidden constructs that explain the patterns of correlations among test items [@beavers2019practical].
 
 To determine the optimal number of factors to retain, I used a combination of statistical criteria and substantive considerations. Specifically, I examined the scree plot of eigenvalues, the percentage of variance explained by each factor, and the interpretability of the resulting factor solutions [@beavers2019practical]. I also compared models with varying numbers of factors (ranging from two to four) to assess their relative fit and interpretability.
 
-While Factor Analysis is a powerful tool for uncovering latent constructs, it is important to acknowledge its assumptions and limitations. Factor Analysis assumes that the observed variables are continuous and normally distributed, which may not hold for binary or ordinal data (such as the correct or incorrect responses in the present dataset). However, research has shown that Factor Analysis can still provide useful insights when applied to binary data, particularly when the sample size is large and the factor loadings are strong [@watkins2018exploratory].
+While **Factor Analysis** is a powerful tool for uncovering latent constructs, it is important to acknowledge its assumptions and limitations. **Factor Analysis** assumes that the observed variables are continuous and normally distributed, which may not hold for binary or ordinal data (such as the correct or incorrect responses in the present dataset). However, research has shown that **Factor Analysis** can still provide useful insights when applied to binary data, particularly when the sample size is large and the factor loadings are strong [@watkins2018exploratory].
 
 ### K-Means Clustering
 
-K-Means Clustering was used as a complementary method to explore potential skill clusters based on item response patterns [@kargupta2001distributed]. Unlike Factor Analysis, K-Means Clustering does not impose strong assumptions about the structure of the data or the nature of the underlying constructs. Instead, it aims to partition the data into a specified number of clusters based on the similarity of their response patterns.
+**K-Means Clustering** was used as a complementary method to explore potential skill clusters based on item response patterns [@kargupta2001distributed]. Unlike **Factor Analysis**, **K-Means Clustering** does not impose strong assumptions about the structure of the data or the nature of the underlying constructs. Instead, it aims to partition the data into a specified number of clusters based on the similarity of their response patterns.
 
-To apply K-Means Clustering, I first transformed the data to represent each item as a vector of binary responses across all students. I then used the elbow method to determine the optimal number of clusters, which involves plotting the within-cluster sum of squares (WCSS) against the number of clusters and identifying the "elbow" point where the rate of decrease in WCSS begins to level off [@kargupta2001distributed]. Based on this analysis, I selected a three-cluster solution as the most parsimonious and interpretable representation of the data.
+To apply **K-Means Clustering**, I first transformed the data to represent each item as a vector of binary responses across all students. I then used the elbow method to determine the optimal number of clusters, which involves plotting the within-cluster sum of squares (WCSS) against the number of clusters and identifying the "elbow" point where the rate of decrease in WCSS begins to level off [@kargupta2001distributed]. Based on this analysis, I selected a three-cluster solution as the most parsimonious and interpretable representation of the data.
 
-While K-Means Clustering can provide valuable insights into the structure of the data, it is important to recognize its limitations. K-Means Clustering assumes that the clusters are spherical and of equal size, which may not hold in practice [@gordon2003learning]. Additionally, the resulting clusters are sensitive to the initial placement of the cluster centroids, which can lead to different solutions across multiple runs of the algorithm [@kargupta2001distributed]. To mitigate these issues, I used multiple random initializations and selected the solution with the lowest WCSS.
+While **K-Means Clustering** can provide valuable insights into the structure of the data, it, too, has limitations. **K-Means Clustering** assumes that the clusters are spherical and of equal size, which may not hold in practice [@gordon2003learning]. Additionally, the resulting clusters are sensitive to the initial placement of the cluster centroids, which can lead to different solutions across multiple runs of the algorithm [@kargupta2001distributed]. To mitigate these issues, I used multiple random initializations and selected the solution with the lowest WCSS.
 
 ### Principal Component Analysis (PCA)
 
-PCA was employed as a validation technique to assess the stability and robustness of the latent skill structure identified by Factor Analysis and K-Means Clustering [@chen2018knowedu]. PCA is a dimensionality reduction technique that aims to identify the principal components that explain the maximum amount of variance in the data.
+**PCA** was employed as a validation technique to assess the stability and robustness of the latent skill structure identified by **Factor Analysis** and **K-Means Clustering** [@chen2018knowedu]. **PCA** is a dimensionality reduction technique that aims to identify the principal components that explain the maximum amount of variance in the data.
 
-To apply PCA, I first standardized the data to ensure that all items were on the same scale. I then conducted PCA using the correlation matrix and retained components with eigenvalues greater than one (Kaiser's criterion) [@chen2018knowedu]. I also examined the scree plot of eigenvalues to assess the relative importance of each component.
+To apply **PCA**, the data was initially standardized to ensure all items were on a consistent scale. The scree plot of eigenvalues was then examined to identify the optimal number of components for the analysis. PCA was subsequently conducted on the standardized item response data to evaluate the stability and robustness of the underlying skill structure [@chen2018knowedu].
 
-PCA provides a useful complement to Factor Analysis and K-Means Clustering, as it does not impose strong assumptions about the structure of the data or the nature of the underlying constructs. Instead, it identifies the key dimensions of variation in the data, which can be used to validate the stability and robustness of the latent skill structure identified by the other methods [@chen2018knowedu].
+**PCA** provides a useful complement to **Factor Analysis** and **K-Means Clustering**, as it does not impose strong assumptions about the structure of the data or the nature of the underlying constructs. Instead, it identifies the key dimensions of variation in the data, which can be used to validate the stability and robustness of the latent skill structure identified by the other methods [@chen2018knowedu].
 
-However, it is important to recognize that PCA is a purely data-driven technique and does not necessarily identify constructs that are substantively meaningful or interpretable [@gordon2003learning]. Additionally, PCA assumes that the relationships among the observed variables are linear, which may not hold in practice [@chen2018knowedu]. Despite these limitations, PCA can still provide valuable insights into the overall structure of the data and inform the interpretation of the latent skill structure.
+However, it is important to recognize that **PCA** is a purely data-driven technique and does not necessarily identify constructs that are substantively meaningful or interpretable [@gordon2003learning]. Additionally, **PCA** assumes that the relationships among the observed variables are linear, which may not hold in practice [@chen2018knowedu]. Despite these limitations, **PCA** can still provide valuable insights into the overall structure of the data and inform the interpretation of the latent skill structure.
 
 ## Implementation Details
 
@@ -149,7 +149,7 @@ print(data.isnull().sum())
 
 #### Preparing Data for Factor Analysis
 
-I extracted the item response data, excluding any non-item columns such as student identifiers. This step ensured that our analyses focused solely on the patterns of student responses across the eight test items.
+I extracted the item response data, excluding any non-item columns such as student identifiers. This step ensured that my analyses focused solely on the patterns of student responses across the eight test items.
 
 ```{python}
 # Extract item data (excluding the 'student' column if present)
@@ -205,7 +205,7 @@ The scree plot shows a clear "elbow" after the second factor, where the eigenval
 
 #### Performing Factor Analysis
 
-I applied Factor Analysis with three components to identify latent skills in the dataset. The `FactorAnalysis` module from `sklearn.decomposition` was used to perform the analysis.
+I applied **Factor Analysis** with three components to identify latent skills in the dataset. The `FactorAnalysis` module from `sklearn.decomposition` was used to perform the analysis.
 
 ```{python}
 #| label: tbl-factor
@@ -228,7 +228,7 @@ factor_loadings_df = pd.DataFrame(
 factor_loadings_df
 ```
 
-The Factor Analysis revealed three distinct latent skills underlying the eight test items. The first skill was characterized by high loadings on Items 3, 5, 7, and 8. The second skill was defined by high loadings on Items 2, 4, and 6. The third skill was primarily associated with Item 1.
+The **Factor Analysis** revealed three distinct latent skills underlying the eight test items. The first skill was characterized by high loadings on **Items 3**, **5**, **7**, and **8**. The second skill was defined by high loadings on **Items 2**, **4**, and **6**. The third skill was primarily associated with **Item 1**.
 
 ### K-Means Clustering
 
@@ -296,17 +296,41 @@ Based on the elbow plot, I decided a three-cluster solution is the most parsimon
 
 #### Applying K-Means Clustering
 
-I applied K-Means Clustering to the transformed item response data to explore potential skill clusters based on the similarity of item response patterns [@kargupta2001distributed].
+I applied **K-Means Clustering** to the transformed item response data to explore potential skill clusters based on the similarity of item response patterns [@kargupta2001distributed].
 
 ```{python}
-#| label: tbl-kmeans
+#| label: tbl-kmeansqmatrix
 #| tbl-cap: Item-Cluster Mapping
 
-# Display the item-cluster mapping
-kmeans_q_matrix_df
+# Get unique clusters (skills) from the kmeans_q_matrix_df
+unique_skills = kmeans_q_matrix_df['Mapped_Skill'].unique()
+n_clusters = len(unique_skills)
+
+# Create a binary Q-matrix based on the kmeans clustering results
+# Create an empty matrix of zeros
+binary_matrix = np.zeros((len(kmeans_q_matrix_df), n_clusters), dtype=int)
+
+# Iterate through the rows of kmeans_q_matrix_df and fill in the appropriate cluster assignment
+for index, row in kmeans_q_matrix_df.iterrows():
+    skill_index = int(row['Mapped_Skill'].split('_')[1]) - 1  # Extract the skill number and convert to zero-indexed
+    binary_matrix[index, skill_index] = 1
+
+# Create a DataFrame for the binary Q-matrix
+q_matrix_kmeans_binary_df = pd.DataFrame(
+    binary_matrix,
+    index=kmeans_q_matrix_df['Item'],
+    columns=[f'Skill_{i+1}' for i in range(n_clusters)]
+)
+
+# Reset index
+q_matrix_kmeans_binary_df.reset_index(inplace=True)
+q_matrix_kmeans_binary_df.rename(columns={'index': 'Item'}, inplace=True)
+
+# Display the Q-matrix
+q_matrix_kmeans_binary_df
 ```
 
-The resulting clusters closely aligned with the latent skills identified by the Factor Analysis, providing convergent evidence for the three-skill structure underlying the test items.
+The resulting clusters closely aligned with the latent skills identified by the **Factor Analysis**, providing convergent evidence for the three-skill structure underlying the test items.
 
 ### Principal Component Analysis (PCA)
 
@@ -339,11 +363,11 @@ plt.grid(True)
 plt.show()
 ```
 
-Similar to the scree plot used in Factor Analysis, this plot indicates that the majority of significant variance is explained by the first two factors, while the remaining factors contribute comparatively little additional information.
+Similar to the scree plot used in **Factor Analysis**, this plot indicates that the majority of significant variance is explained by the first two factors, while the remaining factors contribute comparatively little additional information.
 
 #### Performing PCA
 
-I conducted PCA on the standardized item response data to assess the stability and robustness of the latent skill structure identified by Factor Analysis and K-Means Clustering [@chen2018knowedu].
+I conducted **PCA** on the standardized item response data to assess the stability and robustness of the latent skill structure identified by **Factor Analysis** and **K-Means Clustering** [@chen2018knowedu].
 
 ```{python}
 # Initialize the PCA model with three components
@@ -370,29 +394,39 @@ pca_loadings_df = pd.DataFrame(
 pca_loadings_df
 ```
 
-The PCA results largely confirmed the three-skill structure identified by the other methods.
+The **PCA** results largely confirmed the three-skill structure identified by the other methods.
 
 ## Results
 
 ### Mapping Items to Skills Using PCA
 
-To understand the item-skill relationships further, I created a Q-matrix based on the **Principal Component Analysis (PCA)** loadings. Each item is assigned to the skill (principal component) with which it has the highest loading.
+To understand the item-skill relationships further, I created a Q-matrix based on the **PCA** loadings. Each item is assigned to the skill (principal component) with which it has the highest loading.
 
 ```{python}
-#| label: tbl-qmarix1
+#| label: tbl-pcaqmarix
 #| tbl-cap: PCA Q-Matrix
 
-# Determine the skill with the highest loading for each item from PCA
-pca_q_matrix = pca_loadings_df.idxmax(axis=1)
+# Convert the PCA loadings to a Q-matrix format (binary)
+# Set a threshold to determine if the item is associated with a skill
+threshold = 0.2
 
-# Create the Q-matrix as a data frame, showing the mapping between items and skills
-pca_q_matrix_df = pd.DataFrame({'Item': item_data.columns, 'Mapped_Skill': pca_q_matrix.values})
-pca_q_matrix_df
+# Create a binary Q-matrix based on the loadings and the threshold
+q_matrix_binary = (np.abs(pca_loadings_df) > threshold).astype(int)
+
+# Display the Q-matrix
+q_matrix_binary.index.name = 'Item'
+q_matrix_binary.columns = [f'Skill_{i+1}' for i in range(q_matrix_binary.shape[1])]
+
+# Reset the index to display it like a table
+q_matrix_binary_df = q_matrix_binary.reset_index()
+
+# Display the Q-matrix
+q_matrix_binary_df
 ```
 
 ### Comparison Across Methods
 
-The mappings obtained from Factor Analysis, K-Means Clustering, and PCA show considerable agreement, suggesting the presence of three distinct latent skills assessed by the test items.
+The mappings obtained from **Factor Analysis**, **K-Means Clustering**, and **PCA** show considerable agreement, suggesting the presence of three distinct latent skills assessed by the test items.
 
 ### Testing Alternative Factor Analysis Models
 
@@ -407,14 +441,24 @@ fa_model_extended = FactorAnalyzer(n_factors=n_factors_extended, rotation=None)
 fa_model_extended.fit(item_data_scaled)
 ```
 ```{python}
-#| label: tbl-qmarix2
+#| label: tbl-factorloadingsextended
 #| tbl-cap: Factor Analysis with Four Components
 
 # Get the factor loadings for the 4-component model
 factor_loadings_extended = fa_model_extended.loadings_
 
 # Create a data frame to visualize the factor loadings for the four-component model
-factor_loadings_extended_df = pd.DataFrame(factor_loadings_extended, index=item_data.columns, columns=[f'Skill_{i+1}' for i in range(n_factors_extended)])
+factor_loadings_extended_df = pd.DataFrame(
+    factor_loadings_extended,
+    index=item_data.columns,
+    columns=[f'Skill_{i+1}' for i in range(n_factors_extended)]
+)
+
+# Reset the index to properly align the "Item" column with the factor loadings
+factor_loadings_extended_df.reset_index(inplace=True)
+factor_loadings_extended_df.rename(columns={'index': 'Item'}, inplace=True)
+
+# Display the extended factor loadings
 factor_loadings_extended_df
 ```
 
@@ -435,13 +479,23 @@ fa_model_simpler = FactorAnalyzer(n_factors=n_factors_simpler, rotation=None)
 fa_model_simpler.fit(item_data_scaled)
 ```
 ```{python}
-#| label: tbl-qmarix3
+#| label: tbl-factorloadingssimpler
 #| tbl-cap: Factor Analysis with Two Components
+
 # Get the factor loadings for the two-component model
 factor_loadings_simpler = fa_model_simpler.loadings_
 
 # Create a data frame to visualize the factor loadings for the two-component model
-factor_loadings_simpler_df = pd.DataFrame(factor_loadings_simpler, index=item_data.columns, columns=[f'Skill_{i+1}' for i in range(n_factors_simpler)])
+factor_loadings_simpler_df = pd.DataFrame(
+    factor_loadings_simpler,
+    index=item_data.columns,
+    columns=[f'Skill_{i+1}' for i in range(n_factors_simpler)]
+)
+
+# Reset the index and rename it to align with the desired table format
+factor_loadings_simpler_df.reset_index(inplace=True)
+factor_loadings_simpler_df.rename(columns={'index': 'Item'}, inplace=True)
+
 factor_loadings_simpler_df
 ```
 
@@ -512,9 +566,9 @@ graph TB
 
 ##### Diagram 1: Method Comparison (Factor Analysis, K-Means, PCA)
 - **Key Observations**:
-  1. **Consistency Across Methods**: Many items (e.g., Item 3 and Item 7) align similarly across Factor Analysis, K-Means, and PCA, reinforcing the robustness of these mappings.
-  2. **Item Overlap**: The clustering of items (e.g., Items 3, 7, and 8 under Skill_1) consistently suggests a strong latent skill grouping.
-  3. **Discrepancies**: While most items map consistently, some differences (e.g., Item 5 under Factor Analysis vs. PCA) suggest subtle differences in how these methods interpret data structures.
+  1. **Consistency Across Methods**: Many items (e.g., **Item 3** and **Item 7**) align similarly across **Factor Analysis**, **K-Means**, and **PCA**, reinforcing the robustness of these mappings.
+  2. **Item Overlap**: The clustering of items (e.g., **Items 3**, **7**, and **8** under **Skill_1**) consistently suggests a strong latent skill grouping.
+  3. **Discrepancies**: While most items map consistently, some differences (e.g., **Item 5** under **Factor Analysis** vs. **PCA**) suggest subtle differences in how these methods interpret data structures.
   4. **Skill 3 Representation**: This skill emerges consistently across methods but captures fewer items, which might indicate a niche or less represented skill.
 
 The visual comparison highlights overlaps and outliers more effectively than numerical tables, making it easier to identify items that contribute ambiguously to multiple skills or are method-dependent.
@@ -577,8 +631,8 @@ graph TB
 ##### Diagram 2: Model Comparison (Two-, Three-, and Four-Component Models)
 - **Key Observations**:
   1. **Two-Component Model**: Simpler but lacks granularity, as evident in fewer distinct mappings and the merging of certain skills.
-  2. **Three-Component Model**: Balanced in complexity and interpretability, with clear item-skill relationships (e.g., Items 3, 7, and 8 consistently linked to Skill 1).
-  3. **Four-Component Model**: Overcomplicates relationships with multiple cross-loadings (e.g., Item 5 linked to both Skill 1 and Skill 3), making the model harder to interpret.
+  2. **Three-Component Model**: Balanced in complexity and interpretability, with clear item-skill relationships (e.g., **Items 3**, **7**, and **8** consistently linked to **Skill 1**).
+  3. **Four-Component Model**: Overcomplicates relationships with multiple cross-loadings (e.g., **Item 5** linked to both **Skill 1** and **Skill 3**), making the model harder to interpret.
   4. **Weak Loadings (Item 1)**: Visualizing weak loadings in the two-component model underscores its limited ability to represent all test items adequately.
 
 The diagrams provide a clear visual distinction between the interpretability trade-offs of different models. For instance, they highlight how additional components in the four-component model lead to more overlap, supporting the conclusion that the three-component model is optimal.
@@ -586,13 +640,13 @@ The diagrams provide a clear visual distinction between the interpretability tra
 ##### Broader Insights:
 - **Support for Prior Work**: The diagrams reinforce the findings that a three-component model is the most interpretable and aligns well across methods.
 - **New Learnings**:
-  - **Item-Specific Trends**: Items like Item 5 show variability across methods and models, suggesting they may assess complex or multiple skills.
-  - **Skill Coverage**: Skills identified in PCA seem broader, potentially capturing more nuanced relationships, while K-Means provides a stricter clustering.
+  - **Item-Specific Trends**: Items like **Item 5** show variability across methods and models, suggesting they may assess complex or multiple skills.
+  - **Skill Coverage**: Skills identified in **PCA** seem broader, potentially capturing more nuanced relationships, while **K-Means** provides a stricter clustering.
   - **Cross-Method Validation**: The diagrams visually validate the multi-method approach, showing where methods agree or diverge.
 
 #### Heatmap of Factor Loadings (Three Components)
 
-Using a heatmap, I visualized the factor loadings from the three-component Factor Analysis model.
+Using a heatmap, I visualized the factor loadings from the three-component **Factor Analysis** model.
 
 ```{python}
 #| label: fig-heatmap
@@ -676,22 +730,22 @@ plt.show()
 ##### Further Insight:
 1. **Support for Factor Analysis Findings**:
    - The charts confirm that the three-component model successfully captures distinct latent skills, with most items showing strong associations with a single skill.
-   - The visualization highlights items that load cleanly on one skill (e.g., Item 6 for Skill 2, Item 1 for Skill 3).
+   - The visualization highlights items that load cleanly on one skill (e.g., **Item 6* for **Skill 2**, **Item 1** for **Skill 3**).
 
 2. **Ambiguous Items**:
    - Items like **Item 4** and **Item 5** demonstrate weaker or mixed relationships, indicating potential issues with their design or alignment with specific skills.
    - These items may require revision or could indicate the need for further exploration of an additional component.
 
 3. **Strength of Representation**:
-   - Certain skills (e.g., Skill 1 and Skill 3) have multiple items with high loadings, providing strong representation.
-   - Skill 2 is highly dependent on a single dominant item (**Item 6**), which could make it more vulnerable to measurement error.
+   - Certain skills (e.g., **Skill 1** and **Skill 3**) have multiple items with high loadings, providing strong representation.
+   - **Skill 2** is highly dependent on a single dominant item (**Item 6**), which could make it more vulnerable to measurement error.
    
 ### Creating the Final Q-Matrix
 
-Based on the consistency of results across methods, I developed a final Q-matrix that maps each item to its primary associated skill based on the three-factor EFA model. Table 8 presents the final Q-matrix, which shows a clear and interpretable mapping of items to skills.
+Based on the consistency of results across methods, I developed a final Q-matrix that maps each item to its primary associated skill based on the three-factor model. Table 8 presents the final Q-matrix, which shows a clear and interpretable mapping of items to skills.
 
 ```{python}
-#| label: tbl-qmarix4
+#| label: tbl-finalqmarix
 #| tbl-cap: Final Q-Matrix
 
 # Creating the final Q-matrix based on the visualization and analysis findings
@@ -700,7 +754,22 @@ final_q_matrix = factor_loadings_df.idxmax(axis=1)
 
 # Create a data frame to visualize the final Q-matrix, showing the mapping between items and skills
 final_q_matrix_df = pd.DataFrame({'Item': item_data.columns, 'Mapped_Skill': final_q_matrix.values})
-final_q_matrix_df
+
+# Set a threshold to determine the significant loading
+threshold = 0.2
+
+# Create a binary Q-matrix based on the factor loadings and the threshold
+q_matrix_binary = (np.abs(factor_loadings_df) > threshold).astype(int)
+
+# Rename index and columns for better readability in the Q-matrix
+q_matrix_binary.index.name = 'Item'
+q_matrix_binary.columns = [f'Skill_{i+1}' for i in range(q_matrix_binary.shape[1])]
+
+# Reset the index to present it as a table
+q_matrix_binary_df = q_matrix_binary.reset_index()
+
+# Display the final Q-matrix
+q_matrix_binary_df
 ```
 
 I also developed another diagram to support the final Q-Matrix.
@@ -738,14 +807,14 @@ graph LR
    - **Skill 3**: Represented by **Item 1**, a highly specific item exclusively aligned with this skill.
 
 3. **Alignment with Analyses**:
-   - The Q-matrix directly reflects the findings from the Factor Analysis heatmap and bar charts, ensuring consistency and validation of the mappings.
+   - The Q-matrix directly reflects the findings from the **Factor Analysis** heatmap and bar charts, ensuring consistency and validation of the mappings.
 
 4. **Balanced Complexity**:
    - By selecting three components, the Q-matrix strikes a balance between interpretability and detail, avoiding the over-complexity of a four-component model while capturing nuances missed in a two-component model.
 
 ### Observations and Recommendations
 1. **Strength of Item Representation**:
-   - **Skill 3** relies on a single item (**Item 1**). While **Item 1** has a strong loading, additional items may be needed to ensure the skill is robustly assessed.
+   - **Skill 3** relies on a single item (**Item 1**). While **Item 1** has a strong loading, additional items (e.g., **Item 5**) may be needed to ensure the skill is robustly assessed.
    - **Skill 2** shows moderate contributions from **Item 2** and **Item 4**, which might require review to ensure their alignment with this skill.
 
 2. **Ambiguous Items**:
@@ -778,7 +847,7 @@ print(f"Factor Analysis R^2: {r_squared_fa:.2f}")
 
 - The $R^2$ value of **0.56** indicates that the three-factor model explains **56%** of the total variance in the data.
 - **Implications:**
-  - A proportion of variance explained greater than 50% is generally considered acceptable in exploratory Factor Analysis, especially with psychological or educational data where constructs are often complex.
+  - A proportion of variance explained greater than 50% is generally considered acceptable in exploratory **Factor Analysis**, especially with psychological or educational data where constructs are often complex.
   - However, it also suggests that **44%** of the variance is not explained by the model, which may be due to measurement error, unique variance of items, or additional latent factors not captured by the model.
 
 **For PCA**:
@@ -793,14 +862,14 @@ print(f"PCA cumulative variance explained by first 3 components: {cumulative_var
 
 - The first three principal components explain **66%** of the total variance in the data.
 - **Implications:**
-  - This indicates a slightly better variance explanation than the Factor Analysis model.
-  - PCA aims to capture the maximum variance with the fewest components, so a higher cumulative variance explained is desirable.
-  - However, PCA components may not be as interpretable as factors from Factor Analysis, since PCA components are linear combinations that maximize variance without considering underlying latent constructs.
+  - This indicates a slightly better variance explanation than the **Factor Analysis** model.
+  - **PCA** aims to capture the maximum variance with the fewest components, so a higher cumulative variance explained is desirable.
+  - However, **PCA** components may not be as interpretable as factors from **Factor Analysis**, since **PCA** components are linear combinations that maximize variance without considering underlying latent constructs.
 
 **Comparison:**
 
-- The PCA model explains more variance (66%) compared to the Factor Analysis model (56%).
-- This difference may be due to the methodological differences between PCA and Factor Analysis:
+- The **PCA** model explains more variance (66%) compared to the **Factor Analysis** model (56%).
+- This difference may be due to the methodological differences between **PCA** and **Factor Analysis**:
   - **PCA** focuses on capturing variance and is sensitive to the scale of the data.
   - **Factor Analysis** models the underlying latent constructs and accounts for measurement error.
 
@@ -849,7 +918,7 @@ print(f"Cohen's kappa after alignment: {kappa:.2f}")
 
 - **Confusion Matrix:**
   - The confusion matrix shows perfect agreement between the methods after alignment:
-    - All items assigned to Skill 1 in Factor Analysis are also assigned to the corresponding cluster in K-Means.
+    - All items assigned to Skill 1 in **Factor Analysis** are also assigned to the corresponding cluster in **K-Means**.
     - The same applies to Skills 2 and 3.
 - **Cohen's Kappa Value:**
   - A Kappa value of **1.00** indicates **perfect agreement** between the two methods after alignment.
@@ -878,11 +947,11 @@ print(f"Cohen's kappa after alignment: {kappa:.2f}")
 **Strengths:**
 
 - **Converging Evidence:**
-  - The high Cohen's Kappa value indicates that different analytical methods converge on the same item-skill mappings, enhancing confidence in your results.
+  - The high Cohen's Kappa value indicates that different analytical methods converge on the same item-skill mappings, enhancing confidence in the results.
 - **Variance Explained:**
-  - Both Factor Analysis and PCA explain a substantial portion of the variance, supporting the validity of the three-component model.
+  - Both **Factor Analysis** and **PCA** explain a substantial portion of the variance, supporting the validity of the three-component model.
 - **Methodological Rigor:**
-  - Your approach of using multiple methods and comparing them through quantitative metrics strengthens the robustness of your findings.
+  - My approach of using multiple methods and comparing them through quantitative metrics strengthens the robustness of the findings.
 
 **Limitations:**
 
@@ -892,7 +961,7 @@ print(f"Cohen's kappa after alignment: {kappa:.2f}")
     - Additional latent skills not captured by the model.
     - Unique variances of items.
 - **Assumptions of Methods:**
-  - Factor Analysis and PCA assumptions may not be fully met with binary data, which could affect the variance explained.
+  - **Factor Analysis** and **PCA** assumptions may not be fully met with binary data, which could affect the variance explained.
 
 #### Verifying Item-Skill Mappings
 
@@ -905,7 +974,7 @@ final_q_matrix_df
 
 **Interpretation:**
 
-- **Item Assignments**: Each item is assigned to the skill with which it has the highest factor loading from your final Q-matrix.
+- **Item Assignments**: Each item is assigned to the skill with which it has the highest factor loading from the final Q-matrix.
 - **Skill Representation**:
   - **Skill_1**: Items 3, 5, 7, 8
   - **Skill_2**: Items 2, 4, 6
@@ -913,8 +982,8 @@ final_q_matrix_df
 
 **Significance:**
 
-- **Consistent Mapping**: The assignments reflect the conclusions drawn from your Factor Analysis, where items are mapped based on dominant loadings.
-- **Foundation for Comparison**: These mappings serve as the reference point for comparing with the K-Means Clustering results.
+- **Consistent Mapping**: The assignments reflect the conclusions drawn from my **Factor Analysis**.
+- **Foundation for Comparison**: These mappings serve as the reference point for comparing with the **K-Means Clustering** results.
 
 ```{python}
 #| label: tbl-verify2
@@ -925,13 +994,13 @@ kmeans_q_matrix_df
 
 **Interpretation:**
 
-- **Cluster Assignments**: Items are assigned to clusters labeled as Skill_1, Skill_2, or Skill_3, based on the K-Means Clustering algorithm.
-- **Arbitrary Labels**: The cluster labels (e.g., Skill_1, Skill_2) are assigned by the algorithm and do not necessarily correspond to the skills identified in Factor Analysis.
+- **Cluster Assignments**: Items are assigned to clusters labeled as **Skill_1**, **Skill_2**, or **Skill_3**, based on the **K-Means Clustering** algorithm.
+- **Arbitrary Labels**: The cluster labels (e.g., **Skill_1**, **Skill_2**) are assigned by the algorithm and do not necessarily correspond to the skills identified in **Factor Analysis**.
 
 **Significance:**
 
-- **Initial Comparison**: At first glance, the mappings appear similar to the Factor Analysis mappings, but due to arbitrary labeling, a direct comparison isn't meaningful yet.
-- **Need for Alignment**: To accurately compare the item-skill assignments, cluster labels must be aligned with the skills from Factor Analysis.
+- **Initial Comparison**: At first glance, the mappings appear similar to the **Factor Analysis** mappings, but due to arbitrary labeling, a direct comparison isn't meaningful yet.
+- **Need for Alignment**: To accurately compare the item-skill assignments, cluster labels must be aligned with the skills from **Factor Analysis**.
 
 ```{python}
 # Map clusters to skills after alignment
@@ -943,12 +1012,12 @@ kmeans_q_matrix_df_aligned['Mapped_Skill'] = kmeans_skill_names_aligned
 **Process:**
 
 - **Alignment Using the Hungarian Algorithm**:
-  - Since cluster labels are arbitrary, you used the **Hungarian algorithm** (also known as the **linear sum assignment method**) to find the optimal one-to-one mapping between clusters and skills.
+  - Since cluster labels are arbitrary, I used the **Hungarian algorithm** (also known as the **linear sum assignment method**) to find the optimal one-to-one mapping between clusters and skills.
   - This algorithm minimizes the total disagreement between the two sets of labels.
 
 - **Mapping Clusters to Skills**:
-  - You created a mapping dictionary (`mapping`) that aligns each cluster label with the corresponding skill from Factor Analysis.
-  - This ensures that clusters are correctly interpreted in the context of your identified skills.
+  - I created a mapping dictionary (`mapping`) that aligns each cluster label with the corresponding skill from **Factor Analysis**.
+  - This ensures that clusters are correctly interpreted in the context of the identified skills.
 
 ```{python}
 #| label: tbl-verify3
@@ -959,13 +1028,13 @@ kmeans_q_matrix_df_aligned
 
 **Interpretation:**
 
-- **Aligned Assignments**: After alignment, the cluster labels now correspond to the same skills as in the Factor Analysis mappings.
-- **Perfect Agreement**: The item-skill assignments from K-Means Clustering now match exactly with those from Factor Analysis.
+- **Aligned Assignments**: After alignment, the cluster labels now correspond to the same skills as in the **Factor Analysis** mappings.
+- **Perfect Agreement**: The item-skill assignments from **K-Means Clustering** match exactly with those from **Factor Analysis**.
 
 **Significance:**
 
 - **Validation of Consistency**: The perfect match indicates strong agreement between the two methods.
-- **Robustness of Findings**: The consistency across methods reinforces the reliability of your item-skill mappings.
+- **Robustness of Findings**: The consistency across methods reinforces the reliability of the item-skill mappings.
 
 ## Discussion
 
@@ -1034,32 +1103,25 @@ After comparing models with two, three, and four components, the **three-compone
   - Cumulative variance explained is **66%**.
   - Indicates a substantial capture of data variability.
 - **Comparison:**
-  - PCA generally explains more variance than Factor Analysis in your findings.
-  - However, PCA components may not be as interpretable in terms of latent skills.
+  - **PCA** generally explains more variance than **Factor Analysis** in your findings.
+  - However, **PCA** components may not be as interpretable in terms of latent skills.
 
-**Thresholds:**
-- In social sciences, explaining around 50-75% variance is acceptable.
+**Thresholds:** In social sciences, explaining around 50-75% variance is acceptable.
 
-**Diminishing Returns:**
-- The variance explained by adding a fourth component doesn't justify the increased complexity.
+**Diminishing Returns:** The variance explained by adding a fourth component doesn't justify the increased complexity.
 
-**Model Fit:**
-- The three-component model provides an acceptable fit with reasonable simplicity.
+**Model Fit:** The three-component model provides an acceptable fit with reasonable simplicity.
 
 #### Consistency Across Methods
 
 **Agreement Among Methods**
 
 - **Three-Component Model:**
-  - High consistency in item-skill mappings across Factor Analysis, K-Means Clustering, and PCA.
+  - High consistency in item-skill mappings across **Factor Analysis**, **K-Means Clustering**, and **PCA**.
   - **Cohen's Kappa Coefficient** of **1.00** after alignment indicates perfect agreement.
 - **Two- and Four-Component Models:**
   - Less consistent across methods.
   - Ambiguities in item assignments due to overlapping loadings.
-
-**Cross-Validation:**
-
-- Consistency strengthens the validity of your findings.
 
 **Reinforcement:**
 
@@ -1078,13 +1140,13 @@ After comparing models with two, three, and four components, the **three-compone
   - Indicates that 56% of the variance is captured by the model.
 - **PCA:**
   - **Three-Component Model Cumulative Variance:** **66%**.
-  - Suggests a better variance capture, but PCA components may be less interpretable.
+  - Suggests a better variance capture, but **PCA** components may be less interpretable.
 
 **Cohen's Kappa Coefficient**
 
 - **Value:** **1.00** after alignment.
 - **Interpretation:**
-  - Indicates perfect agreement between item-skill mappings from Factor Analysis and K-Means Clustering.
+  - Indicates perfect agreement between item-skill mappings from **Factor Analysis** and **K-Means Clustering**.
 - **Significance:**
   - Validates the consistency and reliability of the three-component model.
 
@@ -1124,13 +1186,11 @@ After comparing models with two, three, and four components, the **three-compone
 
 **Integration of Analytical Findings**
 
-- **Factor Analysis**: The Final Q-Matrix is primarily based on the results of your three-component Factor Analysis, where each item is assigned to the skill with the highest factor loading.
+- **Factor Analysis**: The Final Q-Matrix is primarily based on the results of the three-component **Factor Analysis**, where each item is assigned to the skill with the highest factor loading.
 
-- **K-Means Clustering** and **PCA**: The item-skill mappings derived from these methods align closely with the Factor Analysis results, reinforcing the assignments in the Final Q-Matrix.
+- **K-Means Clustering** and **PCA**: The item-skill mappings derived from these methods align closely with the **Factor Analysis** results, reinforcing the assignments in the Final Q-Matrix.
 
-  - **Consistency in Item Groupings**: Items that cluster together in K-Means and load on the same principal components in PCA correspond to the same skills identified in Factor Analysis.
-
-**Justification**:
+  - **Consistency in Item Groupings**: Items that cluster together in **K-Means** and load on the same principal components in **PCA** correspond to the same skills identified in **Factor Analysis**.
 
 - **Converging Evidence**: The consistent findings across multiple methods provide strong evidence that the item-skill assignments in the Final Q-Matrix accurately reflect the underlying knowledge structure.
 
@@ -1146,9 +1206,7 @@ After comparing models with two, three, and four components, the **three-compone
 
 **Cohen's Kappa Coefficient**
 
-- **Value of 1.00**: Indicates perfect agreement between the item-skill mappings from Factor Analysis and K-Means Clustering after alignment.
-
-**Justification**:
+- **Value of 1.00**: Indicates perfect agreement between the item-skill mappings from **Factor Analysis** and **K-Means Clustering** after alignment.
 
 - **Adequate Model Fit**: The proportion of variance explained suggests that the model captures a substantial amount of the data's variability, which is acceptable in exploratory analyses.
 
@@ -1159,8 +1217,6 @@ After comparing models with two, three, and four components, the **three-compone
 **Model Selection**
 
 - **Three-Component Model**: Chosen for providing the best balance between capturing sufficient detail and maintaining simplicity.
-
-**Justification**:
 
 - **Avoiding Overfitting**: The four-component model introduced complexity without significant gains in variance explained, making it less interpretable.
 
@@ -1174,11 +1230,7 @@ After comparing models with two, three, and four components, the **three-compone
 
 - **Factor Analysis, K-Means Clustering, and PCA** all indicate similar item-skill groupings.
 
-**Visualizations**
-
 - **Mermaid Diagrams and Heatmaps**: Provide visual confirmation of the consistent item-skill relationships across methods.
-
-**Justification**:
 
 - **Cross-Method Validation**: Consistency across methods strengthens the argument that the Final Q-Matrix accurately represents the latent skills.
 
@@ -1200,33 +1252,33 @@ Despite the insights provided by this study, there are limitations to consider.
 
 **Acknowledging Split Influences**
 
-- **Item 5**: Exhibits moderate loadings on both Skill 1 and Skill 3.
+- **Item 5**: Exhibits moderate loadings on both **Skill 1** and **Skill 3**.
 
 **Justification**:
 
-- **Assignment Based on Dominant Loading**: Despite the split influence, Item 5 is assigned to Skill 1 due to its higher loading, aligning with the overall structure.
+- **Assignment Based on Dominant Loading**: Despite the split influence, **Item 5** is assigned to **Skill 1** due to its higher loading, aligning with the overall structure.
 
 - **Consideration for Revision**: Recognizing the split influence allows for potential item revision to enhance its alignment with a single skill.
 
 **Ensuring Skill Representation**
 
-- **Skill 3**: Currently represented by a single item (Item 1).
+- **Skill 3**: Currently represented by a single item (**Item 1**).
 
 **Justification**:
 
-- **Recognition of Limitations**: Acknowledging that Skill 3 relies on a single item highlights an area for potential expansion in future assessments.
+- **Recognition of Limitations**: Acknowledging that **Skill 3** relies on a single item highlights an area for potential expansion in future assessments.
 
-- **Maintaining Integrity**: Despite the limited representation, the strong loading of Item 1 on Skill 3 justifies its inclusion in the Q-Matrix.
+- **Maintaining Integrity**: Despite the limited representation, the strong loading of **Item 1** on **Skill 3** justifies its inclusion in the Q-Matrix.
 
 - **Binary Data Consideration**:
-  - The use of Factor Analysis and PCA on binary data may not fully meet the assumptions of these methods. Future research could explore the application of Item Response Theory (IRT) models specifically designed for analyzing binary response data [@van2015handbook].
+  - The use of **Factor Analysis** and **PCA** on binary data may not fully meet the assumptions of these methods. Future research could explore the application of **Item Response Theory (IRT)** models specifically designed for analyzing binary response data [@van2015handbook].
 
 - **Sample Size and Generalizability**:
   - The small sample size of eight items limits the generalizability of the findings. Replicating the study with a larger set of items and a more diverse student population would help validate the identified skill structure and its applicability to different educational contexts.
 
 ## Conclusion
 
-This study significantly contributes to the field of educational assessment and learning analytics by demonstrating the effectiveness of a comprehensive, multi-method approach to uncovering latent skill structures in an eight-item test dataset. By leveraging the complementary strengths of **Factor Analysis**, **K-Means Clustering**, and **Principal Component Analysis (PCA)**, we identified a robust and interpretable three-skill model that best represents the underlying knowledge structure.
+This study significantly contributes to the field of educational assessment and learning analytics by demonstrating the effectiveness of a comprehensive, multi-method approach to uncovering latent skill structures in an eight-item test dataset. By leveraging the complementary strengths of **Factor Analysis**, **K-Means Clustering**, and **Principal Component Analysis (PCA)**, I identified a robust and interpretable three-skill model that best represents the underlying knowledge structure.
 
 **Key findings of this study include:**
 
@@ -1251,7 +1303,7 @@ Moreover, the multi-method approach presented in this study serves as a valuable
 3. **Exploring Generalizability Across Contexts:** Investigate the applicability of the identified skill structure across different domains, grade levels, and assessment formats.
 4. **Integrating with Adaptive Learning Systems:** Explore the integration of the derived Q-matrix with adaptive learning systems and intelligent tutoring platforms to enable real-time, skill-based feedback and personalized learning paths.
 
-By addressing these challenges and opportunities, future research can further advance our understanding of knowledge structure mapping and its applications in educational settings, ultimately contributing to the development of more effective and equitable learning experiences for all students.
+By addressing these challenges and opportunities, future research can further advance our understanding of **knowledge structure mapping** and its applications in educational settings, ultimately contributing to the development of more effective and equitable learning experiences for all students.
 
 ### Submission Guidelines
 
