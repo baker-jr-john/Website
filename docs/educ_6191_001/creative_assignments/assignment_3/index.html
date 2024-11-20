@@ -453,7 +453,7 @@ Table&nbsp;1: First few rows of the dataset
 </div>
 </div>
 <p>To prepare the data for analysis, I examined the structure of the data frame and checked for missing values.</p>
-<div id="d4116a3b" class="cell" data-execution_count="2">
+<div id="3ce96d5d" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the dimensions of the dataset</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Dataset dimensions: </span><span class="sc">{</span>data<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -482,7 +482,7 @@ dtype: int64</code></pre>
 <section id="preparing-data-for-factor-analysis" class="level4">
 <h4 class="anchored" data-anchor-id="preparing-data-for-factor-analysis">Preparing Data for Factor Analysis</h4>
 <p>I extracted the item response data, excluding any non-item columns such as student identifiers. This step ensured that my analyses focused solely on the patterns of student responses across the eight test items.</p>
-<div id="7f411fe0" class="cell" data-execution_count="3">
+<div id="40915281" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract item data (excluding the 'student' column if present)</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>item_data <span class="op">=</span> data.drop(columns<span class="op">=</span>[<span class="st">'student'</span>], errors<span class="op">=</span><span class="st">'ignore'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -490,7 +490,7 @@ dtype: int64</code></pre>
 <section id="determining-the-number-of-factors-using-scree-plot" class="level4">
 <h4 class="anchored" data-anchor-id="determining-the-number-of-factors-using-scree-plot">Determining the Number of Factors Using Scree Plot</h4>
 <p>To determine the optimal number of factors to retain, I examined a scree plot of eigenvalues.</p>
-<div id="460d4246" class="cell" data-execution_count="4">
+<div id="7cb36d16" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary modules</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -911,7 +911,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>FactorAnalyzer(rotation=None, rotation_kwargs={})</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;FactorAnalyzer<span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>FactorAnalyzer(rotation=None, rotation_kwargs={})</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="4df351cf" class="cell" data-execution_count="5">
+<div id="0f8a87db" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get eigenvalues and variance explained</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ev, v <span class="op">=</span> fa_model.get_eigenvalues()</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>variance <span class="op">=</span> fa_model.get_factor_variance()</span>
@@ -1055,7 +1055,7 @@ Table&nbsp;2: Factor Loadings
 <section id="transposing-item-data" class="level4">
 <h4 class="anchored" data-anchor-id="transposing-item-data">Transposing Item Data</h4>
 <p>I transposed the item data to cluster items based on their response patterns.</p>
-<div id="2015804f" class="cell" data-execution_count="8">
+<div id="339f6c64" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import K-Means module</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1478,7 +1478,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KMeans(n_clusters=3, random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked=""><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;KMeans<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.cluster.KMeans.html">?<span>Documentation for KMeans</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>KMeans(n_clusters=3, random_state=42)</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="3df88b2c" class="cell" data-execution_count="9">
+<div id="48054b21" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the cluster labels for each item</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>cluster_labels <span class="op">=</span> kmeans.labels_</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1492,7 +1492,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <section id="determining-the-number-of-clusters-using-elbow-method" class="level4">
 <h4 class="anchored" data-anchor-id="determining-the-number-of-clusters-using-elbow-method">Determining the Number of Clusters Using Elbow Method</h4>
 <p>To determine the optimal number of clusters, I used the elbow method, which involved plotting the within-cluster sum of squares (WCSS) against the number of clusters and identifying the “elbow” point where the rate of decrease in WCSS began to level off.</p>
-<div id="60456a97" class="cell" data-execution_count="10">
+<div id="03ec3ca9" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary module</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4093,7 +4093,7 @@ Table&nbsp;3: Item-Cluster Mapping
 <section id="determining-the-number-of-components-using-scree-plot" class="level4">
 <h4 class="anchored" data-anchor-id="determining-the-number-of-components-using-scree-plot">Determining the Number of Components Using Scree Plot</h4>
 <p>I generated another scree plot to help determine the optimal number of components.</p>
-<div id="fb175d13" class="cell" data-execution_count="13">
+<div id="5c051176" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary module</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4538,7 +4538,7 @@ Figure&nbsp;3: Scree Plot for PCA
 <section id="performing-pca" class="level4">
 <h4 class="anchored" data-anchor-id="performing-pca">Performing PCA</h4>
 <p>I conducted <strong>PCA</strong> on the standardized item response data to assess the stability and robustness of the latent skill structure identified by <strong>Factor Analysis</strong> and <strong>K-Means Clustering</strong> <span class="citation" data-cites="chen2018knowedu">(<a href="#ref-chen2018knowedu" role="doc-biblioref">Chen et al. 2018</a>)</span>.</p>
-<div id="32369dfc" class="cell" data-execution_count="15">
+<div id="07b5ce0c" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the PCA model with three components</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>pca_model <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">3</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -5164,7 +5164,7 @@ Table&nbsp;5: PCA Q-Matrix
 <p>I tested <strong>Factor Analysis</strong> models with two-, three-, and four-factor models to determine the optimal number of latent skills.</p>
 <section id="factor-analysis-with-four-components" class="level4">
 <h4 class="anchored" data-anchor-id="factor-analysis-with-four-components">Factor Analysis with Four Components</h4>
-<div id="e8d2f04f" class="cell" data-execution_count="18">
+<div id="6ce7aced" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Performing Factor Analysis with four components to explore the potential presence of additional latent skills</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>n_factors_extended <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>fa_model_extended <span class="op">=</span> FactorAnalyzer(n_factors<span class="op">=</span>n_factors_extended, rotation<span class="op">=</span><span class="va">None</span>)</span>
@@ -5702,7 +5702,7 @@ Table&nbsp;6: Factor Analysis with Four Components
 </section>
 <section id="factor-analysis-with-two-components" class="level4">
 <h4 class="anchored" data-anchor-id="factor-analysis-with-two-components">Factor Analysis with Two Components</h4>
-<div id="d6c89645" class="cell" data-execution_count="20">
+<div id="caadc282" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Performing Factor Analysis with two components to explore if a simpler model might explain the relationships</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>n_factors_simpler <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>fa_model_simpler <span class="op">=</span> FactorAnalyzer(n_factors<span class="op">=</span>n_factors_simpler, rotation<span class="op">=</span><span class="va">None</span>)</span>
@@ -6713,7 +6713,7 @@ Diagram 3: Final Q-Matirx
 <section id="calculating-proportion-of-variance-explained-r2" class="level4">
 <h4 class="anchored" data-anchor-id="calculating-proportion-of-variance-explained-r2">Calculating Proportion of Variance Explained (<span class="math inline">\(R^2\)</span>)</h4>
 <p><strong>For Factor Analysis</strong>:</p>
-<div id="58eedaac" class="cell" data-execution_count="25">
+<div id="8af51975" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the communalities</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>communalities <span class="op">=</span> fa_model.get_communalities()</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -6741,7 +6741,7 @@ Diagram 3: Final Q-Matirx
 </ul></li>
 </ul>
 <p><strong>For PCA</strong>:</p>
-<div id="284ecdd9" class="cell" data-execution_count="26">
+<div id="9e3ebb0b" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate cumulative variance explained</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>cumulative_variance <span class="op">=</span> np.cumsum(pca_model.explained_variance_ratio_)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"PCA cumulative variance explained by first 3 components: </span><span class="sc">{</span>cumulative_variance[<span class="dv">2</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -6784,7 +6784,7 @@ Diagram 3: Final Q-Matirx
 <section id="calculating-cohens-kappa-coefficient" class="level4">
 <h4 class="anchored" data-anchor-id="calculating-cohens-kappa-coefficient">Calculating Cohen’s Kappa Coefficient</h4>
 <p>I also examined the consistency of item assignments across methods using Cohen’s kappa coefficient <span class="citation" data-cites="cohen1960coefficient">(<a href="#ref-cohen1960coefficient" role="doc-biblioref">Cohen 1960</a>)</span>.</p>
-<div id="a2ba68f1" class="cell" data-execution_count="27">
+<div id="a629b05f" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> linear_sum_assignment</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -7062,7 +7062,7 @@ Table&nbsp;10: K-Means Clustering Mappings (before alignment)
 <li><strong>Initial Comparison</strong>: At first glance, the mappings appear similar to the <strong>Factor Analysis</strong> mappings, but due to arbitrary labeling, a direct comparison isn’t meaningful yet.</li>
 <li><strong>Need for Alignment</strong>: To accurately compare the item-skill assignments, cluster labels must be aligned with the skills from <strong>Factor Analysis</strong>.</li>
 </ul>
-<div id="dba48e1b" class="cell" data-execution_count="30">
+<div id="e2044d15" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Map clusters to skills after alignment</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>kmeans_skill_names_aligned <span class="op">=</span> [<span class="st">'Skill_'</span> <span class="op">+</span> <span class="bu">str</span>(mapping[label] <span class="op">+</span> <span class="dv">1</span>) <span class="cf">for</span> label <span class="kw">in</span> kmeans_labels]</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df_aligned <span class="op">=</span> kmeans_q_matrix_df.copy()</span>
