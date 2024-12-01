@@ -205,7 +205,7 @@ The scree plot shows a clear "elbow" after the second factor, where the eigenval
 
 #### Performing Factor Analysis
 
-I applied **Factor Analysis** with three components to identify latent skills in the dataset. The `FactorAnalysis` module from `sklearn.decomposition` was used to perform the analysis.
+I applied **Factor Analysis** with three components to identify latent skills in the dataset.
 
 ```{python}
 #| label: tbl-factor
