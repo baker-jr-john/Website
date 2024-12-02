@@ -121,9 +121,20 @@ However, it is important to recognize that **PCA** is a purely data-driven techn
 
 The first step in my analysis was to load and preprocess the eight-item test dataset. The dataset consisted of binary responses (correct or incorrect) from 1,920 students on eight test items. I used the `pandas` library in Python to load the data into a data frame and perform initial data exploration
 
+```{{python}}
+# Import necessary libraries
+import pandas as pd
+
+# Load the dataset
+data = pd.read_csv('data/8items.csv')
+
+# Display the first few rows of the dataset
+data.head()
+```
 ```{python}
 #| label: tbl-prep
 #| tbl-cap: First few rows of the dataset
+#| echo: false
 
 # Import necessary libraries
 import pandas as pd
@@ -188,9 +199,20 @@ cumulative_variance_explained = variance[2]
 total_variance_explained = cumulative_variance_explained[-1]
 print(f"Total Variance Explained by Factors: {total_variance_explained}")
 ```
+```{{python}}
+# Plot the scree plot
+plt.figure(figsize=(8, 5))
+plt.plot(range(1, len(ev) + 1), ev, 'o-', color='blue')
+_ = plt.title('Scree Plot for Factor Analysis')
+_ = plt.xlabel('Factor Number')
+_ = plt.ylabel('Eigenvalue')
+plt.grid(True)
+plt.show()
+```
 ```{python}
 #| label: fig-scree1
 #| fig-cap: "Scree Plot for Factor Analysis"
+#| echo: false
 
 # Plot the scree plot
 plt.figure(figsize=(8, 5))
@@ -208,9 +230,27 @@ The scree plot shows a clear "elbow" after the second factor, where the eigenval
 
 I applied **Factor Analysis** with three components to identify latent skills in the dataset.
 
+```{{python}}
+# Retrieve the factor loadings
+factor_loadings = fa_model.loadings_
+
+# Dynamically determine the number of factors extracted
+n_factors_extracted = factor_loadings.shape[1]
+
+# Create a data frame for the factor loadings
+factor_loadings_df = pd.DataFrame(
+    factor_loadings,
+    index=item_data.columns,
+    columns=[f'Skill_{i+1}' for i in range(n_factors_extracted)]
+)
+
+# Display the factor loadings
+factor_loadings_df
+```
 ```{python}
 #| label: tbl-factor
 #| tbl-cap: Factor Loadings
+#| echo: false
 
 # Retrieve the factor loadings
 factor_loadings = fa_model.loadings_
@@ -279,9 +319,20 @@ for i in range(1, 7):
     kmeans_elbow.fit(item_data_transposed)
     wcss.append(kmeans_elbow.inertia_)
 ```
+```{{python}}
+# Plot the elbow graph
+plt.figure(figsize=(8, 5))
+plt.plot(range(1, 7), wcss, 'o-', color='red')
+_ = plt.title('Elbow Method for K-Means Clustering')
+_ = plt.xlabel('Number of Clusters')
+_ = plt.ylabel('Within-Cluster Sum of Squares (WCSS)')
+plt.grid(True)
+plt.show()
+```
 ```{python}
 #| label: fig-elbow
 #| fig-cap: "Elbow Method for K-Means Clustering"
+#| echo: false
 
 # Plot the elbow graph
 plt.figure(figsize=(8, 5))
@@ -299,9 +350,38 @@ Based on the elbow plot, I decided a three-cluster solution is the most parsimon
 
 I applied **K-Means Clustering** to the transformed item response data to explore potential skill clusters based on the similarity of item response patterns [@kargupta2001distributed].
 
+```{{python}}
+# Get unique clusters (skills) from the kmeans_q_matrix_df
+unique_skills = kmeans_q_matrix_df['Mapped_Skill'].unique()
+n_clusters = len(unique_skills)
+
+# Create a binary Q-matrix based on the kmeans clustering results
+# Create an empty matrix of zeros
+binary_matrix = np.zeros((len(kmeans_q_matrix_df), n_clusters), dtype=int)
+
+# Iterate through the rows of kmeans_q_matrix_df and fill in the appropriate cluster assignment
+for index, row in kmeans_q_matrix_df.iterrows():
+    skill_index = int(row['Mapped_Skill'].split('_')[1]) - 1  # Extract the skill number and convert to zero-indexed
+    binary_matrix[index, skill_index] = 1
+
+# Create a DataFrame for the binary Q-matrix
+q_matrix_kmeans_binary_df = pd.DataFrame(
+    binary_matrix,
+    index=kmeans_q_matrix_df['Item'],
+    columns=[f'Skill_{i+1}' for i in range(n_clusters)]
+)
+
+# Reset index
+q_matrix_kmeans_binary_df.reset_index(inplace=True)
+q_matrix_kmeans_binary_df.rename(columns={'index': 'Item'}, inplace=True)
+
+# Display the Q-matrix
+q_matrix_kmeans_binary_df
+```
 ```{python}
 #| label: tbl-kmeansqmatrix
 #| tbl-cap: Item-Cluster Mapping
+#| echo: false
 
 # Get unique clusters (skills) from the kmeans_q_matrix_df
 unique_skills = kmeans_q_matrix_df['Mapped_Skill'].unique()
@@ -347,9 +427,23 @@ from sklearn.decomposition import PCA
 pca = PCA()
 pca.fit(item_data_scaled)
 ```
+```{{python}}
+# Calculate explained variance
+explained_variance = pca.explained_variance_
+
+# Plot the scree plot
+plt.figure(figsize=(8, 5))
+plt.plot(range(1, len(explained_variance) + 1), explained_variance, 'o-', color='green')
+_ = plt.title('Scree Plot for PCA')
+_ = plt.xlabel('Principal Component Number')
+_ = plt.ylabel('Eigenvalue')
+plt.grid(True)
+plt.show()
+```
 ```{python}
 #| label: fig-scree2
 #| fig-cap: "Scree Plot for PCA"
+#| echo: false
 
 # Calculate explained variance
 explained_variance = pca.explained_variance_
@@ -377,9 +471,24 @@ pca_model = PCA(n_components=3)
 # Fit the PCA model to the item data
 pca_model.fit(item_data_scaled)
 ```
+```{{python}}
+# Retrieve the PCA loadings
+pca_loadings = pca_model.components_.T
+
+# Create a data frame for the PCA loadings
+pca_loadings_df = pd.DataFrame(
+    pca_loadings,
+    index=item_data.columns,
+    columns=[f'Skill_{i+1}' for i in range(3)]
+)
+
+# Display the PCA loadings
+pca_loadings_df
+```
 ```{python}
 #| label: tbl-pca
 #| tbl-cap: PCA Loadings
+#| echo: false
 
 # Retrieve the PCA loadings
 pca_loadings = pca_model.components_.T
@@ -403,9 +512,28 @@ The **PCA** results largely confirmed the three-skill structure identified by th
 
 To understand the item-skill relationships further, I created a Q-matrix based on the **PCA** loadings. Each item is assigned to the skill (principal component) with which it has the highest loading.
 
+```{{python}}
+# Convert the PCA loadings to a Q-matrix format (binary)
+# Set a threshold to determine if the item is associated with a skill
+threshold = 0.2
+
+# Create a binary Q-matrix based on the loadings and the threshold
+q_matrix_binary = (np.abs(pca_loadings_df) > threshold).astype(int)
+
+# Display the Q-matrix
+q_matrix_binary.index.name = 'Item'
+q_matrix_binary.columns = [f'Skill_{i+1}' for i in range(q_matrix_binary.shape[1])]
+
+# Reset the index to display it like a table
+q_matrix_binary_df = q_matrix_binary.reset_index()
+
+# Display the Q-matrix
+q_matrix_binary_df
+```
 ```{python}
 #| label: tbl-pcaqmarix
 #| tbl-cap: PCA Q-Matrix
+#| echo: false
 
 # Convert the PCA loadings to a Q-matrix format (binary)
 # Set a threshold to determine if the item is associated with a skill
@@ -441,9 +569,28 @@ n_factors_extended = 4
 fa_model_extended = FactorAnalyzer(n_factors=n_factors_extended, rotation=None)
 fa_model_extended.fit(item_data_scaled)
 ```
+```{{python}}
+# Get the factor loadings for the 4-component model
+factor_loadings_extended = fa_model_extended.loadings_
+
+# Create a data frame to visualize the factor loadings for the four-component model
+factor_loadings_extended_df = pd.DataFrame(
+    factor_loadings_extended,
+    index=item_data.columns,
+    columns=[f'Skill_{i+1}' for i in range(n_factors_extended)]
+)
+
+# Reset the index to properly align the "Item" column with the factor loadings
+factor_loadings_extended_df.reset_index(inplace=True)
+factor_loadings_extended_df.rename(columns={'index': 'Item'}, inplace=True)
+
+# Display the extended factor loadings
+factor_loadings_extended_df
+```
 ```{python}
 #| label: tbl-factorloadingsextended
 #| tbl-cap: Factor Analysis with Four Components
+#| echo: false
 
 # Get the factor loadings for the 4-component model
 factor_loadings_extended = fa_model_extended.loadings_
@@ -479,9 +626,27 @@ n_factors_simpler = 2
 fa_model_simpler = FactorAnalyzer(n_factors=n_factors_simpler, rotation=None)
 fa_model_simpler.fit(item_data_scaled)
 ```
+```{{python}}
+# Get the factor loadings for the two-component model
+factor_loadings_simpler = fa_model_simpler.loadings_
+
+# Create a data frame to visualize the factor loadings for the two-component model
+factor_loadings_simpler_df = pd.DataFrame(
+    factor_loadings_simpler,
+    index=item_data.columns,
+    columns=[f'Skill_{i+1}' for i in range(n_factors_simpler)]
+)
+
+# Reset the index and rename it to align with the desired table format
+factor_loadings_simpler_df.reset_index(inplace=True)
+factor_loadings_simpler_df.rename(columns={'index': 'Item'}, inplace=True)
+
+factor_loadings_simpler_df
+```
 ```{python}
 #| label: tbl-factorloadingssimpler
 #| tbl-cap: Factor Analysis with Two Components
+#| echo: false
 
 # Get the factor loadings for the two-component model
 factor_loadings_simpler = fa_model_simpler.loadings_
@@ -558,7 +723,6 @@ graph TB
     style KMeans fill:#bbf,stroke:#333,stroke-width:2px
     style Factor_Analysis fill:#bfb,stroke:#333,stroke-width:2px
 ```
-
 ```{mermaid}
 %%| label: fig-mermaid1
 %%| fig-cap: "Comparison Across the Three Methods"
@@ -669,7 +833,6 @@ graph TB
     style Three_Component_Model fill:#bbf,stroke:#333,stroke-width:2px
     style Four_Component_Model fill:#f9f,stroke:#333,stroke-width:2px
 ```
-
 ```{mermaid}
 %%| label: fig-mermaid2
 %%| fig-cap: "Comparison Across the Three Models"
@@ -746,9 +909,19 @@ The diagrams provide a clear visual distinction between the interpretability tra
 
 Using a heatmap, I visualized the factor loadings from the three-component **Factor Analysis** model.
 
+```{{python}}
+import seaborn as sns
+
+# Create a heatmap to visualize item-skill relationships from Factor Analysis
+plt.figure(figsize=(10, 6))
+sns.heatmap(factor_loadings_df, annot=True, cmap='coolwarm', linewidths=0.5, linecolor='black', cbar=True)
+_ = plt.title('Item-Skill Relationships (Factor Analysis with Three Components)')
+plt.show()
+```
 ```{python}
 #| label: fig-heatmap
 #| fig-cap: "Factor Analysis with Three Components"
+#| echo: false
 
 import seaborn as sns
 
@@ -787,9 +960,25 @@ plt.show()
 
 I generated bar charts to illustrate the factor loadings of each item across the three skills.
 
+```{{python}}
+# Create bar charts for each item to show its relationship across skills
+num_items = len(factor_loadings_df.index)
+fig, axes = plt.subplots(num_items, 1, figsize=(9, num_items * 2))
+
+for i, item in enumerate(factor_loadings_df.index):
+    axes[i].bar(factor_loadings_df.columns, factor_loadings_df.loc[item], color='skyblue')
+    _ = axes[i].set_title(f'Relationship of {item} with Skills')
+    _ = axes[i].set_ylabel('Loading Value')
+    _ = axes[i].set_ylim(-1, 1)
+
+plt.tight_layout()
+
+plt.show()
+```
 ```{python}
 #| label: fig-barcharts
 #| fig-cap: "Bar Charts for Individual Items"
+#| echo: false
 
 # Create bar charts for each item to show its relationship across skills
 num_items = len(factor_loadings_df.index)
@@ -842,9 +1031,34 @@ plt.show()
 
 Based on the consistency of results across methods, I developed a final Q-matrix that maps each item to its primary associated skill based on the three-factor model. Table 8 presents the final Q-matrix, which shows a clear and interpretable mapping of items to skills.
 
+```{{python}}
+# Creating the final Q-matrix based on the visualization and analysis findings
+# Assigning each item to the skill with the highest loading from the Factor Analysis with three components
+final_q_matrix = factor_loadings_df.idxmax(axis=1)
+
+# Create a data frame to visualize the final Q-matrix, showing the mapping between items and skills
+final_q_matrix_df = pd.DataFrame({'Item': item_data.columns, 'Mapped_Skill': final_q_matrix.values})
+
+# Set a threshold to determine the significant loading
+threshold = 0.2
+
+# Create a binary Q-matrix based on the factor loadings and the threshold
+q_matrix_binary = (np.abs(factor_loadings_df) > threshold).astype(int)
+
+# Rename index and columns for better readability in the Q-matrix
+q_matrix_binary.index.name = 'Item'
+q_matrix_binary.columns = [f'Skill_{i+1}' for i in range(q_matrix_binary.shape[1])]
+
+# Reset the index to present it as a table
+q_matrix_binary_df = q_matrix_binary.reset_index()
+
+# Display the final Q-matrix
+q_matrix_binary_df
+```
 ```{python}
 #| label: tbl-finalqmarix
 #| tbl-cap: Final Q-Matrix
+#| echo: false
 
 # Creating the final Q-matrix based on the visualization and analysis findings
 # Assigning each item to the skill with the highest loading from the Factor Analysis with three components
@@ -889,7 +1103,6 @@ graph LR
     
     style Final_Q_Matrix_Mappings fill:#bfb,stroke:#333,stroke-width:2px
 ```
-
 ```{mermaid}
 %%| label: fig-mermaid3
 %%| fig-cap: "Final Q-Matirx"
@@ -1081,9 +1294,13 @@ print(f"Cohen's kappa after alignment: {kappa:.2f}")
 
 #### Verifying Item-Skill Mappings
 
+```{{python}}
+final_q_matrix_df
+```
 ```{python}
 #| label: tbl-verify1
 #| tbl-cap: Factor Analysis Mappings
+#| echo: false
 
 final_q_matrix_df
 ```
@@ -1101,9 +1318,13 @@ final_q_matrix_df
 - **Consistent Mapping**: The assignments reflect the conclusions drawn from my **Factor Analysis**.
 - **Foundation for Comparison**: These mappings serve as the reference point for comparing with the **K-Means Clustering** results.
 
+```{{python}}
+kmeans_q_matrix_df
+```
 ```{python}
 #| label: tbl-verify2
 #| tbl-cap: K-Means Clustering Mappings (before alignment)
+#| echo: false
 
 kmeans_q_matrix_df
 ```
@@ -1135,9 +1356,13 @@ kmeans_q_matrix_df_aligned['Mapped_Skill'] = kmeans_skill_names_aligned
   - I created a mapping dictionary (`mapping`) that aligns each cluster label with the corresponding skill from **Factor Analysis**.
   - This ensures that clusters are correctly interpreted in the context of the identified skills.
 
+```{{python}}
+kmeans_q_matrix_df_aligned
+```
 ```{python}
 #| label: tbl-verify3
 #| tbl-cap: K-Means Clustering Mappings (after alignment)
+#| echo: false
 
 kmeans_q_matrix_df_aligned
 ```
