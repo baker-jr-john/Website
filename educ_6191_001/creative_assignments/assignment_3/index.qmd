@@ -510,11 +510,13 @@ factor_loadings_simpler_df
 
 #### Diagrams
 
-I created a couple [Mermaid](https://mermaid.js.org/) diagrams to gain further insight.[^1]
-
-[^1]: Refer to [Creative Assignment 3's GitHub repository](https://github.com/baker-jr-john/Website/blob/main/educ_6191_001/creative_assignments/assignment_3/index.qmd) for the code behind the diagrams.
+I created a couple [Mermaid](https://mermaid.js.org/) diagrams to gain further insight.
 
 ```{mermaid}
+%%| label: fig-mermaid1
+%%| fig-cap: "Comparison Across the Three Methods"
+%%| echo: true
+
 graph TB
     subgraph PCA
         PCA_S1[Skill_1] --- PCA_I3[Item 3]
@@ -559,12 +561,8 @@ graph TB
     style KMeans fill:#bbf,stroke:#333,stroke-width:2px
     style Factor_Analysis fill:#bfb,stroke:#333,stroke-width:2px
 ```
-<figcaption style="font-size: 0.9em; color: #555555; text-align: left; margin-top: 8px;">
-    Diagram 1: Comparison Across the Three Methods
-</figcaption>
-<br>
 
-##### Diagram 1: Method Comparison (Factor Analysis, K-Means, PCA)
+##### Method Comparison (Factor Analysis, K-Means, PCA)
 - **Key Observations**:
   1. **Consistency Across Methods**: Many items (e.g., **Item 3** and **Item 7**) align similarly across **Factor Analysis**, **K-Means**, and **PCA**, reinforcing the robustness of these mappings.
   2. **Item Overlap**: The clustering of items (e.g., **Items 3**, **7**, and **8** under **Skill_1**) consistently suggests a strong latent skill grouping.
@@ -573,6 +571,10 @@ graph TB
 
 The visual comparison highlights overlaps and outliers more effectively than numerical tables, making it easier to identify items that contribute ambiguously to multiple skills or are method-dependent.
 ```{mermaid}
+%%| label: fig-mermaid2
+%%| fig-cap: "Comparison Across the Three Models"
+%%| echo: true
+
 graph TB
     subgraph Four_Component_Model
         FC_S1[Skill_1] --- FC_I3[Item 3]
@@ -623,12 +625,8 @@ graph TB
     style Three_Component_Model fill:#bbf,stroke:#333,stroke-width:2px
     style Four_Component_Model fill:#f9f,stroke:#333,stroke-width:2px
 ```
-<figcaption style="font-size: 0.9em; color: #555555; text-align: left; margin-top: 8px;">
-    Diagram 2: Comparison Across the Three Models
-</figcaption>
-<br>
 
-##### Diagram 2: Model Comparison (Two-, Three-, and Four-Component Models)
+##### Model Comparison (Two-, Three-, and Four-Component Models)
 - **Key Observations**:
   1. **Two-Component Model**: Simpler but lacks granularity, as evident in fewer distinct mappings and the merging of certain skills.
   2. **Three-Component Model**: Balanced in complexity and interpretability, with clear item-skill relationships (e.g., **Items 3**, **7**, and **8** consistently linked to **Skill 1**).
@@ -775,6 +773,10 @@ q_matrix_binary_df
 I also developed another diagram to support the final Q-Matrix.
 
 ```{mermaid}
+%%| label: fig-mermaid3
+%%| fig-cap: "Final Q-Matirx"
+%%| echo: true
+
 graph LR
     subgraph Final_Q_Matrix_Mappings
         S1[Skill_1] --- I3[Item 3]
@@ -791,10 +793,6 @@ graph LR
     
     style Final_Q_Matrix_Mappings fill:#bfb,stroke:#333,stroke-width:2px
 ```
-<figcaption style="font-size: 0.9em; color: #555555; text-align: left; margin-top: 8px;">
-    Diagram 3: Final Q-Matirx
-</figcaption>
-<br>
 
 ### Key Strengths of the Final Q-Matrix and Diagram
 1. **Clear Mapping**:

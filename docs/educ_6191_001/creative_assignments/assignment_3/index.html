@@ -453,7 +453,7 @@ Table&nbsp;1: First few rows of the dataset
 </div>
 </div>
 <p>To prepare the data for analysis, I examined the structure of the data frame and checked for missing values.</p>
-<div id="e33b7dd4" class="cell" data-execution_count="2">
+<div id="437d11fd" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the dimensions of the dataset</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Dataset dimensions: </span><span class="sc">{</span>data<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -482,7 +482,7 @@ dtype: int64</code></pre>
 <section id="preparing-data-for-factor-analysis" class="level4">
 <h4 class="anchored" data-anchor-id="preparing-data-for-factor-analysis">Preparing Data for Factor Analysis</h4>
 <p>I extracted the item response data, excluding any non-item columns such as student identifiers. This step ensured that my analyses focused solely on the patterns of student responses across the eight test items.</p>
-<div id="6f2c86d7" class="cell" data-execution_count="3">
+<div id="776b76f7" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract item data (excluding the 'student' column if present)</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>item_data <span class="op">=</span> data.drop(columns<span class="op">=</span>[<span class="st">'student'</span>], errors<span class="op">=</span><span class="st">'ignore'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -490,7 +490,7 @@ dtype: int64</code></pre>
 <section id="determining-the-number-of-factors-using-scree-plot" class="level4">
 <h4 class="anchored" data-anchor-id="determining-the-number-of-factors-using-scree-plot">Determining the Number of Factors Using Scree Plot</h4>
 <p>To determine the optimal number of factors to retain, I examined a scree plot of eigenvalues.</p>
-<div id="bed1efaf" class="cell" data-execution_count="4">
+<div id="0c45d81e" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary modules</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -911,7 +911,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>FactorAnalyzer(rotation=None, rotation_kwargs={})</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;FactorAnalyzer<span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>FactorAnalyzer(rotation=None, rotation_kwargs={})</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="e2d7a85b" class="cell" data-execution_count="5">
+<div id="42045ee3" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get eigenvalues and variance explained</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ev, v <span class="op">=</span> fa_model.get_eigenvalues()</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>variance <span class="op">=</span> fa_model.get_factor_variance()</span>
@@ -1055,7 +1055,7 @@ Table&nbsp;2: Factor Loadings
 <section id="transposing-item-data" class="level4">
 <h4 class="anchored" data-anchor-id="transposing-item-data">Transposing Item Data</h4>
 <p>I transposed the item data to cluster items based on their response patterns.</p>
-<div id="a09cf7fe" class="cell" data-execution_count="8">
+<div id="29df4ab2" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import K-Means module</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1478,7 +1478,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KMeans(n_clusters=3, random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked=""><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;KMeans<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.cluster.KMeans.html">?<span>Documentation for KMeans</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>KMeans(n_clusters=3, random_state=42)</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="90233ea5" class="cell" data-execution_count="9">
+<div id="d4612ee7" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the cluster labels for each item</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>cluster_labels <span class="op">=</span> kmeans.labels_</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1492,7 +1492,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <section id="determining-the-number-of-clusters-using-elbow-method" class="level4">
 <h4 class="anchored" data-anchor-id="determining-the-number-of-clusters-using-elbow-method">Determining the Number of Clusters Using Elbow Method</h4>
 <p>To determine the optimal number of clusters, I used the elbow method, which involved plotting the within-cluster sum of squares (WCSS) against the number of clusters and identifying the “elbow” point where the rate of decrease in WCSS began to level off.</p>
-<div id="8393f756" class="cell" data-execution_count="10">
+<div id="933392b3" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary module</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4093,7 +4093,7 @@ Table&nbsp;3: Item-Cluster Mapping
 <section id="determining-the-number-of-components-using-scree-plot" class="level4">
 <h4 class="anchored" data-anchor-id="determining-the-number-of-components-using-scree-plot">Determining the Number of Components Using Scree Plot</h4>
 <p>I generated another scree plot to help determine the optimal number of components.</p>
-<div id="5a77f0fa" class="cell" data-execution_count="13">
+<div id="8a0e2298" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary module</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4538,7 +4538,7 @@ Figure&nbsp;3: Scree Plot for PCA
 <section id="performing-pca" class="level4">
 <h4 class="anchored" data-anchor-id="performing-pca">Performing PCA</h4>
 <p>I conducted <strong>PCA</strong> on the standardized item response data to assess the stability and robustness of the latent skill structure identified by <strong>Factor Analysis</strong> and <strong>K-Means Clustering</strong> <span class="citation" data-cites="chen2018knowedu">(<a href="#ref-chen2018knowedu" role="doc-biblioref">Chen et al. 2018</a>)</span>.</p>
-<div id="60e99c34" class="cell" data-execution_count="15">
+<div id="796d277f" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize the PCA model with three components</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>pca_model <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">3</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -5164,7 +5164,7 @@ Table&nbsp;5: PCA Q-Matrix
 <p>I tested <strong>Factor Analysis</strong> models with two-, three-, and four-factor models to determine the optimal number of latent skills.</p>
 <section id="factor-analysis-with-four-components" class="level4">
 <h4 class="anchored" data-anchor-id="factor-analysis-with-four-components">Factor Analysis with Four Components</h4>
-<div id="e62247d0" class="cell" data-execution_count="18">
+<div id="6c6694e0" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Performing Factor Analysis with four components to explore the potential presence of additional latent skills</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>n_factors_extended <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>fa_model_extended <span class="op">=</span> FactorAnalyzer(n_factors<span class="op">=</span>n_factors_extended, rotation<span class="op">=</span><span class="va">None</span>)</span>
@@ -5702,7 +5702,7 @@ Table&nbsp;6: Factor Analysis with Four Components
 </section>
 <section id="factor-analysis-with-two-components" class="level4">
 <h4 class="anchored" data-anchor-id="factor-analysis-with-two-components">Factor Analysis with Two Components</h4>
-<div id="6f5b457c" class="cell" data-execution_count="20">
+<div id="0f28530c" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Performing Factor Analysis with two components to explore if a simpler model might explain the relationships</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>n_factors_simpler <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>fa_model_simpler <span class="op">=</span> FactorAnalyzer(n_factors<span class="op">=</span>n_factors_simpler, rotation<span class="op">=</span><span class="va">None</span>)</span>
@@ -6224,13 +6224,57 @@ Table&nbsp;7: Factor Analysis with Two Components
 <h3 class="anchored" data-anchor-id="visualizations">Visualizations</h3>
 <section id="diagrams" class="level4">
 <h4 class="anchored" data-anchor-id="diagrams">Diagrams</h4>
-<p>I created a couple <a href="https://mermaid.js.org/">Mermaid</a> diagrams to gain further insight.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>I created a couple <a href="https://mermaid.js.org/">Mermaid</a> diagrams to gain further insight.</p>
 <div class="cell" data-layout-align="default">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>graph TB</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    subgraph PCA</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>        PCA_S1[Skill_1] --- PCA_I3[Item 3]</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>        PCA_S1 --- PCA_I7[Item 7]</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>        PCA_S1 --- PCA_I8[Item 8]</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>        PCA_S2[Skill_2] --- PCA_I2[Item 2]</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>        PCA_S2 --- PCA_I4[Item 4]</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>        PCA_S2 --- PCA_I6[Item 6]</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>        PCA_S3[Skill_3] --- PCA_I1[Item 1]</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>        PCA_S3 --- PCA_I5[Item 5]</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    end</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    subgraph KMeans</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>        KM_S1[Skill_1] --- KM_I3[Item 3]</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>        KM_S1 --- KM_I5[Item 5]</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>        KM_S1 --- KM_I7[Item 7]</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>        KM_S1 --- KM_I8[Item 8]</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>        KM_S2[Skill_2] --- KM_I2[Item 2]</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>        KM_S2 --- KM_I4[Item 4]</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>        KM_S2 --- KM_I6[Item 6]</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>        KM_S3[Skill_3] --- KM_I1[Item 1]</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>    end</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>    subgraph Factor_Analysis</span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>        FA_S1[Skill_1] --- FA_I3[Item 3]</span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>        FA_S1 --- FA_I5[Item 5]</span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>        FA_S1 --- FA_I7[Item 7]</span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>        FA_S1 --- FA_I8[Item 8]</span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>        FA_S2[Skill_2] --- FA_I2[Item 2]</span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>        FA_S2 --- FA_I4[Item 4]</span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>        FA_S2 --- FA_I6[Item 6]</span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>        FA_S3[Skill_3] --- FA_I1[Item 1]</span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>    end</span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>    style PCA fill:#f9f,stroke:#333,stroke-width:2px</span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>    style KMeans fill:#bbf,stroke:#333,stroke-width:2px</span>
+<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a>    style Factor_Analysis fill:#bfb,stroke:#333,stroke-width:2px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
+<div id="fig-mermaid1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mermaid1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">graph TB
+<pre class="mermaid mermaid-js" data-label="fig-mermaid1">graph TB
     subgraph PCA
         PCA_S1[Skill_1] --- PCA_I3[Item 3]
         PCA_S1 --- PCA_I7[Item 7]
@@ -6275,16 +6319,16 @@ Table&nbsp;7: Factor Analysis with Two Components
     style Factor_Analysis fill:#bfb,stroke:#333,stroke-width:2px
 </pre>
 </div>
-<p></p></figure><p></p>
 </div>
-</div>
-</div>
-<figcaption style="font-size: 0.9em; color: #555555; text-align: left; margin-top: 8px;">
-Diagram 1: Comparison Across the Three Methods
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mermaid1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Comparison Across the Three Methods
 </figcaption>
-<p><br></p>
-<section id="diagram-1-method-comparison-factor-analysis-k-means-pca" class="level5">
-<h5 class="anchored" data-anchor-id="diagram-1-method-comparison-factor-analysis-k-means-pca">Diagram 1: Method Comparison (Factor Analysis, K-Means, PCA)</h5>
+</figure>
+</div>
+</div>
+</div>
+<section id="method-comparison-factor-analysis-k-means-pca" class="level5">
+<h5 class="anchored" data-anchor-id="method-comparison-factor-analysis-k-means-pca">Method Comparison (Factor Analysis, K-Means, PCA)</h5>
 <ul>
 <li><strong>Key Observations</strong>:
 <ol type="1">
@@ -6296,11 +6340,61 @@ Diagram 1: Comparison Across the Three Methods
 </ul>
 <p>The visual comparison highlights overlaps and outliers more effectively than numerical tables, making it easier to identify items that contribute ambiguously to multiple skills or are method-dependent.</p>
 <div class="cell" data-layout-align="default">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>graph TB</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    subgraph Four_Component_Model</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        FC_S1[Skill_1] --- FC_I3[Item 3]</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        FC_S1 --- FC_I7[Item 7]</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        FC_S1 --- FC_I8[Item 8]</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        FC_S1 -.-&gt; FC_I5[Item 5]</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>        FC_S2[Skill_2] --- FC_I6[Item 6]</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        FC_S2 -.-&gt; FC_I2[Item 2]</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>        FC_S2 -.-&gt; FC_I4[Item 4]</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>        FC_S3[Skill_3] --- FC_I1[Item 1]</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>        FC_S3 --- FC_I5</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>        FC_S4[Skill_4] -.-&gt; FC_I2</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>        FC_S4 -.-&gt; FC_I4</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>    end</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>    subgraph Three_Component_Model</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>        TH_S1[Skill_1] --- TH_I3[Item 3]</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>        TH_S1 --- TH_I7[Item 7]</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>        TH_S1 --- TH_I8[Item 8]</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>        TH_S1 --- TH_I5[Item 5]</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>        TH_S2[Skill_2] --- TH_I2[Item 2]</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>        TH_S2 --- TH_I4[Item 4]</span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>        TH_S2 --- TH_I6[Item 6]</span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>        TH_S3[Skill_3] --- TH_I1[Item 1]</span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>        TH_S3 -.-&gt; TH_I5</span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>    end</span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a>    subgraph Two_Component_Model</span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a>        TC_S1[Skill_1] --- TC_I3[Item 3]</span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a>        TC_S1 --- TC_I5[Item 5]</span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a>        TC_S1 --- TC_I7[Item 7]</span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a>        TC_S1 --- TC_I8[Item 8]</span>
+<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a>        TC_S2[Skill_2] --- TC_I2[Item 2]</span>
+<span id="cb25-40"><a href="#cb25-40" aria-hidden="true" tabindex="-1"></a>        TC_S2 --- TC_I4[Item 4]</span>
+<span id="cb25-41"><a href="#cb25-41" aria-hidden="true" tabindex="-1"></a>        TC_S2 --- TC_I6[Item 6]</span>
+<span id="cb25-42"><a href="#cb25-42" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb25-43"><a href="#cb25-43" aria-hidden="true" tabindex="-1"></a>        TC_I1[Item 1&lt;br/&gt;Weak Loadings] -..- TC_S1</span>
+<span id="cb25-44"><a href="#cb25-44" aria-hidden="true" tabindex="-1"></a>        TC_I1 -..- TC_S2</span>
+<span id="cb25-45"><a href="#cb25-45" aria-hidden="true" tabindex="-1"></a>    end</span>
+<span id="cb25-46"><a href="#cb25-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-47"><a href="#cb25-47" aria-hidden="true" tabindex="-1"></a>    style Two_Component_Model fill:#bfb,stroke:#333,stroke-width:2px</span>
+<span id="cb25-48"><a href="#cb25-48" aria-hidden="true" tabindex="-1"></a>    style Three_Component_Model fill:#bbf,stroke:#333,stroke-width:2px</span>
+<span id="cb25-49"><a href="#cb25-49" aria-hidden="true" tabindex="-1"></a>    style Four_Component_Model fill:#f9f,stroke:#333,stroke-width:2px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
+<div id="fig-mermaid2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mermaid2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">graph TB
+<pre class="mermaid mermaid-js" data-label="fig-mermaid2">graph TB
     subgraph Four_Component_Model
         FC_S1[Skill_1] --- FC_I3[Item 3]
         FC_S1 --- FC_I7[Item 7]
@@ -6351,17 +6445,17 @@ Diagram 1: Comparison Across the Three Methods
     style Four_Component_Model fill:#f9f,stroke:#333,stroke-width:2px
 </pre>
 </div>
-<p></p></figure><p></p>
 </div>
-</div>
-</div>
-<figcaption style="font-size: 0.9em; color: #555555; text-align: left; margin-top: 8px;">
-Diagram 2: Comparison Across the Three Models
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mermaid2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Comparison Across the Three Models
 </figcaption>
-<p><br></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="diagram-2-model-comparison-two--three--and-four-component-models" class="level5">
-<h5 class="anchored" data-anchor-id="diagram-2-model-comparison-two--three--and-four-component-models">Diagram 2: Model Comparison (Two-, Three-, and Four-Component Models)</h5>
+<section id="model-comparison-two--three--and-four-component-models" class="level5">
+<h5 class="anchored" data-anchor-id="model-comparison-two--three--and-four-component-models">Model Comparison (Two-, Three-, and Four-Component Models)</h5>
 <ul>
 <li><strong>Key Observations</strong>:
 <ol type="1">
@@ -6390,13 +6484,13 @@ Diagram 2: Comparison Across the Three Models
 <h4 class="anchored" data-anchor-id="heatmap-of-factor-loadings-three-components">Heatmap of Factor Loadings (Three Components)</h4>
 <p>Using a heatmap, I visualized the factor loadings from the three-component <strong>Factor Analysis</strong> model.</p>
 <div id="cell-fig-heatmap" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a heatmap to visualize item-skill relationships from Factor Analysis</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>sns.heatmap(factor_loadings_df, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, linewidths<span class="op">=</span><span class="fl">0.5</span>, linecolor<span class="op">=</span><span class="st">'black'</span>, cbar<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.title(<span class="st">'Item-Skill Relationships (Factor Analysis with Three Components)'</span>)</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a heatmap to visualize item-skill relationships from Factor Analysis</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>sns.heatmap(factor_loadings_df, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, linewidths<span class="op">=</span><span class="fl">0.5</span>, linecolor<span class="op">=</span><span class="st">'black'</span>, cbar<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>_ <span class="op">=</span> plt.title(<span class="st">'Item-Skill Relationships (Factor Analysis with Three Components)'</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="fig-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -6404,7 +6498,7 @@ Diagram 2: Comparison Across the Three Models
 <img src="index_files/figure-html/fig-heatmap-output-1.png" width="745" height="505" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Factor Analysis with Three Components
+Figure&nbsp;6: Factor Analysis with Three Components
 </figcaption>
 </figure>
 </div>
@@ -6450,19 +6544,19 @@ Figure&nbsp;4: Factor Analysis with Three Components
 <h4 class="anchored" data-anchor-id="bar-charts-for-individual-items">Bar Charts for Individual Items</h4>
 <p>I generated bar charts to illustrate the factor loadings of each item across the three skills.</p>
 <div id="cell-fig-barcharts" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create bar charts for each item to show its relationship across skills</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>num_items <span class="op">=</span> <span class="bu">len</span>(factor_loadings_df.index)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(num_items, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, num_items <span class="op">*</span> <span class="dv">2</span>))</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, item <span class="kw">in</span> <span class="bu">enumerate</span>(factor_loadings_df.index):</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    axes[i].bar(factor_loadings_df.columns, factor_loadings_df.loc[item], color<span class="op">=</span><span class="st">'skyblue'</span>)</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=</span> axes[i].set_title(<span class="ss">f'Relationship of </span><span class="sc">{</span>item<span class="sc">}</span><span class="ss"> with Skills'</span>)</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=</span> axes[i].set_ylabel(<span class="st">'Loading Value'</span>)</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=</span> axes[i].set_ylim(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create bar charts for each item to show its relationship across skills</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>num_items <span class="op">=</span> <span class="bu">len</span>(factor_loadings_df.index)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(num_items, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">9</span>, num_items <span class="op">*</span> <span class="dv">2</span>))</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, item <span class="kw">in</span> <span class="bu">enumerate</span>(factor_loadings_df.index):</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    axes[i].bar(factor_loadings_df.columns, factor_loadings_df.loc[item], color<span class="op">=</span><span class="st">'skyblue'</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=</span> axes[i].set_title(<span class="ss">f'Relationship of </span><span class="sc">{</span>item<span class="sc">}</span><span class="ss"> with Skills'</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=</span> axes[i].set_ylabel(<span class="st">'Loading Value'</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    _ <span class="op">=</span> axes[i].set_ylim(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="fig-barcharts" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -6470,7 +6564,7 @@ Figure&nbsp;4: Factor Analysis with Three Components
 <img src="index_files/figure-html/fig-barcharts-output-1.png" width="854" height="1526" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-barcharts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: Bar Charts for Individual Items
+Figure&nbsp;7: Bar Charts for Individual Items
 </figcaption>
 </figure>
 </div>
@@ -6529,28 +6623,28 @@ Figure&nbsp;5: Bar Charts for Individual Items
 <h3 class="anchored" data-anchor-id="creating-the-final-q-matrix">Creating the Final Q-Matrix</h3>
 <p>Based on the consistency of results across methods, I developed a final Q-matrix that maps each item to its primary associated skill based on the three-factor model. Table 8 presents the final Q-matrix, which shows a clear and interpretable mapping of items to skills.</p>
 <div class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the final Q-matrix based on the visualization and analysis findings</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Assigning each item to the skill with the highest loading from the Factor Analysis with three components</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>final_q_matrix <span class="op">=</span> factor_loadings_df.idxmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame to visualize the final Q-matrix, showing the mapping between items and skills</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>final_q_matrix_df <span class="op">=</span> pd.DataFrame({<span class="st">'Item'</span>: item_data.columns, <span class="st">'Mapped_Skill'</span>: final_q_matrix.values})</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a threshold to determine the significant loading</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> <span class="fl">0.2</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a binary Q-matrix based on the factor loadings and the threshold</span></span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>q_matrix_binary <span class="op">=</span> (np.<span class="bu">abs</span>(factor_loadings_df) <span class="op">&gt;</span> threshold).astype(<span class="bu">int</span>)</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename index and columns for better readability in the Q-matrix</span></span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>q_matrix_binary.index.name <span class="op">=</span> <span class="st">'Item'</span></span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>q_matrix_binary.columns <span class="op">=</span> [<span class="ss">f'Skill_</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(q_matrix_binary.shape[<span class="dv">1</span>])]</span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Reset the index to present it as a table</span></span>
-<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>q_matrix_binary_df <span class="op">=</span> q_matrix_binary.reset_index()</span>
-<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the final Q-matrix</span></span>
-<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>q_matrix_binary_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the final Q-matrix based on the visualization and analysis findings</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Assigning each item to the skill with the highest loading from the Factor Analysis with three components</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>final_q_matrix <span class="op">=</span> factor_loadings_df.idxmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame to visualize the final Q-matrix, showing the mapping between items and skills</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>final_q_matrix_df <span class="op">=</span> pd.DataFrame({<span class="st">'Item'</span>: item_data.columns, <span class="st">'Mapped_Skill'</span>: final_q_matrix.values})</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a threshold to determine the significant loading</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a binary Q-matrix based on the factor loadings and the threshold</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>q_matrix_binary <span class="op">=</span> (np.<span class="bu">abs</span>(factor_loadings_df) <span class="op">&gt;</span> threshold).astype(<span class="bu">int</span>)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename index and columns for better readability in the Q-matrix</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>q_matrix_binary.index.name <span class="op">=</span> <span class="st">'Item'</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>q_matrix_binary.columns <span class="op">=</span> [<span class="ss">f'Skill_</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(q_matrix_binary.shape[<span class="dv">1</span>])]</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Reset the index to present it as a table</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>q_matrix_binary_df <span class="op">=</span> q_matrix_binary.reset_index()</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the final Q-matrix</span></span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>q_matrix_binary_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="tbl-finalqmarix" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="24">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-finalqmarix-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -6639,11 +6733,27 @@ Table&nbsp;8: Final Q-Matrix
 </div>
 <p>I also developed another diagram to support the final Q-Matrix.</p>
 <div class="cell" data-layout-align="default">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>graph LR</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    subgraph Final_Q_Matrix_Mappings</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>        S1[Skill_1] --- I3[Item 3]</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>        S1 --- I5[Item 5]</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>        S1 --- I7[Item 7]</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>        S1 --- I8[Item 8]</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>        S2[Skill_2] --- I2[Item 2]</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>        S2 --- I4[Item 4]</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>        S2 --- I6[Item 6]</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>        S3[Skill_3] --- I1[Item 1]</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    end</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    style Final_Q_Matrix_Mappings fill:#bfb,stroke:#333,stroke-width:2px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
+<div id="fig-mermaid3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mermaid3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">graph LR
+<pre class="mermaid mermaid-js" data-label="fig-mermaid3">graph LR
     subgraph Final_Q_Matrix_Mappings
         S1[Skill_1] --- I3[Item 3]
         S1 --- I5[Item 5]
@@ -6660,14 +6770,14 @@ Table&nbsp;8: Final Q-Matrix
     style Final_Q_Matrix_Mappings fill:#bfb,stroke:#333,stroke-width:2px
 </pre>
 </div>
-<p></p></figure><p></p>
 </div>
-</div>
-</div>
-<figcaption style="font-size: 0.9em; color: #555555; text-align: left; margin-top: 8px;">
-Diagram 3: Final Q-Matirx
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mermaid3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Final Q-Matirx
 </figcaption>
-<p><br></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="key-strengths-of-the-final-q-matrix-and-diagram" class="level3">
 <h3 class="anchored" data-anchor-id="key-strengths-of-the-final-q-matrix-and-diagram">Key Strengths of the Final Q-Matrix and Diagram</h3>
@@ -6713,20 +6823,20 @@ Diagram 3: Final Q-Matirx
 <section id="calculating-proportion-of-variance-explained-r2" class="level4">
 <h4 class="anchored" data-anchor-id="calculating-proportion-of-variance-explained-r2">Calculating Proportion of Variance Explained (<span class="math inline">\(R^2\)</span>)</h4>
 <p><strong>For Factor Analysis</strong>:</p>
-<div id="21bcd156" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the communalities</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>communalities <span class="op">=</span> fa_model.get_communalities()</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Total variance explained</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>total_variance_explained <span class="op">=</span> np.<span class="bu">sum</span>(communalities)</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Total variance (number of variables)</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>total_variance <span class="op">=</span> item_data_scaled.shape[<span class="dv">1</span>]</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion of variance explained</span></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>r_squared_fa <span class="op">=</span> total_variance_explained <span class="op">/</span> total_variance</span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Factor Analysis R^2: </span><span class="sc">{</span>r_squared_fa<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="ca7aabdb" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the communalities</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>communalities <span class="op">=</span> fa_model.get_communalities()</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Total variance explained</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>total_variance_explained <span class="op">=</span> np.<span class="bu">sum</span>(communalities)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Total variance (number of variables)</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>total_variance <span class="op">=</span> item_data_scaled.shape[<span class="dv">1</span>]</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Proportion of variance explained</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>r_squared_fa <span class="op">=</span> total_variance_explained <span class="op">/</span> total_variance</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Factor Analysis R^2: </span><span class="sc">{</span>r_squared_fa<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Factor Analysis R^2: 0.56</code></pre>
 </div>
@@ -6741,10 +6851,10 @@ Diagram 3: Final Q-Matirx
 </ul></li>
 </ul>
 <p><strong>For PCA</strong>:</p>
-<div id="49ce0626" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate cumulative variance explained</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>cumulative_variance <span class="op">=</span> np.cumsum(pca_model.explained_variance_ratio_)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"PCA cumulative variance explained by first 3 components: </span><span class="sc">{</span>cumulative_variance[<span class="dv">2</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="9dba56ec" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate cumulative variance explained</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>cumulative_variance <span class="op">=</span> np.cumsum(pca_model.explained_variance_ratio_)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"PCA cumulative variance explained by first 3 components: </span><span class="sc">{</span>cumulative_variance[<span class="dv">2</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>PCA cumulative variance explained by first 3 components: 0.66</code></pre>
 </div>
@@ -6784,33 +6894,33 @@ Diagram 3: Final Q-Matirx
 <section id="calculating-cohens-kappa-coefficient" class="level4">
 <h4 class="anchored" data-anchor-id="calculating-cohens-kappa-coefficient">Calculating Cohen’s Kappa Coefficient</h4>
 <p>I also examined the consistency of item assignments across methods using Cohen’s kappa coefficient <span class="citation" data-cites="cohen1960coefficient">(<a href="#ref-cohen1960coefficient" role="doc-biblioref">Cohen 1960</a>)</span>.</p>
-<div id="1534be4c" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> linear_sum_assignment</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Map skill labels to numeric codes for Factor Analysis</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>fa_skill_codes <span class="op">=</span> final_q_matrix_df[<span class="st">'Mapped_Skill'</span>].<span class="bu">map</span>({<span class="st">'Skill_1'</span>: <span class="dv">0</span>, <span class="st">'Skill_2'</span>: <span class="dv">1</span>, <span class="st">'Skill_3'</span>: <span class="dv">2</span>}).values</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># K-Means cluster labels</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>kmeans_labels <span class="op">=</span> kmeans.labels_</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute confusion matrix</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>confusion <span class="op">=</span> confusion_matrix(fa_skill_codes, kmeans_labels)</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Confusion Matrix:"</span>)</span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(confusion)</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Align clusters with skills using the Hungarian algorithm</span></span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>row_ind, col_ind <span class="op">=</span> linear_sum_assignment(<span class="op">-</span>confusion)</span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>mapping <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(col_ind, row_ind))</span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Map K-Means labels to Factor Analysis skill codes</span></span>
-<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>kmeans_labels_mapped <span class="op">=</span> np.array([mapping[label] <span class="cf">for</span> label <span class="kw">in</span> kmeans_labels])</span>
-<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute Cohen's kappa</span></span>
-<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> cohen_kappa_score</span>
-<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>kappa <span class="op">=</span> cohen_kappa_score(fa_skill_codes, kmeans_labels_mapped)</span>
-<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Cohen's kappa after alignment: </span><span class="sc">{</span>kappa<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="27d7b201" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> linear_sum_assignment</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Map skill labels to numeric codes for Factor Analysis</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>fa_skill_codes <span class="op">=</span> final_q_matrix_df[<span class="st">'Mapped_Skill'</span>].<span class="bu">map</span>({<span class="st">'Skill_1'</span>: <span class="dv">0</span>, <span class="st">'Skill_2'</span>: <span class="dv">1</span>, <span class="st">'Skill_3'</span>: <span class="dv">2</span>}).values</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co"># K-Means cluster labels</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>kmeans_labels <span class="op">=</span> kmeans.labels_</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute confusion matrix</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>confusion <span class="op">=</span> confusion_matrix(fa_skill_codes, kmeans_labels)</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Confusion Matrix:"</span>)</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(confusion)</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Align clusters with skills using the Hungarian algorithm</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>row_ind, col_ind <span class="op">=</span> linear_sum_assignment(<span class="op">-</span>confusion)</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>mapping <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(col_ind, row_ind))</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Map K-Means labels to Factor Analysis skill codes</span></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>kmeans_labels_mapped <span class="op">=</span> np.array([mapping[label] <span class="cf">for</span> label <span class="kw">in</span> kmeans_labels])</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute Cohen's kappa</span></span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> cohen_kappa_score</span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>kappa <span class="op">=</span> cohen_kappa_score(fa_skill_codes, kmeans_labels_mapped)</span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Cohen's kappa after alignment: </span><span class="sc">{</span>kappa<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Confusion Matrix:
 [[4 0 0]
@@ -6898,7 +7008,7 @@ Cohen's kappa after alignment: 1.00</code></pre>
 <section id="verifying-item-skill-mappings" class="level4">
 <h4 class="anchored" data-anchor-id="verifying-item-skill-mappings">Verifying Item-Skill Mappings</h4>
 <div class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>final_q_matrix_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>final_q_matrix_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="tbl-verify1" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="28">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-verify1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -6983,7 +7093,7 @@ Table&nbsp;9: Factor Analysis Mappings
 <li><strong>Foundation for Comparison</strong>: These mappings serve as the reference point for comparing with the <strong>K-Means Clustering</strong> results.</li>
 </ul>
 <div class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="tbl-verify2" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="29">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-verify2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -7062,11 +7172,11 @@ Table&nbsp;10: K-Means Clustering Mappings (before alignment)
 <li><strong>Initial Comparison</strong>: At first glance, the mappings appear similar to the <strong>Factor Analysis</strong> mappings, but due to arbitrary labeling, a direct comparison isn’t meaningful yet.</li>
 <li><strong>Need for Alignment</strong>: To accurately compare the item-skill assignments, cluster labels must be aligned with the skills from <strong>Factor Analysis</strong>.</li>
 </ul>
-<div id="78902f77" class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Map clusters to skills after alignment</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>kmeans_skill_names_aligned <span class="op">=</span> [<span class="st">'Skill_'</span> <span class="op">+</span> <span class="bu">str</span>(mapping[label] <span class="op">+</span> <span class="dv">1</span>) <span class="cf">for</span> label <span class="kw">in</span> kmeans_labels]</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df_aligned <span class="op">=</span> kmeans_q_matrix_df.copy()</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df_aligned[<span class="st">'Mapped_Skill'</span>] <span class="op">=</span> kmeans_skill_names_aligned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="946a6863" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Map clusters to skills after alignment</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>kmeans_skill_names_aligned <span class="op">=</span> [<span class="st">'Skill_'</span> <span class="op">+</span> <span class="bu">str</span>(mapping[label] <span class="op">+</span> <span class="dv">1</span>) <span class="cf">for</span> label <span class="kw">in</span> kmeans_labels]</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df_aligned <span class="op">=</span> kmeans_q_matrix_df.copy()</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df_aligned[<span class="st">'Mapped_Skill'</span>] <span class="op">=</span> kmeans_skill_names_aligned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Process:</strong></p>
 <ul>
@@ -7082,7 +7192,7 @@ Table&nbsp;10: K-Means Clustering Mappings (before alignment)
 </ul></li>
 </ul>
 <div class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df_aligned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>kmeans_q_matrix_df_aligned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="tbl-verify3" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="31">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-verify3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -7477,7 +7587,6 @@ Table&nbsp;11: K-Means Clustering Mappings (after alignment)
 </section>
 </section>
 
-
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-claude3opus2024" class="csl-entry" role="listitem">
 Anthropic. 2024a. <span>“Claude 3 Opus.”</span> Large language model. <a href="https://claude.ai/">https://claude.ai/</a>.
@@ -7524,12 +7633,7 @@ Van der Linden, Wim J, and Ronald K Hambleton. 2015. <em>Handbook of Item Respon
 <div id="ref-watkins2018exploratory" class="csl-entry" role="listitem">
 Watkins, Marley W. 2018. <span>“Exploratory Factor Analysis: A Guide to Best Practice.”</span> <em>Journal of Black Psychology</em> 44 (3): 219–46.
 </div>
-</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>Refer to <a href="https://github.com/baker-jr-john/Website/blob/main/educ_6191_001/creative_assignments/assignment_3/index.qmd">Creative Assignment 3’s GitHub repository</a> for the code behind the diagrams.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main> <!-- /main -->
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
