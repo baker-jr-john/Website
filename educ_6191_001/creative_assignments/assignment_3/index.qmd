@@ -728,7 +728,7 @@ plt.show()
 ##### Further Insight:
 1. **Support for Factor Analysis Findings**:
    - The charts confirm that the three-component model successfully captures distinct latent skills, with most items showing strong associations with a single skill.
-   - The visualization highlights items that load cleanly on one skill (e.g., **Item 6* for **Skill 2**, **Item 1** for **Skill 3**).
+   - The visualization highlights items that load cleanly on one skill (e.g., **Item 6** for **Skill 2**, **Item 1** for **Skill 3**).
 
 2. **Ambiguous Items**:
    - Items like **Item 4** and **Item 5** demonstrate weaker or mixed relationships, indicating potential issues with their design or alignment with specific skills.
