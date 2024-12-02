@@ -14,10 +14,10 @@ abstract: |
   This study aims to identify the underlying knowledge structure of an eight-item test dataset by applying Factor Analysis, K-Means clustering, and Principal Component Analysis (PCA). Factor Analysis was utilized to uncover latent skills, with results cross-validated using K-Means clustering (simulating Barnes's Q-Matrix method) and PCA. Models with two to four components were compared to determine the optimal skill representation. The findings indicate that a three-component Factor Analysis model best captures the relationships among test items, effectively identifying three distinct skills. The final Q-matrix balances complexity and interpretability, providing a robust mapping of items to latent skills and enhancing the understanding of the dataset's knowledge structure.
 keywords:
   - knowledge structure mapping
-  - Factor Analysis
-  - Q-matrix
+  - factor analysis
+  - q-matrix
   - latent skills
-  - PCA
+  - pca
 bibliography: bibliography/bibliography.bib
 nocite: |
   @*
@@ -30,6 +30,7 @@ jupyter: python3
 ipynb-shell-interactivity: all
 execute: 
   freeze: true
+  echo: fenced
 ---
 
 ## Introduction
@@ -515,7 +516,7 @@ I created a couple [Mermaid](https://mermaid.js.org/) diagrams to gain further i
 ```{mermaid}
 %%| label: fig-mermaid1
 %%| fig-cap: "Comparison Across the Three Methods"
-%%| echo: true
+%%| echo: fenced
 
 graph TB
     subgraph PCA
@@ -573,7 +574,7 @@ The visual comparison highlights overlaps and outliers more effectively than num
 ```{mermaid}
 %%| label: fig-mermaid2
 %%| fig-cap: "Comparison Across the Three Models"
-%%| echo: true
+%%| echo: fenced
 
 graph TB
     subgraph Four_Component_Model
@@ -775,7 +776,7 @@ I also developed another diagram to support the final Q-Matrix.
 ```{mermaid}
 %%| label: fig-mermaid3
 %%| fig-cap: "Final Q-Matirx"
-%%| echo: true
+%%| echo: fenced
 
 graph LR
     subgraph Final_Q_Matrix_Mappings
