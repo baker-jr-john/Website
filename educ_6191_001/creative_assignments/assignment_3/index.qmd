@@ -513,10 +513,56 @@ factor_loadings_simpler_df
 
 I created a couple [Mermaid](https://mermaid.js.org/) diagrams to gain further insight.
 
+```{{mermaid}}
+graph TB
+    subgraph PCA
+        PCA_S1[Skill_1] --- PCA_I3[Item 3]
+        PCA_S1 --- PCA_I7[Item 7]
+        PCA_S1 --- PCA_I8[Item 8]
+        
+        PCA_S2[Skill_2] --- PCA_I2[Item 2]
+        PCA_S2 --- PCA_I4[Item 4]
+        PCA_S2 --- PCA_I6[Item 6]
+        
+        PCA_S3[Skill_3] --- PCA_I1[Item 1]
+        PCA_S3 --- PCA_I5[Item 5]
+    end
+    
+    subgraph KMeans
+        KM_S1[Skill_1] --- KM_I3[Item 3]
+        KM_S1 --- KM_I5[Item 5]
+        KM_S1 --- KM_I7[Item 7]
+        KM_S1 --- KM_I8[Item 8]
+        
+        KM_S2[Skill_2] --- KM_I2[Item 2]
+        KM_S2 --- KM_I4[Item 4]
+        KM_S2 --- KM_I6[Item 6]
+        
+        KM_S3[Skill_3] --- KM_I1[Item 1]
+    end
+    
+    subgraph Factor_Analysis
+        FA_S1[Skill_1] --- FA_I3[Item 3]
+        FA_S1 --- FA_I5[Item 5]
+        FA_S1 --- FA_I7[Item 7]
+        FA_S1 --- FA_I8[Item 8]
+        
+        FA_S2[Skill_2] --- FA_I2[Item 2]
+        FA_S2 --- FA_I4[Item 4]
+        FA_S2 --- FA_I6[Item 6]
+        
+        FA_S3[Skill_3] --- FA_I1[Item 1]
+    end
+
+    style PCA fill:#f9f,stroke:#333,stroke-width:2px
+    style KMeans fill:#bbf,stroke:#333,stroke-width:2px
+    style Factor_Analysis fill:#bfb,stroke:#333,stroke-width:2px
+```
+
 ```{mermaid}
 %%| label: fig-mermaid1
 %%| fig-cap: "Comparison Across the Three Methods"
-%%| echo: fenced
+%%| echo: false
 
 graph TB
     subgraph PCA
@@ -571,10 +617,63 @@ graph TB
   4. **Skill 3 Representation**: This skill emerges consistently across methods but captures fewer items, which might indicate a niche or less represented skill.
 
 The visual comparison highlights overlaps and outliers more effectively than numerical tables, making it easier to identify items that contribute ambiguously to multiple skills or are method-dependent.
+
+```{{mermaid}}
+graph TB
+    subgraph Four_Component_Model
+        FC_S1[Skill_1] --- FC_I3[Item 3]
+        FC_S1 --- FC_I7[Item 7]
+        FC_S1 --- FC_I8[Item 8]
+        FC_S1 -.-> FC_I5[Item 5]
+        
+        FC_S2[Skill_2] --- FC_I6[Item 6]
+        FC_S2 -.-> FC_I2[Item 2]
+        FC_S2 -.-> FC_I4[Item 4]
+        
+        FC_S3[Skill_3] --- FC_I1[Item 1]
+        FC_S3 --- FC_I5
+        
+        FC_S4[Skill_4] -.-> FC_I2
+        FC_S4 -.-> FC_I4
+    end
+    
+    subgraph Three_Component_Model
+        TH_S1[Skill_1] --- TH_I3[Item 3]
+        TH_S1 --- TH_I7[Item 7]
+        TH_S1 --- TH_I8[Item 8]
+        TH_S1 --- TH_I5[Item 5]
+        
+        TH_S2[Skill_2] --- TH_I2[Item 2]
+        TH_S2 --- TH_I4[Item 4]
+        TH_S2 --- TH_I6[Item 6]
+        
+        TH_S3[Skill_3] --- TH_I1[Item 1]
+        TH_S3 -.-> TH_I5
+    end
+    
+    subgraph Two_Component_Model
+        TC_S1[Skill_1] --- TC_I3[Item 3]
+        TC_S1 --- TC_I5[Item 5]
+        TC_S1 --- TC_I7[Item 7]
+        TC_S1 --- TC_I8[Item 8]
+        
+        TC_S2[Skill_2] --- TC_I2[Item 2]
+        TC_S2 --- TC_I4[Item 4]
+        TC_S2 --- TC_I6[Item 6]
+        
+        TC_I1[Item 1<br/>Weak Loadings] -..- TC_S1
+        TC_I1 -..- TC_S2
+    end
+
+    style Two_Component_Model fill:#bfb,stroke:#333,stroke-width:2px
+    style Three_Component_Model fill:#bbf,stroke:#333,stroke-width:2px
+    style Four_Component_Model fill:#f9f,stroke:#333,stroke-width:2px
+```
+
 ```{mermaid}
 %%| label: fig-mermaid2
 %%| fig-cap: "Comparison Across the Three Models"
-%%| echo: fenced
+%%| echo: false
 
 graph TB
     subgraph Four_Component_Model
@@ -773,10 +872,28 @@ q_matrix_binary_df
 
 I also developed another diagram to support the final Q-Matrix.
 
+```{{mermaid}}
+graph LR
+    subgraph Final_Q_Matrix_Mappings
+        S1[Skill_1] --- I3[Item 3]
+        S1 --- I5[Item 5]
+        S1 --- I7[Item 7]
+        S1 --- I8[Item 8]
+        
+        S2[Skill_2] --- I2[Item 2]
+        S2 --- I4[Item 4]
+        S2 --- I6[Item 6]
+        
+        S3[Skill_3] --- I1[Item 1]
+    end
+    
+    style Final_Q_Matrix_Mappings fill:#bfb,stroke:#333,stroke-width:2px
+```
+
 ```{mermaid}
 %%| label: fig-mermaid3
 %%| fig-cap: "Final Q-Matirx"
-%%| echo: fenced
+%%| echo: false
 
 graph LR
     subgraph Final_Q_Matrix_Mappings

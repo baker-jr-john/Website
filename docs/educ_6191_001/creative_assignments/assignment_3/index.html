@@ -458,7 +458,7 @@ Table&nbsp;1: First few rows of the dataset
 </div>
 </div>
 <p>To prepare the data for analysis, I examined the structure of the data frame and checked for missing values.</p>
-<div id="d01a13e8" class="cell" data-execution_count="2">
+<div id="bfa5a0b6" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="in"># Check the dimensions of the dataset</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="in">print(f"Dataset dimensions: {data.shape}")</span></span>
@@ -489,7 +489,7 @@ dtype: int64</code></pre>
 <section id="preparing-data-for-factor-analysis" class="level4">
 <h4 class="anchored" data-anchor-id="preparing-data-for-factor-analysis">Preparing Data for Factor Analysis</h4>
 <p>I extracted the item response data, excluding any non-item columns such as student identifiers. This step ensured that my analyses focused solely on the patterns of student responses across the eight test items.</p>
-<div id="b280951e" class="cell" data-execution_count="3">
+<div id="09f37e21" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="in"># Extract item data (excluding the 'student' column if present)</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="in">item_data = data.drop(columns=['student'], errors='ignore')</span></span>
@@ -499,7 +499,7 @@ dtype: int64</code></pre>
 <section id="determining-the-number-of-factors-using-scree-plot" class="level4">
 <h4 class="anchored" data-anchor-id="determining-the-number-of-factors-using-scree-plot">Determining the Number of Factors Using Scree Plot</h4>
 <p>To determine the optimal number of factors to retain, I examined a scree plot of eigenvalues.</p>
-<div id="4120ae89" class="cell" data-execution_count="4">
+<div id="bdfdb1dc" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="in"># Import necessary modules</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="in">import matplotlib.pyplot as plt</span></span>
@@ -922,7 +922,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>FactorAnalyzer(rotation=None, rotation_kwargs={})</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked=""><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;FactorAnalyzer<span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>FactorAnalyzer(rotation=None, rotation_kwargs={})</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="d149cfd8" class="cell" data-execution_count="5">
+<div id="f7494747" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="in"># Get eigenvalues and variance explained</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="in">ev, v = fa_model.get_eigenvalues()</span></span>
@@ -1078,7 +1078,7 @@ Table&nbsp;2: Factor Loadings
 <section id="transposing-item-data" class="level4">
 <h4 class="anchored" data-anchor-id="transposing-item-data">Transposing Item Data</h4>
 <p>I transposed the item data to cluster items based on their response patterns.</p>
-<div id="ab98ee92" class="cell" data-execution_count="8">
+<div id="9af9def9" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="in"># Import K-Means module</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="in">from sklearn.cluster import KMeans</span></span>
@@ -1503,7 +1503,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KMeans(n_clusters=3, random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked=""><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;KMeans<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.cluster.KMeans.html">?<span>Documentation for KMeans</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>KMeans(n_clusters=3, random_state=42)</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="2b591f64" class="cell" data-execution_count="9">
+<div id="0964a37f" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="in"># Retrieve the cluster labels for each item</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="in">cluster_labels = kmeans.labels_</span></span>
@@ -1519,7 +1519,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <section id="determining-the-number-of-clusters-using-elbow-method" class="level4">
 <h4 class="anchored" data-anchor-id="determining-the-number-of-clusters-using-elbow-method">Determining the Number of Clusters Using Elbow Method</h4>
 <p>To determine the optimal number of clusters, I used the elbow method, which involved plotting the within-cluster sum of squares (WCSS) against the number of clusters and identifying the “elbow” point where the rate of decrease in WCSS began to level off.</p>
-<div id="97a16751" class="cell" data-execution_count="10">
+<div id="ccc0366c" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="in"># Import necessary module</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="in">import numpy as np</span></span>
@@ -4132,7 +4132,7 @@ Table&nbsp;3: Item-Cluster Mapping
 <section id="determining-the-number-of-components-using-scree-plot" class="level4">
 <h4 class="anchored" data-anchor-id="determining-the-number-of-components-using-scree-plot">Determining the Number of Components Using Scree Plot</h4>
 <p>I generated another scree plot to help determine the optimal number of components.</p>
-<div id="86ff628d" class="cell" data-execution_count="13">
+<div id="870823cb" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="in"># Import necessary module</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="in">from sklearn.decomposition import PCA</span></span>
@@ -4584,7 +4584,7 @@ Figure&nbsp;3: Scree Plot for PCA
 <section id="performing-pca" class="level4">
 <h4 class="anchored" data-anchor-id="performing-pca">Performing PCA</h4>
 <p>I conducted <strong>PCA</strong> on the standardized item response data to assess the stability and robustness of the latent skill structure identified by <strong>Factor Analysis</strong> and <strong>K-Means Clustering</strong> <span class="citation" data-cites="chen2018knowedu">(<a href="#ref-chen2018knowedu" role="doc-biblioref">Chen et al. 2018</a>)</span>.</p>
-<div id="2c862577" class="cell" data-execution_count="15">
+<div id="e2b5d93c" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="in"># Initialize the PCA model with three components</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="in">pca_model = PCA(n_components=3)</span></span>
@@ -5222,7 +5222,7 @@ Table&nbsp;5: PCA Q-Matrix
 <p>I tested <strong>Factor Analysis</strong> models with two-, three-, and four-factor models to determine the optimal number of latent skills.</p>
 <section id="factor-analysis-with-four-components" class="level4">
 <h4 class="anchored" data-anchor-id="factor-analysis-with-four-components">Factor Analysis with Four Components</h4>
-<div id="c2470469" class="cell" data-execution_count="18">
+<div id="81cf5ebb" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="in"># Performing Factor Analysis with four components to explore the potential presence of additional latent skills</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="in">n_factors_extended = 4</span></span>
@@ -5767,7 +5767,7 @@ Table&nbsp;6: Factor Analysis with Four Components
 </section>
 <section id="factor-analysis-with-two-components" class="level4">
 <h4 class="anchored" data-anchor-id="factor-analysis-with-two-components">Factor Analysis with Two Components</h4>
-<div id="eb4c2e78" class="cell" data-execution_count="20">
+<div id="f10e6862" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="in"># Performing Factor Analysis with two components to explore if a simpler model might explain the relationships</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="in">n_factors_simpler = 2</span></span>
@@ -6297,55 +6297,52 @@ Table&nbsp;7: Factor Analysis with Two Components
 <section id="diagrams" class="level4">
 <h4 class="anchored" data-anchor-id="diagrams">Diagrams</h4>
 <p>I created a couple <a href="https://mermaid.js.org/">Mermaid</a> diagrams to gain further insight.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="in">graph TB</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph PCA</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="in">        PCA_S1[Skill_1] --- PCA_I3[Item 3]</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="in">        PCA_S1 --- PCA_I7[Item 7]</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="in">        PCA_S1 --- PCA_I8[Item 8]</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="in">        PCA_S2[Skill_2] --- PCA_I2[Item 2]</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="in">        PCA_S2 --- PCA_I4[Item 4]</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="in">        PCA_S2 --- PCA_I6[Item 6]</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="in">        PCA_S3[Skill_3] --- PCA_I1[Item 1]</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="in">        PCA_S3 --- PCA_I5[Item 5]</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph KMeans</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="in">        KM_S1[Skill_1] --- KM_I3[Item 3]</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="in">        KM_S1 --- KM_I5[Item 5]</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="in">        KM_S1 --- KM_I7[Item 7]</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="in">        KM_S1 --- KM_I8[Item 8]</span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="in">        KM_S2[Skill_2] --- KM_I2[Item 2]</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a><span class="in">        KM_S2 --- KM_I4[Item 4]</span></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="in">        KM_S2 --- KM_I6[Item 6]</span></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a><span class="in">        KM_S3[Skill_3] --- KM_I1[Item 1]</span></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph Factor_Analysis</span></span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a><span class="in">        FA_S1[Skill_1] --- FA_I3[Item 3]</span></span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a><span class="in">        FA_S1 --- FA_I5[Item 5]</span></span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a><span class="in">        FA_S1 --- FA_I7[Item 7]</span></span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a><span class="in">        FA_S1 --- FA_I8[Item 8]</span></span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a><span class="in">        FA_S2[Skill_2] --- FA_I2[Item 2]</span></span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a><span class="in">        FA_S2 --- FA_I4[Item 4]</span></span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a><span class="in">        FA_S2 --- FA_I6[Item 6]</span></span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a><span class="in">        FA_S3[Skill_3] --- FA_I1[Item 1]</span></span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a><span class="in">    style PCA fill:#f9f,stroke:#333,stroke-width:2px</span></span>
+<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a><span class="in">    style KMeans fill:#bbf,stroke:#333,stroke-width:2px</span></span>
+<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a><span class="in">    style Factor_Analysis fill:#bfb,stroke:#333,stroke-width:2px</span></span>
+<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="in">%%| label: fig-mermaid1</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="in">%%| fig-cap: "Comparison Across the Three Methods"</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="in">graph TB</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph PCA</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="in">        PCA_S1[Skill_1] --- PCA_I3[Item 3]</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="in">        PCA_S1 --- PCA_I7[Item 7]</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="in">        PCA_S1 --- PCA_I8[Item 8]</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="in">        PCA_S2[Skill_2] --- PCA_I2[Item 2]</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="in">        PCA_S2 --- PCA_I4[Item 4]</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="in">        PCA_S2 --- PCA_I6[Item 6]</span></span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="in">        PCA_S3[Skill_3] --- PCA_I1[Item 1]</span></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="in">        PCA_S3 --- PCA_I5[Item 5]</span></span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph KMeans</span></span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="in">        KM_S1[Skill_1] --- KM_I3[Item 3]</span></span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="in">        KM_S1 --- KM_I5[Item 5]</span></span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="in">        KM_S1 --- KM_I7[Item 7]</span></span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a><span class="in">        KM_S1 --- KM_I8[Item 8]</span></span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a><span class="in">        KM_S2[Skill_2] --- KM_I2[Item 2]</span></span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a><span class="in">        KM_S2 --- KM_I4[Item 4]</span></span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="in">        KM_S2 --- KM_I6[Item 6]</span></span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a><span class="in">        KM_S3[Skill_3] --- KM_I1[Item 1]</span></span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph Factor_Analysis</span></span>
-<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a><span class="in">        FA_S1[Skill_1] --- FA_I3[Item 3]</span></span>
-<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a><span class="in">        FA_S1 --- FA_I5[Item 5]</span></span>
-<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a><span class="in">        FA_S1 --- FA_I7[Item 7]</span></span>
-<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a><span class="in">        FA_S1 --- FA_I8[Item 8]</span></span>
-<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
-<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a><span class="in">        FA_S2[Skill_2] --- FA_I2[Item 2]</span></span>
-<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a><span class="in">        FA_S2 --- FA_I4[Item 4]</span></span>
-<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a><span class="in">        FA_S2 --- FA_I6[Item 6]</span></span>
-<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
-<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a><span class="in">        FA_S3[Skill_3] --- FA_I1[Item 1]</span></span>
-<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
-<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a><span class="in">    style PCA fill:#f9f,stroke:#333,stroke-width:2px</span></span>
-<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a><span class="in">    style KMeans fill:#bbf,stroke:#333,stroke-width:2px</span></span>
-<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a><span class="in">    style Factor_Analysis fill:#bfb,stroke:#333,stroke-width:2px</span></span>
-<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-mermaid1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -6416,61 +6413,58 @@ Figure&nbsp;4: Comparison Across the Three Methods
 </ol></li>
 </ul>
 <p>The visual comparison highlights overlaps and outliers more effectively than numerical tables, making it easier to identify items that contribute ambiguously to multiple skills or are method-dependent.</p>
-<div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="in">%%| label: fig-mermaid2</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="in">%%| fig-cap: "Comparison Across the Three Models"</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="in">graph TB</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph Four_Component_Model</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S1[Skill_1] --- FC_I3[Item 3]</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S1 --- FC_I7[Item 7]</span></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S1 --- FC_I8[Item 8]</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S1 -.-&gt; FC_I5[Item 5]</span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S2[Skill_2] --- FC_I6[Item 6]</span></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S2 -.-&gt; FC_I2[Item 2]</span></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S2 -.-&gt; FC_I4[Item 4]</span></span>
+<div class="sourceCode" id="cb25"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="in">graph TB</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph Four_Component_Model</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S1[Skill_1] --- FC_I3[Item 3]</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S1 --- FC_I7[Item 7]</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S1 --- FC_I8[Item 8]</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S1 -.-&gt; FC_I5[Item 5]</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S2[Skill_2] --- FC_I6[Item 6]</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S2 -.-&gt; FC_I2[Item 2]</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S2 -.-&gt; FC_I4[Item 4]</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S3[Skill_3] --- FC_I1[Item 1]</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S3 --- FC_I5</span></span>
 <span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S3[Skill_3] --- FC_I1[Item 1]</span></span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S3 --- FC_I5</span></span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S4[Skill_4] -.-&gt; FC_I2</span></span>
-<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S4 -.-&gt; FC_I4</span></span>
-<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
-<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph Three_Component_Model</span></span>
-<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a><span class="in">        TH_S1[Skill_1] --- TH_I3[Item 3]</span></span>
-<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a><span class="in">        TH_S1 --- TH_I7[Item 7]</span></span>
-<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a><span class="in">        TH_S1 --- TH_I8[Item 8]</span></span>
-<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a><span class="in">        TH_S1 --- TH_I5[Item 5]</span></span>
-<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
-<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a><span class="in">        TH_S2[Skill_2] --- TH_I2[Item 2]</span></span>
-<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a><span class="in">        TH_S2 --- TH_I4[Item 4]</span></span>
-<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a><span class="in">        TH_S2 --- TH_I6[Item 6]</span></span>
-<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
-<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a><span class="in">        TH_S3[Skill_3] --- TH_I1[Item 1]</span></span>
-<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a><span class="in">        TH_S3 -.-&gt; TH_I5</span></span>
-<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
-<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph Two_Component_Model</span></span>
-<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a><span class="in">        TC_S1[Skill_1] --- TC_I3[Item 3]</span></span>
-<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a><span class="in">        TC_S1 --- TC_I5[Item 5]</span></span>
-<span id="cb25-40"><a href="#cb25-40" aria-hidden="true" tabindex="-1"></a><span class="in">        TC_S1 --- TC_I7[Item 7]</span></span>
-<span id="cb25-41"><a href="#cb25-41" aria-hidden="true" tabindex="-1"></a><span class="in">        TC_S1 --- TC_I8[Item 8]</span></span>
-<span id="cb25-42"><a href="#cb25-42" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
-<span id="cb25-43"><a href="#cb25-43" aria-hidden="true" tabindex="-1"></a><span class="in">        TC_S2[Skill_2] --- TC_I2[Item 2]</span></span>
-<span id="cb25-44"><a href="#cb25-44" aria-hidden="true" tabindex="-1"></a><span class="in">        TC_S2 --- TC_I4[Item 4]</span></span>
-<span id="cb25-45"><a href="#cb25-45" aria-hidden="true" tabindex="-1"></a><span class="in">        TC_S2 --- TC_I6[Item 6]</span></span>
-<span id="cb25-46"><a href="#cb25-46" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
-<span id="cb25-47"><a href="#cb25-47" aria-hidden="true" tabindex="-1"></a><span class="in">        TC_I1[Item 1&lt;br/&gt;Weak Loadings] -..- TC_S1</span></span>
-<span id="cb25-48"><a href="#cb25-48" aria-hidden="true" tabindex="-1"></a><span class="in">        TC_I1 -..- TC_S2</span></span>
-<span id="cb25-49"><a href="#cb25-49" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
-<span id="cb25-50"><a href="#cb25-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-51"><a href="#cb25-51" aria-hidden="true" tabindex="-1"></a><span class="in">    style Two_Component_Model fill:#bfb,stroke:#333,stroke-width:2px</span></span>
-<span id="cb25-52"><a href="#cb25-52" aria-hidden="true" tabindex="-1"></a><span class="in">    style Three_Component_Model fill:#bbf,stroke:#333,stroke-width:2px</span></span>
-<span id="cb25-53"><a href="#cb25-53" aria-hidden="true" tabindex="-1"></a><span class="in">    style Four_Component_Model fill:#f9f,stroke:#333,stroke-width:2px</span></span>
-<span id="cb25-54"><a href="#cb25-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S4[Skill_4] -.-&gt; FC_I2</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="in">        FC_S4 -.-&gt; FC_I4</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph Three_Component_Model</span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="in">        TH_S1[Skill_1] --- TH_I3[Item 3]</span></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a><span class="in">        TH_S1 --- TH_I7[Item 7]</span></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a><span class="in">        TH_S1 --- TH_I8[Item 8]</span></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a><span class="in">        TH_S1 --- TH_I5[Item 5]</span></span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a><span class="in">        TH_S2[Skill_2] --- TH_I2[Item 2]</span></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a><span class="in">        TH_S2 --- TH_I4[Item 4]</span></span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a><span class="in">        TH_S2 --- TH_I6[Item 6]</span></span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a><span class="in">        TH_S3[Skill_3] --- TH_I1[Item 1]</span></span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a><span class="in">        TH_S3 -.-&gt; TH_I5</span></span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph Two_Component_Model</span></span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a><span class="in">        TC_S1[Skill_1] --- TC_I3[Item 3]</span></span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a><span class="in">        TC_S1 --- TC_I5[Item 5]</span></span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a><span class="in">        TC_S1 --- TC_I7[Item 7]</span></span>
+<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a><span class="in">        TC_S1 --- TC_I8[Item 8]</span></span>
+<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
+<span id="cb25-40"><a href="#cb25-40" aria-hidden="true" tabindex="-1"></a><span class="in">        TC_S2[Skill_2] --- TC_I2[Item 2]</span></span>
+<span id="cb25-41"><a href="#cb25-41" aria-hidden="true" tabindex="-1"></a><span class="in">        TC_S2 --- TC_I4[Item 4]</span></span>
+<span id="cb25-42"><a href="#cb25-42" aria-hidden="true" tabindex="-1"></a><span class="in">        TC_S2 --- TC_I6[Item 6]</span></span>
+<span id="cb25-43"><a href="#cb25-43" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
+<span id="cb25-44"><a href="#cb25-44" aria-hidden="true" tabindex="-1"></a><span class="in">        TC_I1[Item 1&lt;br/&gt;Weak Loadings] -..- TC_S1</span></span>
+<span id="cb25-45"><a href="#cb25-45" aria-hidden="true" tabindex="-1"></a><span class="in">        TC_I1 -..- TC_S2</span></span>
+<span id="cb25-46"><a href="#cb25-46" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
+<span id="cb25-47"><a href="#cb25-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-48"><a href="#cb25-48" aria-hidden="true" tabindex="-1"></a><span class="in">    style Two_Component_Model fill:#bfb,stroke:#333,stroke-width:2px</span></span>
+<span id="cb25-49"><a href="#cb25-49" aria-hidden="true" tabindex="-1"></a><span class="in">    style Three_Component_Model fill:#bbf,stroke:#333,stroke-width:2px</span></span>
+<span id="cb25-50"><a href="#cb25-50" aria-hidden="true" tabindex="-1"></a><span class="in">    style Four_Component_Model fill:#f9f,stroke:#333,stroke-width:2px</span></span>
+<span id="cb25-51"><a href="#cb25-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div id="fig-mermaid2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -6829,27 +6823,24 @@ Table&nbsp;8: Final Q-Matrix
 </div>
 </div>
 <p>I also developed another diagram to support the final Q-Matrix.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="in">graph LR</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph Final_Q_Matrix_Mappings</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="in">        S1[Skill_1] --- I3[Item 3]</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="in">        S1 --- I5[Item 5]</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="in">        S1 --- I7[Item 7]</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="in">        S1 --- I8[Item 8]</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="in">        S2[Skill_2] --- I2[Item 2]</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="in">        S2 --- I4[Item 4]</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="in">        S2 --- I6[Item 6]</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="in">        S3[Skill_3] --- I1[Item 1]</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="in">    style Final_Q_Matrix_Mappings fill:#bfb,stroke:#333,stroke-width:2px</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="in">%%| label: fig-mermaid3</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="in">%%| fig-cap: "Final Q-Matirx"</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="in">graph LR</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph Final_Q_Matrix_Mappings</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="in">        S1[Skill_1] --- I3[Item 3]</span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="in">        S1 --- I5[Item 5]</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="in">        S1 --- I7[Item 7]</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="in">        S1 --- I8[Item 8]</span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="in">        S2[Skill_2] --- I2[Item 2]</span></span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="in">        S2 --- I4[Item 4]</span></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="in">        S2 --- I6[Item 6]</span></span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="in">        </span></span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="in">        S3[Skill_3] --- I1[Item 1]</span></span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="in">    style Final_Q_Matrix_Mappings fill:#bfb,stroke:#333,stroke-width:2px</span></span>
-<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-mermaid3" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -6925,7 +6916,7 @@ Figure&nbsp;8: Final Q-Matirx
 <section id="calculating-proportion-of-variance-explained-r2" class="level4">
 <h4 class="anchored" data-anchor-id="calculating-proportion-of-variance-explained-r2">Calculating Proportion of Variance Explained (<span class="math inline">\(R^2\)</span>)</h4>
 <p><strong>For Factor Analysis</strong>:</p>
-<div id="c7ff2b93" class="cell" data-execution_count="25">
+<div id="fca3d7f5" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="in"># Compute the communalities</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="in">communalities = fa_model.get_communalities()</span></span>
@@ -6955,7 +6946,7 @@ Figure&nbsp;8: Final Q-Matirx
 </ul></li>
 </ul>
 <p><strong>For PCA</strong>:</p>
-<div id="82e6cf06" class="cell" data-execution_count="26">
+<div id="02a1495b" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="in"># Calculate cumulative variance explained</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="in">cumulative_variance = np.cumsum(pca_model.explained_variance_ratio_)</span></span>
@@ -7000,7 +6991,7 @@ Figure&nbsp;8: Final Q-Matirx
 <section id="calculating-cohens-kappa-coefficient" class="level4">
 <h4 class="anchored" data-anchor-id="calculating-cohens-kappa-coefficient">Calculating Cohen’s Kappa Coefficient</h4>
 <p>I also examined the consistency of item assignments across methods using Cohen’s kappa coefficient <span class="citation" data-cites="cohen1960coefficient">(<a href="#ref-cohen1960coefficient" role="doc-biblioref">Cohen 1960</a>)</span>.</p>
-<div id="984156bc" class="cell" data-execution_count="27">
+<div id="915d834c" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="in">from sklearn.metrics import confusion_matrix</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="in">from scipy.optimize import linear_sum_assignment</span></span>
@@ -7290,7 +7281,7 @@ Table&nbsp;10: K-Means Clustering Mappings (before alignment)
 <li><strong>Initial Comparison</strong>: At first glance, the mappings appear similar to the <strong>Factor Analysis</strong> mappings, but due to arbitrary labeling, a direct comparison isn’t meaningful yet.</li>
 <li><strong>Need for Alignment</strong>: To accurately compare the item-skill assignments, cluster labels must be aligned with the skills from <strong>Factor Analysis</strong>.</li>
 </ul>
-<div id="444c4d96" class="cell" data-execution_count="30">
+<div id="79423f00" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="in"># Map clusters to skills after alignment</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="in">kmeans_skill_names_aligned = ['Skill_' + str(mapping[label] + 1) for label in kmeans_labels]</span></span>
