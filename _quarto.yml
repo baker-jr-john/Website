@@ -24,7 +24,7 @@ format:
     sidebar: false
     navbar: false
     theme:
-      light: [cosmo, theme.scss]
+      light: [cosmo]
     code-copy: true
     code-overflow: wrap
     toc: true

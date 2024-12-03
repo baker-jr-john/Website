@@ -3,7 +3,7 @@ pagetitle: "John Baker – Learning Analytics"
 title: "Knowledge Structure Mapping: a Comprehensive Report"
 description: "An in-depth exploration of knowledge structure mapping using Factor Analysis, K-Means clustering, and PCA to uncover latent skills in an eight-item test dataset"
 date: 2024-11-20
-# date-modified: 
+date-modified: 2024-12-02
 author: 
   - name: John Baker
     email: jbaker1@upenn.edu
