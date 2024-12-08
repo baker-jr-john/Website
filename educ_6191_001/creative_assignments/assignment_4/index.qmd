@@ -60,11 +60,11 @@ By integrating LLM-based embeddings into the predictive modeling framework estab
 
 ### Data and Construct Operationalization.
 
-This study used the same dataset of peer feedback comments from a middle school mathematics digital learning platform as described in the prior work. Each student-generated comment (N = 229) was associated with a particular problem-solving artifact—a Thinklet—that the student reviewed. To maintain consistency, the coding scheme and constructs remained unchanged, with the presence of “Commenting on the Process” (CP) serving as the primary outcome variable. Following established protocols, each comment had been hand-labeled by trained coders, achieving acceptable levels of inter-rater reliability.
+This study used the same dataset of peer feedback comments from a middle school mathematics digital learning platform as described in the prior work. Each student-generated comment was associated with a particular problem-solving artifact—a Thinklet—that the student reviewed. To maintain consistency, the coding scheme and constructs remained unchanged, with the presence of “Commenting on the Process” (CP) serving as the primary outcome variable. Following established protocols, each comment had been hand-labeled by trained coders, achieving acceptable levels of inter-rater reliability.
 
 ### Embedding Generation via LLM Integration
 
-Departing from the original study’s methodology, which employed pre-trained sentence embeddings (Cer et al., 2018), this investigation leveraged a large language model (LLM) to produce high-dimensional embeddings. Each student comment was transformed into a semantic representation using OpenAI’s text-embedding-ada-002 model. This model, trained on extensive textual corpora, captures subtle linguistic patterns and contextual nuances that may not be fully represented in simpler embedding schemes. To ensure robustness, we implemented an exponential backoff strategy when retrieving embeddings, thereby mitigating issues related to rate limits and network latency.
+Departing from the original study’s methodology, which employed pre-trained sentence embeddings (Cer et al., 2018), this investigation leveraged a large language model (LLM) to produce high-dimensional embeddings. Each student comment was transformed into a semantic representation using OpenAI’s `text-embedding-3-small` model. This model, trained on extensive textual corpora, captures subtle linguistic patterns and contextual nuances that may not be fully represented in simpler embedding schemes. To ensure robustness, we implemented an exponential backoff strategy when retrieving embeddings, thereby mitigating issues related to rate limits and network latency.
 
 ### Neural Network Architecture and Training Parameters
 
@@ -73,10 +73,6 @@ We replicated the neural network design and hyperparameters from the previous wo
 ### Cross-Validation and Group Assignments
 
 Consistent with the previous study, we applied a student-level 5-fold cross-validation scheme using GroupKFold from scikit-learn. Each student’s comments were assigned to exactly one fold to prevent data leakage across training and testing sets. In other words, if any of a student’s comments appeared in the training data, none of their comments would appear in the corresponding test data. This procedure ensures that the evaluation metrics reflect the model’s ability to generalize to new students rather than memorizing the linguistic style of specific individuals.
-
-### Generalizability Assessment
-
-To further assess the model’s generalizability, we conducted an additional evaluation on a subset of students who were entirely excluded from model training. By holding out a distinct group of previously unseen learners, we tested whether the model’s performance extended beyond the initially sampled population. This step is critical to assessing whether improvements in accuracy and AUC ROC metrics stem from a more robust embedding representation, rather than from overfitting to the training set or failing to capture generalizable aspects of process-oriented commentary.
 
 ### Evaluation Metrics
 
@@ -149,12 +145,12 @@ Here, we construct a dictionary mapping each unique student ID to a group index.
 
 ### LLM-Based Embeddings  
 
-Unlike the original study, which relied on pre-trained sentence encoders like the Universal Sentence Encoder, we now integrate a large language model (e.g., `text-embedding-ada-002`) to generate embeddings. Each comment is fed into the LLM embedding function, producing a vector representation that captures nuanced semantic information.
+Unlike the original study, which relied on pre-trained sentence encoders like the Universal Sentence Encoder, we now integrate a large language model (e.g., `text-embedding-3-small`) to generate embeddings. Each comment is fed into the LLM embedding function, producing a vector representation that captures nuanced semantic information.
 
 We implement exponential backoff to handle potential rate limits when calling the LLM API:
 
 ```{python}
-def get_embedding_with_backoff(text, model="text-embedding-ada-002", max_retries=5):
+def get_embedding_with_backoff(text, model="text-embedding-3-small", max_retries=5):
     for attempt in range(max_retries):
         try:
             response = client.embeddings.create(input=[text], model=model)
@@ -181,8 +177,8 @@ def create_neural_network(input_dim):
     model = Sequential()
     # Input layer matches the size of the embedding dimension
     model.add(Input(shape=(input_dim,)))
-    model.add(Dense(64, activation='relu'))
-    model.add(Dense(32, activation='relu'))
+    model.add(Dense(12, activation='relu'))
+    model.add(Dense(8, activation='relu'))
     model.add(Dense(1, activation='sigmoid'))
 
     model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
