@@ -158,7 +158,7 @@ def get_embedding_with_backoff(text, model="text-embedding-3-small", max_retries
         except RateLimitError:
             if attempt < max_retries - 1:
                 sleep_time = 2 ** attempt
-                print(f"Rate limit exceeded. Retrying in {sleep_time} seconds...")
+                print(f"Rate limit exceeded. Retrying in {sleep_time} seconds ... ")
                 time.sleep(sleep_time)
             else:
                 raise
@@ -224,8 +224,6 @@ print("Maximum ROC AUC Score:", np.max(roc_auc_scores))
 
 ## Results  
 
-The refined predictive model for Commenting on the Process (CP) demonstrated notable improvements in performance compared to those reported in *Automated Multi-Dimensional Analysis of Peer Feedback in Middle School Mathematics*. By integrating large language model (LLM)-based embeddings and retaining the same network architecture, training protocol, and cross-validation scheme, our model achieved an average AUC ROC of approximately 0.94. This figure surpasses the previously published best results for CP, which were around 0.90 using sentence embedding methods. The current approach thus provides evidence that more advanced linguistic representations can meaningfully enhance the model’s ability to discern process-focused content in student comments.
-
 ```{python}
 #| label: tbl-comparison
 #| tbl-cap: Original Results vs. New Results
@@ -261,10 +259,9 @@ table = (
 table
 ```
 
+The refined predictive model for Commenting on the Process (CP) demonstrated notable improvements in performance compared to those reported in *Automated Multi-Dimensional Analysis of Peer Feedback in Middle School Mathematics*. By integrating large language model (LLM)-based embeddings and retaining the same network architecture, training protocol, and cross-validation scheme, our model achieved an average AUC ROC of approximately `{python} mean_auc`. This figure surpasses the previously published best results for CP, which were around 0.899 using sentence embedding methods. The current approach thus provides evidence that more advanced linguistic representations can meaningfully enhance the model’s ability to discern process-focused content in student comments.
 
-In addition to an elevated mean performance, the maximum AUC ROC attained across folds exceeded 0.97, illustrating that, in some instances, the model successfully identifies CP-related patterns with remarkable precision. The standard deviation of roughly 0.033 suggests that while performance varied across individual folds, it remained relatively stable. Taken together, these metrics indicate both a high level of predictive accuracy and a consistent ability to differentiate process-oriented feedback from other types of comments.
-
-Crucially, these improvements in predictive performance were validated not only through standard cross-validation but also via a stringent test of model generalizability. When applied to comments from previously unseen students, the model maintained strong AUC ROC scores, demonstrating its capacity to scale beyond the population of learners on which it was initially trained. This finding suggests that the enhancements introduced—particularly the integration of LLM embeddings—yielded a model that captures fundamental linguistic and conceptual features of process-oriented feedback rather than overfitting to a specific cohort of students.
+In addition to an elevated mean performance, the maximum AUC ROC attained across folds exceeded `{python} max_auc`, illustrating that, in some instances, the model successfully identifies CP-related patterns with remarkable precision. The standard deviation of roughly `{python} std_auc` suggests that while performance varied across individual folds, it remained relatively stable. Taken together, these metrics indicate both a high level of predictive accuracy and a consistent ability to differentiate process-oriented feedback from other types of comments.
 
 In comparison to the original work, our approach yields a model that is not only more accurate but also more robust. While the original study provided a foundational framework for detecting multiple facets of peer feedback quality, these new results show that incorporating more sophisticated embeddings can deliver substantial and consistent gains. This advancement opens the door for implementing such models in real-time educational applications, assisting instructors and systems in promptly identifying and reinforcing high-quality, process-focused comments to improve the overall effectiveness of peer review activities.
 
@@ -272,7 +269,7 @@ In comparison to the original work, our approach yields a model that is not only
 
 This study demonstrates that integrating large language model (LLM) embeddings into the predictive modeling of peer feedback attributes can substantially enhance model performance, particularly for detecting comments that focus on the problem-solving process (CP) in middle school mathematics. By adhering to the methodological frameworks, neural network architectures, and cross-validation strategies established in *Automated Multi-Dimensional Analysis of Peer Feedback in Middle School Mathematics*, we ensured that the observed improvements could be attributed primarily to the introduction of LLM embeddings rather than changes in experimental design or training procedures. The resulting gains in AUC ROC, both on previously known and entirely new student groups, underscore the robustness and scalability of this approach.
 
-A key finding is that the updated model consistently outperforms previously reported baselines that relied on sentence embeddings or simpler text representations. The substantial improvement in AUC ROC scores—reaching averages near 0.94 and occasionally approaching 0.97—indicates that LLM embeddings capture more nuanced linguistic features related to how students describe and critique problem-solving strategies. This suggests that the semantic depth and contextual sensitivity of LLM-generated embeddings can facilitate the automatic identification of subtle cues embedded in student commentary, thus enabling more accurate and fine-grained classification of feedback attributes.
+A key finding is that the updated model consistently outperforms previously reported baselines that relied on sentence embeddings or simpler text representations. The substantial improvement in AUC ROC scores—reaching averages near `{python} mean_auc` and occasionally approaching `{python} max_auc`—indicates that LLM embeddings capture more nuanced linguistic features related to how students describe and critique problem-solving strategies. This suggests that the semantic depth and contextual sensitivity of LLM-generated embeddings can facilitate the automatic identification of subtle cues embedded in student commentary, thus enabling more accurate and fine-grained classification of feedback attributes.
 
 The strong performance on data from new, previously unseen students provides compelling evidence for the model’s generalizability. While prior work had already illustrated that sentence embedding-based models could effectively identify CP attributes, our enhancements demonstrate that models can be improved further to adapt across different student populations. This generalizability is essential for real-world applications where the student body is dynamic and evolving. The capacity to maintain robust accuracy when presented with new learners’ feedback comments bodes well for scalable deployment in digital learning environments and could lead to more equitable support for learners from diverse backgrounds.
 
