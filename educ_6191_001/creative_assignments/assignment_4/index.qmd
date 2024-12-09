@@ -145,7 +145,7 @@ Here, we construct a dictionary mapping each unique student ID to a group index.
 
 ### LLM-Based Embeddings  
 
-Unlike the original study, which relied on pre-trained sentence encoders like the Universal Sentence Encoder, we now integrate a large language model (e.g., `text-embedding-3-small`) to generate embeddings. Each comment is fed into the LLM embedding function, producing a vector representation that captures nuanced semantic information.
+Unlike the original study, which relied on pre-trained sentence encoders like the Universal Sentence Encoder, we now integrate a large language model (i.e., `text-embedding-3-small`) to generate embeddings. Each comment is fed into the LLM embedding function, producing a vector representation that captures nuanced semantic information.
 
 We implement exponential backoff to handle potential rate limits when calling the LLM API:
 
