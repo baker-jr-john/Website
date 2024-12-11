@@ -38,13 +38,13 @@ execute:
 
 ## Introduction
 
-Peer review is a powerful tool in mathematics education that encourages students to engage critically with problem-solving strategies, not just final answers. Substantial research has shown that high-quality, process-oriented feedback can deepen conceptual understanding and enhance mathematical reasoning skills [@uesato2022solving; @nicol2006formative]. However, facilitating such feedback effectively at a large scale presents significant challenges. Manually evaluating peer comments for quality is time-intensive, while automated approaches have often struggled to reliably identify substantive, process-focused characteristics.
+Peer review is a powerful tool in mathematics education that encourages students to engage critically with problem-solving strategies, not just final answers. Substantial research has shown that high-quality, process-oriented feedback can deepen conceptual understanding and enhance mathematical reasoning skills [@uesato2022solving; @nicol2006formative]. However, facilitating such feedback effectively at a large scale presents significant challenges. Manually evaluating peer comments for quality is time-intensive, while automated approaches have often struggled to identify substantive, process-focused characteristics reliably.
 
-Recent advancements in natural language processing (NLP) offer promising avenues to address these issues. Prior work has leveraged machine learning techniques, such as sentence embeddings and neural networks, to classify peer feedback along dimensions including correctness, specificity, and process-orientation. These efforts have achieved noteworthy improvements in accuracy and efficiency compared to manual methods [@zhang2023automated]. However, there remains significant room for further refinement, particularly in capturing the nuanced linguistic patterns associated with high-quality, process-level commentary. 
+Recent natural language processing (NLP) advancements offer promising avenues to address these issues. Prior work has leveraged machine learning techniques, such as sentence embeddings and neural networks, to classify peer feedback along dimensions including correctness, specificity, and process orientation. These efforts have achieved noteworthy improvements in accuracy and efficiency compared to manual methods [@zhang2023automated]. However, there remains significant room for further refinement, particularly in capturing the nuanced linguistic patterns associated with high-quality, process-level commentary. 
 
 The rapid development of large language models (LLMs) presents an exciting opportunity in this regard. LLMs, which are trained on massive and diverse text corpora, have demonstrated remarkable capabilities in representing complex semantic relationships and generating contextually relevant embeddings [@radford2019language]. By encoding text in a high-dimensional space, LLM embeddings can potentially capture subtle indicators of effective feedback that previous methods may overlook. Integrating such advanced language representations into existing predictive frameworks thus offers a promising path to enhance the precision and robustness of automated peer review analysis.
 
-This study aims to investigate the impact of incorporating LLM embeddings into a proven classification model for detecting process-focused feedback. Building upon the methodology established in @zhang2023automated, I preserve the core neural network architecture, cross-validation scheme, and construct operationalization to isolate the effects of the embedding approach. By systematically comparing the performance of LLM-based embeddings against prior sentence-level encodings, this work seeks to quantify the benefits of more sophisticated language modeling in the context of educational peer feedback.
+This study aims to investigate the impact of incorporating LLM embeddings into a proven classification model for detecting process-focused feedback. Building upon the methodology established in @zhang2023automated, I preserve the core neural network architecture, cross-validation scheme and construct operationalization to isolate the effects of the embedding approach. By systematically comparing the performance of LLM-based embeddings against prior sentence-level encodings, this work seeks to quantify the benefits of more sophisticated language modeling in the context of educational peer feedback.
 
 Furthermore, I evaluate the model's ability to generalize to completely unseen student populations. Demonstrating strong transferability is crucial for practical applications, as it suggests the model is learning meaningful linguistic patterns rather than overfitting to specific student characteristics. Improved generalization would support the development of broadly applicable tools that could provide real-time, adaptive feedback to enhance students' learning experiences across diverse contexts.
 
@@ -52,15 +52,15 @@ Ultimately, this research advances the state-of-the-art in automated analysis of
 
 ## Background and Related Work
 
-Peer review in mathematics education fosters collaboration and develops analytical thinking. Past research has underscored the importance of feedback quality: comments that highlight the reasoning steps behind a solution can help students identify misconceptions, refine strategies, and internalize mathematical concepts more deeply [@kapur2010productive]. However, teachers often have limited time to vet large volumes of student-generated comments, raising concerns about implementing peer review at scale.
+Peer review in mathematics education fosters collaboration and develops analytical thinking. Past research has underscored the importance of feedback quality: comments highlighting the reasoning behind a solution can help students identify misconceptions, refine strategies, and internalize mathematical concepts more deeply [@kapur2010productive]. However, teachers often have limited time to vet large volumes of student-generated comments, raising concerns about implementing peer review at scale.
 
-Automated approaches have begun to address these challenges. Prior studies leveraged NLP techniques—such as part-of-speech tagging, sentiment analysis, and sentence-level embeddings—to classify peer feedback along dimensions including process focus, correctness, and personalization [@zhang2023automated]. While these methods improved efficiency and consistency, there is room for refinement. The rise of LLMs, with their ability to represent textual data more contextually and semantically, suggests an opportunity to further improve predictive accuracy and transferability of feedback classification models.
+Automated approaches have begun to address these challenges. Prior studies leveraged NLP techniques—such as part-of-speech tagging, sentiment analysis, and sentence-level embeddings—to classify peer feedback along dimensions including process focus, correctness, and personalization [@zhang2023automated]. While these methods improved efficiency and consistency, there is room for refinement. With their ability to represent textual data more contextually and semantically, the rise of LLMs suggests an opportunity to further improve the predictive accuracy and transferability of feedback classification models.
 
-By incorporating LLM embeddings, this study builds on earlier work, aiming to advance the state-of-the-art in automated feedback analysis. These enhanced embeddings may better capture linguistic subtleties, improving model performance not only on known students but also on entirely new student populations, thus supporting more scalable, robust, and contextually informed educational tools.
+This study builds on earlier work by incorporating LLM embeddings to advance state-of-the-art automated feedback analysis. These enhanced embeddings may better capture linguistic subtleties, improving model performance not only on known students but also on entirely new student populations, thus supporting more scalable, robust, and contextually informed educational tools.
 
 ## Methods
 
-This study extends an established predictive framework for detecting middle school mathematics peer comments on the process (CP) . The key innovation is the integration of large language model (LLM) embeddings to capture nuanced linguistic patterns associated with CP. 
+This study extends an established predictive framework for detecting peer comments on the process (CP) in middle school mathematics. The key innovation is the integration of large language model (LLM) embeddings to capture nuanced linguistic patterns associated with CP. 
 
 ### Overview of Approach
 
@@ -74,47 +74,33 @@ The methodology follows these main steps:
 
 4. **Cross-Validation**: Implement a student-level cross-validation scheme, ensuring that no student's data appears in both training and test sets for any given fold.
 
-5. **Model Training & Evaluation**: Train the model on each training set, validate on a held-out portion, and evaluate on the corresponding test set using Area Under the Receiver Operating Characteristic curve (AUC ROC) as the primary performance metric.
-
-Figure 1 presents a visual summary of this workflow.
-
-```{mermaid}
-%%| label: fig-mermaid
-%%| fig-cap: "Methods Flowchart"
-
-flowchart LR
-    A[Annotated Comments] --> B[LLM Embedding]
-    B --> C[Neural Network]
-    C --> D[Student-Level Cross-Validation]
-    D --> E[Model Training & Evaluation]
-    E --> F[Performance Metrics]
-```
+5. **Model Training & Evaluation**: Train the model on each training set, validate on a held-out portion, and evaluate on the corresponding test set using the Area Under the Receiver Operating Characteristic curve (AUC ROC) as the primary performance metric.
 
 The following subsections provide more detailed information on dataset characteristics, embedding techniques, model specification, and evaluation procedures.
 
 ### Data and Annotation
 
-The dataset consists of peer comments on mathematics problems submitted by middle school students through an online learning platform. Each comment was manually annotated for the presence (1) or absence (0) of CP. CP is operationalized as feedback that addresses the problem-solving process, such as discussing strategies, identifying misconceptions, or suggesting alternative approaches, rather than solely evaluating the final answer.
+The dataset consists of peer comments on mathematics problems submitted by middle school students through an online learning platform. Each comment was manually annotated for CP's presence (1) or absence (0). CP is operationalized as feedback that addresses the problem-solving process, such as discussing strategies, identifying misconceptions, or suggesting alternative approaches rather than solely evaluating the final answer.
 
 ### LLM Embeddings
 
-Unlike previous studies that utilized sentence-level encodings such as the Universal Sentence Encoder, this work leverages OpenAI's `text-embedding-3-small` model to generate comment embeddings. LLMs can learn more contextually rich representations by training on massive, diverse text corpora. The `text-embedding-3-small` model produces a high-dimensional vector for each comment, capturing latent semantic features that may be indicative of CP. To handle potential rate limits during embedding generation, I implemented an exponential backoff strategy.
+Unlike previous studies that utilized sentence-level encodings such as the Universal Sentence Encoder, this work leverages [OpenAI's](https://openai.com/) `text-embedding-3-small` model to generate comment embeddings. LLMs can learn more contextually rich representations by training on massive, diverse text corpora. The `text-embedding-3-small` model produces a high-dimensional vector for each comment, capturing latent semantic features that may be indicative of CP. I implemented an exponential backoff strategy to handle potential rate limits during embedding generation.
 
 ### Model Specification
 
-The predictive model architecture remains consistent with prior work to isolate the impact of LLM embeddings. The core structure is a feedforward neural network with an input layer (adjusted to match LLM embedding dimensions), two hidden layers with ReLU activation, and a sigmoid output layer for binary classification. The model is trained using binary cross-entropy loss and the Adam optimizer, with hyperparameters following the original study.
+The predictive model architecture remains consistent with prior work identifying the impact of LLM embeddings. The core structure is a feedforward neural network with an input layer (adjusted to match LLM embedding dimensions), two hidden layers with ReLU activation, and a sigmoid output layer for binary classification. The model is trained using binary cross-entropy loss and the Adam optimizer, with hyperparameters following the original study.
 
 ### Evaluation
 
-Model performance is assessed using AUC ROC, a threshold-agnostic metric that captures the trade-off between true and false positive rates. A five-fold student-level cross-validation scheme is employed, such that any given student's comments are restricted to either the training or testing set within each fold. This grouping strategy, consistent with the original methodology, allows evaluation of the model's generalization to new students, not just new comments. Comparing AUC ROC scores against prior baselines quantifies the impact of integrating LLM embeddings.
+Model performance is assessed using AUC ROC, a threshold-agnostic metric that captures the trade-off between true and false positive rates. A five-fold student-level cross-validation scheme is employed, so any given student's comments are restricted to either the training or testing set within each fold. This grouping strategy, consistent with the original methodology, allows evaluation of the model's generalization to new students, not just new comments. Comparing AUC ROC scores against prior baselines quantifies the impact of integrating LLM embeddings.
 
 ## Implementation Details
 
-Below is a detailed description of the implementation steps taken to build and evaluate a predictive model for Commenting on the Process (CP), including representative code snippets. This implementation adheres closely to the methodological framework and neural network architecture described in the original study, while introducing large language model (LLM) embeddings to enhance feature representations.
+Below is a detailed description of the implementation steps taken to build and evaluate a predictive model for Commenting on the Process (CP), including representative code snippets. This implementation adheres closely to the methodological framework and neural network architecture described in the original study while introducing large language model (LLM) embeddings to enhance feature representations.
 
 ### Data Preparation
 
-The initial step involves loading the dataset, which contains comments annotated with the presence or absence of the CP construct. Each data row includes the text of the student’s comment, the student’s unique identifier, and a binary label for whether the comment contains process-focused feedback. I also ensure that the grouping of students into folds is consistent with the original experimental design, preventing any given student’s work from appearing in both training and test sets.
+The initial step involves loading the dataset, which contains comments annotated with the presence or absence of the CP construct. Each data row includes the text of the student's comment, the student's unique identifier, and a binary label for whether the comment contains process-focused feedback. I also ensure that grouping students into folds is consistent with the original experimental design, preventing any student's work from appearing in both training and test sets.
 
 ```{python}
 #| warning: false
@@ -142,11 +128,11 @@ X_text = df['annotation_text'].tolist()
 y = df['comment_process']  # Binary labels indicating presence of CP
 ```
 
-In the code above, `df` is the full DataFrame containing both the annotation text and CP labels. The variable `y` is a Pandas Series containing my target variable (CP presence).
+In the code above, `df` is the complete data frame containing both the annotation text and CP labels. The variable `y` is a Pandas Series containing my target variable (CP presence).
 
 ### Grouping and Cross-Validation Setup  
 
-Following the original paper’s methodology, I used a student-level five-fold cross-validation with `GroupKFold`. Each student is assigned to exactly one fold, ensuring that no student’s comments appear in both training and test data. This approach tests the model’s ability to generalize to completely new students.
+Following the original paper's methodology, I used a student-level five-fold cross-validation with `GroupKFold`. Each student is assigned to precisely one fold, ensuring that no student's comments appear in both training and test data. This approach tests the model's ability to generalize to completely new students.
 
 ```{python}
 import numpy as np
@@ -195,7 +181,7 @@ Here, each comment `comment` is embedded into a numerical vector. The result, `X
 
 ### Neural Network Architecture  
 
-To maintain comparability with the original study, I preserved the general neural network architecture, training regime, and hyperparameters. The only modification is adjusting the input layer’s dimensions to match the LLM embedding size. The network typically includes an input layer, two hidden layers with ReLU activations, and a final sigmoid layer for binary classification.
+I preserved the general neural network architecture, training regime, and hyperparameters to maintain comparability with the original study. The only modification is adjusting the input layer's dimensions to match the LLM embedding size. The network typically includes an input layer, two hidden layers with ReLU activations, and a final sigmoid layer for binary classification.
 
 ```{python}
 from tensorflow.keras.models import Sequential
@@ -213,7 +199,7 @@ def create_neural_network(input_dim):
     return model
 ```
 
-This function returns a compiled Keras model ready for training.
+This function returns a compiled Keras model that is ready for training.
 
 ### Model Training and Evaluation  
 
@@ -289,7 +275,7 @@ table = (
 table
 ```
 
-Integrating LLM embeddings led to notable improvements. Average AUC ROC increased from approximately 0.899 in earlier work to about  `{python} mean_auc` with LLM embeddings, with some folds reaching `{python} max_auc`. This indicates that advanced embeddings more accurately distinguish process-focused feedback from other comment types. Moreover, performance stabilized across folds, suggesting improved robustness and reduced variance.
+Integrating LLM embeddings led to notable improvements. Average AUC ROC increased from approximately 0.899 in earlier work to about  `{python} mean_auc` with LLM embeddings, with some folds reaching `{python} max_auc`, indicating that advanced embeddings more accurately distinguish process-focused feedback from other comment types. Moreover, performance stabilized across folds, suggesting improved robustness and reduced variance.
 
 Importantly, the model generalized well to new student data. This finding implies that the embedding-based model is not simply memorizing student idiosyncrasies but learning transferable linguistic features associated with CP. The resulting model could thus support large-scale implementations, identifying high-quality, process-oriented feedback in real-time.
 
@@ -299,11 +285,11 @@ The results highlight the potential of LLM-based embeddings to enhance automated
 
 ### Limitations
 
-Reliance on proprietary LLMs may raise issues of cost, access, and interpretability. Additionally, while my results show strong performance within a middle school mathematics context, it remains unclear how well these methods transfer to other subjects, age groups, or types of feedback. Future work should explore these dimensions, assess the interpretability of LLM embeddings in educational contexts, and test different architectures or training regimes to further boost performance and generalizability.
+Reliance on proprietary LLMs may raise cost, access, and interpretability issues. Additionally, while my results show strong performance within a middle school mathematics context, it remains unclear how well these methods transfer to other subjects, age groups, or types of feedback. Future work should explore these dimensions, assess the interpretability of LLM embeddings in educational contexts, and test different architectures or training regimes to boost performance and generalizability further..
 
 ## Conclusion  
 
-This study demonstrates the significant potential of integrating large language model (LLM) embeddings into automated peer feedback analysis in mathematics education. By enhancing an established predictive framework with LLM-based representations, I achieved substantial improvements in both accuracy and generalizability for detecting process-focused commentary (CP).
+This study demonstrates the significant potential of integrating large language model (LLM) embeddings into automated peer feedback analysis in mathematics education. By enhancing an established predictive framework with LLM-based representations, I substantially improved accuracy and generalizability for detecting process-focused commentary (CP).
 
 The results highlight the power of advanced language models to capture nuanced linguistic patterns indicative of effective feedback. LLM embeddings outperformed prior sentence encodings in correctly identifying CP, suggesting their ability to learn more contextually rich features from limited data. Importantly, these gains were not merely a result of overfitting to specific student characteristics; the model's strong performance on completely unseen students underscores its potential for broad, reliable application in real-world settings.
 
@@ -311,7 +297,7 @@ These findings offer promising avenues for enhancing formative assessment and pe
 
 More broadly, this study contributes to the growing body of research on AI-augmented education. It demonstrates the value of leveraging state-of-the-art NLP techniques, particularly LLMs, to tackle complex challenges in learning analytics. The approach presented here could potentially be extended to other domains and feedback dimensions, opening up new possibilities for data-driven support across diverse educational contexts.
 
-However, it is important to acknowledge the limitations and future directions of this work. The reliance on a proprietary LLM may raise questions of cost, transparency, and reproducibility. Additionally, while the results are promising within the scope of middle school mathematics, further research is needed to validate the transferability of these methods to other subject areas, age groups, and feedback types. Investigating the interpretability of LLM embeddings in educational settings and exploring alternative model architectures are also important areas for future study.
+However, it is important to acknowledge this work's limitations and potential future directions. The reliance on a proprietary LLM may raise questions of cost, transparency, and reproducibility. Additionally, while the results are promising within the scope of middle school mathematics, further research is needed to validate the transferability of these methods to other subject areas, age groups, and feedback types. Investigating the interpretability of LLM embeddings in educational settings and exploring alternative model architectures are also important areas for future study.
 
 Nonetheless, this research represents a significant step forward in the development of scalable, AI-powered tools to support effective peer learning. By harnessing the power of language models to identify and amplify high-quality feedback, we can create more responsive, adaptive educational environments that foster deeper engagement and understanding. Ultimately, this work contributes to the broader vision of leveraging AI to enhance education equity and outcomes, empowering all students to reach their full potential as mathematical thinkers and problem-solvers.
 
