@@ -3,6 +3,7 @@ pagetitle: "John Baker – Learning Analytics"
 title: "Analyzing and Optimizing Machine Learning Models for Off-Task Behavior Detection"
 description: "A machine learning model to detect off-task behavior"
 date: 2024-09-18
+date-modified: 2024-12-11
 author: 
   - name: John Baker
     email: jbaker1@upenn.edu
@@ -12,9 +13,9 @@ author:
 abstract: |
   Detecting off-task behavior in educational settings is essential for enhancing student engagement and learning outcomes. This study presents a comprehensive analysis of machine learning models designed to classify off-task behavior using a real-world educational dataset. I explore the challenges of working with imbalanced datasets and evaluate the performance of various classifiers, including Random Forest, XGBoost, and Gradient Boosting. Through a series of experiments involving data resampling, hyperparameter tuning, threshold optimization, and performance evaluation using metrics like Cohen's Kappa score, I aim to optimize model performance and provide insights into the complexities of behavior detection in educational contexts.
 keywords:
-  - Off-task behavior detection
-  - Educational data mining
-  - Machine learning in education
+  - off-task behavior detection
+  - educational data mining
+  - machine learning in education
 bibliography: bibliography/bibliography.bib
 nocite: |
   @*
@@ -516,6 +517,6 @@ This study highlights the complexities involved in detecting off-task behavior u
 - **Feature Engineering**: Incorporate more behavioral indicators to improve model accuracy.
 - **Real-world Implementation**: Test models in live educational settings for practical validation.
 
-## Submission Guidelines
+### Submission Guidelines
 
 This document includes all required explanations. The code and data are organized to facilitate replication and further analysis. Please let me know if additional information is needed.
