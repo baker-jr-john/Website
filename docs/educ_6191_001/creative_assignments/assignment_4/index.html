@@ -242,13 +242,13 @@ div.csl-indent {
 <p>The rapid development of large language models (LLMs) presents an exciting opportunity in this regard. LLMs, which are trained on massive and diverse text corpora, have demonstrated remarkable capabilities in representing complex semantic relationships and generating contextually relevant embeddings <span class="citation" data-cites="radford2019language">(<a href="#ref-radford2019language" role="doc-biblioref">Radford et al. 2019</a>)</span>. By encoding text in a high-dimensional space, LLM embeddings can potentially capture subtle indicators of effective feedback that previous methods may overlook. Integrating such advanced language representations into existing predictive frameworks thus offers a promising path to enhance the precision and robustness of automated peer review analysis.</p>
 <p>This study aims to investigate the impact of incorporating LLM embeddings into a proven classification model for detecting process-focused feedback. Building upon the methodology established in <span class="citation" data-cites="zhang2023automated">Zhang et al. (<a href="#ref-zhang2023automated" role="doc-biblioref">2023</a>)</span>, I preserve the core neural network architecture, cross-validation scheme and construct operationalization to isolate the effects of the embedding approach. By systematically comparing the performance of LLM-based embeddings against prior sentence-level encodings, this work seeks to quantify the benefits of more sophisticated language modeling in the context of educational peer feedback.</p>
 <p>Furthermore, I evaluate the model’s ability to generalize to completely unseen student populations. Demonstrating strong transferability is crucial for practical applications, as it suggests the model is learning meaningful linguistic patterns rather than overfitting to specific student characteristics. Improved generalization would support the development of broadly applicable tools that could provide real-time, adaptive feedback to enhance students’ learning experiences across diverse contexts.</p>
-<p>Ultimately, this research advances the state-of-the-art in automated analysis of peer review, laying the groundwork for scalable, data-driven support systems in mathematics education. By harnessing the power of LLMs to identify effective process-oriented feedback, this work informs the design of educational technologies that can offer targeted, timely interventions to foster deeper mathematical understanding. More broadly, it contributes to ongoing efforts in leveraging AI to enhance formative assessment and personalize learning at scale.</p>
+<p>Ultimately, this research advances the state-of-the-art in automated analysis of peer review, laying the groundwork for scalable, data-driven support systems in mathematics education. By harnessing the power of LLMs to identify effective process-oriented feedback, this work informs the design of educational technologies that can offer targeted, timely interventions to foster deeper mathematical understanding. More broadly, it contributes to ongoing efforts in leveraging artificial intelligence (AI) to enhance formative assessment and personalize learning at scale.</p>
 </section>
 <section id="background-and-related-work" class="level2">
 <h2 class="anchored" data-anchor-id="background-and-related-work">Background and Related Work</h2>
 <p>Peer review in mathematics education fosters collaboration and develops analytical thinking. Past research has underscored the importance of feedback quality: comments highlighting the reasoning behind a solution can help students identify misconceptions, refine strategies, and internalize mathematical concepts more deeply <span class="citation" data-cites="kapur2010productive">(<a href="#ref-kapur2010productive" role="doc-biblioref">Kapur 2010</a>)</span>. However, teachers often have limited time to vet large volumes of student-generated comments, raising concerns about implementing peer review at scale.</p>
 <p>Automated approaches have begun to address these challenges. Prior studies leveraged NLP techniques—such as part-of-speech tagging, sentiment analysis, and sentence-level embeddings—to classify peer feedback along dimensions including process focus, correctness, and personalization <span class="citation" data-cites="zhang2023automated">(<a href="#ref-zhang2023automated" role="doc-biblioref">Zhang et al. 2023</a>)</span>. While these methods improved efficiency and consistency, there is room for refinement. With their ability to represent textual data more contextually and semantically, the rise of LLMs suggests an opportunity to further improve the predictive accuracy and transferability of feedback classification models.</p>
-<p>This study builds on earlier work by incorporating LLM embeddings to advance state-of-the-art automated feedback analysis. These enhanced embeddings may better capture linguistic subtleties, improving model performance not only on known students but also on entirely new student populations, thus supporting more scalable, robust, and contextually informed educational tools.</p>
+<p>This study builds on earlier work by incorporating LLM embeddings to advance state-of-the-art automated feedback analysis. These enhanced embeddings may better capture linguistic subtleties, improving model performance not only on known students but also on entirely new student populations, thereby supporting more scalable, robust, and contextually informed educational tools.</p>
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
@@ -261,7 +261,7 @@ div.csl-indent {
 <li><p><strong>Embedding Generation</strong>: Feed each comment through an LLM to obtain high-dimensional vector representations that encode semantic relationships.</p></li>
 <li><p><strong>Model Architecture</strong>: Employ the same neural network design as prior work, adjusted only to accommodate the dimensionality of LLM embeddings.</p></li>
 <li><p><strong>Cross-Validation</strong>: Implement a student-level cross-validation scheme, ensuring that no student’s data appears in both training and test sets for any given fold.</p></li>
-<li><p><strong>Model Training &amp; Evaluation</strong>: Train the model on each training set, validate on a held-out portion, and evaluate on the corresponding test set using the Area Under the Receiver Operating Characteristic curve (AUC ROC) as the primary performance metric.</p></li>
+<li><p><strong>Model Training &amp; Evaluation</strong>: Train the model on the training set, validate on a held-out portion, and evaluate on the corresponding test set using the Area Under the Receiver Operating Characteristic curve (AUC ROC) as the primary performance metric.</p></li>
 </ol>
 <p>The following subsections provide more detailed information on dataset characteristics, embedding techniques, model specification, and evaluation procedures.</p>
 </section>
@@ -288,7 +288,7 @@ div.csl-indent {
 <section id="data-preparation" class="level3">
 <h3 class="anchored" data-anchor-id="data-preparation">Data Preparation</h3>
 <p>The initial step involves loading the dataset, which contains comments annotated with the presence or absence of the CP construct. Each data row includes the text of the student’s comment, the student’s unique identifier, and a binary label for whether the comment contains process-focused feedback. I also ensure that grouping students into folds is consistent with the original experimental design, preventing any student’s work from appearing in both training and test sets.</p>
-<div id="d85fa5aa" class="cell" data-execution_count="1">
+<div id="79a77b0a" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'TF_CPP_MIN_LOG_LEVEL'</span>] <span class="op">=</span> <span class="st">'3'</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -311,12 +311,12 @@ div.csl-indent {
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>X_text <span class="op">=</span> df[<span class="st">'annotation_text'</span>].tolist()</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">'comment_process'</span>]  <span class="co"># Binary labels indicating presence of CP</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In the code above, <code>df</code> is the complete data frame containing both the annotation text and CP labels. The variable <code>y</code> is a Pandas Series containing my target variable (CP presence).</p>
+<p>In the code above, <code>df</code> is the complete data frame containing both the annotation text and CP labels. The variable <code>y</code> is a Pandas Series containing the target variable (CP presence).</p>
 </section>
 <section id="grouping-and-cross-validation-setup" class="level3">
 <h3 class="anchored" data-anchor-id="grouping-and-cross-validation-setup">Grouping and Cross-Validation Setup</h3>
 <p>Following the original paper’s methodology, I used a student-level five-fold cross-validation with <code>GroupKFold</code>. Each student is assigned to precisely one fold, ensuring that no student’s comments appear in both training and test data. This approach tests the model’s ability to generalize to completely new students.</p>
-<div id="38500b90" class="cell" data-execution_count="2">
+<div id="0a2043c0" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GroupKFold</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -339,7 +339,7 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="llm-based-embeddings">LLM-Based Embeddings</h3>
 <p>Unlike the original study, which relied on pre-trained sentence encoders like the Universal Sentence Encoder, I integrated a large language model (i.e., <code>text-embedding-3-small</code>) to generate embeddings. Each comment is fed into the LLM embedding function, producing a vector representation that captures nuanced semantic information.</p>
 <p>I implemented exponential backoff to handle potential rate limits when calling the LLM API:</p>
-<div id="61de3dd5" class="cell" data-execution_count="3">
+<div id="b4d9d61e" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_embedding_with_backoff(text, model<span class="op">=</span><span class="st">"text-embedding-3-small"</span>, max_retries<span class="op">=</span><span class="dv">5</span>):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> attempt <span class="kw">in</span> <span class="bu">range</span>(max_retries):</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>:</span>
@@ -360,7 +360,7 @@ div.csl-indent {
 <section id="neural-network-architecture" class="level3">
 <h3 class="anchored" data-anchor-id="neural-network-architecture">Neural Network Architecture</h3>
 <p>I preserved the general neural network architecture, training regime, and hyperparameters to maintain comparability with the original study. The only modification is adjusting the input layer’s dimensions to match the LLM embedding size. The network typically includes an input layer, two hidden layers with ReLU activations, and a final sigmoid layer for binary classification.</p>
-<div id="4898e7de" class="cell" data-execution_count="4">
+<div id="31ca506f" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.models <span class="im">import</span> Sequential</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.layers <span class="im">import</span> Dense, Input</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -380,7 +380,7 @@ div.csl-indent {
 <section id="model-training-and-evaluation" class="level3">
 <h3 class="anchored" data-anchor-id="model-training-and-evaluation">Model Training and Evaluation</h3>
 <p>I iterated through each fold of the GroupKFold cross-validation. For each fold, I split the data into training and test sets. Then, I trained the neural network on the training folds, validated performance on a held-out portion of that training set (validation split), and finally evaluated the model on the test fold. Performance was recorded using the AUC ROC metric.</p>
-<div id="b8368270" class="cell" data-execution_count="5">
+<div id="5b2f02ad" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_auc_score</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>roc_auc_scores <span class="op">=</span> []</span>
@@ -412,24 +412,24 @@ div.csl-indent {
 <span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Standard Deviation:"</span>, np.std(roc_auc_scores))</span>
 <span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Maximum ROC AUC Score:"</span>, np.<span class="bu">max</span>(roc_auc_scores))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>&lt;keras.src.callbacks.history.History at 0x134e4ed20&gt;</code></pre>
+<pre><code>&lt;keras.src.callbacks.history.History at 0x13aac7b60&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>&lt;keras.src.callbacks.history.History at 0x13515a060&gt;</code></pre>
+<pre><code>&lt;keras.src.callbacks.history.History at 0x13abeaed0&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>&lt;keras.src.callbacks.history.History at 0x1353357c0&gt;</code></pre>
+<pre><code>&lt;keras.src.callbacks.history.History at 0x13adcbf20&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>&lt;keras.src.callbacks.history.History at 0x13566f7d0&gt;</code></pre>
+<pre><code>&lt;keras.src.callbacks.history.History at 0x13ad69c40&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>&lt;keras.src.callbacks.history.History at 0x13608cad0&gt;</code></pre>
+<pre><code>&lt;keras.src.callbacks.history.History at 0x13b0cd970&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Average ROC AUC Score: 0.9330104057735635
-Standard Deviation: 0.03908892406213042
-Maximum ROC AUC Score: 0.979020979020979</code></pre>
+<pre><code>Average ROC AUC Score: 0.9352577417708996
+Standard Deviation: 0.0411599012839265
+Maximum ROC AUC Score: 0.9813519813519813</code></pre>
 </div>
 </div>
 </section>
@@ -444,52 +444,52 @@ Table&nbsp;1: Original Results vs.&nbsp;New Results
 </figcaption>
 <div aria-describedby="tbl-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display" data-execution_count="6">
-<div id="dxktslarqp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="nhdgiqtwwz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>
-#dxktslarqp table {
+#nhdgiqtwwz table {
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
         }
 
-#dxktslarqp thead, tbody, tfoot, tr, td, th { border-style: none; }
+#nhdgiqtwwz thead, tbody, tfoot, tr, td, th { border-style: none; }
  tr { background-color: transparent; }
-#dxktslarqp p { margin: 0; padding: 0; }
- #dxktslarqp .gt_table { display: table; border-collapse: collapse; line-height: normal; margin-left: auto; margin-right: auto; color: #333333; font-size: 16px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: auto; border-top-style: solid; border-top-width: 2px; border-top-color: #A8A8A8; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #A8A8A8; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3; }
- #dxktslarqp .gt_caption { padding-top: 4px; padding-bottom: 4px; }
- #dxktslarqp .gt_title { color: #333333; font-size: 125%; font-weight: initial; padding-top: 4px; padding-bottom: 4px; padding-left: 5px; padding-right: 5px; border-bottom-color: #FFFFFF; border-bottom-width: 0; }
- #dxktslarqp .gt_subtitle { color: #333333; font-size: 85%; font-weight: initial; padding-top: 3px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; border-top-color: #FFFFFF; border-top-width: 0; }
- #dxktslarqp .gt_heading { background-color: #FFFFFF; text-align: center; border-bottom-color: #FFFFFF; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; }
- #dxktslarqp .gt_bottom_border { border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; }
- #dxktslarqp .gt_col_headings { border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; }
- #dxktslarqp .gt_col_heading { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; }
- #dxktslarqp .gt_column_spanner_outer { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; padding-top: 0; padding-bottom: 0; padding-left: 4px; padding-right: 4px; }
- #dxktslarqp .gt_column_spanner_outer:first-child { padding-left: 0; }
- #dxktslarqp .gt_column_spanner_outer:last-child { padding-right: 0; }
- #dxktslarqp .gt_column_spanner { border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 5px; overflow-x: hidden; display: inline-block; width: 100%; }
- #dxktslarqp .gt_spanner_row { border-bottom-style: hidden; }
- #dxktslarqp .gt_group_heading { padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; text-align: left; }
- #dxktslarqp .gt_empty_group_heading { padding: 0.5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; vertical-align: middle; }
- #dxktslarqp .gt_from_md> :first-child { margin-top: 0; }
- #dxktslarqp .gt_from_md> :last-child { margin-bottom: 0; }
- #dxktslarqp .gt_row { padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; }
- #dxktslarqp .gt_stub { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: solid; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px; }
- #dxktslarqp .gt_stub_row_group { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: solid; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px; vertical-align: top; }
- #dxktslarqp .gt_row_group_first td { border-top-width: 2px; }
- #dxktslarqp .gt_row_group_first th { border-top-width: 2px; }
- #dxktslarqp .gt_striped { background-color: rgba(128,128,128,0.05); }
- #dxktslarqp .gt_table_body { border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; }
- #dxktslarqp .gt_sourcenotes { color: #333333; background-color: #FFFFFF; border-bottom-style: none; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; }
- #dxktslarqp .gt_sourcenote { font-size: 90%; padding-top: 4px; padding-bottom: 4px; padding-left: 5px; padding-right: 5px; text-align: left; }
- #dxktslarqp .gt_left { text-align: left; }
- #dxktslarqp .gt_center { text-align: center; }
- #dxktslarqp .gt_right { text-align: right; font-variant-numeric: tabular-nums; }
- #dxktslarqp .gt_font_normal { font-weight: normal; }
- #dxktslarqp .gt_font_bold { font-weight: bold; }
- #dxktslarqp .gt_font_italic { font-style: italic; }
- #dxktslarqp .gt_super { font-size: 65%; }
- #dxktslarqp .gt_footnote_marks { font-size: 75%; vertical-align: 0.4em; position: initial; }
- #dxktslarqp .gt_asterisk { font-size: 100%; vertical-align: 0; }
+#nhdgiqtwwz p { margin: 0; padding: 0; }
+ #nhdgiqtwwz .gt_table { display: table; border-collapse: collapse; line-height: normal; margin-left: auto; margin-right: auto; color: #333333; font-size: 16px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: auto; border-top-style: solid; border-top-width: 2px; border-top-color: #A8A8A8; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #A8A8A8; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3; }
+ #nhdgiqtwwz .gt_caption { padding-top: 4px; padding-bottom: 4px; }
+ #nhdgiqtwwz .gt_title { color: #333333; font-size: 125%; font-weight: initial; padding-top: 4px; padding-bottom: 4px; padding-left: 5px; padding-right: 5px; border-bottom-color: #FFFFFF; border-bottom-width: 0; }
+ #nhdgiqtwwz .gt_subtitle { color: #333333; font-size: 85%; font-weight: initial; padding-top: 3px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; border-top-color: #FFFFFF; border-top-width: 0; }
+ #nhdgiqtwwz .gt_heading { background-color: #FFFFFF; text-align: center; border-bottom-color: #FFFFFF; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; }
+ #nhdgiqtwwz .gt_bottom_border { border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; }
+ #nhdgiqtwwz .gt_col_headings { border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; }
+ #nhdgiqtwwz .gt_col_heading { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; }
+ #nhdgiqtwwz .gt_column_spanner_outer { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; padding-top: 0; padding-bottom: 0; padding-left: 4px; padding-right: 4px; }
+ #nhdgiqtwwz .gt_column_spanner_outer:first-child { padding-left: 0; }
+ #nhdgiqtwwz .gt_column_spanner_outer:last-child { padding-right: 0; }
+ #nhdgiqtwwz .gt_column_spanner { border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 5px; overflow-x: hidden; display: inline-block; width: 100%; }
+ #nhdgiqtwwz .gt_spanner_row { border-bottom-style: hidden; }
+ #nhdgiqtwwz .gt_group_heading { padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; text-align: left; }
+ #nhdgiqtwwz .gt_empty_group_heading { padding: 0.5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; vertical-align: middle; }
+ #nhdgiqtwwz .gt_from_md> :first-child { margin-top: 0; }
+ #nhdgiqtwwz .gt_from_md> :last-child { margin-bottom: 0; }
+ #nhdgiqtwwz .gt_row { padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; }
+ #nhdgiqtwwz .gt_stub { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: solid; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px; }
+ #nhdgiqtwwz .gt_stub_row_group { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: solid; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px; vertical-align: top; }
+ #nhdgiqtwwz .gt_row_group_first td { border-top-width: 2px; }
+ #nhdgiqtwwz .gt_row_group_first th { border-top-width: 2px; }
+ #nhdgiqtwwz .gt_striped { background-color: rgba(128,128,128,0.05); }
+ #nhdgiqtwwz .gt_table_body { border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; }
+ #nhdgiqtwwz .gt_sourcenotes { color: #333333; background-color: #FFFFFF; border-bottom-style: none; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; }
+ #nhdgiqtwwz .gt_sourcenote { font-size: 90%; padding-top: 4px; padding-bottom: 4px; padding-left: 5px; padding-right: 5px; text-align: left; }
+ #nhdgiqtwwz .gt_left { text-align: left; }
+ #nhdgiqtwwz .gt_center { text-align: center; }
+ #nhdgiqtwwz .gt_right { text-align: right; font-variant-numeric: tabular-nums; }
+ #nhdgiqtwwz .gt_font_normal { font-weight: normal; }
+ #nhdgiqtwwz .gt_font_bold { font-weight: bold; }
+ #nhdgiqtwwz .gt_font_italic { font-style: italic; }
+ #nhdgiqtwwz .gt_super { font-size: 65%; }
+ #nhdgiqtwwz .gt_footnote_marks { font-size: 75%; vertical-align: 0.4em; position: initial; }
+ #nhdgiqtwwz .gt_asterisk { font-size: 100%; vertical-align: 0; }
  
 </style>
 
@@ -508,17 +508,17 @@ Table&nbsp;1: Original Results vs.&nbsp;New Results
 <tr class="odd">
 <td class="gt_row gt_left">Average AUC ROC</td>
 <td class="gt_row gt_right">0.899</td>
-<td class="gt_row gt_right">0.933</td>
+<td class="gt_row gt_right">0.935</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left">Standard Deviation</td>
 <td class="gt_row gt_right">0.032</td>
-<td class="gt_row gt_right">0.039</td>
+<td class="gt_row gt_right">0.041</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left">Maximum AUC ROC</td>
 <td class="gt_row gt_right">Not reported</td>
-<td class="gt_row gt_right">0.979</td>
+<td class="gt_row gt_right">0.981</td>
 </tr>
 </tbody>
 </table>
@@ -531,15 +531,15 @@ Table&nbsp;1: Original Results vs.&nbsp;New Results
 </figure>
 </div>
 </div>
-<p>Integrating LLM embeddings led to notable improvements. Average AUC ROC increased from approximately 0.899 in earlier work to about 0.933 with LLM embeddings, with some folds reaching 0.979, indicating that advanced embeddings more accurately distinguish process-focused feedback from other comment types. Moreover, performance stabilized across folds, suggesting improved robustness and reduced variance.</p>
-<p>Importantly, the model generalized well to new student data. This finding implies that the embedding-based model is not simply memorizing student idiosyncrasies but learning transferable linguistic features associated with CP. The resulting model could thus support large-scale implementations, identifying high-quality, process-oriented feedback in real-time.</p>
+<p>Integrating LLM embeddings led to notable improvements. Average AUC ROC increased from approximately 0.899 in earlier work to about 0.935 with LLM embeddings, with some folds reaching 0.981, indicating that advanced embeddings more accurately distinguish process-focused feedback from other comment types. Moreover, performance stabilized across folds, suggesting improved robustness and reduced variance.</p>
+<p>Importantly, the model generalized well to new student data. This finding implies that the embedding-based model is not simply memorizing student idiosyncrasies but learning transferable linguistic features associated with CP. The resulting model could support large-scale implementations, identifying high-quality, process-oriented feedback in real-time.</p>
 </section>
 <section id="discussion" class="level2">
 <h2 class="anchored" data-anchor-id="discussion">Discussion</h2>
 <p>The results highlight the potential of LLM-based embeddings to enhance automated feedback analytics in educational settings. By capturing subtle semantic patterns, these embeddings enable more accurate identification of CP attributes and facilitate timely, targeted interventions. Teachers can use these insights to recognize when students engage in meaningful, process-level thinking, while platform developers can design adaptive features that prompt deeper reflection. Policymakers and curriculum specialists might leverage these tools to inform professional development and improve peer review guidelines. Still, several limitations warrant further exploration.</p>
 <section id="limitations" class="level3">
 <h3 class="anchored" data-anchor-id="limitations">Limitations</h3>
-<p>Reliance on proprietary LLMs may raise cost, access, and interpretability issues. Additionally, while my results show strong performance within a middle school mathematics context, it remains unclear how well these methods transfer to other subjects, age groups, or types of feedback. Future work should explore these dimensions, assess the interpretability of LLM embeddings in educational contexts, and test different architectures or training regimes to boost performance and generalizability further..</p>
+<p>Reliance on proprietary LLMs may raise cost, access, and interpretability issues. Additionally, while my results show strong performance within a middle school mathematics context, it remains unclear how well these methods transfer to other subjects, age groups, or types of feedback. Future work should explore these dimensions, assess the interpretability of LLM embeddings in educational contexts, and test different architectures or training regimes to boost performance and generalizability further.</p>
 </section>
 </section>
 <section id="conclusion" class="level2">

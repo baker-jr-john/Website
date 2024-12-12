@@ -48,7 +48,7 @@ This study aims to investigate the impact of incorporating LLM embeddings into a
 
 Furthermore, I evaluate the model's ability to generalize to completely unseen student populations. Demonstrating strong transferability is crucial for practical applications, as it suggests the model is learning meaningful linguistic patterns rather than overfitting to specific student characteristics. Improved generalization would support the development of broadly applicable tools that could provide real-time, adaptive feedback to enhance students' learning experiences across diverse contexts.
 
-Ultimately, this research advances the state-of-the-art in automated analysis of peer review, laying the groundwork for scalable, data-driven support systems in mathematics education. By harnessing the power of LLMs to identify effective process-oriented feedback, this work informs the design of educational technologies that can offer targeted, timely interventions to foster deeper mathematical understanding. More broadly, it contributes to ongoing efforts in leveraging AI to enhance formative assessment and personalize learning at scale.
+Ultimately, this research advances the state-of-the-art in automated analysis of peer review, laying the groundwork for scalable, data-driven support systems in mathematics education. By harnessing the power of LLMs to identify effective process-oriented feedback, this work informs the design of educational technologies that can offer targeted, timely interventions to foster deeper mathematical understanding. More broadly, it contributes to ongoing efforts in leveraging artificial intelligence (AI) to enhance formative assessment and personalize learning at scale.
 
 ## Background and Related Work
 
@@ -56,7 +56,7 @@ Peer review in mathematics education fosters collaboration and develops analytic
 
 Automated approaches have begun to address these challenges. Prior studies leveraged NLP techniques—such as part-of-speech tagging, sentiment analysis, and sentence-level embeddings—to classify peer feedback along dimensions including process focus, correctness, and personalization [@zhang2023automated]. While these methods improved efficiency and consistency, there is room for refinement. With their ability to represent textual data more contextually and semantically, the rise of LLMs suggests an opportunity to further improve the predictive accuracy and transferability of feedback classification models.
 
-This study builds on earlier work by incorporating LLM embeddings to advance state-of-the-art automated feedback analysis. These enhanced embeddings may better capture linguistic subtleties, improving model performance not only on known students but also on entirely new student populations, thus supporting more scalable, robust, and contextually informed educational tools.
+This study builds on earlier work by incorporating LLM embeddings to advance state-of-the-art automated feedback analysis. These enhanced embeddings may better capture linguistic subtleties, improving model performance not only on known students but also on entirely new student populations, thereby supporting more scalable, robust, and contextually informed educational tools.
 
 ## Methods
 
@@ -74,7 +74,7 @@ The methodology follows these main steps:
 
 4. **Cross-Validation**: Implement a student-level cross-validation scheme, ensuring that no student's data appears in both training and test sets for any given fold.
 
-5. **Model Training & Evaluation**: Train the model on each training set, validate on a held-out portion, and evaluate on the corresponding test set using the Area Under the Receiver Operating Characteristic curve (AUC ROC) as the primary performance metric.
+5. **Model Training & Evaluation**: Train the model on the training set, validate on a held-out portion, and evaluate on the corresponding test set using the Area Under the Receiver Operating Characteristic curve (AUC ROC) as the primary performance metric.
 
 The following subsections provide more detailed information on dataset characteristics, embedding techniques, model specification, and evaluation procedures.
 
@@ -128,7 +128,7 @@ X_text = df['annotation_text'].tolist()
 y = df['comment_process']  # Binary labels indicating presence of CP
 ```
 
-In the code above, `df` is the complete data frame containing both the annotation text and CP labels. The variable `y` is a Pandas Series containing my target variable (CP presence).
+In the code above, `df` is the complete data frame containing both the annotation text and CP labels. The variable `y` is a Pandas Series containing the target variable (CP presence).
 
 ### Grouping and Cross-Validation Setup  
 
@@ -277,7 +277,7 @@ table
 
 Integrating LLM embeddings led to notable improvements. Average AUC ROC increased from approximately 0.899 in earlier work to about  `{python} mean_auc` with LLM embeddings, with some folds reaching `{python} max_auc`, indicating that advanced embeddings more accurately distinguish process-focused feedback from other comment types. Moreover, performance stabilized across folds, suggesting improved robustness and reduced variance.
 
-Importantly, the model generalized well to new student data. This finding implies that the embedding-based model is not simply memorizing student idiosyncrasies but learning transferable linguistic features associated with CP. The resulting model could thus support large-scale implementations, identifying high-quality, process-oriented feedback in real-time.
+Importantly, the model generalized well to new student data. This finding implies that the embedding-based model is not simply memorizing student idiosyncrasies but learning transferable linguistic features associated with CP. The resulting model could support large-scale implementations, identifying high-quality, process-oriented feedback in real-time.
 
 ## Discussion  
 
@@ -285,7 +285,7 @@ The results highlight the potential of LLM-based embeddings to enhance automated
 
 ### Limitations
 
-Reliance on proprietary LLMs may raise cost, access, and interpretability issues. Additionally, while my results show strong performance within a middle school mathematics context, it remains unclear how well these methods transfer to other subjects, age groups, or types of feedback. Future work should explore these dimensions, assess the interpretability of LLM embeddings in educational contexts, and test different architectures or training regimes to boost performance and generalizability further..
+Reliance on proprietary LLMs may raise cost, access, and interpretability issues. Additionally, while my results show strong performance within a middle school mathematics context, it remains unclear how well these methods transfer to other subjects, age groups, or types of feedback. Future work should explore these dimensions, assess the interpretability of LLM embeddings in educational contexts, and test different architectures or training regimes to boost performance and generalizability further.
 
 ## Conclusion  
 
