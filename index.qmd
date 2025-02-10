@@ -1,5 +1,5 @@
 ---
-title: "John Baker – Learning Analytics"
+title: "John Baker – Learning Analytics and Artificial Intelligence"
 listing: 
   contents:
       - "educ_6191_001/index.qmd"
