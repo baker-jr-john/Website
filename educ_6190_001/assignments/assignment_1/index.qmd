@@ -25,6 +25,6 @@ draft: true
 jupyter: python3
 ipynb-shell-interactivity: all
 execute: 
-  freeze: true
+  freeze: false
 ---
 
