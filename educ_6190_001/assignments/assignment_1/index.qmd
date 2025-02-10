@@ -1,0 +1,30 @@
+---
+pagetitle: "John Baker – Learning Analytics"
+title: ""
+description: ""
+date: 2025-02-11
+# date-modified: 
+author: 
+  - name: John Baker
+    email: jbaker1@upenn.edu
+    affiliation:
+      - name: "Penn GSE: University of Pennsylvania Graduate School of Education"
+        url: https://www.gse.upenn.edu/
+abstract: |
+  
+keywords:
+  - draft
+bibliography: bibliography/bibliography.bib
+nocite: |
+  @*
+# image: images/image_fx_.jpg
+format:
+  html:
+    code-link: false
+draft: true
+jupyter: python3
+ipynb-shell-interactivity: all
+execute: 
+  freeze: true
+---
+

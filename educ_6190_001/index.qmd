@@ -1,0 +1,15 @@
+---
+pagetitle: "John Baker – Learning Analytics"
+title: "Feature Engineering"
+listing:
+  contents:
+      - "assignments/index.qmd"
+  type: default
+  categories: false
+  sort-ui: false
+  filter-ui: false
+  fields: [title]
+title-block-banner: true
+page-navigation: true
+back-to-top-navigation: false
+---

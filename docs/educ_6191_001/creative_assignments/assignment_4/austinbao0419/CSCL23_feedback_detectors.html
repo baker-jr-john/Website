@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>cscl23_feedback_detectors – Penn GSE</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<link href="../../../../simplified-shield.ico" rel="icon">
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-d155843a7f575752ad68b3e2936dd11f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body>
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#bag-of-words" id="toc-bag-of-words" class="nav-link active" data-scroll-target="#bag-of-words">bag of words</a></li>
+  <li><a href="#use" id="toc-use" class="nav-link" data-scroll-target="#use">USE</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-page-left" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<p># CSCL 2023 Automated Multi-Dimensional Analysis of Peer Feedback in Middle School Mathematics</p>
+<div id="lN2C6ADgV6tJ" class="cell" data-outputid="4c988ed9-6808-49b0-90d0-96d249aed1a4">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install tensorflow</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install tensorflow_hub</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install tensorflow<span class="op">-</span>addons</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Requirement already satisfied: tensorflow in /usr/local/lib/python3.10/dist-packages (2.17.1)
+Requirement already satisfied: absl-py&gt;=1.0.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (1.4.0)
+Requirement already satisfied: astunparse&gt;=1.6.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (1.6.3)
+Requirement already satisfied: flatbuffers&gt;=24.3.25 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (24.3.25)
+Requirement already satisfied: gast!=0.5.0,!=0.5.1,!=0.5.2,&gt;=0.2.1 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (0.6.0)
+Requirement already satisfied: google-pasta&gt;=0.1.1 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (0.2.0)
+Requirement already satisfied: h5py&gt;=3.10.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (3.12.1)
+Requirement already satisfied: libclang&gt;=13.0.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (18.1.1)
+Requirement already satisfied: ml-dtypes&lt;0.5.0,&gt;=0.3.1 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (0.4.1)
+Requirement already satisfied: opt-einsum&gt;=2.3.2 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (3.4.0)
+Requirement already satisfied: packaging in /usr/local/lib/python3.10/dist-packages (from tensorflow) (24.2)
+Requirement already satisfied: protobuf!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,&lt;5.0.0dev,&gt;=3.20.3 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (4.25.5)
+Requirement already satisfied: requests&lt;3,&gt;=2.21.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (2.32.3)
+Requirement already satisfied: setuptools in /usr/local/lib/python3.10/dist-packages (from tensorflow) (75.1.0)
+Requirement already satisfied: six&gt;=1.12.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (1.16.0)
+Requirement already satisfied: termcolor&gt;=1.1.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (2.5.0)
+Requirement already satisfied: typing-extensions&gt;=3.6.6 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (4.12.2)
+Requirement already satisfied: wrapt&gt;=1.11.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (1.17.0)
+Requirement already satisfied: grpcio&lt;2.0,&gt;=1.24.3 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (1.68.1)
+Requirement already satisfied: tensorboard&lt;2.18,&gt;=2.17 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (2.17.1)
+Requirement already satisfied: keras&gt;=3.2.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (3.5.0)
+Requirement already satisfied: tensorflow-io-gcs-filesystem&gt;=0.23.1 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (0.37.1)
+Requirement already satisfied: numpy&lt;2.0.0,&gt;=1.23.5 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (1.26.4)
+Requirement already satisfied: wheel&lt;1.0,&gt;=0.23.0 in /usr/local/lib/python3.10/dist-packages (from astunparse&gt;=1.6.0-&gt;tensorflow) (0.45.1)
+Requirement already satisfied: rich in /usr/local/lib/python3.10/dist-packages (from keras&gt;=3.2.0-&gt;tensorflow) (13.9.4)
+Requirement already satisfied: namex in /usr/local/lib/python3.10/dist-packages (from keras&gt;=3.2.0-&gt;tensorflow) (0.0.8)
+Requirement already satisfied: optree in /usr/local/lib/python3.10/dist-packages (from keras&gt;=3.2.0-&gt;tensorflow) (0.13.1)
+Requirement already satisfied: charset-normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.10/dist-packages (from requests&lt;3,&gt;=2.21.0-&gt;tensorflow) (3.4.0)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/local/lib/python3.10/dist-packages (from requests&lt;3,&gt;=2.21.0-&gt;tensorflow) (3.10)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/local/lib/python3.10/dist-packages (from requests&lt;3,&gt;=2.21.0-&gt;tensorflow) (2.2.3)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.10/dist-packages (from requests&lt;3,&gt;=2.21.0-&gt;tensorflow) (2024.8.30)
+Requirement already satisfied: markdown&gt;=2.6.8 in /usr/local/lib/python3.10/dist-packages (from tensorboard&lt;2.18,&gt;=2.17-&gt;tensorflow) (3.7)
+Requirement already satisfied: tensorboard-data-server&lt;0.8.0,&gt;=0.7.0 in /usr/local/lib/python3.10/dist-packages (from tensorboard&lt;2.18,&gt;=2.17-&gt;tensorflow) (0.7.2)
+Requirement already satisfied: werkzeug&gt;=1.0.1 in /usr/local/lib/python3.10/dist-packages (from tensorboard&lt;2.18,&gt;=2.17-&gt;tensorflow) (3.1.3)
+Requirement already satisfied: MarkupSafe&gt;=2.1.1 in /usr/local/lib/python3.10/dist-packages (from werkzeug&gt;=1.0.1-&gt;tensorboard&lt;2.18,&gt;=2.17-&gt;tensorflow) (3.0.2)
+Requirement already satisfied: markdown-it-py&gt;=2.2.0 in /usr/local/lib/python3.10/dist-packages (from rich-&gt;keras&gt;=3.2.0-&gt;tensorflow) (3.0.0)
+Requirement already satisfied: pygments&lt;3.0.0,&gt;=2.13.0 in /usr/local/lib/python3.10/dist-packages (from rich-&gt;keras&gt;=3.2.0-&gt;tensorflow) (2.18.0)
+Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.10/dist-packages (from markdown-it-py&gt;=2.2.0-&gt;rich-&gt;keras&gt;=3.2.0-&gt;tensorflow) (0.1.2)
+Requirement already satisfied: tensorflow_hub in /usr/local/lib/python3.10/dist-packages (0.16.1)
+Requirement already satisfied: numpy&gt;=1.12.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow_hub) (1.26.4)
+Requirement already satisfied: protobuf&gt;=3.19.6 in /usr/local/lib/python3.10/dist-packages (from tensorflow_hub) (4.25.5)
+Requirement already satisfied: tf-keras&gt;=2.14.1 in /usr/local/lib/python3.10/dist-packages (from tensorflow_hub) (2.17.0)
+Requirement already satisfied: tensorflow&lt;2.18,&gt;=2.17 in /usr/local/lib/python3.10/dist-packages (from tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (2.17.1)
+Requirement already satisfied: absl-py&gt;=1.0.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (1.4.0)
+Requirement already satisfied: astunparse&gt;=1.6.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (1.6.3)
+Requirement already satisfied: flatbuffers&gt;=24.3.25 in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (24.3.25)
+Requirement already satisfied: gast!=0.5.0,!=0.5.1,!=0.5.2,&gt;=0.2.1 in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (0.6.0)
+Requirement already satisfied: google-pasta&gt;=0.1.1 in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (0.2.0)
+Requirement already satisfied: h5py&gt;=3.10.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (3.12.1)
+Requirement already satisfied: libclang&gt;=13.0.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (18.1.1)
+Requirement already satisfied: ml-dtypes&lt;0.5.0,&gt;=0.3.1 in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (0.4.1)
+Requirement already satisfied: opt-einsum&gt;=2.3.2 in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (3.4.0)
+Requirement already satisfied: packaging in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (24.2)
+Requirement already satisfied: requests&lt;3,&gt;=2.21.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (2.32.3)
+Requirement already satisfied: setuptools in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (75.1.0)
+Requirement already satisfied: six&gt;=1.12.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (1.16.0)
+Requirement already satisfied: termcolor&gt;=1.1.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (2.5.0)
+Requirement already satisfied: typing-extensions&gt;=3.6.6 in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (4.12.2)
+Requirement already satisfied: wrapt&gt;=1.11.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (1.17.0)
+Requirement already satisfied: grpcio&lt;2.0,&gt;=1.24.3 in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (1.68.1)
+Requirement already satisfied: tensorboard&lt;2.18,&gt;=2.17 in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (2.17.1)
+Requirement already satisfied: keras&gt;=3.2.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (3.5.0)
+Requirement already satisfied: tensorflow-io-gcs-filesystem&gt;=0.23.1 in /usr/local/lib/python3.10/dist-packages (from tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (0.37.1)
+Requirement already satisfied: wheel&lt;1.0,&gt;=0.23.0 in /usr/local/lib/python3.10/dist-packages (from astunparse&gt;=1.6.0-&gt;tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (0.45.1)
+Requirement already satisfied: rich in /usr/local/lib/python3.10/dist-packages (from keras&gt;=3.2.0-&gt;tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (13.9.4)
+Requirement already satisfied: namex in /usr/local/lib/python3.10/dist-packages (from keras&gt;=3.2.0-&gt;tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (0.0.8)
+Requirement already satisfied: optree in /usr/local/lib/python3.10/dist-packages (from keras&gt;=3.2.0-&gt;tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (0.13.1)
+Requirement already satisfied: charset-normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.10/dist-packages (from requests&lt;3,&gt;=2.21.0-&gt;tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (3.4.0)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/local/lib/python3.10/dist-packages (from requests&lt;3,&gt;=2.21.0-&gt;tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (3.10)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/local/lib/python3.10/dist-packages (from requests&lt;3,&gt;=2.21.0-&gt;tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (2.2.3)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.10/dist-packages (from requests&lt;3,&gt;=2.21.0-&gt;tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (2024.8.30)
+Requirement already satisfied: markdown&gt;=2.6.8 in /usr/local/lib/python3.10/dist-packages (from tensorboard&lt;2.18,&gt;=2.17-&gt;tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (3.7)
+Requirement already satisfied: tensorboard-data-server&lt;0.8.0,&gt;=0.7.0 in /usr/local/lib/python3.10/dist-packages (from tensorboard&lt;2.18,&gt;=2.17-&gt;tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (0.7.2)
+Requirement already satisfied: werkzeug&gt;=1.0.1 in /usr/local/lib/python3.10/dist-packages (from tensorboard&lt;2.18,&gt;=2.17-&gt;tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (3.1.3)
+Requirement already satisfied: MarkupSafe&gt;=2.1.1 in /usr/local/lib/python3.10/dist-packages (from werkzeug&gt;=1.0.1-&gt;tensorboard&lt;2.18,&gt;=2.17-&gt;tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (3.0.2)
+Requirement already satisfied: markdown-it-py&gt;=2.2.0 in /usr/local/lib/python3.10/dist-packages (from rich-&gt;keras&gt;=3.2.0-&gt;tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (3.0.0)
+Requirement already satisfied: pygments&lt;3.0.0,&gt;=2.13.0 in /usr/local/lib/python3.10/dist-packages (from rich-&gt;keras&gt;=3.2.0-&gt;tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (2.18.0)
+Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.10/dist-packages (from markdown-it-py&gt;=2.2.0-&gt;rich-&gt;keras&gt;=3.2.0-&gt;tensorflow&lt;2.18,&gt;=2.17-&gt;tf-keras&gt;=2.14.1-&gt;tensorflow_hub) (0.1.2)
+Collecting tensorflow-addons
+  Downloading tensorflow_addons-0.23.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (1.8 kB)
+Requirement already satisfied: packaging in /usr/local/lib/python3.10/dist-packages (from tensorflow-addons) (24.2)
+Collecting typeguard&lt;3.0.0,&gt;=2.7 (from tensorflow-addons)
+  Downloading typeguard-2.13.3-py3-none-any.whl.metadata (3.6 kB)
+Downloading tensorflow_addons-0.23.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (611 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 611.8/611.8 kB 11.8 MB/s eta 0:00:00
+Downloading typeguard-2.13.3-py3-none-any.whl (17 kB)
+Installing collected packages: typeguard, tensorflow-addons
+  Attempting uninstall: typeguard
+    Found existing installation: typeguard 4.4.1
+    Uninstalling typeguard-4.4.1:
+      Successfully uninstalled typeguard-4.4.1
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+inflect 7.4.0 requires typeguard&gt;=4.0.1, but you have typeguard 2.13.3 which is incompatible.
+Successfully installed tensorflow-addons-0.23.0 typeguard-2.13.3</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>Unable to display output for mime type(s): application/vnd.colab-display-data+json</code></pre>
+</div>
+</div>
+<div id="aG7IiTjCXGfi" class="cell" data-outputid="ffcdf2d1-d57c-4a00-f3e6-f91233251f7a">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip uninstall tensorflow keras <span class="op">-</span>y</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install tensorflow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Found existing installation: tensorflow 2.17.1
+Uninstalling tensorflow-2.17.1:
+  Successfully uninstalled tensorflow-2.17.1
+Found existing installation: keras 3.5.0
+Uninstalling keras-3.5.0:
+  Successfully uninstalled keras-3.5.0
+Collecting tensorflow
+  Downloading tensorflow-2.18.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+Requirement already satisfied: absl-py&gt;=1.0.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (1.4.0)
+Requirement already satisfied: astunparse&gt;=1.6.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (1.6.3)
+Requirement already satisfied: flatbuffers&gt;=24.3.25 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (24.3.25)
+Requirement already satisfied: gast!=0.5.0,!=0.5.1,!=0.5.2,&gt;=0.2.1 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (0.6.0)
+Requirement already satisfied: google-pasta&gt;=0.1.1 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (0.2.0)
+Requirement already satisfied: libclang&gt;=13.0.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (18.1.1)
+Requirement already satisfied: opt-einsum&gt;=2.3.2 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (3.4.0)
+Requirement already satisfied: packaging in /usr/local/lib/python3.10/dist-packages (from tensorflow) (24.2)
+Requirement already satisfied: protobuf!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,&lt;6.0.0dev,&gt;=3.20.3 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (4.25.5)
+Requirement already satisfied: requests&lt;3,&gt;=2.21.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (2.32.3)
+Requirement already satisfied: setuptools in /usr/local/lib/python3.10/dist-packages (from tensorflow) (75.1.0)
+Requirement already satisfied: six&gt;=1.12.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (1.16.0)
+Requirement already satisfied: termcolor&gt;=1.1.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (2.5.0)
+Requirement already satisfied: typing-extensions&gt;=3.6.6 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (4.12.2)
+Requirement already satisfied: wrapt&gt;=1.11.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (1.17.0)
+Requirement already satisfied: grpcio&lt;2.0,&gt;=1.24.3 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (1.68.1)
+Collecting tensorboard&lt;2.19,&gt;=2.18 (from tensorflow)
+  Downloading tensorboard-2.18.0-py3-none-any.whl.metadata (1.6 kB)
+Collecting keras&gt;=3.5.0 (from tensorflow)
+  Downloading keras-3.7.0-py3-none-any.whl.metadata (5.8 kB)
+Requirement already satisfied: numpy&lt;2.1.0,&gt;=1.26.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (1.26.4)
+Requirement already satisfied: h5py&gt;=3.11.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (3.12.1)
+Requirement already satisfied: ml-dtypes&lt;0.5.0,&gt;=0.4.0 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (0.4.1)
+Requirement already satisfied: tensorflow-io-gcs-filesystem&gt;=0.23.1 in /usr/local/lib/python3.10/dist-packages (from tensorflow) (0.37.1)
+Requirement already satisfied: wheel&lt;1.0,&gt;=0.23.0 in /usr/local/lib/python3.10/dist-packages (from astunparse&gt;=1.6.0-&gt;tensorflow) (0.45.1)
+Requirement already satisfied: rich in /usr/local/lib/python3.10/dist-packages (from keras&gt;=3.5.0-&gt;tensorflow) (13.9.4)
+Requirement already satisfied: namex in /usr/local/lib/python3.10/dist-packages (from keras&gt;=3.5.0-&gt;tensorflow) (0.0.8)
+Requirement already satisfied: optree in /usr/local/lib/python3.10/dist-packages (from keras&gt;=3.5.0-&gt;tensorflow) (0.13.1)
+Requirement already satisfied: charset-normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.10/dist-packages (from requests&lt;3,&gt;=2.21.0-&gt;tensorflow) (3.4.0)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/local/lib/python3.10/dist-packages (from requests&lt;3,&gt;=2.21.0-&gt;tensorflow) (3.10)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/local/lib/python3.10/dist-packages (from requests&lt;3,&gt;=2.21.0-&gt;tensorflow) (2.2.3)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.10/dist-packages (from requests&lt;3,&gt;=2.21.0-&gt;tensorflow) (2024.8.30)
+Requirement already satisfied: markdown&gt;=2.6.8 in /usr/local/lib/python3.10/dist-packages (from tensorboard&lt;2.19,&gt;=2.18-&gt;tensorflow) (3.7)
+Requirement already satisfied: tensorboard-data-server&lt;0.8.0,&gt;=0.7.0 in /usr/local/lib/python3.10/dist-packages (from tensorboard&lt;2.19,&gt;=2.18-&gt;tensorflow) (0.7.2)
+Requirement already satisfied: werkzeug&gt;=1.0.1 in /usr/local/lib/python3.10/dist-packages (from tensorboard&lt;2.19,&gt;=2.18-&gt;tensorflow) (3.1.3)
+Requirement already satisfied: MarkupSafe&gt;=2.1.1 in /usr/local/lib/python3.10/dist-packages (from werkzeug&gt;=1.0.1-&gt;tensorboard&lt;2.19,&gt;=2.18-&gt;tensorflow) (3.0.2)
+Requirement already satisfied: markdown-it-py&gt;=2.2.0 in /usr/local/lib/python3.10/dist-packages (from rich-&gt;keras&gt;=3.5.0-&gt;tensorflow) (3.0.0)
+Requirement already satisfied: pygments&lt;3.0.0,&gt;=2.13.0 in /usr/local/lib/python3.10/dist-packages (from rich-&gt;keras&gt;=3.5.0-&gt;tensorflow) (2.18.0)
+Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.10/dist-packages (from markdown-it-py&gt;=2.2.0-&gt;rich-&gt;keras&gt;=3.5.0-&gt;tensorflow) (0.1.2)
+Downloading tensorflow-2.18.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (615.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 615.3/615.3 MB 3.3 MB/s eta 0:00:00
+Downloading keras-3.7.0-py3-none-any.whl (1.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 53.2 MB/s eta 0:00:00
+Downloading tensorboard-2.18.0-py3-none-any.whl (5.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.5/5.5 MB 98.6 MB/s eta 0:00:00
+Installing collected packages: tensorboard, keras, tensorflow
+  Attempting uninstall: tensorboard
+    Found existing installation: tensorboard 2.17.1
+    Uninstalling tensorboard-2.17.1:
+      Successfully uninstalled tensorboard-2.17.1
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+tf-keras 2.17.0 requires tensorflow&lt;2.18,&gt;=2.17, but you have tensorflow 2.18.0 which is incompatible.
+Successfully installed keras-3.7.0 tensorboard-2.18.0 tensorflow-2.18.0</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>Unable to display output for mime type(s): application/vnd.colab-display-data+json</code></pre>
+</div>
+</div>
+<div id="35a01fbf" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow_hub <span class="im">as</span> hub</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nltk</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> xgboost <span class="im">import</span> XGBClassifier</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> GradientBoostingClassifier, RandomForestClassifier</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_extraction.text <span class="im">import</span> CountVectorizer</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report, roc_curve, roc_auc_score, confusion_matrix, accuracy_score, f1_score, cohen_kappa_score</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GroupKFold, train_test_split</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> tree, metrics</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.models <span class="im">import</span> Sequential</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.layers <span class="im">import</span> Dense</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.stem <span class="im">import</span> PorterStemmer</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.corpus <span class="im">import</span> stopwords</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>random.seed(<span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="b2b32a3c" class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># split data for student level cross validation: one student is nested within one fold</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>group_dict <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> np.array([])</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'Annotations_final.csv'</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> index, row <span class="kw">in</span> df.iterrows():</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    s_id <span class="op">=</span> row[<span class="st">'created_by'</span>]</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> s_id <span class="kw">not</span> <span class="kw">in</span> group_dict:</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        group_dict[s_id] <span class="op">=</span> index</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    groups <span class="op">=</span> np.append(groups, group_dict[s_id])</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up the splitter with 5 splits</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>gkf <span class="op">=</span> GroupKFold(n_splits <span class="op">=</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="bag-of-words" class="level2">
+<h2 class="anchored" data-anchor-id="bag-of-words">bag of words</h2>
+<div id="b1d653e8" class="cell" data-outputid="4a9827e6-8a56-4c69-e5f8-d8b8b5d7a05c">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bag of words + neural nets</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># import data</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># stemming</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>porter <span class="op">=</span> PorterStemmer() <span class="co"># stemming recovers root words from plurals etc</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>stemmed_texts <span class="op">=</span> []</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>X_text <span class="op">=</span> df[<span class="st">'annotation_text'</span>]</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> answer <span class="kw">in</span> X_text:</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    answer <span class="op">=</span> <span class="st">' '</span>.join(porter.stem(word) <span class="cf">for</span> word <span class="kw">in</span> answer.split(<span class="st">' '</span>))</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    stemmed_texts.append(answer)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> np.array(stemmed_texts), df[<span class="st">'relating_to_self'</span>] <span class="co"># CHANGE y HERE</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#vect = CountVectorizer(ngram_range=(1,1), max_features=1000, stop_words="english") #only unigram 313 features</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>vect <span class="op">=</span> CountVectorizer(ngram_range<span class="op">=</span>(<span class="dv">2</span>,<span class="dv">2</span>), max_features<span class="op">=</span><span class="dv">1000</span>, stop_words<span class="op">=</span><span class="st">"english"</span>) <span class="co">#only bigram 728 features</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> vect.fit_transform(X).toarray()</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co"># set up storage arrays for each round of validation</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>roc_auc_scores <span class="op">=</span> np.array([])</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>accuracy_scores <span class="op">=</span> np.array([])</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co"># split, train, test and store performance metrics</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> train_index, test_index <span class="kw">in</span> gkf.split(X, y, groups<span class="op">=</span>groups):</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    X_train, X_test <span class="op">=</span> X[train_index], X[test_index]</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    y_train, y_test <span class="op">=</span> y[train_index], y[test_index]</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> Sequential()</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">12</span>, input_shape<span class="op">=</span>(<span class="dv">738</span>,), activation<span class="op">=</span><span class="st">'relu'</span>))</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">8</span>, activation<span class="op">=</span><span class="st">'relu'</span>))</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">1</span>, activation<span class="op">=</span><span class="st">'sigmoid'</span>))</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    model.<span class="bu">compile</span>(loss<span class="op">=</span><span class="st">'binary_crossentropy'</span>,</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>              optimizer<span class="op">=</span><span class="st">'adam'</span>,</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>              metrics <span class="op">=</span> [<span class="st">'acc'</span>]</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>    num_epochs <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>    batch_size <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>    model.fit(</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>        X_train,</span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>        y_train,</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>        epochs<span class="op">=</span>num_epochs,</span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>        validation_split<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>        shuffle<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>        batch_size<span class="op">=</span>batch_size)</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> model.predict(X_test)</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>    <span class="co"># compute some metrics and store them for averaging later on</span></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>    roc_auc_scores <span class="op">=</span> np.append(roc_auc_scores, roc_auc_score(y_test, predictions))</span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a><span class="co"># print mean scores for the 5-fold CV</span></span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"average roc_auc score: "</span>, np.<span class="bu">round</span>(roc_auc_scores.mean(), <span class="dv">3</span>))</span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"stdv roc_auc score: "</span>, np.<span class="bu">round</span>(roc_auc_scores.std(), <span class="dv">3</span>))</span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"max roc_auc score: "</span>, np.<span class="bu">round</span>(roc_auc_scores.<span class="bu">max</span>(), <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/keras/src/layers/core/dense.py:87: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 1/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 2s 24ms/step - acc: 0.6781 - loss: 0.6864 - val_acc: 0.8947 - val_loss: 0.6716
+Epoch 2/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.8789 - loss: 0.6644 - val_acc: 0.8421 - val_loss: 0.6573
+Epoch 3/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step - acc: 0.9119 - loss: 0.6438 - val_acc: 0.8421 - val_loss: 0.6402
+Epoch 4/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9348 - loss: 0.6163 - val_acc: 0.8421 - val_loss: 0.6189
+Epoch 5/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9554 - loss: 0.5744 - val_acc: 0.8421 - val_loss: 0.5941
+Epoch 6/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9531 - loss: 0.5460 - val_acc: 0.8947 - val_loss: 0.5659
+Epoch 7/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9599 - loss: 0.4890 - val_acc: 0.8947 - val_loss: 0.5333
+Epoch 8/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - acc: 0.9810 - loss: 0.4360 - val_acc: 0.8947 - val_loss: 0.4998
+Epoch 9/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9731 - loss: 0.3867 - val_acc: 0.8947 - val_loss: 0.4684
+Epoch 10/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9755 - loss: 0.3339 - val_acc: 0.8947 - val_loss: 0.4367
+Epoch 11/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9662 - loss: 0.2938 - val_acc: 0.8947 - val_loss: 0.4059
+Epoch 12/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9853 - loss: 0.2334 - val_acc: 0.8947 - val_loss: 0.3765
+Epoch 13/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9795 - loss: 0.2030 - val_acc: 0.8947 - val_loss: 0.3514
+Epoch 14/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9697 - loss: 0.1870 - val_acc: 0.9474 - val_loss: 0.3290
+Epoch 15/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 10ms/step - acc: 0.9802 - loss: 0.1511 - val_acc: 0.9474 - val_loss: 0.3112
+Epoch 16/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9838 - loss: 0.1303 - val_acc: 0.9474 - val_loss: 0.2945
+Epoch 17/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9951 - loss: 0.1099 - val_acc: 0.9474 - val_loss: 0.2817
+Epoch 18/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9824 - loss: 0.0907 - val_acc: 0.9474 - val_loss: 0.2697
+Epoch 19/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9911 - loss: 0.0880 - val_acc: 0.9474 - val_loss: 0.2594
+Epoch 20/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9921 - loss: 0.0758 - val_acc: 0.9474 - val_loss: 0.2511
+Epoch 21/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - acc: 0.9942 - loss: 0.0662 - val_acc: 0.9474 - val_loss: 0.2425
+Epoch 22/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9986 - loss: 0.0550 - val_acc: 0.9474 - val_loss: 0.2354
+Epoch 23/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0502 - val_acc: 0.9474 - val_loss: 0.2298
+Epoch 24/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0526 - val_acc: 0.9474 - val_loss: 0.2249
+Epoch 25/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0376 - val_acc: 0.9474 - val_loss: 0.2198
+Epoch 26/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0432 - val_acc: 0.9474 - val_loss: 0.2161
+Epoch 27/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step - acc: 1.0000 - loss: 0.0403 - val_acc: 0.9474 - val_loss: 0.2127
+Epoch 28/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 1.0000 - loss: 0.0344 - val_acc: 0.9474 - val_loss: 0.2090
+Epoch 29/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0291 - val_acc: 0.9474 - val_loss: 0.2056
+Epoch 30/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0341 - val_acc: 0.9474 - val_loss: 0.2028
+2/2 ━━━━━━━━━━━━━━━━━━━━ 0s 51ms/step
+Epoch 1/30</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/keras/src/layers/core/dense.py:87: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>17/17 ━━━━━━━━━━━━━━━━━━━━ 1s 17ms/step - acc: 0.5245 - loss: 0.6864 - val_acc: 0.7895 - val_loss: 0.6639
+Epoch 2/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.7940 - loss: 0.6463 - val_acc: 0.8947 - val_loss: 0.6244
+Epoch 3/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.7845 - loss: 0.6071 - val_acc: 0.8947 - val_loss: 0.5846
+Epoch 4/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.8110 - loss: 0.5591 - val_acc: 0.8947 - val_loss: 0.5419
+Epoch 5/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.7568 - loss: 0.5296 - val_acc: 0.8947 - val_loss: 0.4949
+Epoch 6/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.8398 - loss: 0.4532 - val_acc: 0.8947 - val_loss: 0.4479
+Epoch 7/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.8624 - loss: 0.4073 - val_acc: 0.9474 - val_loss: 0.3997
+Epoch 8/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.8844 - loss: 0.3696 - val_acc: 0.9474 - val_loss: 0.3602
+Epoch 9/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.8985 - loss: 0.3061 - val_acc: 0.9474 - val_loss: 0.3235
+Epoch 10/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9294 - loss: 0.2441 - val_acc: 0.9474 - val_loss: 0.2955
+Epoch 11/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9398 - loss: 0.2525 - val_acc: 0.9474 - val_loss: 0.2741
+Epoch 12/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9697 - loss: 0.1773 - val_acc: 0.9474 - val_loss: 0.2546
+Epoch 13/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9642 - loss: 0.1744 - val_acc: 0.9474 - val_loss: 0.2416
+Epoch 14/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step - acc: 0.9927 - loss: 0.1317 - val_acc: 0.9474 - val_loss: 0.2291
+Epoch 15/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9963 - loss: 0.0988 - val_acc: 0.9474 - val_loss: 0.2199
+Epoch 16/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9910 - loss: 0.1061 - val_acc: 0.9474 - val_loss: 0.2142
+Epoch 17/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9870 - loss: 0.0847 - val_acc: 0.9474 - val_loss: 0.2086
+Epoch 18/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9875 - loss: 0.0773 - val_acc: 0.9474 - val_loss: 0.2032
+Epoch 19/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9936 - loss: 0.0630 - val_acc: 0.9474 - val_loss: 0.1992
+Epoch 20/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9900 - loss: 0.0480 - val_acc: 0.9474 - val_loss: 0.1967
+Epoch 21/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9978 - loss: 0.0434 - val_acc: 0.9474 - val_loss: 0.1985
+Epoch 22/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9990 - loss: 0.0373 - val_acc: 0.9474 - val_loss: 0.1925
+Epoch 23/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9907 - loss: 0.0416 - val_acc: 0.9474 - val_loss: 0.1903
+Epoch 24/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - acc: 0.9986 - loss: 0.0265 - val_acc: 0.9474 - val_loss: 0.1872
+Epoch 25/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9889 - loss: 0.0482 - val_acc: 0.9474 - val_loss: 0.1878
+Epoch 26/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 12ms/step - acc: 0.9968 - loss: 0.0271 - val_acc: 0.9474 - val_loss: 0.1855
+Epoch 27/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 10ms/step - acc: 0.9942 - loss: 0.0249 - val_acc: 0.9474 - val_loss: 0.1830
+Epoch 28/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 10ms/step - acc: 0.9978 - loss: 0.0236 - val_acc: 0.9474 - val_loss: 0.1812
+Epoch 29/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 10ms/step - acc: 0.9990 - loss: 0.0167 - val_acc: 0.9474 - val_loss: 0.1790
+Epoch 30/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 10ms/step - acc: 0.9982 - loss: 0.0160 - val_acc: 0.9474 - val_loss: 0.1782
+2/2 ━━━━━━━━━━━━━━━━━━━━ 0s 98ms/step
+Epoch 1/30</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/keras/src/layers/core/dense.py:87: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>17/17 ━━━━━━━━━━━━━━━━━━━━ 2s 17ms/step - acc: 0.6353 - loss: 0.6837 - val_acc: 0.8421 - val_loss: 0.6557
+Epoch 2/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.8298 - loss: 0.6397 - val_acc: 0.8947 - val_loss: 0.6169
+Epoch 3/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.8125 - loss: 0.6002 - val_acc: 0.8947 - val_loss: 0.5729
+Epoch 4/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.8341 - loss: 0.5418 - val_acc: 0.8947 - val_loss: 0.5222
+Epoch 5/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.8520 - loss: 0.5082 - val_acc: 0.8947 - val_loss: 0.4738
+Epoch 6/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9143 - loss: 0.4262 - val_acc: 0.8947 - val_loss: 0.4205
+Epoch 7/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.8948 - loss: 0.3625 - val_acc: 0.9474 - val_loss: 0.3732
+Epoch 8/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9091 - loss: 0.3269 - val_acc: 0.9474 - val_loss: 0.3339
+Epoch 9/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9427 - loss: 0.2586 - val_acc: 0.9474 - val_loss: 0.2995
+Epoch 10/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step - acc: 0.9609 - loss: 0.1972 - val_acc: 0.9474 - val_loss: 0.2726
+Epoch 11/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 10ms/step - acc: 0.9694 - loss: 0.1751 - val_acc: 0.9474 - val_loss: 0.2522
+Epoch 12/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9859 - loss: 0.1300 - val_acc: 0.9474 - val_loss: 0.2340
+Epoch 13/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9770 - loss: 0.1351 - val_acc: 0.9474 - val_loss: 0.2200
+Epoch 14/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step - acc: 0.9629 - loss: 0.1182 - val_acc: 0.9474 - val_loss: 0.2064
+Epoch 15/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9886 - loss: 0.0936 - val_acc: 0.9474 - val_loss: 0.1952
+Epoch 16/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9787 - loss: 0.0841 - val_acc: 0.9474 - val_loss: 0.1843
+Epoch 17/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9871 - loss: 0.0595 - val_acc: 0.9474 - val_loss: 0.1759
+Epoch 18/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9942 - loss: 0.0493 - val_acc: 0.9474 - val_loss: 0.1661
+Epoch 19/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9805 - loss: 0.0670 - val_acc: 0.9474 - val_loss: 0.1580
+Epoch 20/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9805 - loss: 0.0443 - val_acc: 1.0000 - val_loss: 0.1510
+Epoch 21/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step - acc: 1.0000 - loss: 0.0349 - val_acc: 1.0000 - val_loss: 0.1437
+Epoch 22/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0302 - val_acc: 1.0000 - val_loss: 0.1379
+Epoch 23/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - acc: 1.0000 - loss: 0.0315 - val_acc: 1.0000 - val_loss: 0.1315
+Epoch 24/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 1.0000 - loss: 0.0259 - val_acc: 1.0000 - val_loss: 0.1276
+Epoch 25/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0182 - val_acc: 1.0000 - val_loss: 0.1220
+Epoch 26/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0169 - val_acc: 1.0000 - val_loss: 0.1133
+Epoch 27/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 1.0000 - loss: 0.0207 - val_acc: 1.0000 - val_loss: 0.1098
+Epoch 28/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0178 - val_acc: 1.0000 - val_loss: 0.1066
+Epoch 29/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0177 - val_acc: 1.0000 - val_loss: 0.1028
+Epoch 30/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 1.0000 - loss: 0.0180 - val_acc: 1.0000 - val_loss: 0.0997</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>WARNING:tensorflow:5 out of the last 5 calls to &lt;function TensorFlowTrainer.make_predict_function.&lt;locals&gt;.one_step_on_data_distributed at 0x7e145c6972e0&gt; triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1/2 ━━━━━━━━━━━━━━━━━━━━ 0s 55ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>WARNING:tensorflow:6 out of the last 6 calls to &lt;function TensorFlowTrainer.make_predict_function.&lt;locals&gt;.one_step_on_data_distributed at 0x7e145c6972e0&gt; triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2/2 ━━━━━━━━━━━━━━━━━━━━ 0s 66ms/step
+Epoch 1/30</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/keras/src/layers/core/dense.py:87: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>17/17 ━━━━━━━━━━━━━━━━━━━━ 1s 17ms/step - acc: 0.5848 - loss: 0.6893 - val_acc: 0.8421 - val_loss: 0.6645
+Epoch 2/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - acc: 0.7615 - loss: 0.6533 - val_acc: 0.8421 - val_loss: 0.6339
+Epoch 3/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - acc: 0.8885 - loss: 0.6101 - val_acc: 0.8421 - val_loss: 0.5981
+Epoch 4/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.8433 - loss: 0.5674 - val_acc: 0.8421 - val_loss: 0.5585
+Epoch 5/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.8330 - loss: 0.5259 - val_acc: 0.8947 - val_loss: 0.5146
+Epoch 6/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.8817 - loss: 0.4511 - val_acc: 0.8947 - val_loss: 0.4659
+Epoch 7/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.8856 - loss: 0.4064 - val_acc: 0.8947 - val_loss: 0.4203
+Epoch 8/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.8934 - loss: 0.3468 - val_acc: 0.8947 - val_loss: 0.3785
+Epoch 9/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9387 - loss: 0.2967 - val_acc: 0.8947 - val_loss: 0.3457
+Epoch 10/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9515 - loss: 0.2525 - val_acc: 0.8947 - val_loss: 0.3168
+Epoch 11/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9590 - loss: 0.1977 - val_acc: 0.8947 - val_loss: 0.2921
+Epoch 12/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9647 - loss: 0.1595 - val_acc: 0.9474 - val_loss: 0.2741
+Epoch 13/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9832 - loss: 0.1305 - val_acc: 0.9474 - val_loss: 0.2576
+Epoch 14/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9776 - loss: 0.1167 - val_acc: 0.9474 - val_loss: 0.2447
+Epoch 15/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9761 - loss: 0.1073 - val_acc: 0.9474 - val_loss: 0.2350
+Epoch 16/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9750 - loss: 0.1028 - val_acc: 0.9474 - val_loss: 0.2270
+Epoch 17/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step - acc: 0.9891 - loss: 0.0707 - val_acc: 0.9474 - val_loss: 0.2191
+Epoch 18/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 11ms/step - acc: 0.9932 - loss: 0.0629 - val_acc: 0.9474 - val_loss: 0.2137
+Epoch 19/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 10ms/step - acc: 0.9993 - loss: 0.0474 - val_acc: 0.9474 - val_loss: 0.2083
+Epoch 20/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 10ms/step - acc: 0.9942 - loss: 0.0492 - val_acc: 0.9474 - val_loss: 0.2051
+Epoch 21/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 12ms/step - acc: 0.9805 - loss: 0.0597 - val_acc: 0.9474 - val_loss: 0.2017
+Epoch 22/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 12ms/step - acc: 0.9990 - loss: 0.0326 - val_acc: 0.9474 - val_loss: 0.1981
+Epoch 23/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 12ms/step - acc: 1.0000 - loss: 0.0386 - val_acc: 0.9474 - val_loss: 0.1952
+Epoch 24/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 11ms/step - acc: 1.0000 - loss: 0.0343 - val_acc: 0.9474 - val_loss: 0.1929
+Epoch 25/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 12ms/step - acc: 1.0000 - loss: 0.0225 - val_acc: 0.9474 - val_loss: 0.1911
+Epoch 26/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 11ms/step - acc: 1.0000 - loss: 0.0275 - val_acc: 0.9474 - val_loss: 0.1897
+Epoch 27/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 12ms/step - acc: 1.0000 - loss: 0.0241 - val_acc: 0.9474 - val_loss: 0.1886
+Epoch 28/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0204 - val_acc: 0.9474 - val_loss: 0.1873
+Epoch 29/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0192 - val_acc: 0.9474 - val_loss: 0.1864
+Epoch 30/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - acc: 1.0000 - loss: 0.0194 - val_acc: 0.9474 - val_loss: 0.1859
+2/2 ━━━━━━━━━━━━━━━━━━━━ 0s 55ms/step
+Epoch 1/30</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/keras/src/layers/core/dense.py:87: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>17/17 ━━━━━━━━━━━━━━━━━━━━ 2s 18ms/step - acc: 0.3339 - loss: 0.7035 - val_acc: 0.6842 - val_loss: 0.6910
+Epoch 2/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.7067 - loss: 0.6837 - val_acc: 0.8947 - val_loss: 0.6758
+Epoch 3/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.8963 - loss: 0.6649 - val_acc: 0.8947 - val_loss: 0.6610
+Epoch 4/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9186 - loss: 0.6456 - val_acc: 0.8947 - val_loss: 0.6426
+Epoch 5/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.8916 - loss: 0.6232 - val_acc: 0.8947 - val_loss: 0.6192
+Epoch 6/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9491 - loss: 0.5828 - val_acc: 0.8947 - val_loss: 0.5886
+Epoch 7/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9602 - loss: 0.5340 - val_acc: 0.8947 - val_loss: 0.5520
+Epoch 8/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9625 - loss: 0.4836 - val_acc: 0.8947 - val_loss: 0.5106
+Epoch 9/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9589 - loss: 0.4232 - val_acc: 0.8947 - val_loss: 0.4656
+Epoch 10/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9651 - loss: 0.3522 - val_acc: 0.8947 - val_loss: 0.4212
+Epoch 11/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9752 - loss: 0.2727 - val_acc: 0.8947 - val_loss: 0.3789
+Epoch 12/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9644 - loss: 0.2329 - val_acc: 0.8947 - val_loss: 0.3446
+Epoch 13/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9567 - loss: 0.2008 - val_acc: 0.9474 - val_loss: 0.3179
+Epoch 14/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9958 - loss: 0.1348 - val_acc: 0.9474 - val_loss: 0.2940
+Epoch 15/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9875 - loss: 0.1158 - val_acc: 0.9474 - val_loss: 0.2771
+Epoch 16/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9824 - loss: 0.1018 - val_acc: 0.9474 - val_loss: 0.2622
+Epoch 17/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9792 - loss: 0.0964 - val_acc: 0.9474 - val_loss: 0.2490
+Epoch 18/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9963 - loss: 0.0594 - val_acc: 0.9474 - val_loss: 0.2382
+Epoch 19/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9927 - loss: 0.0563 - val_acc: 0.9474 - val_loss: 0.2293
+Epoch 20/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9878 - loss: 0.0496 - val_acc: 0.9474 - val_loss: 0.2215
+Epoch 21/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9907 - loss: 0.0445 - val_acc: 0.9474 - val_loss: 0.2140
+Epoch 22/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 1.0000 - loss: 0.0347 - val_acc: 0.9474 - val_loss: 0.2080
+Epoch 23/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0298 - val_acc: 0.9474 - val_loss: 0.2024
+Epoch 24/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0254 - val_acc: 0.9474 - val_loss: 0.1987
+Epoch 25/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0249 - val_acc: 0.9474 - val_loss: 0.1954
+Epoch 26/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - acc: 1.0000 - loss: 0.0314 - val_acc: 0.9474 - val_loss: 0.1922
+Epoch 27/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 1.0000 - loss: 0.0203 - val_acc: 0.9474 - val_loss: 0.1897
+Epoch 28/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0186 - val_acc: 0.9474 - val_loss: 0.1876
+Epoch 29/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0194 - val_acc: 0.9474 - val_loss: 0.1858
+Epoch 30/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 1.0000 - loss: 0.0220 - val_acc: 0.9474 - val_loss: 0.1842
+2/2 ━━━━━━━━━━━━━━━━━━━━ 0s 59ms/step
+average roc_auc score:  0.924
+stdv roc_auc score:  0.021
+max roc_auc score:  0.952</code></pre>
+</div>
+</div>
+</section>
+<section id="use" class="level2">
+<h2 class="anchored" data-anchor-id="use">USE</h2>
+<div id="OIXVwzMXZhIX" class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>capture</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install openai<span class="op">==</span><span class="fl">1.55.3</span> httpx<span class="op">==</span><span class="fl">0.27.2</span> <span class="op">--</span>force<span class="op">-</span>reinstall <span class="op">--</span>quiet</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="y9s57-22ZiNV" class="cell" data-outputid="f3cbfe00-c85e-48d9-bf3c-b62741ae3934">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> getpass <span class="im">import</span> getpass</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> openai</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">#os.kill(os.getpid(), 9)</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Enter OpenAI API key:'</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>openai.api_key <span class="op">=</span> getpass()</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">'OPENAI_API_KEY'</span>]<span class="op">=</span>openai.api_key</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Enter OpenAI API key:
+··········</code></pre>
+</div>
+</div>
+<div id="nuVz15hCZziL" class="cell" data-outputid="7fb060a6-f24a-4560-dea9-5ce48c3872a5">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_zero_shot(topic):</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  prompt <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="st">  I will give you a peer review statement on a math problem solution, and this statement is identified to have this key attribute:</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="st">  "Commenting on the Process (CP): When evaluating peers’ works, learners comment on the process of the work". Your task is to simplify</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="st">  this statement by removing information that is not relevant to this attribute, leaving only the core description that represents the attribute of CP.</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="st">  A good example of statement having this attribute is: "I like how you had 20 then subtracted 12 and got 8".</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="st">  """</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  system_message <span class="op">=</span> {<span class="st">"role"</span> : <span class="st">"system"</span>, <span class="st">"content"</span> : prompt}</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  client <span class="op">=</span> openai.OpenAI()</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>  response <span class="op">=</span> client.chat.completions.create(</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>      model<span class="op">=</span><span class="st">"gpt-3.5-turbo"</span>,</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>      messages<span class="op">=</span> [</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>          system_message,</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>          {<span class="st">"role"</span> : <span class="st">"user"</span>, <span class="st">"content"</span> : topic} <span class="co"># simulate a user prompt</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>      ],</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>      temperature<span class="op">=</span><span class="fl">0.7</span>,</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>      max_tokens<span class="op">=</span><span class="dv">256</span>,</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>      top_p<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>      frequency_penalty<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>      presence_penalty<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>      stop<span class="op">=</span>[<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>]</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># I recommend putting a short wait after each call,</span></span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># since the rate limit for the platform is 60 requests/min.</span></span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># (This increases to 3000 requests/min after you've been using the platform for 2 days).</span></span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>  time.sleep(<span class="dv">1</span>)</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the response from OpenAI's API is a JSON object that contains</span></span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the completion to your prompt plus some other information.  Here's how to access</span></span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># just the text of the completion.</span></span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> response.choices[<span class="dv">0</span>].message.content.strip()</span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update_comments_with_gpt(df):</span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Iterate over each row in the DataFrame</span></span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> index, row <span class="kw">in</span> df.iterrows():</span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Check if comment_process is 1</span></span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> row[<span class="st">'comment_process'</span>] <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Extract the annotation_text</span></span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a>            original_text <span class="op">=</span> row[<span class="st">'annotation_text'</span>]</span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Call the generate_zero_shot function</span></span>
+<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a>            <span class="cf">try</span>:</span>
+<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a>                refined_text <span class="op">=</span> generate_zero_shot(original_text)</span>
+<span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a>            <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb27-48"><a href="#cb27-48" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f"Error processing row </span><span class="sc">{</span>index<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb27-49"><a href="#cb27-49" aria-hidden="true" tabindex="-1"></a>                refined_text <span class="op">=</span> original_text  <span class="co"># Fallback to original if GPT fails</span></span>
+<span id="cb27-50"><a href="#cb27-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-51"><a href="#cb27-51" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Update the annotation_text in the DataFrame</span></span>
+<span id="cb27-52"><a href="#cb27-52" aria-hidden="true" tabindex="-1"></a>            df.at[index, <span class="st">'annotation_text'</span>] <span class="op">=</span> refined_text</span>
+<span id="cb27-53"><a href="#cb27-53" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Row </span><span class="sc">{</span>index<span class="sc">}</span><span class="ss"> updated: </span><span class="sc">{</span>original_text<span class="sc">}</span><span class="ss"> -&gt; </span><span class="sc">{</span>refined_text<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb27-54"><a href="#cb27-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-55"><a href="#cb27-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span>
+<span id="cb27-56"><a href="#cb27-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-57"><a href="#cb27-57" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'Annotations_final.csv'</span>)</span>
+<span id="cb27-58"><a href="#cb27-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-59"><a href="#cb27-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Update the DataFrame</span></span>
+<span id="cb27-60"><a href="#cb27-60" aria-hidden="true" tabindex="-1"></a>updated_df <span class="op">=</span> update_comments_with_gpt(df)</span>
+<span id="cb27-61"><a href="#cb27-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-62"><a href="#cb27-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the updated DataFrame to a new CSV</span></span>
+<span id="cb27-63"><a href="#cb27-63" aria-hidden="true" tabindex="-1"></a>updated_df.to_csv(<span class="st">'updated_annotations.csv'</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb27-64"><a href="#cb27-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-65"><a href="#cb27-65" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CSV updated and saved as 'updated_annotations.csv'."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Row 15 updated: I like how you had 20 then subtected 12 and got 8 then you added 8 and got 16 then you answer was -4  -&gt; I like how you subtracted 12 from 20 and got 8, then added 8 to get 16, but your final answer was -4.
+Row 16 updated: the video is fine i like how you add the numbers  -&gt; I like how you add the numbers.
+Row 18 updated: i like how you add the number -&gt; You did a great job adding the numbers.
+Row 23 updated: I like the way you  put how much $20 he have and the lost 12 -&gt; I like how you had 20 then subtracted 12 and got 8.
+Row 27 updated: I like the way you used arrows in your problem. -&gt; I like how you used arrows.
+Row 31 updated: The way that you set up your Data is great. And how you divided to get to your mean. GOOD JOB KALLI :) -&gt; I like how you set up your data and calculated the mean. Great job!
+Row 33 updated: I like the way you sorted the data.
+I also like the way you showed your work clearly so it wouldn't be confusing. -&gt; You sorted the data nicely and presented your work clearly.
+Row 36 updated: I think that Noah had the best estimate because it's about how many people get the average amount of sleep not about how many hours is good for you because that does not have anything to do with the problem -&gt; You focused on the relevance of the estimate to the problem, which is important for understanding the context.
+Row 39 updated: Hi. First, that is how you find the median, not the mean. So first you have to find the mean, add all of the numbers and then divide it by how many numbers there are. Then once you found the mean you estimate.. -&gt; You correctly identified the process for finding the mean. Great job!
+Row 42 updated: I liked how you solved your answer even though I think that's not how your supposed to solve it. But in my opinion your final answer was correct. -&gt; You solved the problem differently, but your final answer was correct.
+Row 43 updated: i think you did a good job because you wrote out all the numbers then you drew lines and circles to know where you were at -&gt; I like how you wrote out all the numbers and used lines and circles to help keep track of your work.
+Row 44 updated: I like that you put all of your thought in the recording. And that you used basic knowledge to find out your answer.  -&gt; I appreciate the thorough explanation and the use of fundamental concepts in your solution.
+Row 46 updated: I respectfully disagree with you because you were supposed to find out how much he lost.  -&gt; You were supposed to find out how much he lost.
+Row 48 updated: My strategy is like yours because I also did 3x2  -&gt; "I like how you did 3 multiplied by 2 in a similar way as I did."
+Row 50 updated: I like the way you subtracted the amount Juan spent from the amount he started with. -&gt; You subtracted the amounts in a clear and logical manner.
+Row 51 updated: My strategy is like yours because i added 8 and 8 together too.  -&gt; I like how you added 8 and 8 together.
+Row 52 updated: I like the way you added the 30 + 83 and you got 113 -&gt; I like how you added 30 and 83 to get 113.
+Row 53 updated: My strategy is like yours because we did the same thing when finding out -20.75x4 was -83 -&gt; I like how we both found -20.75 multiplied by 4 to be -83.
+Row 55 updated: I like the way you explained this and how you fixed 113 to -113 good job catching your mistake.  -&gt; You explained well and caught the mistake in changing 113 to -113. Great job!
+Row 57 updated: I respectfully disagree with you because one of the deposits was 25.25, not 22.25 making your answer wrong. -&gt; You used 25.25 for one of the deposits, which affected the final result.
+Row 58 updated: I hadn't thought of adding 30 with the 20.75 x4 -&gt; You added 30 to 20.75 before multiplying by 4, which was a good approach.
+Row 60 updated: I like the way you us drawing and your adding is right. -&gt; I like how you used drawing and your addition is correct.
+Row 66 updated: I like the way you multiplied 3 by 2 aswell  -&gt; You multiplied 3 by 2 well.
+Row 67 updated: I respectfully disagree with you on the last pieces of your math as you had added a positive with a negative. While you should have added -30 with the -83 and gotten -113 then subtractive that with the positive 76 and gotten -37. -&gt; You added a positive with a negative instead of subtracting them, which resulted in an incorrect answer. You should have subtracted -30 from -83 to get -113, then subtracted that from 76 to get -37.
+Row 76 updated: My strategy is like yours because we both multiplied 2 by 3  -&gt; You multiplied 2 by 3 just like I did.
+Row 78 updated: My strategy is like yours because I also multiplied 2 and 3 -&gt; I appreciate your method of multiplying 2 and 3.
+Row 79 updated: Why did you not mention (or include in the problem) the $8 Juan earned? -&gt; You didn't include the $8 Juan earned in your solution.
+Row 82 updated: I like the way your work is organized  also I like they  added 5+1 because I did not really think about doing that  -&gt; I like how you added 5+1 because I did not think about doing that.
+Row 98 updated: Why did you make no further mention of $76, the result of the first problem you solved? -&gt; You didn't address the number 76 from the initial problem you worked on.
+Row 110 updated: My strategy is like yours because I also did -20.75 x4   -&gt; I appreciate your approach of multiplying -20.75 by 4.
+Row 113 updated: My strategy is like yours because we did some of the same steps.  -&gt; You and I took similar steps in our strategies.
+Row 116 updated: My strategy is like yours because I also added the deposits  -&gt; You added the deposits, which was a good strategy.
+Row 119 updated: My strategy is like yours because I multiplied 20.75 by 4 to -&gt; I like how you multiplied 20.75 by 4 in your strategy.
+Row 120 updated: My strategy is like yours because I multiplied 20.75 by 4 as well -&gt; I appreciate how you multiplied 20.75 by 4 in your solution.
+Row 125 updated: When you did 20.75x4 you put the 4 in the wrong spot but when you did 2x(-15) that answer was correct. -&gt; You misplaced the 4 in 20.75x4, but your calculation for 2x(-15) was correct.
+Row 129 updated: My strategy is like yours because I also added the two deposits together. -&gt; I appreciate how you added the two deposits together in your strategy.
+Row 135 updated: My strategy is like yours because I also made -12 the same way. I also think its great you put the 20-12 on the side and explained that wasnt the actual problem. -&gt; You explained well how you approached the problem by starting with 20 and then subtracting 12.
+Row 140 updated: My strategy is like yours because i added what he bought  6+5+1= 12 so that what he lost -&gt; You added the amounts he bought and correctly found the total.
+Row 141 updated: My strategy is like yours because I did 15 x 3 also  -&gt; You multiplied 15 by 3, which is the same as my strategy.
+Row 143 updated: I like how you get 12 and subrtact by 8 to get how much  got now -&gt; I like how you subtracted 8 from 12 to find the result.
+Row 145 updated: I agree with you adding but for the positives but for the negatives your answer should have been negative. -&gt; You should have made your answer negative for the negatives.
+Row 149 updated: I respectfully disagree with you because you didn't put negative signs and the 4 is supposed to be negative or at least that's what I got. -&gt; You need to include negative signs, as the 4 should be negative.
+Row 151 updated: My strategy is like yours because  we both multiplied 2 times 15 -&gt; I like how we both multiplied 2 times 15.
+Row 154 updated: My strategy is like yours because  i added what he gained but I hadn't thought of 12-8  -&gt; You added what he gained, but didn't think of 12-8.
+Row 162 updated: My strategy is like yours because i did 3x2 -&gt; I like how you multiplied 3 by 2 in your strategy.
+Row 166 updated: My strategy is like yours because we both did the same thing, although I added 5+1 to get 6+6 and you did 6+5+1. -&gt; I like how we both added numbers differently to reach our solutions.
+Row 167 updated: I like how you  added and subtracted the number for exaple you did 20-6 and got 14 and then you did 8+8 and got 16. the other thing i like about your work is that you wrote a word problem to show how much he lost  -&gt; I like how you added and subtracted numbers, for example, 20-6 to get 14 and then 8+8 to get 16.
+Row 178 updated: My strategy is like yours because I put the information in almost the exact same way. I think I just switched the places of the two withdrawls. -&gt; You and I used a similar strategy but with a slight difference in the order of the withdrawals.
+Row 179 updated: I like the way you multiplied the withdrawals instead of adding to four times or two times. -&gt; You multiplied the withdrawals instead of adding them multiple times, which was a good choice.
+Row 180 updated: I like the way you you added all the deposits first then subtracted the withdrawls I didn't think of that -&gt; You added all the deposits first then subtracted the withdrawals, which I didn't think of.
+Row 181 updated: I like the way you started with adding your two deposits together. -&gt; You did a great job by starting with adding your two deposits together.
+Row 191 updated: My strategy is like yours because we both didn't use the $20 in the beginning. -&gt; You and I both avoided using the initial $20 in our strategies.
+Row 192 updated: I like the way you added the positive together then subtracted the negaives to make the equation more simple -&gt; I like how you added the positives together then subtracted the negatives.
+Row 195 updated: I agree with your answer but maybe next time make the numbers that are suppose to be negative negative in the equation to make it more clear. -&gt; Next time, be sure to make the negative numbers negative in the equation for clarity.
+Row 199 updated: Why did you start with 20. I kind of want to know just because many did the same but some did something different, like me. &lt;3 -&gt; You started with 20 then subtracted 12 to get 8.
+Row 205 updated: When you did the 3*2 and you got -6 it could confuse people because the 3 and the 2 are both positives so how did you get a negative. -&gt; You multiplied 3 by 2 and got -6, which might be confusing because both numbers were positive.
+Row 206 updated: I like the way you showed your work step by step, but the question asks what was the total amount of money he lost or gained by the end of the day. -&gt; You showed the work step by step, but the question asks for the total amount lost or gained.
+Row 208 updated: I respectfully disagree with you your answer I think you might have messed up a step in the subtraction part. -&gt; You may have made a mistake in the subtraction step.
+Row 210 updated: I like the way you did it because botnh added 83 and 30. -&gt; You added 83 and 30, which was a good approach.
+Row 211 updated: Why did you add 2 and 5? -&gt; Commenting on the Process (CP): Why did you add 2 and 5?
+Row 212 updated: My strategy is like yours because  i also did 20-6 and i got 14  -&gt; You subtracted 6 from 20 and got 14, which is similar to my approach.
+Row 213 updated: Next time maybe you can add 15 x 2 and the totals you get add them butni like your video. -&gt; You could try adding 15 x 2 next time, but I liked your video.
+Row 216 updated: I like the way you added the   83.00 and 30.00. also whow you subtracted 113 and 75  -&gt; I like how you added two numbers together and subtracted another pair.
+Row 224 updated: Premium Growth feed will make the chicken's weight be about the same because the Mad for pen A is 0.512. The mad for pen B was 0.97 which is higher Martin -&gt; You used the Mad for pen A and pen B to compare and concluded that pen B had a higher value.
+CSV updated and saved as 'updated_annotations.csv'.</code></pre>
+</div>
+</div>
+<div id="3a9e6739" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># loading universal sentence encoder</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>embed <span class="op">=</span> hub.load(<span class="st">"https://tfhub.dev/google/universal-sentence-encoder-large/5"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="df5e8601" class="cell" data-outputid="5b7a671f-953d-4b22-8b16-651fbdf918e8" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import data</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"updated_annotations.csv"</span>).fillna(<span class="dv">0</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># extract features as X</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[[<span class="st">'annotation_text'</span>,<span class="st">'created_by'</span>]]</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the prediction variable as y</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df.comment_process <span class="co"># CHANGE y HERE</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># set up storage arrays for each round of validation</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>roc_auc_scores <span class="op">=</span> np.array([])</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="co"># split, train, test and store performance metrics</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> train_index, test_index <span class="kw">in</span> gkf.split(X, y, groups<span class="op">=</span>groups):</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>    X_train <span class="op">=</span> X.iloc[train_index].drop([<span class="st">'created_by'</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>    X_test <span class="op">=</span> X.iloc[test_index].drop([<span class="st">'created_by'</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>    y_train <span class="op">=</span> y.iloc[train_index]</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>    y_test <span class="op">=</span> y.iloc[test_index]</span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># train classifier on this round of training group</span></span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>    training_embeddings <span class="op">=</span> embed(X_train.annotation_text.to_list())</span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> Sequential()</span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">12</span>, input_shape<span class="op">=</span>(<span class="dv">512</span>,), activation<span class="op">=</span><span class="st">'relu'</span>))</span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">8</span>, activation<span class="op">=</span><span class="st">'relu'</span>))</span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>    model.add(Dense(<span class="dv">1</span>, activation<span class="op">=</span><span class="st">'sigmoid'</span>))</span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>    model.<span class="bu">compile</span>(loss<span class="op">=</span><span class="st">'binary_crossentropy'</span>,</span>
+<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a>              optimizer<span class="op">=</span><span class="st">'adam'</span>,</span>
+<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a>              metrics <span class="op">=</span> [<span class="st">'acc'</span>])</span>
+<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a>    num_epochs <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a>    batch_size <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-38"><a href="#cb30-38" aria-hidden="true" tabindex="-1"></a>    model.fit(</span>
+<span id="cb30-39"><a href="#cb30-39" aria-hidden="true" tabindex="-1"></a>        training_embeddings,</span>
+<span id="cb30-40"><a href="#cb30-40" aria-hidden="true" tabindex="-1"></a>        y_train,</span>
+<span id="cb30-41"><a href="#cb30-41" aria-hidden="true" tabindex="-1"></a>        epochs<span class="op">=</span>num_epochs,</span>
+<span id="cb30-42"><a href="#cb30-42" aria-hidden="true" tabindex="-1"></a>        validation_split<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb30-43"><a href="#cb30-43" aria-hidden="true" tabindex="-1"></a>        shuffle<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb30-44"><a href="#cb30-44" aria-hidden="true" tabindex="-1"></a>        batch_size<span class="op">=</span>batch_size)</span>
+<span id="cb30-45"><a href="#cb30-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-46"><a href="#cb30-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># test classifier on this round of testing group</span></span>
+<span id="cb30-47"><a href="#cb30-47" aria-hidden="true" tabindex="-1"></a>    testing_embeddings <span class="op">=</span> embed(X_test.annotation_text.to_list())</span>
+<span id="cb30-48"><a href="#cb30-48" aria-hidden="true" tabindex="-1"></a>    predictions <span class="op">=</span> model.predict(testing_embeddings)</span>
+<span id="cb30-49"><a href="#cb30-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-50"><a href="#cb30-50" aria-hidden="true" tabindex="-1"></a>    <span class="co"># compute some metrics and store them for averaging later on</span></span>
+<span id="cb30-51"><a href="#cb30-51" aria-hidden="true" tabindex="-1"></a>    roc_auc_scores <span class="op">=</span> np.append(roc_auc_scores, roc_auc_score(y_test, predictions))</span>
+<span id="cb30-52"><a href="#cb30-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-53"><a href="#cb30-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-54"><a href="#cb30-54" aria-hidden="true" tabindex="-1"></a><span class="co"># print mean scores for the 5-fold CV</span></span>
+<span id="cb30-55"><a href="#cb30-55" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"average roc_auc score: "</span>, np.<span class="bu">round</span>(roc_auc_scores.mean(), <span class="dv">3</span>))</span>
+<span id="cb30-56"><a href="#cb30-56" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"stdv roc_auc score: "</span>, np.<span class="bu">round</span>(roc_auc_scores.std(), <span class="dv">3</span>))</span>
+<span id="cb30-57"><a href="#cb30-57" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"max roc_auc score: "</span>, np.<span class="bu">round</span>(roc_auc_scores.<span class="bu">max</span>(), <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 1/30</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/keras/src/layers/core/dense.py:87: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>17/17 ━━━━━━━━━━━━━━━━━━━━ 2s 26ms/step - acc: 0.7672 - loss: 0.6827 - val_acc: 0.7895 - val_loss: 0.6554
+Epoch 2/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 11ms/step - acc: 0.8264 - loss: 0.6457 - val_acc: 0.7895 - val_loss: 0.6083
+Epoch 3/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 11ms/step - acc: 0.8441 - loss: 0.5973 - val_acc: 0.7895 - val_loss: 0.5571
+Epoch 4/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 15ms/step - acc: 0.8704 - loss: 0.5389 - val_acc: 0.7895 - val_loss: 0.5033
+Epoch 5/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 13ms/step - acc: 0.8907 - loss: 0.4742 - val_acc: 0.7895 - val_loss: 0.4468
+Epoch 6/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.8795 - loss: 0.4426 - val_acc: 0.8947 - val_loss: 0.3980
+Epoch 7/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9164 - loss: 0.3718 - val_acc: 0.8947 - val_loss: 0.3568
+Epoch 8/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9228 - loss: 0.3723 - val_acc: 0.8947 - val_loss: 0.3186
+Epoch 9/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9266 - loss: 0.3338 - val_acc: 0.8947 - val_loss: 0.2836
+Epoch 10/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9440 - loss: 0.2917 - val_acc: 0.9474 - val_loss: 0.2548
+Epoch 11/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9473 - loss: 0.2750 - val_acc: 0.9474 - val_loss: 0.2283
+Epoch 12/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9476 - loss: 0.2352 - val_acc: 0.9474 - val_loss: 0.2037
+Epoch 13/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9547 - loss: 0.2274 - val_acc: 1.0000 - val_loss: 0.1842
+Epoch 14/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9509 - loss: 0.1978 - val_acc: 1.0000 - val_loss: 0.1688
+Epoch 15/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9622 - loss: 0.1879 - val_acc: 1.0000 - val_loss: 0.1515
+Epoch 16/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9459 - loss: 0.1802 - val_acc: 1.0000 - val_loss: 0.1406
+Epoch 17/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9638 - loss: 0.1491 - val_acc: 1.0000 - val_loss: 0.1306
+Epoch 18/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9801 - loss: 0.1267 - val_acc: 1.0000 - val_loss: 0.1198
+Epoch 19/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9661 - loss: 0.1462 - val_acc: 1.0000 - val_loss: 0.1118
+Epoch 20/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9804 - loss: 0.1272 - val_acc: 1.0000 - val_loss: 0.1067
+Epoch 21/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9716 - loss: 0.1134 - val_acc: 1.0000 - val_loss: 0.0979
+Epoch 22/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9615 - loss: 0.1100 - val_acc: 1.0000 - val_loss: 0.0923
+Epoch 23/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9729 - loss: 0.1219 - val_acc: 1.0000 - val_loss: 0.0906
+Epoch 24/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step - acc: 0.9612 - loss: 0.1266 - val_acc: 1.0000 - val_loss: 0.0820
+Epoch 25/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9917 - loss: 0.0696 - val_acc: 1.0000 - val_loss: 0.0791
+Epoch 26/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9862 - loss: 0.0825 - val_acc: 1.0000 - val_loss: 0.0723
+Epoch 27/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9946 - loss: 0.0646 - val_acc: 1.0000 - val_loss: 0.0708
+Epoch 28/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9968 - loss: 0.0670 - val_acc: 1.0000 - val_loss: 0.0648
+Epoch 29/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9980 - loss: 0.0616 - val_acc: 1.0000 - val_loss: 0.0645
+Epoch 30/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9960 - loss: 0.0444 - val_acc: 1.0000 - val_loss: 0.0614
+2/2 ━━━━━━━━━━━━━━━━━━━━ 0s 55ms/step
+Epoch 1/30</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/keras/src/layers/core/dense.py:87: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>17/17 ━━━━━━━━━━━━━━━━━━━━ 1s 16ms/step - acc: 0.6869 - loss: 0.6863 - val_acc: 0.7368 - val_loss: 0.6591
+Epoch 2/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.7116 - loss: 0.6530 - val_acc: 0.7368 - val_loss: 0.6143
+Epoch 3/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.7331 - loss: 0.5942 - val_acc: 0.7368 - val_loss: 0.5563
+Epoch 4/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - acc: 0.7667 - loss: 0.5336 - val_acc: 0.7368 - val_loss: 0.4934
+Epoch 5/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.8021 - loss: 0.4818 - val_acc: 0.7895 - val_loss: 0.4314
+Epoch 6/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.8547 - loss: 0.4324 - val_acc: 0.8947 - val_loss: 0.3705
+Epoch 7/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step - acc: 0.8793 - loss: 0.3869 - val_acc: 0.9474 - val_loss: 0.3214
+Epoch 8/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9159 - loss: 0.3110 - val_acc: 0.9474 - val_loss: 0.2744
+Epoch 9/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9346 - loss: 0.2802 - val_acc: 0.9474 - val_loss: 0.2381
+Epoch 10/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9522 - loss: 0.2329 - val_acc: 0.9474 - val_loss: 0.2138
+Epoch 11/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 11ms/step - acc: 0.9527 - loss: 0.2494 - val_acc: 0.9474 - val_loss: 0.1892
+Epoch 12/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 10ms/step - acc: 0.9851 - loss: 0.1728 - val_acc: 0.9474 - val_loss: 0.1719
+Epoch 13/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 11ms/step - acc: 0.9709 - loss: 0.1567 - val_acc: 0.9474 - val_loss: 0.1522
+Epoch 14/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step - acc: 0.9584 - loss: 0.1667 - val_acc: 0.9474 - val_loss: 0.1442
+Epoch 15/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 10ms/step - acc: 0.9668 - loss: 0.1485 - val_acc: 0.9474 - val_loss: 0.1347
+Epoch 16/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 13ms/step - acc: 0.9639 - loss: 0.1644 - val_acc: 0.9474 - val_loss: 0.1269
+Epoch 17/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 10ms/step - acc: 0.9789 - loss: 0.1043 - val_acc: 0.9474 - val_loss: 0.1182
+Epoch 18/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 11ms/step - acc: 0.9886 - loss: 0.0841 - val_acc: 0.9474 - val_loss: 0.1182
+Epoch 19/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 16ms/step - acc: 0.9745 - loss: 0.1022 - val_acc: 0.9474 - val_loss: 0.1065
+Epoch 20/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9796 - loss: 0.0780 - val_acc: 0.9474 - val_loss: 0.1023
+Epoch 21/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9881 - loss: 0.0650 - val_acc: 0.9474 - val_loss: 0.0968
+Epoch 22/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9936 - loss: 0.0538 - val_acc: 0.9474 - val_loss: 0.0904
+Epoch 23/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9931 - loss: 0.0653 - val_acc: 0.9474 - val_loss: 0.0886
+Epoch 24/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9787 - loss: 0.0795 - val_acc: 0.9474 - val_loss: 0.0867
+Epoch 25/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9874 - loss: 0.0512 - val_acc: 0.9474 - val_loss: 0.0793
+Epoch 26/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step - acc: 0.9956 - loss: 0.0471 - val_acc: 0.9474 - val_loss: 0.0761
+Epoch 27/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9847 - loss: 0.0566 - val_acc: 0.9474 - val_loss: 0.0760
+Epoch 28/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9942 - loss: 0.0474 - val_acc: 1.0000 - val_loss: 0.0683
+Epoch 29/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 10ms/step - acc: 0.9973 - loss: 0.0302 - val_acc: 0.9474 - val_loss: 0.0714
+Epoch 30/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9982 - loss: 0.0281 - val_acc: 1.0000 - val_loss: 0.0595
+2/2 ━━━━━━━━━━━━━━━━━━━━ 0s 61ms/step
+Epoch 1/30</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/keras/src/layers/core/dense.py:87: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>17/17 ━━━━━━━━━━━━━━━━━━━━ 1s 18ms/step - acc: 0.6615 - loss: 0.6808 - val_acc: 0.5789 - val_loss: 0.6742
+Epoch 2/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.7480 - loss: 0.6103 - val_acc: 0.5789 - val_loss: 0.6379
+Epoch 3/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step - acc: 0.6756 - loss: 0.5769 - val_acc: 0.5789 - val_loss: 0.5882
+Epoch 4/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.7107 - loss: 0.5103 - val_acc: 0.5789 - val_loss: 0.5422
+Epoch 5/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.7641 - loss: 0.4623 - val_acc: 0.6842 - val_loss: 0.4827
+Epoch 6/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.8541 - loss: 0.4083 - val_acc: 0.8421 - val_loss: 0.4286
+Epoch 7/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.8692 - loss: 0.3623 - val_acc: 0.8421 - val_loss: 0.3839
+Epoch 8/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9210 - loss: 0.3328 - val_acc: 0.8421 - val_loss: 0.3326
+Epoch 9/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9449 - loss: 0.2639 - val_acc: 0.8421 - val_loss: 0.3007
+Epoch 10/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9566 - loss: 0.2300 - val_acc: 0.8947 - val_loss: 0.2703
+Epoch 11/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9519 - loss: 0.1905 - val_acc: 0.9474 - val_loss: 0.2398
+Epoch 12/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9605 - loss: 0.1963 - val_acc: 0.9474 - val_loss: 0.2296
+Epoch 13/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9637 - loss: 0.1513 - val_acc: 0.9474 - val_loss: 0.2036
+Epoch 14/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9673 - loss: 0.1320 - val_acc: 0.9474 - val_loss: 0.1931
+Epoch 15/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9543 - loss: 0.1423 - val_acc: 0.9474 - val_loss: 0.1823
+Epoch 16/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9644 - loss: 0.1130 - val_acc: 0.9474 - val_loss: 0.1765
+Epoch 17/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9889 - loss: 0.0959 - val_acc: 0.9474 - val_loss: 0.1664
+Epoch 18/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step - acc: 0.9805 - loss: 0.0935 - val_acc: 0.9474 - val_loss: 0.1637
+Epoch 19/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9889 - loss: 0.0736 - val_acc: 0.9474 - val_loss: 0.1589
+Epoch 20/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9956 - loss: 0.0648 - val_acc: 0.9474 - val_loss: 0.1553
+Epoch 21/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0588 - val_acc: 0.9474 - val_loss: 0.1442
+Epoch 22/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0500 - val_acc: 0.9474 - val_loss: 0.1443
+Epoch 23/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0423 - val_acc: 0.9474 - val_loss: 0.1509
+Epoch 24/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0429 - val_acc: 0.9474 - val_loss: 0.1513
+Epoch 25/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step - acc: 1.0000 - loss: 0.0550 - val_acc: 0.9474 - val_loss: 0.1302
+Epoch 26/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 13ms/step - acc: 1.0000 - loss: 0.0410 - val_acc: 0.9474 - val_loss: 0.1413
+Epoch 27/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 10ms/step - acc: 1.0000 - loss: 0.0330 - val_acc: 0.9474 - val_loss: 0.1409
+Epoch 28/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 11ms/step - acc: 1.0000 - loss: 0.0360 - val_acc: 0.9474 - val_loss: 0.1374
+Epoch 29/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 11ms/step - acc: 1.0000 - loss: 0.0307 - val_acc: 0.9474 - val_loss: 0.1332
+Epoch 30/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 12ms/step - acc: 1.0000 - loss: 0.0291 - val_acc: 0.9474 - val_loss: 0.1378
+2/2 ━━━━━━━━━━━━━━━━━━━━ 0s 88ms/step
+Epoch 1/30</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/keras/src/layers/core/dense.py:87: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>17/17 ━━━━━━━━━━━━━━━━━━━━ 1s 17ms/step - acc: 0.6005 - loss: 0.6856 - val_acc: 0.6316 - val_loss: 0.6732
+Epoch 2/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.7720 - loss: 0.6386 - val_acc: 0.6316 - val_loss: 0.6390
+Epoch 3/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.7723 - loss: 0.5700 - val_acc: 0.6316 - val_loss: 0.5980
+Epoch 4/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step - acc: 0.8009 - loss: 0.4838 - val_acc: 0.6316 - val_loss: 0.5519
+Epoch 5/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.7741 - loss: 0.4632 - val_acc: 0.6842 - val_loss: 0.4708
+Epoch 6/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9051 - loss: 0.3536 - val_acc: 0.8421 - val_loss: 0.3926
+Epoch 7/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9401 - loss: 0.2968 - val_acc: 0.8421 - val_loss: 0.3532
+Epoch 8/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9144 - loss: 0.3012 - val_acc: 0.8947 - val_loss: 0.3029
+Epoch 9/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9589 - loss: 0.2271 - val_acc: 0.8947 - val_loss: 0.2731
+Epoch 10/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9443 - loss: 0.2209 - val_acc: 0.8947 - val_loss: 0.2449
+Epoch 11/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step - acc: 0.9473 - loss: 0.1881 - val_acc: 0.8947 - val_loss: 0.2258
+Epoch 12/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9511 - loss: 0.1651 - val_acc: 0.9474 - val_loss: 0.2031
+Epoch 13/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9667 - loss: 0.1386 - val_acc: 0.9474 - val_loss: 0.1917
+Epoch 14/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - acc: 0.9851 - loss: 0.1135 - val_acc: 0.9474 - val_loss: 0.1803
+Epoch 15/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9577 - loss: 0.1328 - val_acc: 0.9474 - val_loss: 0.1667
+Epoch 16/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9747 - loss: 0.1061 - val_acc: 0.9474 - val_loss: 0.1550
+Epoch 17/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9765 - loss: 0.0990 - val_acc: 0.9474 - val_loss: 0.1535
+Epoch 18/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step - acc: 0.9849 - loss: 0.0827 - val_acc: 0.9474 - val_loss: 0.1482
+Epoch 19/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9715 - loss: 0.0931 - val_acc: 0.9474 - val_loss: 0.1369
+Epoch 20/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step - acc: 0.9882 - loss: 0.0695 - val_acc: 0.9474 - val_loss: 0.1316
+Epoch 21/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9784 - loss: 0.0787 - val_acc: 0.9474 - val_loss: 0.1240
+Epoch 22/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - acc: 0.9932 - loss: 0.0519 - val_acc: 0.9474 - val_loss: 0.1266
+Epoch 23/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9899 - loss: 0.0617 - val_acc: 0.9474 - val_loss: 0.1133
+Epoch 24/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9963 - loss: 0.0567 - val_acc: 0.9474 - val_loss: 0.1097
+Epoch 25/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9932 - loss: 0.0554 - val_acc: 0.9474 - val_loss: 0.1130
+Epoch 26/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9949 - loss: 0.0379 - val_acc: 0.9474 - val_loss: 0.1104
+Epoch 27/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - acc: 0.9982 - loss: 0.0551 - val_acc: 0.9474 - val_loss: 0.1037
+Epoch 28/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9986 - loss: 0.0337 - val_acc: 0.9474 - val_loss: 0.1042
+Epoch 29/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9949 - loss: 0.0348 - val_acc: 0.9474 - val_loss: 0.0976
+Epoch 30/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - acc: 0.9949 - loss: 0.0286 - val_acc: 0.9474 - val_loss: 0.0973
+2/2 ━━━━━━━━━━━━━━━━━━━━ 0s 52ms/step
+Epoch 1/30</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/lib/python3.10/dist-packages/keras/src/layers/core/dense.py:87: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>17/17 ━━━━━━━━━━━━━━━━━━━━ 2s 31ms/step - acc: 0.4193 - loss: 0.6954 - val_acc: 0.6842 - val_loss: 0.6862
+Epoch 2/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step - acc: 0.7327 - loss: 0.6805 - val_acc: 0.6316 - val_loss: 0.6729
+Epoch 3/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.7113 - loss: 0.6601 - val_acc: 0.6316 - val_loss: 0.6484
+Epoch 4/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.7861 - loss: 0.6303 - val_acc: 0.7895 - val_loss: 0.6042
+Epoch 5/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - acc: 0.8197 - loss: 0.5825 - val_acc: 0.7895 - val_loss: 0.5506
+Epoch 6/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.8887 - loss: 0.5308 - val_acc: 0.8421 - val_loss: 0.4843
+Epoch 7/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9160 - loss: 0.4631 - val_acc: 0.8421 - val_loss: 0.4132
+Epoch 8/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9187 - loss: 0.3989 - val_acc: 0.9474 - val_loss: 0.3467
+Epoch 9/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9760 - loss: 0.3154 - val_acc: 0.9474 - val_loss: 0.2895
+Epoch 10/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9452 - loss: 0.3023 - val_acc: 0.9474 - val_loss: 0.2466
+Epoch 11/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9824 - loss: 0.2145 - val_acc: 0.9474 - val_loss: 0.2177
+Epoch 12/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9674 - loss: 0.1980 - val_acc: 0.9474 - val_loss: 0.1910
+Epoch 13/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9775 - loss: 0.1523 - val_acc: 0.9474 - val_loss: 0.1746
+Epoch 14/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - acc: 0.9756 - loss: 0.1263 - val_acc: 0.9474 - val_loss: 0.1637
+Epoch 15/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9793 - loss: 0.1152 - val_acc: 0.9474 - val_loss: 0.1536
+Epoch 16/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9807 - loss: 0.1118 - val_acc: 0.9474 - val_loss: 0.1432
+Epoch 17/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9897 - loss: 0.0782 - val_acc: 0.9474 - val_loss: 0.1402
+Epoch 18/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 0.9978 - loss: 0.0794 - val_acc: 0.9474 - val_loss: 0.1318
+Epoch 19/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 0.9936 - loss: 0.0705 - val_acc: 0.9474 - val_loss: 0.1337
+Epoch 20/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0512 - val_acc: 0.9474 - val_loss: 0.1245
+Epoch 21/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0578 - val_acc: 0.9474 - val_loss: 0.1245
+Epoch 22/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0508 - val_acc: 0.9474 - val_loss: 0.1188
+Epoch 23/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0373 - val_acc: 0.9474 - val_loss: 0.1292
+Epoch 24/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 1.0000 - loss: 0.0367 - val_acc: 0.9474 - val_loss: 0.1126
+Epoch 25/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 1.0000 - loss: 0.0286 - val_acc: 0.9474 - val_loss: 0.1200
+Epoch 26/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - acc: 1.0000 - loss: 0.0286 - val_acc: 0.9474 - val_loss: 0.1144
+Epoch 27/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0229 - val_acc: 0.9474 - val_loss: 0.1204
+Epoch 28/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - acc: 1.0000 - loss: 0.0212 - val_acc: 0.9474 - val_loss: 0.1084
+Epoch 29/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 6ms/step - acc: 1.0000 - loss: 0.0266 - val_acc: 0.9474 - val_loss: 0.1147
+Epoch 30/30
+17/17 ━━━━━━━━━━━━━━━━━━━━ 0s 7ms/step - acc: 1.0000 - loss: 0.0201 - val_acc: 0.9474 - val_loss: 0.1117
+2/2 ━━━━━━━━━━━━━━━━━━━━ 0s 59ms/step
+average roc_auc score:  0.934
+stdv roc_auc score:  0.061
+max roc_auc score:  0.979</code></pre>
+</div>
+</div>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/penngse\.johnbaker\.io");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Made with <a href="https://quarto.org/" target="_blank"><img src="https://quarto.org/quarto.png" class="img-fluid" width="65" alt="Quarto"></a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/baker-jr-john/Website" target="_blank">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
