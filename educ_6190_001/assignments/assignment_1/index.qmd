@@ -1,7 +1,7 @@
 ---
 pagetitle: "John Baker – Learning Analytics"
-title: ""
-description: ""
+title: "Enhancing Data Quality in Intelligent Tutoring Systems"
+description: "A Pipeline for Analyzing Conversational Agent Language Style and Its Impact on Written Summaries"
 date: 2025-02-11
 # date-modified: 
 author: 
@@ -11,20 +11,398 @@ author:
       - name: "Penn GSE: University of Pennsylvania Graduate School of Education"
         url: https://www.gse.upenn.edu/
 abstract: |
-  
+  This project presents a comprehensive data processing pipeline designed to enhance the quality of raw log data from an Intelligent Tutoring System (ITS) and to evaluate the impact of conversational agent language styles on the quality of written summaries. Using AutoTutor ARC, adult participants engaged in pretest and posttest lessons where the language style of the conversational agents was varied among formal, informal, and mixed modalities. The raw data, characterized by multiple attempts per participant, missing values, and skewed distributions, necessitated a systematic approach to data cleaning and transformation. Our pipeline groups data by unique identifiers, retains the first non-null responses, detects and replaces outliers, applies a logarithmic transformation to reduce skewness, and normalizes key features via min-max scaling. The resulting data not only supports robust statistical analyses but also provides clear insights into how conversational agent language style influences learning outcomes. This work underscores the importance of rigorous data preparation in ITS research and offers a replicable framework for future studies examining the efficacy of adaptive educational technologies.
 keywords:
-  - draft
+  - Intelligent Tutoring Systems
+  - Conversational Agents
+  - Educational Data Analysis
 bibliography: bibliography/bibliography.bib
 nocite: |
   @*
-# image: images/image_fx_.jpg
+image: images/image_fx_.jpg
 format:
   html:
     code-link: false
-draft: true
+draft: false
 jupyter: python3
 ipynb-shell-interactivity: all
 execute: 
-  freeze: false
+  freeze: true
 ---
 
+## Introduction
+  
+Intelligent Tutoring Systems (ITS) have emerged as powerful tools for enhancing learning outcomes across various domains, including reading comprehension. These systems often employ conversational agents to interact with learners, providing personalized feedback and guidance. However, the effectiveness of these agents may depend on various factors, including their language style. This study investigates the impact of the conversational agents' language style on the quality of written summaries produced by adult participants using AutoTutor ARC, an ITS designed to improve reading comprehension.
+
+AutoTutor ARC collects extensive log data throughout the learning process, capturing participants' interactions with the system across multiple lessons. The study design includes pretest assessments (lessons 2 and 3) and posttest assessments (lessons 9 and 10), enabling the comparison of performance before and after the intervention. The conversational agents' language style is varied between formal, informal, and mixed styles to assess its influence on learning outcomes.
+
+Given the inherent complexity of the raw log data, which is characterized by multiple attempts per participant and a diverse range of data formats, a systematic data processing pipeline is crucial. This pipeline aims to prepare the data for meaningful analysis by addressing common issues such as missing values, outliers, and skewed distributions. Furthermore, feature engineering techniques are employed to better capture the relevant variables for subsequent statistical analysis.
+
+The present assignment focuses on the importance of numerical data in the context of this study, discussing its background, related work, and techniques. Moreover, it provides considerations and cautions when dealing with numerical data in the realm of machine learning and ITS research. By examining the role of data preparation in the AutoTutor ARC study, this assignment contributes to the broader understanding of how data processing techniques can support the evaluation and improvement of ITS interventions.
+
+## Background and Related Work
+
+### Importance of Numerical Data
+
+Data mining involves preprocessing and transforming data to generate patterns using analysis tools and algorithms. Outlying variables in recorded data can significantly affect the robustness of a model, making the identification of outliers before data analysis essential [@awawdeh2019application]. Extreme values can cause problems in statistical analysis by increasing error variance, reducing statistical power, and biasing estimates. Therefore, screening data for extreme scores is crucial [@osborne2012best].
+
+Data cleaning, which includes screening for extreme scores, missing data, and normality, is a critical step in quantitative research to ensure the validity of results. However, this step is often overlooked [@osborne2012best]. Transformations are often necessary in data analysis to address issues such as non-normal distribution of errors in linear regression. These transformations can change the scale of variables, alter relationships between variables, and modify the error distributions [@pek2017data].
+
+### Outlier Detection
+
+Outliers can be detected using various methods, such as re-weighted least squares (Re-WLS). The bisquare weights method can be used to minimize the effect of outliers in least-squares fitting, where points far from the fitted line will get zero weight and be considered outliers. Outliers can be addressed by either deleting or transforming them, depending on the number of outliers present. Deleting outliers is suitable when there are a limited number of outliers, while transformation is used when there are many [@awawdeh2019application].
+
+Outlier detection methods have been studied and applied in various fields, including intrusion detection, wireless sensor networks, satellite image analysis, motion segmentation, and weather prediction [@awawdeh2019application].
+
+### Data Transformation
+
+Data transformations are used to address non-normality. However, transformations can change the nature of the effect and should be applied carefully when interpreting effect sizes [@pek2017data]. Various transformations include logarithmic, square root, and reciprocal, with logarithmic transformations being particularly useful for compressing heavy-tailed distributions. The Box-Cox transformation is a family of power transforms that includes the log  [@zheng2018feature].
+
+Winsorizing and trimming are techniques used to address data contamination by replacing or removing extreme values. However, these transformations can bias effect size estimates when extreme cases are not outliers. Reverse transformations are not generally recommended because inferential results do not necessarily map back onto the original effect [@pek2017data].
+
+### Feature Scaling and Normalization
+
+Feature scaling, or normalization, is used to change the scale of the feature, which may be necessary for models sensitive to the input scale. Common scaling methods include min-max scaling, standardization, and L2 normalization [@zheng2018feature]. Min-max scaling squeezes data to be within a specific range, while standardization results in data with a mean of 0 and a variance of 1 [@awawdeh2019application; @zheng2018feature]. Feature scaling does not change the shape of the distribution, only the scale [@zheng2018feature].
+
+### Interaction Features
+
+Interaction features are created by combining pairs of input features, allowing models to capture interactions between features [@zheng2018feature].
+
+### Feature Selection
+
+Feature selection techniques, such as filtering, wrapper, and embedded methods, are used to reduce the computational expense of using many features and to identify the most useful features [@zheng2018feature].
+
+### Considerations and Cautions
+
+When dealing with numerical data, it is essential to consider that the magnitude of the data may or may not be important, depending on the situation. The distribution of numerical features matters for some models, and the Central Limit Theorem (CLT) makes the normality of errors less relevant when the sample size is large enough [@pek2017data; @zheng2018feature].
+
+Transformations should be used to improve effect size interpretation and to address non-normality when sample sizes are small [@pek2017data]. Data visualization is critical for understanding data and the effect of transformations [@zheng2018feature]. The choice of method depends on whether the goal is statistical prediction or statistical inference [@pek2017data].
+
+## Methods
+
+The methodological framework for this project can be summarized in the following steps:
+
+1. **Data Ingestion and Preliminary Cleaning:**  
+   Raw data is imported from an Excel file hosted on Google Drive. Unique identifiers (e.g., student IDs, lesson IDs) are used to group the data, ensuring that, for each participant, only the earliest non-null response is retained when multiple attempts are recorded.
+
+2. **Feature Engineering and Labeling:**  
+   A new variable is introduced to distinguish between pretest and posttest conditions, based on the lesson identifier. In addition, specific columns are renamed for clarity (e.g., renaming `Q5Duration` to `WritingTime`).
+
+3. **Visualization and Descriptive Analysis:**  
+   Histograms and summary statistics are generated to examine the distribution of the writing time data, revealing the presence of outliers and a highly skewed distribution.
+
+4. **Outlier Treatment and Data Transformation:**  
+   Outliers are identified using a three-standard-deviation rule and are replaced with lesson-specific means. A logarithmic transformation is then applied to reduce the skewness of the writing time variable, resulting in a distribution more amenable to parametric analysis.
+
+5. **Feature Scaling:**  
+   The writing time variable is normalized using min-max scaling to facilitate further analysis and potential machine learning applications.
+
+6. **Data Quality Assurance and Aggregation:**  
+   Duplicate records and missing values are identified and addressed. Finally, the dataset is aggregated by test condition (pretest vs. posttest) to generate summary statistics that inform subsequent analyses.
+
+## Implementation Details
+
+### Data Preprocessing: Handling Multiple Attempts
+
+The core preprocessing is encapsulated in the `process_log_data` function. This function takes a raw DataFrame, groups records by unique identifiers (e.g., student and lesson IDs), and then selects the first non-null response for each repeated measure (such as responses to multiple questions or their corresponding durations).
+
+```{python}
+def process_log_data(df):
+    """
+    Process log data by extracting first attempts and handling missing values
+    by looking at subsequent attempts.
+    """
+    # Define identifier and repeated columns
+    base_cols = ['RecordID', 'ClassID', 'UserID', 'LessonID']
+    attempt_cols = ['LessonAttempt', 'TotalTime', 'XML']
+    data_cols = [f'Q{i}Data' for i in range(1, 10)]
+    duration_cols = [f'Q{i}Duration' for i in range(1, 10)]
+
+    # List to store processed rows
+    processed_data = []
+
+    # Group the data by the base columns (unique combination per record)
+    grouped = df.groupby(base_cols)
+
+    for name, group in grouped:
+        # Start with the key identifiers
+        row_dict = dict(zip(base_cols, name))
+
+        # For each data and duration column, pick the first non-null attempt
+        for col in data_cols + duration_cols:
+            row_dict[col] = group[col].iloc[0]  # Take the first attempt
+            if pd.isna(row_dict[col]):
+                # If missing, search subsequent attempts
+                for attempt in range(1, len(group)):
+                    if not pd.isna(group[col].iloc[attempt]):
+                        row_dict[col] = group[col].iloc[attempt]
+                        break
+
+        # Also add attempt-specific columns
+        row_dict['LessonAttempt'] = group['LessonAttempt'].iloc[0]
+        row_dict['TotalTime'] = group['TotalTime'].iloc[0]
+        row_dict['XML'] = group['XML'].iloc[0]
+
+        processed_data.append(row_dict)
+
+    # Convert the list of dictionaries into a DataFrame with a specified column order
+    result_df = pd.DataFrame(processed_data)
+    column_order = base_cols + ['LessonAttempt', 'TotalTime', 'XML'] + data_cols + duration_cols
+
+    return result_df[column_order]
+```
+
+*Key aspects of the function include:*
+- **Grouping:** Data is grouped by `RecordID`, `ClassID`, `UserID`, and `LessonID` to handle multiple attempts by the same student.
+- **Iteration:** For each group, the function selects the first non-null value for each data and duration column, preserving the earliest response.
+- **Output:** The function returns a cleaned DataFrame with a single row per unique record, with logically ordered columns.
+
+### Loading Data
+In this segment, the code reads an Excel file containing the log data. This file holds data from multiple lessons that are later used to compare pretest and posttest performance.
+
+```{python}
+import pandas as pd
+
+pd.set_option('display.max_columns', None)
+
+summary_log_data = pd.read_excel(
+    '/Users/john/Library/CloudStorage/Box-Box/Website/educ_6190_001/assignments/assignment_1/mnt/data/summary_data_-_lesson_2-3-9-10.xlsx',
+    sheet_name='Sheet1'
+)
+```
+
+### Applying the Processing Function and Creating a Test Variable
+
+The raw data is processed using our custom function.
+
+```{python}
+processed_df = process_log_data(summary_log_data)
+processed_df.head()
+```
+
+After processing the raw data with the custom function, a new column (`test`) is created to distinguish between pretest (lessons 2 and 3) and posttest (lessons 9 and 10) conditions. The mapping is verified by printing the distribution of the test types and a sample of the processed data.
+
+```{python}
+processed_df['test'] = processed_df['LessonID'].map({
+    'lesson2': 'pretest',
+    'lesson3': 'pretest',
+    'lesson9': 'posttest',
+    'lesson10': 'posttest'
+})
+
+print("\nDistribution of test types:")
+print(processed_df['test'].value_counts())
+
+print("\nSample of processed data with test variable:")
+print(processed_df[['LessonID', 'test']].head(10))
+```
+
+### Renaming and Visualizing the Writing Time Variable
+
+For clarity, the column `Q5Duration` is renamed to `WritingTime`. A histogram is then plotted to visualize the distribution of writing time, with vertical lines indicating the mean and the thresholds defined by three standard deviations.
+
+```{python}
+#| warning: false
+
+from matplotlib import pyplot as plt
+
+# Rename for clarity
+processed_df = processed_df.rename(columns={'Q5Duration': 'WritingTime'})
+
+# Plot histogram with mean and ±3 standard deviations
+plt.figure(figsize=(12, 6))
+plt.hist(processed_df['WritingTime'], bins=30, density=True, alpha=0.7)
+plt.axvline(processed_df['WritingTime'].mean(), color='red', linestyle='dashed', linewidth=1, label='Mean')
+plt.axvline(processed_df['WritingTime'].mean() + 3*processed_df['WritingTime'].std(),
+            color='green', linestyle='dashed', linewidth=1, label='3 SD Above Mean')
+plt.axvline(processed_df['WritingTime'].mean() - 3*processed_df['WritingTime'].std(),
+            color='green', linestyle='dashed', linewidth=1, label='3 SD Below Mean')
+plt.xlabel('Writing Time (seconds)')
+plt.ylabel('Density')
+plt.title('Distribution of Writing Time')
+plt.legend()
+plt.show()
+```
+```{python}
+print("\nWriting Time Summary Statistics:")
+print(processed_df['WritingTime'].describe())
+print(f"\nSkewness: {processed_df['WritingTime'].skew():.2f}")
+```
+
+### Outlier Replacement and Log Transformation
+
+To address skewness and outliers in the `WritingTime` variable, the code:
+- Computes acceptable bounds (mean ± 3 standard deviations).
+- Replaces values outside these bounds with the lesson-specific mean.
+- Applies a logarithmic transformation (using `np.log(x + 1)`) to compress the scale of higher values and stabilize variance.
+
+Descriptive statistics and skewness values are compared across the original, cleaned, and log-transformed data, demonstrating the effectiveness of these preprocessing steps.
+
+```{python}
+import numpy as np
+
+# Calculate mean, standard deviation, and bounds for outlier detection
+mean = processed_df['WritingTime'].mean()
+std = processed_df['WritingTime'].std()
+lower_bound = mean - 3 * std
+upper_bound = mean + 3 * std
+
+# Preserve the original writing times
+processed_df['WritingTime_original'] = processed_df['WritingTime']
+
+# Replace outliers with the mean writing time of the corresponding lesson
+lesson_means = processed_df.groupby('LessonID')['WritingTime'].transform('mean')
+mask = (processed_df['WritingTime'] < lower_bound) | (processed_df['WritingTime'] > upper_bound)
+processed_df.loc[mask, 'WritingTime'] = lesson_means[mask]
+
+# Apply a log transformation to the cleaned writing times
+processed_df['WritingTime_log'] = np.log(processed_df['WritingTime'] + 1)
+
+# Display statistics for each transformation stage
+print("Original WritingTime Statistics:")
+print(processed_df['WritingTime_original'].describe())
+print("\nSkewness (original):", processed_df['WritingTime_original'].skew())
+
+print("\nCleaned WritingTime Statistics:")
+print(processed_df['WritingTime'].describe())
+print("\nSkewness (cleaned):", processed_df['WritingTime'].skew())
+
+print("\nLog-transformed WritingTime Statistics:")
+print(processed_df['WritingTime_log'].describe())
+print("\nSkewness (log-transformed):", processed_df['WritingTime_log'].skew())
+```
+
+### Visual Comparison of Distribution Transformations
+
+A three-panel plot compares the original, cleaned, and log-transformed distributions side by side. This visual comparison highlights:
+- The strong positive skew in the original data.
+- The reduction of extreme values in the cleaned data.
+- The near-symmetric distribution achieved after log transformation.
+
+```{python}
+#| warning: false
+
+plt.figure(figsize=(15, 5))
+
+# Original data distribution
+plt.subplot(131)
+plt.hist(processed_df['WritingTime_original'], bins=30, alpha=0.7)
+plt.title('Original WritingTime')
+plt.xlabel('Seconds')
+plt.ylabel('Frequency')
+
+# Cleaned data distribution (with outliers replaced)
+plt.subplot(132)
+plt.hist(processed_df['WritingTime'], bins=30, alpha=0.7)
+plt.title('Cleaned WritingTime\n(Outliers Replaced)')
+plt.xlabel('Seconds')
+
+# Log-transformed distribution
+plt.subplot(133)
+plt.hist(processed_df['WritingTime_log'], bins=30, alpha=0.7)
+plt.title('Log-transformed WritingTime')
+plt.xlabel('Log(Seconds)')
+
+plt.tight_layout()
+plt.show()
+```
+
+### Feature Scaling: Min-Max Normalization
+
+The cleaned `WritingTime` variable is scaled to a [0, 1] range using min-max normalization. Although this step does not alter the distribution’s skewness, it standardizes the data for algorithms that require features on a similar scale.
+
+```{python}
+#| warning: false
+
+processed_df['WritingTime_scale'] = (
+    (processed_df['WritingTime'] - processed_df['WritingTime'].min()) /
+    (processed_df['WritingTime'].max() - processed_df['WritingTime'].min())
+)
+
+print("Original WritingTime Statistics:")
+print(processed_df['WritingTime'].describe())
+print("\nSkewness (original):", processed_df['WritingTime'].skew())
+
+print("\nMin-Max Scaled WritingTime Statistics:")
+print(processed_df['WritingTime_scale'].describe())
+print("\nSkewness (scaled):", processed_df['WritingTime_scale'].skew())
+```
+
+A side-by-side histogram confirms that the underlying distribution shape remains unchanged after scaling.
+
+```{python}
+#| warning: false
+
+plt.figure(figsize=(12, 5))
+
+# Original distribution
+plt.subplot(121)
+plt.hist(processed_df['WritingTime'], bins=30, alpha=0.7)
+plt.title('Original WritingTime')
+plt.xlabel('Seconds')
+plt.ylabel('Frequency')
+
+# Scaled distribution
+plt.subplot(122)
+plt.hist(processed_df['WritingTime_scale'], bins=30, alpha=0.7)
+plt.title('Min-Max Scaled WritingTime')
+plt.xlabel('Scaled Value (0-1)')
+plt.ylabel('Frequency')
+
+plt.tight_layout()
+plt.show()
+```
+
+### Data Quality Assurance and Aggregation
+
+Additional steps include:
+- Checking for and confirming the absence of duplicate records.
+
+```{python}
+# Check duplicates
+print("Number of duplicates:", processed_df.duplicated().sum())
+```
+
+- Identifying missing values and removing rows with incomplete key columns.
+
+```{python}
+# Check missing values
+print("\nMissing values in relevant columns:")
+print(processed_df[['WritingTime', 'WritingTime_log', 'WritingTime_scale', 'test']].isnull().sum())
+# Remove rows with missing values if any exist
+processed_df = processed_df.dropna(subset=['WritingTime', 'WritingTime_log', 'WritingTime_scale', 'test'])
+```
+
+- Aggregating summary statistics by test condition (pretest vs. posttest).
+
+```{python}
+grouped_stats = processed_df.groupby('test').agg({
+    'WritingTime_log': ['mean', 'std'],
+    'WritingTime_scale': ['mean', 'std']
+}).round(3)
+
+print("\nDescriptive Statistics by Test Group:")
+print(grouped_stats)
+```
+
+- Saving the processed dataset as a CSV file for future analysis.
+
+```{python}
+# Save the processed DataFrame for future analysis
+processed_df.to_csv('assign1_summary_log.csv', index=False)
+```
+
+## Conclusion
+
+This project implements a comprehensive data processing pipeline designed to prepare raw log data for statistical analysis and machine learning applications. The key steps include:
+
+1. Importing raw data from an Excel file.
+2. Processing multiple attempts per student by grouping and selecting the first non-null response.
+3. Creating a test label to distinguish between pretest and posttest conditions.
+4. Renaming and visualizing a key performance metric (WritingTime).
+5. Identifying and replacing outliers, followed by a log transformation to reduce skewness.
+6. Normalizing the data using min-max scaling.
+7. Ensuring data quality by checking for duplicates and handling missing values.
+8. Aggregating summary statistics by test type and saving the cleaned dataset.
+
+This systematic approach not only cleans and prepares the data but also enhances its suitability for subsequent statistical tests and modeling. Ultimately, the refined data supports more accurate and meaningful conclusions about the effects of conversational agent language style on learning outcomes within ITS environments.
