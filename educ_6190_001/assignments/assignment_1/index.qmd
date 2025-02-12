@@ -153,6 +153,7 @@ def process_log_data(df):
 ```
 
 *Key aspects of the function include:*
+
 - **Grouping:** Data is grouped by `RecordID`, `ClassID`, `UserID`, and `LessonID` to handle multiple attempts by the same student.
 - **Iteration:** For each group, the function selects the first non-null value for each data and duration column, preserving the earliest response.
 - **Output:** The function returns a cleaned DataFrame with a single row per unique record, with logically ordered columns.
@@ -202,8 +203,6 @@ print(processed_df[['LessonID', 'test']].head(10))
 For clarity, the column `Q5Duration` is renamed to `WritingTime`. A histogram is then plotted to visualize the distribution of writing time, with vertical lines indicating the mean and the thresholds defined by three standard deviations.
 
 ```{python}
-#| warning: false
-
 from matplotlib import pyplot as plt
 
 # Rename for clarity
