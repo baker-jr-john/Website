@@ -23,7 +23,7 @@ image: images/image_fx_.jpg
 format:
   html:
     code-link: false
-draft: false
+draft: true
 jupyter: python3
 ipynb-shell-interactivity: all
 execute: 

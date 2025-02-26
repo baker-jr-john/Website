@@ -127,11 +127,12 @@ div.csl-indent {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<meta name="quarto:status" content="draft">
 
 
 </head>
 
-<body>
+<body><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
 
 <div id="quarto-search-results"></div>
 <!-- content -->
@@ -295,7 +296,7 @@ Duplicate records and missing values are identified and addressed. Finally, the 
 <section id="data-preprocessing-handling-multiple-attempts" class="level3">
 <h3 class="anchored" data-anchor-id="data-preprocessing-handling-multiple-attempts">Data Preprocessing: Handling Multiple Attempts</h3>
 <p>The core preprocessing is encapsulated in the <code>process_log_data</code> function. This function takes a raw DataFrame, groups records by unique identifiers (e.g., student and lesson IDs), and then selects the first non-null response for each repeated measure (such as responses to multiple questions or their corresponding durations).</p>
-<div id="694a414b" class="cell" data-execution_count="1">
+<div id="11552bc3" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_log_data(df):</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Process log data by extracting first attempts and handling missing values</span></span>
@@ -350,7 +351,7 @@ Duplicate records and missing values are identified and addressed. Finally, the 
 <section id="loading-data" class="level3">
 <h3 class="anchored" data-anchor-id="loading-data">Loading Data</h3>
 <p>In this segment, the code reads an Excel file containing the log data. This file holds data from multiple lessons that are later used to compare pretest and posttest performance.</p>
-<div id="becbead2" class="cell" data-execution_count="2">
+<div id="07233d36" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="va">None</span>)</span>
@@ -364,7 +365,7 @@ Duplicate records and missing values are identified and addressed. Finally, the 
 <section id="applying-the-processing-function-and-creating-a-test-variable" class="level3">
 <h3 class="anchored" data-anchor-id="applying-the-processing-function-and-creating-a-test-variable">Applying the Processing Function and Creating a Test Variable</h3>
 <p>The raw data is processed using our custom function.</p>
-<div id="a6a62530" class="cell" data-execution_count="3">
+<div id="439cebda" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>processed_df <span class="op">=</span> process_log_data(summary_log_data)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>processed_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -550,7 +551,7 @@ Duplicate records and missing values are identified and addressed. Finally, the 
 </div>
 </div>
 <p>After processing the raw data with the custom function, a new column (<code>test</code>) is created to distinguish between pretest (lessons 2 and 3) and posttest (lessons 9 and 10) conditions. The mapping is verified by printing the distribution of the test types and a sample of the processed data.</p>
-<div id="413dc15a" class="cell" data-execution_count="4">
+<div id="5444de0c" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>processed_df[<span class="st">'test'</span>] <span class="op">=</span> processed_df[<span class="st">'LessonID'</span>].<span class="bu">map</span>({</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'lesson2'</span>: <span class="st">'pretest'</span>,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'lesson3'</span>: <span class="st">'pretest'</span>,</span>
@@ -589,7 +590,7 @@ Sample of processed data with test variable:
 <section id="renaming-and-visualizing-the-writing-time-variable" class="level3">
 <h3 class="anchored" data-anchor-id="renaming-and-visualizing-the-writing-time-variable">Renaming and Visualizing the Writing Time Variable</h3>
 <p>For clarity, the column <code>Q5Duration</code> is renamed to <code>WritingTime</code>. A histogram is then plotted to visualize the distribution of writing time, with vertical lines indicating the mean and the thresholds defined by three standard deviations.</p>
-<div id="814d3fc8" class="cell" data-execution_count="5">
+<div id="e246e423" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename for clarity</span></span>
@@ -644,7 +645,7 @@ Sample of processed data with test variable:
 </div>
 </div>
 </div>
-<div id="7a2918ae" class="cell" data-execution_count="6">
+<div id="e5e23e3c" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Writing Time Summary Statistics:"</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(processed_df[<span class="st">'WritingTime'</span>].describe())</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Skewness: </span><span class="sc">{</span>processed_df[<span class="st">'WritingTime'</span>]<span class="sc">.</span>skew()<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -669,7 +670,7 @@ Skewness: 4.77</code></pre>
 <h3 class="anchored" data-anchor-id="outlier-replacement-and-log-transformation">Outlier Replacement and Log Transformation</h3>
 <p>To address skewness and outliers in the <code>WritingTime</code> variable, the code: - Computes acceptable bounds (mean ± 3 standard deviations). - Replaces values outside these bounds with the lesson-specific mean. - Applies a logarithmic transformation (using <code>np.log(x + 1)</code>) to compress the scale of higher values and stabilize variance.</p>
 <p>Descriptive statistics and skewness values are compared across the original, cleaned, and log-transformed data, demonstrating the effectiveness of these preprocessing steps.</p>
-<div id="e5db1ca3" class="cell" data-execution_count="7">
+<div id="27372fdf" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean, standard deviation, and bounds for outlier detection</span></span>
@@ -746,7 +747,7 @@ Skewness (log-transformed): -1.0692825002709074</code></pre>
 <section id="visual-comparison-of-distribution-transformations" class="level3">
 <h3 class="anchored" data-anchor-id="visual-comparison-of-distribution-transformations">Visual Comparison of Distribution Transformations</h3>
 <p>A three-panel plot compares the original, cleaned, and log-transformed distributions side by side. This visual comparison highlights: - The strong positive skew in the original data. - The reduction of extreme values in the cleaned data. - The near-symmetric distribution achieved after log transformation.</p>
-<div id="89e7777b" class="cell" data-execution_count="8">
+<div id="c1dcd8e4" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Original data distribution</span></span>
@@ -844,7 +845,7 @@ Skewness (log-transformed): -1.0692825002709074</code></pre>
 <section id="feature-scaling-min-max-normalization" class="level3">
 <h3 class="anchored" data-anchor-id="feature-scaling-min-max-normalization">Feature Scaling: Min-Max Normalization</h3>
 <p>The cleaned <code>WritingTime</code> variable is scaled to a [0, 1] range using min-max normalization. Although this step does not alter the distribution’s skewness, it standardizes the data for algorithms that require features on a similar scale.</p>
-<div id="dbb82c33" class="cell" data-execution_count="9">
+<div id="2bc9fc03" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>processed_df[<span class="st">'WritingTime_scale'</span>] <span class="op">=</span> (</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    (processed_df[<span class="st">'WritingTime'</span>] <span class="op">-</span> processed_df[<span class="st">'WritingTime'</span>].<span class="bu">min</span>()) <span class="op">/</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    (processed_df[<span class="st">'WritingTime'</span>].<span class="bu">max</span>() <span class="op">-</span> processed_df[<span class="st">'WritingTime'</span>].<span class="bu">min</span>())</span>
@@ -886,7 +887,7 @@ Skewness (scaled): 2.076626971276889</code></pre>
 </div>
 </div>
 <p>A side-by-side histogram confirms that the underlying distribution shape remains unchanged after scaling.</p>
-<div id="ed0e5d97" class="cell" data-execution_count="10">
+<div id="0f87ead7" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Original distribution</span></span>
@@ -962,7 +963,7 @@ Skewness (scaled): 2.076626971276889</code></pre>
 <section id="data-quality-assurance-and-aggregation" class="level3">
 <h3 class="anchored" data-anchor-id="data-quality-assurance-and-aggregation">Data Quality Assurance and Aggregation</h3>
 <p>Additional steps include: - Checking for and confirming the absence of duplicate records.</p>
-<div id="ddf78395" class="cell" data-execution_count="11">
+<div id="ae27bbb0" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check duplicates</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of duplicates:"</span>, processed_df.duplicated().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -972,7 +973,7 @@ Skewness (scaled): 2.076626971276889</code></pre>
 <ul>
 <li>Identifying missing values and removing rows with incomplete key columns.</li>
 </ul>
-<div id="62fab85f" class="cell" data-execution_count="12">
+<div id="79dc0521" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check missing values</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Missing values in relevant columns:"</span>)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(processed_df[[<span class="st">'WritingTime'</span>, <span class="st">'WritingTime_log'</span>, <span class="st">'WritingTime_scale'</span>, <span class="st">'test'</span>]].isnull().<span class="bu">sum</span>())</span>
@@ -991,7 +992,7 @@ dtype: int64</code></pre>
 <ul>
 <li>Aggregating summary statistics by test condition (pretest vs.&nbsp;posttest).</li>
 </ul>
-<div id="f1ecc7c8" class="cell" data-execution_count="13">
+<div id="a9bdd8d0" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>grouped_stats <span class="op">=</span> processed_df.groupby(<span class="st">'test'</span>).agg({</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'WritingTime_log'</span>: [<span class="st">'mean'</span>, <span class="st">'std'</span>],</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'WritingTime_scale'</span>: [<span class="st">'mean'</span>, <span class="st">'std'</span>]</span>
@@ -1012,7 +1013,7 @@ pretest            5.953  0.779             0.207  0.153</code></pre>
 <ul>
 <li>Saving the processed dataset as a CSV file for future analysis.</li>
 </ul>
-<div id="fe6101ac" class="cell" data-execution_count="14">
+<div id="078cf1db" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the processed DataFrame for future analysis</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>processed_df.to_csv(<span class="st">'assign1_summary_log.csv'</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
