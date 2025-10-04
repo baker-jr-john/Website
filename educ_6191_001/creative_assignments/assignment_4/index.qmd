@@ -1,4 +1,4 @@
----
+ ---
 pagetitle: "John Baker – Learning Analytics"
 title: "Enhancing Automated Multi-Dimensional Analysis of Peer Feedback in Middle School Mathematics With LLM-Based Embeddings"
 description: "Incorporating advanced large language model embeddings to improve predictive modeling of process-focused peer feedback and support scalable, real-time instructional interventions."
